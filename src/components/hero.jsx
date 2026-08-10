@@ -260,12 +260,8 @@ function Hero({ palette, onGoto }) {
               <p>INSTITUTES</p>
             </div>
             <div className="metric">
-              <h3 className="metric-number">4+</h3>
+              <h3 className="metric-number">4</h3>
               <p>VENTURES</p>
-            </div>
-            <div className="metric">
-              <h3 className="metric-number">---</h3>
-              <p>IMPACT</p>
             </div>
           </div>
 

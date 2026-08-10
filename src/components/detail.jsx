@@ -994,7 +994,7 @@ function InstituteDetail({ it, data, palette }) {
       </div>
 
       <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 70, paddingBottom: 70 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 56, marginBottom: 70 }}>
+        <div className="id-focus-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 56, marginBottom: 70 }}>
           <SlideIn from="left">
             <h2 style={{ fontSize: 'clamp(26px, 3.2vw, 38px)', fontWeight: 500, lineHeight: 1.15, marginBottom: 24 }}>
               <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Focus</span> Areas
@@ -1032,7 +1032,7 @@ function InstituteDetail({ it, data, palette }) {
             </div>
           </SlideIn>
           
-          <div style={getGridStyle()}>
+          <div className="id-researchers-grid" style={getGridStyle()}>
             {instituteResearchers.length === 0 ? (
               renderPlaceholder()
             ) : instituteResearchers.length === 1 ? (
@@ -1077,23 +1077,14 @@ function InstituteDetail({ it, data, palette }) {
 
       <style>{`
         @media (max-width: 1024px) {
-          #institute-detail [style*="gridTemplateColumns: repeat(5, 1fr)"] {
-            grid-template-columns: repeat(3, 1fr) !important;
-          }
+          .id-researchers-grid { grid-template-columns: repeat(3, 1fr) !important; }
         }
         @media (max-width: 768px) {
-          #institute-detail [style*="gridTemplateColumns: repeat(5, 1fr)"] {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-          #institute-detail [style*="gridTemplateColumns: 1fr 1.1fr"] {
-            grid-template-columns: 1fr !important;
-            gap: 32px !important;
-          }
+          .id-researchers-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .id-focus-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
         }
         @media (max-width: 480px) {
-          #institute-detail [style*="gridTemplateColumns: repeat(5, 1fr)"] {
-            grid-template-columns: 1fr !important;
-          }
+          .id-researchers-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>

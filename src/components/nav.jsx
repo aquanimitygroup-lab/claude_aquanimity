@@ -26,11 +26,6 @@ function Nav({ onNavigate, route }) {
 
   const items = [
     { 
-      id: 'super water', 
-      label: 'Super Water',
-      description: 'Innovative water solutions for a sustainable future'
-    },
-    { 
       id: 'institutes', 
       label: 'Institutes',
       description: 'Centers of excellence driving research and innovation'

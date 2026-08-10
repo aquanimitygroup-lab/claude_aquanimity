@@ -342,7 +342,7 @@ function Team({ palette, onOpen }) {
           "title": "Founding Scientist and\nSenior Advisor, Chemistry",
           "img": "images/abul.png",
           "linkedin": "https://linkedin.com",
-          "bio": "Former head of R&D at Ciba-Geigy and Inventor of <span style='color:#FF2800;font-weight:700'>Ferrari Red</span> signature",
+          "bio": "Former head of R&D at Ciba-Geigy and inventor of the industrial process of the <span style='color:#FF2800;font-weight:700'>Ferrari Red</span>",
           "detailedBio": "Abul Iqbal is a world-renowned chemist and recipient of the<strong> Society of Dyers and Colourists' Perkin Medal (1993)</strong> for pioneering the chemistry behind diketopyrrolopyrrole (DPP) pigments, the core of the signature <span style='color:#FF2800;font-weight:700'>Ferrari Red</span>. A former<strong> Head of R&D at Ciba-Geigy</strong>, he has authored <strong>over 100 patents</strong> in pigments and functional materials.\n\nAt the Biohub, he advises on high-performance pigments, polymers, and sustainable materials. He guides development of jute/RPET composites, colour-stable biomaterials, and supports teams with chemical synthesis, formulation strategy, and industrial scale-up.",
           "achievement": "World-renowned chemist | Perkin Medal recipient  | Author of 100+ patents",
           "education": "Ph.D. | University of St Andrews"
@@ -366,7 +366,7 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Research focus includes <strong>industrial processes, intracellular signalling, and advanced microscopy methods</strong>",
           "detailedBio": "Shoeb Ahmed is a <strong> Professor and Chair of the Department Chemical Engineering at BUET</strong>  and the <strong> Project Director of the Applied Bioengineering Research Incubator (ABRI)</strong> . He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
-          "achievement": "Leading intracellular signaling researcher | Former Project Director of ABRI | PhD from NC State",
+
           "education": "Ph.D. | North Carolina State University"
         },
         {
@@ -376,7 +376,7 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Specialist in <strong>biocompatible materials</strong> and <strong>biosensor development</strong>",
           "detailedBio": "Nafisa Islam is a<strong>  chemical engineer specializing in biocompatible materials, biosensing, and environmental chemistry</strong> . She holds a PhD in Chemical Engineering from North Carolina State University and is a member of the<strong>  BUET faculty</strong> .\n\nAt the Biohub, she leads development of biosensor-based sanitary pads and women's health diagnostics. She also advises on biocompatible materials and packaging innovations across the Biohub, guiding programs that intersect women's health, materials science, and translational engineering.",
-          "achievement": "Leading biosensor development for women's health | PhD in Chemical Engineering from NC State",
+
           "education": "Ph.D. | North Carolina State University"
         },
         {
@@ -386,7 +386,7 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Expert in <strong>gender studies</strong> with her research focus including equity and inclusion",
           "detailedBio": "Ayesha Banu is a <strong> Professor in the Department of Women and Gender Studies at the University of Dhaka</strong> , where she has served since 2001. She holds a<strong>  PhD on the Bangladesh women's movement and master's degrees in sociology and gender and development</strong> . Her research covers women's movements, poverty, religion, body and sexuality, and gender and development.\n\nAt the Biohub, she provides expertise on gender, socio-cultural context, and community outreach. She guides ethical frameworks for women-centric innovations and ensures that research incorporates gender equity and societal impact considerations",
-          "achievement": "Professor at University of Dhaka since 2001 | Expert in gender and development research",
+
           "education": "Ph.D. | University of Dhaka"
         }
       ],
@@ -399,7 +399,7 @@ function Team({ palette, onOpen }) {
           "bio": "Co-developer of <strong>thermoreversible polymersomes</strong>",
           "detailedBio": "Samir Hossainy is a <strong> researcher at the University of Chicago</strong>  and<strong>  co-developer of thermoreversible polymersomes</strong>  that self-assemble in water, enabling high-efficiency loading of proteins and siRNA for drug and vaccine delivery. He is currently a<strong>  Postdoctoral Associate at NYU Tandon</strong>  and holds a PhD in<strong>  Molecular Engineering  from the University of Chicago</strong>, along with<strong> MS and BS degrees in Materials Science and Bioengineering from UC Berkeley</strong>.\n\nAt the Biohub, he leads the thermoreversible polymersome platform, advancing applications in vaccines, cancer immunotherapy, and tolerogenic therapies. He guides scale-up and translational engineering in close collaboration with Shoeb Ahmed, PhD, ensuring the platform moves toward clinically relevant deployment.",
           "achievement": "Co-developer of thermoreversible polymersomes | PhD from University of Chicago | Postdoc at NYU Tandon",
-          "education": "Ph.D. | University of Chicago"
+          "education": "Ph.D. | University of Chicago; MSc Materials Science | UC Berkeley; BSc Bioengineering | UC Berkeley"
         },
         {
           "name": "Rifa Punnota",
@@ -407,9 +407,8 @@ function Team({ palette, onOpen }) {
           "img": "images/rifa.png",
           "linkedin": "https://linkedin.com",
           "bio": "Expertise in <strong>developing computational models for neurodegenerative disease prediction</strong>",
-          "detailedBio": "Rifa Punnota is pursuing a PhD in Computational Neuroscience at the University of Oxford, with expertise spanning neurophysiology, neurobiology, neuropharmacology, and neurodegeneration. She holds an MSc in Translational Neuroscience from Imperial College London and a BSc in Pharmacology from University College London.\n\nAt the Biohub, she leads translational neuro-psychiatric research, focusing on computational models of depression and mental health. She collaborates closely with Systems Medicine and AI and Data Science institutes to develop precision mental-health therapeutics",
-          "achievement": "PhD candidate at University of Oxford | MSc from Imperial College London | Leading neuro-psychiatric research",
-          "education": "Ph.D. | University of Oxford"
+          "detailedBio": "Rifa Punnota is pursuing a <strong>PhD in Computational Neuroscience at the University of Oxford</strong>, with expertise spanning neurophysiology, neurobiology, neuropharmacology, and neurodegeneration. She holds an <strong>MSc in Translational Neuroscience from Imperial College London</strong> and a <strong>BSc in Pharmacology from University College London</strong>.\n\nAt the Biohub, she leads translational neuro-psychiatric research, focusing on computational models of depression and mental health. She collaborates closely with Systems Medicine and AI and Data Science institutes to develop precision mental-health therapeutics",
+          "education": "Ph.D. | University of Oxford; MSc Translational Neuroscience | Imperial College London; BSc Pharmacology | University College London"
         },
         {
           "name": "Tasnim Mostafa",
@@ -418,8 +417,7 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Founder of <strong>Anonna</strong>, one of the leading sanitary napkin products in Bangladesh",
           "detailedBio": "Tasnim Mostafa is a Director of Meghna Group of Industries (MGI), one of Bangladesh's largest conglomerates employing more than 60,000 people, and the founder of the leading sanitary napkin brand Anonna. She is deeply engaged in women's health and corporate social responsibility, and has championed inclusive employment and supportive social environments for people with Down syndrome.\n\nAt the Biohub, she drives partnerships with industry and civil society for women's health products, including biosensor sanitary pads and reproductive health interventions. She ensures market access, policy advocacy, and corporate engagement across the Women's Health Innovation program.",
-          "achievement": "Founder of Anonna | Director at MGI (60,000+ employees) | Women's health advocate",
-          "education": "MSc Management | Imperial College London and LLB | Queen Mary University of London"
+          "education": "MSc Management | Imperial College London; LLB | Queen Mary University of London"
         },
         {
           "name": "Oyishee Ahmad",
@@ -428,7 +426,6 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Expertise in <strong>developing iPSC models for blood cell generation and regenerative medicine applications</strong>",
           "detailedBio": "Oyishee Ahmad is a PhD researcher in the TRACER consortium at Sanquin Research and the University of Amsterdam, where she works on directing stem cells into fully functioning adult blood cells. She uses donor blood to generate induced pluripotent stem cells (iPSCs) and studies developmental processes to scale up lab-made blood production.\n\nAt the Biohub, she bridges the Applied Bioengineering and Genomics/Microbiomics Institutes. She develops iPSC-derived blood cells, organoids, and regenerative platforms, and collaborates closely with computational teams on development and modelling.",
-          "achievement": "PhD researcher at University of Amsterdam | iPSC and stem cell differentiation expert",
           "education": "Ph.D. | University of Amsterdam"
         }
       ],
@@ -450,7 +447,7 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Oversees all stages of the company<strong> development </strong>and makes all<strong> key decisions</strong>. ",
           "detailedBio": "Rashik Alam Chowdhury is the Managing Director of Biohub, bringing responsible for <strong>overseeking every stage of the company development</strong> and one of the <strong>key decision maker </strong>in every real world situation.",
-          "achievement": "Exectuive Director, Convince Group | Associate Director, Tamishna Group",
+ 
           "education": "BSc Economics | City University of London"
         },
         {
@@ -460,8 +457,8 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Oversees the <strong>operational coordination</strong> across all divisions in close partnership with the Managing Director",
           "detailedBio": "Arif Jawad Siam is the Executive Director (Operations) at Biohub.He oversees <strong>operational coordination </strong>across all divisions in <strong>close partnership with the Managing Director</strong>, ensuring <strong>scientific programs, infrastructure development, and cross institute initiatives</strong> advance in a unified and execution- focused manner.",
-          "achievement": "15+ patents in drug delivery | PhD from Stanford | AI-driven drug discovery expert",
-          "education": "Msc in Medicinal Chemistry, University College London | PGCE, University of Buckingham"
+
+          "education": "MSc in Medicinal Chemistry | University College London"
         },
         {
           "name": "Farzhad Ahmed",
@@ -470,7 +467,7 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Leading <strong>administration and revenue-generating</strong> functions with<strong> HR and talent development</strong>.",
           "detailedBio": "Farzhad Ahmed is the Executive Director (HR, Admin, Sales) at Biohub, with the responsible for<strong> leading organizational administration, and revenue-generating functions</strong>, ensuring <strong>talent development, and operational efficiency</strong>.",
-          "achievement": "Executive Director| Wharton MBA | Former McKinsey consultant",
+
           "education": "Bsc Economics | University of Texas at Austin"
         },
         {
@@ -480,7 +477,7 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Drives bold, purpose-led growth by building <strong>brand trust, and scaling customer engagement</strong>",
           "detailedBio": "Faizus Saquib Chowdhury is the Chief Marketing Officer at Biohub, with highly<strong> skilled analytics and data</strong>. He is critical in offering Aquanimity Group Inc. with the information required for <strong>major decision making and product innovation</strong>, previously particularly helping towards the ideation of</strong> Aqualite</strong>.",
-          "achievement": "25+ years pharma marketing | Launched 8 blockbuster drugs | Former Pfizer VP | PhD from Cambridge",
+
           "education": "Msc Economics, University of Warwick | Bsc Economics, University of London"
         }, 
         {
@@ -490,24 +487,24 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Previously at <strong>DSE and Nestle</strong>. Leading <strong>budget allocation, product costing, and all other financial matters </strong>of the company",
           "detailedBio": "Saif Haque is the Chief Financial Officer at Biohub.Vital in managing <strong>the financial health</strong> of Aquanimity Group Inc. and has been key towards product costing and developing <strong>budget allocation strategic</strong>",
-          "achievement": "Managed $500M+ portfolios | Former Goldman Sachs VP | MBA from London Business School",
+
           "education": "BBA in Finance and Accounting | North South University"
         },
         {
           "name": "Samman Haque",
-          "title": "Manager, Marketing\n\nEquity Research, Accounting, and Compliance at B&B Enterprise (a stock brpkerage house)",
+          "title": "Manager, Marketing\n\nEquity Research, Accounting, and Compliance at B&B Enterprise (a stock brokerage house)",
           "img": "images/samman.jpg",
           "linkedin": "https://linkedin.com",
           "bio": "Works alongside the CMO regarding <strong>brand development and product marketing </strong>",
-          "detailedBio": "Samman Haque is the Vice President of Key Accounts at Biohub, applying his experience of<strong>finding a startup</strong> . Samman is mainly involved in <strong> product development and marketing</strong>.",
-          "achievement": "Built 30+ strategic alliances | PhD from Oxford | MBA from INSEAD | Global partnership expert",
+          "detailedBio": "Samman Haque is the Vice President of Key Accounts at Biohub, applying his experience of <strong>founding a startup</strong> . Samman is mainly involved in <strong> product development and marketing</strong>.",
+
           "education": "BBA in  Accounting | North South University"
         }
       ],
-      "Others": [
+      "Staff": [
         {
           "name": "Fatin Noor",
-          "title": " Executive Operations and Supply Chain\n Institute of Health Sciences ",
+          "title": " Executive-Operations and Supply Chain\n Institute of Health Sciences ",
           "img": "images/fatin.jpg",
           "linkedin": "https://linkedin.com",
           "bio": "",
@@ -516,7 +513,7 @@ function Team({ palette, onOpen }) {
         },
         {
           "name": "Mehadi Hasan Pritom",
-          "title": "Senior Microbiologist\n Institute of Omics and Microbiology",
+          "title": "Senior Microbiologist\n Institute of Omics & Molecular Microbiology",
           "img": "images/pritom.png",
           "linkedin": "https://linkedin.com",
           "bio": "",
@@ -524,8 +521,8 @@ function Team({ palette, onOpen }) {
           "education": "BSc in Biotechnology and Genetic Engineering | Khulna University | MSc in Biochemical Technology | BUET"
         },
         {
-          "name": "Mayad Mashnoon",
-          "title": "AI/ML Engineer\nInstitute of Computational Biology and AI",
+          "name": "Mashnoon Mayad",
+          "title": "AI/ML Engineer\nInstitute of Computational Biology & AI",
           "img": "images/mashnoon.png",
           "linkedin": "https://linkedin.com",
           "bio": "",
@@ -534,7 +531,7 @@ function Team({ palette, onOpen }) {
         },
         {
           "name": "Rahul Baroi ",
-          "title": "Research Associate-Nutraceuticals and Vaccine Engineering\nInstitute of Applied Bioengineering and Material Science",
+          "title": "Research Associate-Nutraceuticals and Vaccine Engineering\nInstitute of Applied Bioengineering & Material Science",
           "img": "images/rahul.png",
           "linkedin": "https://linkedin.com",
           "bio": "",
@@ -543,7 +540,7 @@ function Team({ palette, onOpen }) {
           "education": "BSc in Chemical Engineering | BUET"
         },{
           "name": "Borno Das",
-          "title": "Research Associate-Nutraceuticals and Vaccine Engineering\n Institute of Applied Bioengineering and Material Science",
+          "title": "Research Associate-Nutraceuticals and Vaccine Engineering\n Institute of Applied Bioengineering & Material Science",
           "img": "images/borno.png",
           "linkedin": "https://linkedin.com",
           "bio": " ",

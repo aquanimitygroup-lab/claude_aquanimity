@@ -83,7 +83,7 @@ function Ventures({ palette, onOpen }) {
     {
       id: "thermorevax",
      
-      name: "ThermoReVax",
+      name: "ThermoReVaQ",
       tag: "Vaccine Engineering",
       blurb: "Developing thermostable vaccine formulations that eliminate cold-chain requirements. Our proprietary stabilization technology enables global vaccine distribution without refrigeration, saving millions of lives in developing nations.",
       video: "#",
