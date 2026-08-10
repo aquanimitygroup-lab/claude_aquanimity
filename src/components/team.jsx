@@ -406,7 +406,7 @@ function Team({ palette, onOpen }) {
         {
           "name": "Oyishee Ahmad",
           "title": "Program Director, Regenerative and Stem Cell Biology\n\nPhD Researcher, Sanquin Research and the University of Amsterdam",
-          "img": "images/Oyshi.png",
+          "img": "images/oyshii.png",
           "linkedin": "https://linkedin.com",
           "bio": "Expertise in <strong>developing iPSC models for blood cell generation and regenerative medicine applications</strong>",
           "detailedBio": "Oyishee Ahmad is a PhD researcher in the TRACER consortium at Sanquin Research and the University of Amsterdam, where she works on directing stem cells into fully functioning adult blood cells. She uses donor blood to generate induced pluripotent stem cells (iPSCs) and studies developmental processes to scale up lab-made blood production.\n\nAt the Biohub, she bridges the Applied Bioengineering and Genomics/Microbiomics Institutes. She develops iPSC-derived blood cells, organoids, and regenerative platforms, and collaborates closely with computational teams on development and modelling.",
