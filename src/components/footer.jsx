@@ -53,7 +53,8 @@ function FooterCTA({ palette, onOpen }) {
   
   const handleGetInTouch = (e) => {
     e.preventDefault();
-    window.location.href = "mailto:hello@aquanimity.bd";
+    // Opens Gmail compose in new tab
+    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=aquanimitygroup@gmail.com', '_blank');
   };
   
   const handleSeeRoles = (e) => {
@@ -63,7 +64,18 @@ function FooterCTA({ palette, onOpen }) {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Thanks — we\'ll be in touch within 48 hours.');
+    // Opens Gmail compose in new tab with form data pre-filled
+    const subject = encodeURIComponent('Inquiry from ' + (formData.name || 'Visitor'));
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Organisation: ${formData.organisation}\n` +
+      `I am: ${selectedTags.join(', ') || 'Not specified'}\n\n` +
+      `Message:\n${formData.message}`
+    );
+    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=aquanimitygroup@gmail.com&su=${subject}&body=${body}`, '_blank');
+    
+    // Reset form after opening Gmail
     setFormData({ name: '', email: '', organisation: '', message: '' });
     setSelectedTags([]);
   };
@@ -147,36 +159,6 @@ function FooterCTA({ palette, onOpen }) {
                 }}
               >
                 Get in touch <Arrow />
-              </button>
-              <button 
-                onClick={handleSeeRoles}
-                style={{
-                  padding: '14px 28px',
-                  background: 'transparent',
-                  color: 'var(--ink)',
-                  border: '1px solid var(--rule)',
-                  borderRadius: 40,
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 10,
-                  fontSize: 15,
-                  fontWeight: 600,
-                  transition: 'all 0.3s ease',
-                  fontFamily: "'Red Hat Display', sans-serif"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--accent)';
-                  e.currentTarget.style.color = 'var(--accent)';
-                  e.currentTarget.style.gap = '14px';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--rule)';
-                  e.currentTarget.style.color = 'var(--ink)';
-                  e.currentTarget.style.gap = '10px';
-                }}
-              >
-                See open roles <Arrow />
               </button>
             </div>
           </div>
@@ -389,6 +371,12 @@ function Footer() {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   
+  // Handle external links
+  const handleExternalLink = (e, url) => {
+    e.preventDefault();
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+  
   // Map section names to IDs
   const sectionMap = {
     'Discover': 'platform',
@@ -398,8 +386,6 @@ function Footer() {
     'Institutes': 'institutes',
     'Ventures': 'ventures',
     'Team': 'team',
-    'Careers': 'contact',
-    'News': 'contact',
     'Contact': 'contact'
   };
   
@@ -408,6 +394,12 @@ function Footer() {
     const sectionId = sectionMap[item] || item.toLowerCase();
     const el = document.getElementById(sectionId);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  
+  // Handle email click - opens Gmail
+  const handleEmailClick = (e) => {
+    e.preventDefault();
+    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=aquanimitygroup@gmail.com', '_blank');
   };
   
   return (
@@ -438,9 +430,73 @@ function Footer() {
           </p>
         </div>
         
-        <FooterCol title="Company" items={['Institutes','Ventures','Team','Careers','News']} onClick={handleFooterClick} />
-        <FooterCol title="Connect" items={['Contact','Press kit','LinkedIn','X / Twitter']} onClick={handleFooterClick} />
-        <FooterCol title="Contact" items={['Address: Mirpur, Dhaka-1210','Phone: 0177777789','Email: aquanimity@gmail.com']} onClick={handleFooterClick} />
+        <FooterCol title="Company" items={['Institutes','Ventures','News']} onClick={handleFooterClick} />
+        
+        {/* Connect Column with LinkedIn link */}
+        <div>
+          <div className="label" style={{ marginBottom: 14, fontSize: 11, letterSpacing: '0.2em', color: 'var(--accent)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 600 }}>
+            Connect
+          </div>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 10 }}>
+            <li>
+              <a 
+                href="https://www.linkedin.com/company/aquanimitygroup/about/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{ 
+                  fontSize: 14, 
+                  color: 'var(--ink-2)',
+                  textDecoration: 'none',
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  fontWeight: 400,
+                  transition: 'color 0.2s ease',
+                  cursor: 'pointer',
+                  display: 'inline-block'
+                }} 
+                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
+              >
+                LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        {/* Contact Column with Email link - Updated to open Gmail */}
+        <div>
+          <div className="label" style={{ marginBottom: 14, fontSize: 11, letterSpacing: '0.2em', color: 'var(--accent)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 600 }}>
+            Contact
+          </div>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 10 }}>
+            <li style={{ fontSize: 14, color: 'var(--ink-2)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
+              Address: Plot 68-71, Block K, Road 4 Rupnagar Rd, Dhaka 1216
+            </li>
+            <li style={{ fontSize: 14, color: 'var(--ink-2)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
+              Phone: 
+              +8801310346592
+            </li>
+            <li>
+              <a 
+                href="#"
+                onClick={handleEmailClick}
+                style={{ 
+                  fontSize: 14, 
+                  color: 'var(--ink-2)',
+                  textDecoration: 'none',
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  fontWeight: 400,
+                  transition: 'color 0.2s ease',
+                  cursor: 'pointer',
+                  display: 'inline-block'
+                }} 
+                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
+              >
+                aquanimitygroup@gmail.com
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div style={{ 
@@ -457,7 +513,7 @@ function Footer() {
           © {new Date().getFullYear()} AQUANIMITY. ALL RIGHTS RESERVED.
         </div>
         <div className="mono" style={{ fontSize: 11, letterSpacing: '0.18em', color: 'var(--muted)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 500 }}>
-          Mirpur, Rupnagar · DHAKA, BD
+           Rupnagar, Mirpur-2 · DHAKA, BD
         </div>
       </div>
       
