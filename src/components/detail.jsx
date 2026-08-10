@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Contact from './contact';
 
 // Data for the application
 const appData = {
@@ -361,7 +362,10 @@ function DetailPage({ route, onClose, palette }) {
     view = <CareersView palette={palette} />;
   } else if (route === 'platform-detail') {
     view = <PlatformDetail data={data} palette={palette} />;
-  } else {
+  } else if (route === 'contact') {
+    view = <Contact palette={palette} />;
+  }
+  else {
     view = <div style={{ padding: 80, textAlign: 'center' }}>Page not found.</div>;
   }
 
