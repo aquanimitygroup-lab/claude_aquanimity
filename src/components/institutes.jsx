@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+
 // Arrow icon component
 const Arrow = ({ size = 16 }) => (
   <svg
@@ -136,9 +137,11 @@ function Institutes({ palette, onOpen }) {
 
   const handleInstituteClick = (e, institute) => {
     e.preventDefault();
+    e.stopPropagation();
     setSelectedInstitute(institute);
     if (onOpen) {
-      onOpen('institute:' + institute.n, institute);
+      // Pass the institute data along with the route
+      onOpen('institute:' + institute.n);
     }
   };
 
@@ -177,10 +180,11 @@ function Institutes({ palette, onOpen }) {
         ref={ref}
         id="institutes"
         style={{
-          paddingTop: 100,
-          paddingBottom: 100,
+          paddingTop: 'clamp(60px, 10vw, 100px)',
+          paddingBottom: 'clamp(60px, 10vw, 100px)',
           background: "#FAF7F0",
-          fontFamily: "'Red Hat Display', 'Red Hat Display Variable', sans-serif"
+          fontFamily: "'Red Hat Display', 'Red Hat Display Variable', sans-serif",
+          overflow: 'hidden'
         }}
       >
         <div
@@ -188,27 +192,27 @@ function Institutes({ palette, onOpen }) {
           style={{
             maxWidth: 1280,
             margin: "0 auto",
-            padding: "0 32px"
+            padding: "0 clamp(16px, 4vw, 32px)"
           }}
         >
           {/* Header */}
           <div
-            className="reveal"
+            className="reveal institutes-header"
             style={{
               display: 'flex',
               alignItems: 'flex-end',
               justifyContent: 'space-between',
               flexWrap: 'wrap',
-              gap: 24,
-              marginBottom: 48
+              gap: 'clamp(16px, 3vw, 24px)',
+              marginBottom: 'clamp(32px, 6vw, 48px)'
             }}
           >
-            <div>
+            <div className="institutes-header-left" style={{ flex: 1, minWidth: '200px' }}>
               <div
                 className="label"
                 style={{
                   marginBottom: 14,
-                  fontSize: 11,
+                  fontSize: 'clamp(10px, 1.2vw, 11px)',
                   letterSpacing: "0.2em",
                   textTransform: "uppercase",
                   color: "var(--accent, #1F6E7A)",
@@ -220,8 +224,9 @@ function Institutes({ palette, onOpen }) {
               </div>
 
               <h2
+                className="institutes-title"
                 style={{
-                  fontSize: 'clamp(32px, 4.5vw, 56px)',
+                  fontSize: 'clamp(24px, 4.5vw, 56px)',
                   lineHeight: 1.08,
                   letterSpacing: '-0.025em',
                   maxWidth: 700,
@@ -249,21 +254,23 @@ function Institutes({ palette, onOpen }) {
 
             <button
               onClick={handleViewAllClick}
-              className="ulink"
+              className="ulink view-all-btn"
               style={{
                 fontWeight: 600,
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                fontSize: 14,
+                fontSize: 'clamp(13px, 1.2vw, 14px)',
                 fontFamily: "'Red Hat Display', sans-serif",
                 color: 'var(--accent, #1F6E7A)',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 8,
-                padding: '10px 20px',
+                padding: 'clamp(8px, 1.5vw, 10px) clamp(16px, 2vw, 20px)',
                 borderRadius: 40,
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = 'rgba(31,110,122,0.1)';
@@ -278,15 +285,8 @@ function Institutes({ palette, onOpen }) {
             </button>
           </div>
 
-          {/* CARD LAYOUT - 4 cards with background images and #5FAFBE overlay */}
-          <div
-            className="reveal"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: 24
-            }}
-          >
+          {/* CARD LAYOUT */}
+          <div className="reveal institutes-grid">
             {items.map((it, i) => {
               const isHover = hover === i;
               const titleLines = splitTitleIntoTwoLines(it.title);
@@ -297,13 +297,22 @@ function Institutes({ palette, onOpen }) {
                   onClick={(e) => handleInstituteClick(e, it)}
                   onMouseEnter={() => setHover(i)}
                   onMouseLeave={() => setHover(null)}
+                  onTouchStart={() => {
+                    // For mobile, set hover state on touch
+                    setHover(i);
+                  }}
+                  onTouchEnd={() => {
+                    // Clear hover after touch
+                    setTimeout(() => setHover(null), 300);
+                  }}
+                  className="institute-card"
                   style={{
                     position: "relative",
                     background: "#ece8df",
                     border: "none",
-                    borderRadius: 24,
-                    padding: "28px 24px 24px",
-                    minHeight: 360,
+                    borderRadius: 'clamp(16px, 2vw, 24px)',
+                    padding: 'clamp(16px, 3vw, 28px) clamp(14px, 2.5vw, 24px) clamp(14px, 2vw, 24px)',
+                    minHeight: 'clamp(200px, 35vh, 360px)',
                     textAlign: "left",
                     cursor: "pointer",
                     overflow: "hidden",
@@ -315,13 +324,18 @@ function Institutes({ palette, onOpen }) {
                     boxShadow: isHover
                       ? "0 20px 35px rgba(0,0,0,0.1)"
                       : "0 4px 12px rgba(0,0,0,0.04)",
-                    fontFamily: "'Red Hat Display', sans-serif"
+                    fontFamily: "'Red Hat Display', sans-serif",
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    WebkitTapHighlightColor: 'transparent',
+                    touchAction: 'manipulation'
                   }}
                 >
                   {/* Background Image */}
                   <img
                     src={it.backgroundImage}
                     alt=""
+                    className="card-bg-image"
                     style={{
                       position: "absolute",
                       top: 0,
@@ -332,10 +346,12 @@ function Institutes({ palette, onOpen }) {
                       zIndex: 0,
                     }}
                     onError={handleImageError}
+                    loading="lazy"
                   />
                   
-                  {/* #5FAFBE Color Overlay */}
+                  {/* Color Overlay */}
                   <div
+                    className="card-overlay"
                     style={{
                       position: "absolute",
                       top: 0,
@@ -351,6 +367,7 @@ function Institutes({ palette, onOpen }) {
                   {/* Hover darker overlay */}
                   {isHover && (
                     <div
+                      className="card-hover-overlay"
                       style={{
                         position: "absolute",
                         top: 0,
@@ -363,20 +380,20 @@ function Institutes({ palette, onOpen }) {
                     />
                   )}
 
-                  {/* Top Section - with higher z-index */}
-                  <div style={{ position: "relative", zIndex: 2 }}>
-                    {/* Header with Number only (icon removed) */}
+                  {/* Content */}
+                  <div style={{ position: "relative", zIndex: 2, flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <div
                       style={{
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "space-between",
-                        marginBottom: 20
+                        marginBottom: 'clamp(12px, 2vw, 20px)'
                       }}
                     >
                       <span
+                        className="card-number"
                         style={{
-                          fontSize: 32,
+                          fontSize: 'clamp(20px, 3.5vw, 32px)',
                           fontWeight: 800,
                           letterSpacing: "-0.03em",
                           color: "#ffffff",
@@ -389,14 +406,14 @@ function Institutes({ palette, onOpen }) {
                       </span>
                     </div>
 
-                    {/* Tag */}
                     <div
+                      className="card-tag"
                       style={{
-                        fontSize: 10,
+                        fontSize: 'clamp(8px, 1vw, 10px)',
                         letterSpacing: "0.15em",
                         textTransform: "uppercase",
                         color: "#FFE0A3",
-                        marginBottom: 12,
+                        marginBottom: 'clamp(6px, 1vw, 12px)',
                         fontWeight: 700,
                         fontFamily: "'Red Hat Display', sans-serif",
                         textShadow: "0 1px 1px rgba(0,0,0,0.2)",
@@ -405,11 +422,11 @@ function Institutes({ palette, onOpen }) {
                       {it.tag}
                     </div>
 
-                    {/* Title - Two Lines */}
-                    <div style={{ marginBottom: 12 }}>
+                    <div style={{ marginBottom: 'clamp(8px, 1.5vw, 12px)' }}>
                       <h3
+                        className="card-title"
                         style={{
-                          fontSize: 18,
+                          fontSize: 'clamp(13px, 1.8vw, 18px)',
                           lineHeight: 1.3,
                           letterSpacing: "-0.02em",
                           fontWeight: 700,
@@ -422,8 +439,9 @@ function Institutes({ palette, onOpen }) {
                         {titleLines[0]}
                       </h3>
                       <h3
+                        className="card-title"
                         style={{
-                          fontSize: 18,
+                          fontSize: 'clamp(13px, 1.8vw, 18px)',
                           lineHeight: 1.3,
                           letterSpacing: "-0.02em",
                           fontWeight: 700,
@@ -437,40 +455,42 @@ function Institutes({ palette, onOpen }) {
                       </h3>
                     </div>
 
-                    {/* Short Blurb */}
                     <p
+                      className="card-blurb"
                       style={{
-                        fontSize: 13,
+                        fontSize: 'clamp(10px, 1.2vw, 13px)',
                         lineHeight: 1.5,
                         color: "rgba(255,255,255,0.95)",
                         margin: 0,
                         display: '-webkit-box',
-                        WebkitLineClamp: 3,
+                        WebkitLineClamp: 'clamp(2, 3, 3)',
                         WebkitBoxOrient: 'vertical',
                         overflow: 'hidden',
                         fontFamily: "'Red Hat Display', sans-serif",
                         fontWeight: 400,
                         textShadow: "0 1px 1px rgba(0,0,0,0.2)",
+                        flex: 1
                       }}
                     >
                       {it.shortBlurb}
                     </p>
                   </div>
 
-                  {/* Bottom Arrow with Learn more text */}
                   <div
+                    className="card-footer"
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      marginTop: 24,
+                      marginTop: 'clamp(12px, 2vw, 24px)',
                       position: "relative",
                       zIndex: 2,
                     }}
                   >
                     <span
+                      className="card-learn-text"
                       style={{
-                        fontSize: 13,
+                        fontSize: 'clamp(11px, 1.2vw, 13px)',
                         fontWeight: 500,
                         color: "rgba(255,255,255,0.9)",
                         fontFamily: "'Red Hat Display', sans-serif",
@@ -480,10 +500,11 @@ function Institutes({ palette, onOpen }) {
                       Learn more
                     </span>
                     <span
+                      className="card-arrow"
                       style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: "18px",
+                        width: 'clamp(28px, 3.5vw, 36px)',
+                        height: 'clamp(28px, 3.5vw, 36px)',
+                        borderRadius: "50%",
                         background: isHover ? "#ffffff" : "rgba(255,255,255,0.25)",
                         display: "flex",
                         alignItems: "center",
@@ -492,18 +513,19 @@ function Institutes({ palette, onOpen }) {
                         transition: "all 0.3s ease",
                         transform: isHover ? "translateX(5px)" : "translateX(0)",
                         backdropFilter: "blur(4px)",
+                        WebkitBackdropFilter: "blur(4px)",
+                        flexShrink: 0
                       }}
                     >
                       <Arrow size={14} />
                     </span>
                   </div>
 
-                  {/* Hover Border Glow */}
                   <div
                     style={{
                       position: "absolute",
                       inset: 0,
-                      borderRadius: 24,
+                      borderRadius: 'clamp(16px, 2vw, 24px)',
                       border: isHover ? "2px solid rgba(255,255,255,0.6)" : "1px solid rgba(255,255,255,0.2)",
                       pointerEvents: "none",
                       transition: "all 0.3s ease",
@@ -528,28 +550,91 @@ function Institutes({ palette, onOpen }) {
             transform: translateY(0);
           }
 
-          @media (max-width: 1100px) {
-            #institutes .reveal[style*="grid-template-columns: repeat(4, 1fr)"] {
+          /* Institutes Grid */
+          .institutes-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+          }
+
+          /* Tablet */
+          @media (max-width: 1024px) {
+            .institutes-grid {
               grid-template-columns: repeat(2, 1fr) !important;
               gap: 20px !important;
             }
           }
 
-          @media (max-width: 640px) {
-            #institutes .reveal[style*="grid-template-columns: repeat(4, 1fr)"] {
+          /* Mobile */
+          @media (max-width: 768px) {
+            .institutes-grid {
               grid-template-columns: 1fr !important;
+              gap: 16px !important;
             }
 
-            #institutes .wrap {
+            .wrap {
               padding: 0 20px !important;
+            }
+          }
+
+          /* Small Mobile */
+          @media (max-width: 480px) {
+            .institutes-grid {
+              gap: 12px !important;
+            }
+
+            .wrap {
+              padding: 0 16px !important;
+            }
+
+            /* Header */
+            .institutes-header {
+              flex-direction: column !important;
+              align-items: flex-start !important;
+              gap: 16px !important;
+              margin-bottom: 32px !important;
+            }
+
+            .institutes-header-left {
+              width: 100% !important;
+            }
+
+            .view-all-btn {
+              font-size: 13px !important;
+              padding: 8px 16px !important;
+              white-space: nowrap !important;
+            }
+          }
+
+          /* Extra Small */
+          @media (max-width: 360px) {
+            .institutes-title {
+              font-size: 20px !important;
+            }
+          }
+
+          /* Touch device optimizations */
+          @media (hover: none) {
+            .institute-card {
+              transition: transform 0.2s ease !important;
+            }
+            
+            .institute-card:active {
+              transform: scale(0.98) !important;
+            }
+            
+            .card-arrow {
+              background: rgba(255,255,255,0.25) !important;
+              color: #ffffff !important;
             }
           }
         `}</style>
       </section>
 
-      {/* Institute Details Modal */}
+      {/* Modal */}
       {selectedInstitute && (
         <div
+          className="modal-overlay"
           style={{
             position: 'fixed',
             top: 0,
@@ -558,43 +643,45 @@ function Institutes({ palette, onOpen }) {
             bottom: 0,
             background: 'rgba(0,0,0,0.85)',
             backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
             zIndex: 1000,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '20px',
+            padding: 'clamp(16px, 4vw, 32px)',
             animation: 'fadeIn 0.3s ease',
             fontFamily: "'Red Hat Display', sans-serif"
           }}
           onClick={handleCloseModal}
         >
           <div
+            className="modal-content"
             style={{
               maxWidth: 750,
               width: '100%',
               maxHeight: '85vh',
               background: '#FAF7F0',
-              borderRadius: 32,
+              borderRadius: 'clamp(20px, 3vw, 32px)',
               overflow: 'auto',
               position: 'relative',
               animation: 'slideUp 0.4s ease'
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
             <button
               onClick={handleCloseModal}
+              className="modal-close"
               style={{
                 position: 'absolute',
-                top: 20,
-                right: 20,
-                width: 40,
-                height: 40,
-                borderRadius: 20,
+                top: 'clamp(16px, 2vw, 20px)',
+                right: 'clamp(16px, 2vw, 20px)',
+                width: 'clamp(36px, 4vw, 40px)',
+                height: 'clamp(36px, 4vw, 40px)',
+                borderRadius: '50%',
                 border: 'none',
                 background: 'rgba(0,0,0,0.05)',
                 cursor: 'pointer',
-                fontSize: 24,
+                fontSize: 'clamp(20px, 2.5vw, 24px)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -602,7 +689,8 @@ function Institutes({ palette, onOpen }) {
                 zIndex: 10,
                 color: '#07152b',
                 fontFamily: "'Red Hat Display', sans-serif",
-                fontWeight: 400
+                fontWeight: 400,
+                touchAction: 'manipulation'
               }}
               onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.1)'}
               onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.05)'}
@@ -610,13 +698,13 @@ function Institutes({ palette, onOpen }) {
               ×
             </button>
 
-            {/* Modal Content */}
-            <div style={{ padding: '48px 40px' }}>
-              {/* Header */}
-              <div style={{ marginBottom: 28 }}>
+            <div className="modal-body" style={{ 
+              padding: 'clamp(32px, 5vw, 48px) clamp(16px, 4vw, 40px)' 
+            }}>
+              <div style={{ marginBottom: 'clamp(20px, 3vw, 28px)' }}>
                 <span
                   style={{
-                    fontSize: 11,
+                    fontSize: 'clamp(10px, 1vw, 11px)',
                     letterSpacing: '0.2em',
                     textTransform: 'uppercase',
                     color: '#5FAFBE',
@@ -628,7 +716,7 @@ function Institutes({ palette, onOpen }) {
                 </span>
                 <h2
                   style={{
-                    fontSize: 'clamp(28px, 5vw, 40px)',
+                    fontSize: 'clamp(24px, 5vw, 40px)',
                     lineHeight: 1.2,
                     marginTop: 16,
                     marginBottom: 16,
@@ -649,11 +737,10 @@ function Institutes({ palette, onOpen }) {
                 />
               </div>
 
-              {/* Full Description */}
-              <div style={{ marginBottom: 32 }}>
+              <div style={{ marginBottom: 'clamp(24px, 3vw, 32px)' }}>
                 <p
                   style={{
-                    fontSize: 16,
+                    fontSize: 'clamp(14px, 1.2vw, 16px)',
                     lineHeight: 1.6,
                     color: '#4a5568',
                     marginBottom: 24,
@@ -665,11 +752,10 @@ function Institutes({ palette, onOpen }) {
                 </p>
               </div>
 
-              {/* Key Highlights */}
-              <div style={{ marginBottom: 32 }}>
+              <div style={{ marginBottom: 'clamp(24px, 3vw, 32px)' }}>
                 <h4
                   style={{
-                    fontSize: 18,
+                    fontSize: 'clamp(16px, 1.2vw, 18px)',
                     fontWeight: 700,
                     color: '#07152b',
                     marginBottom: 16,
@@ -679,10 +765,11 @@ function Institutes({ palette, onOpen }) {
                   Key Focus Areas
                 </h4>
                 <div
+                  className="highlights-grid"
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                    gap: 12
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(150px, 20vw, 180px), 1fr))',
+                    gap: 'clamp(8px, 1.5vw, 12px)'
                   }}
                 >
                   {selectedInstitute.keyHighlights.map((highlight, idx) => (
@@ -692,23 +779,22 @@ function Institutes({ palette, onOpen }) {
                         display: 'flex',
                         alignItems: 'center',
                         gap: 10,
-                        padding: '10px 14px',
+                        padding: 'clamp(8px, 1.2vw, 10px) clamp(10px, 1.5vw, 14px)',
                         background: '#5FAFBE15',
                         borderRadius: 12,
-                        fontSize: 14,
+                        fontSize: 'clamp(12px, 1vw, 14px)',
                         color: '#5FAFBE',
                         fontWeight: 500,
                         fontFamily: "'Red Hat Display', sans-serif"
                       }}
                     >
-                      <span style={{ fontSize: 16 }}>✦</span>
+                      <span style={{ fontSize: 'clamp(14px, 1.5vw, 16px)' }}>✦</span>
                       {highlight}
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* CTA Button */}
               <button
                 onClick={() => {
                   handleCloseModal();
@@ -716,17 +802,18 @@ function Institutes({ palette, onOpen }) {
                 }}
                 style={{
                   width: '100%',
-                  padding: '14px',
+                  padding: 'clamp(12px, 1.5vw, 14px)',
                   background: '#5FAFBE',
                   color: 'white',
                   border: 'none',
                   borderRadius: 40,
-                  fontSize: 14,
+                  fontSize: 'clamp(13px, 1vw, 14px)',
                   fontWeight: 600,
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                   marginTop: 8,
-                  fontFamily: "'Red Hat Display', sans-serif"
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  touchAction: 'manipulation'
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.background = '#4A8F9E'}
                 onMouseLeave={(e) => e.currentTarget.style.background = '#5FAFBE'}
@@ -752,6 +839,63 @@ function Institutes({ palette, onOpen }) {
           to {
             opacity: 1;
             transform: translateY(0);
+          }
+        }
+
+        /* Modal Responsive */
+        @media (max-width: 768px) {
+          .modal-content {
+            border-radius: 24px !important;
+            max-height: 90vh !important;
+          }
+          
+          .modal-body {
+            padding: 32px 20px !important;
+          }
+          
+          .modal-close {
+            top: 16px !important;
+            right: 16px !important;
+            width: 36px !important;
+            height: 36px !important;
+            font-size: 20px !important;
+          }
+          
+          .highlights-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .modal-body {
+            padding: 24px 16px !important;
+          }
+          
+          .modal-content {
+            border-radius: 20px !important;
+            max-height: 92vh !important;
+          }
+          
+          .highlights-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+
+        @media (max-width: 360px) {
+          .modal-body {
+            padding: 20px 12px !important;
+          }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+          .modal-close {
+            background: rgba(0,0,0,0.08) !important;
+          }
+          
+          .modal-close:active {
+            background: rgba(0,0,0,0.15) !important;
+            transform: scale(0.95);
           }
         }
       `}</style>

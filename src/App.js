@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 //import ReactDOM from 'react-dom/client';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -18,6 +18,7 @@ import Platform from './components/platform';
 
 // Import primitives (hooks and shared components)
 //import { useReveal, useTypewriter, Arrow, Plus, Mark, HeroBubble } from './components/primitives';
+
 
 // Root app
 const PALETTES = {
@@ -247,6 +248,7 @@ function App() {
   const [scrollTarget, setScrollTarget] = useState(null);
   const [t] = useTweaks(TWEAK_DEFAULTS);
   const [isLoaderRemoved, setIsLoaderRemoved] = useState(false);
+  const [renderKey, setRenderKey] = useState(0); // Force re-render key
   
   const palette = useMemo(() => {
     const base = PALETTES[t.palette] || PALETTES.marine;
@@ -274,59 +276,102 @@ function App() {
     return () => window.removeEventListener('scroll', updateScrollProgress);
   }, []);
 
-  // Handle browser back button
+  // Handle browser back/forward buttons
   useEffect(() => {
     const handlePopState = (e) => {
       const newRoute = e.state?.route || 'home';
+      
+      // Prevent duplicate navigation
+      if (newRoute === route) {
+        // Even if same route, force re-render
+        setRenderKey(prev => prev + 1);
+        return;
+      }
+      
+      // Clear any pending scroll target
+      setScrollTarget(null);
+      
+      // Navigate to the route from history
       setRoute(newRoute);
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      
+      // Force re-render
+      setRenderKey(prev => prev + 1);
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'auto' });
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+  }, [route]);
 
   // navigation handlers
   const navigate = useCallback((to, target) => {
     if (to !== route) {
+      // Push state to history
       window.history.pushState({ route: to }, '', window.location.href);
+      
       setRoute(to);
       if (target) {
         setScrollTarget(target);
       } else {
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        window.scrollTo({ top: 0, behavior: 'auto' });
       }
+      
+      // Force re-render
+      setRenderKey(prev => prev + 1);
     }
   }, [route]);
 
-  const open = useCallback((r) => {
+  const open = useCallback((r, data) => {
     if (r !== route) {
-      window.history.pushState({ route: r }, '', window.location.href);
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      // Push state to history
+      window.history.pushState({ route: r, data: data }, '', window.location.href);
+      
+      window.scrollTo({ top: 0, behavior: 'auto' });
       setRoute(r);
+      
+      // Force re-render
+      setRenderKey(prev => prev + 1);
     }
   }, [route]);
 
-  // Go back to previous page
   const goBack = useCallback(() => {
+    // Clear scroll target first
+    setScrollTarget(null);
+    
+    // Use history.back() to go back naturally
     window.history.back();
+    
+    // Force re-render after a small delay
+    setTimeout(() => {
+      setRenderKey(prev => prev + 1);
+    }, 50);
   }, []);
 
   // listen for sub-link routes from list views
   useEffect(() => {
-    const h = (e) => { 
-      window.scrollTo({ top: 0 });
-      window.history.pushState({ route: e.detail }, '', window.location.href);
-      setRoute(e.detail); 
+    const h = (e) => {
+      if (e.detail !== route) {
+        // Push state to history
+        window.history.pushState({ route: e.detail }, '', window.location.href);
+        
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        setRoute(e.detail);
+        
+        // Force re-render
+        setRenderKey(prev => prev + 1);
+      }
     };
     window.addEventListener('aq-route', h);
     return () => window.removeEventListener('aq-route', h);
-  }, []);
+  }, [route]);
 
   // when returning home, scroll to target with smooth animation
   useEffect(() => {
     if (route === 'home' && scrollTarget) {
-      requestAnimationFrame(() => {
+      // Use a small delay to ensure DOM is ready
+      const timer = setTimeout(() => {
         const el = document.getElementById(scrollTarget);
         if (el) {
           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -335,8 +380,11 @@ function App() {
             if (el) el.classList.remove('target-highlight');
           }, 1000);
         }
+        // Clear the scroll target after attempting to scroll
         setScrollTarget(null);
-      });
+      }, 200);
+      
+      return () => clearTimeout(timer);
     }
   }, [route, scrollTarget]);
 
@@ -361,7 +409,7 @@ function App() {
   }, [isLoaderRemoved]);
 
   return (
-    <AOSWrapper>
+    <AOSWrapper key={renderKey}>
       <GlobalStyles />
       <div id="scrollBar" className="scroll-progress"></div>
       <Nav onNavigate={navigate} route={route} palette={palette} />
