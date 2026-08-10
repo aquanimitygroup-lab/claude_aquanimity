@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import ReactDOM from 'react-dom/client';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+//import ReactDOM from 'react-dom/client';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -14,10 +14,10 @@ import Partners from './components/partners';
 import FooterCTA from './components/footer';
 import DetailPage from './components/detail';
 import Platform from './components/platform';
-import Contact from './components/contact';
+//import Contact from './components/contact';
 
 // Import primitives (hooks and shared components)
-import { useReveal, useTypewriter, Arrow, Plus, Mark, HeroBubble } from './components/primitives';
+//import { useReveal, useTypewriter, Arrow, Plus, Mark, HeroBubble } from './components/primitives';
 
 // Root app
 const PALETTES = {
@@ -245,7 +245,7 @@ const AOSWrapper = ({ children }) => {
 function App() {
   const [route, setRoute] = useState('home');
   const [scrollTarget, setScrollTarget] = useState(null);
-  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [t] = useTweaks(TWEAK_DEFAULTS);
   const [isLoaderRemoved, setIsLoaderRemoved] = useState(false);
   
   const palette = useMemo(() => {
