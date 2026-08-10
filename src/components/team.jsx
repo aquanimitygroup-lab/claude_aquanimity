@@ -129,13 +129,13 @@ const MemberDetailsInline = ({ member, onClose }) => {
         animation: 'fadeInUp 0.5s ease'
       }}
     >
-      <div style={{
+      <div className="mdi-grid" style={{
         display: 'grid',
         gridTemplateColumns: '0.8fr 1.2fr',
         gap: 0,
         minHeight: 500
       }}>
-        <div style={{
+        <div className="mdi-photo" style={{
           background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%)',
           display: 'flex',
           alignItems: 'center',
@@ -155,13 +155,13 @@ const MemberDetailsInline = ({ member, onClose }) => {
               alt={member.name}
               style={{ width: '100%', height: 'auto', display: 'block' }}
               onError={(e) => {
-                e.target.src = `https://via.placeholder.com/400x500/1F6E7A/FFFFFF?text=${member.name.charAt(0)}`;
+               
               }}
             />
           </div>
         </div>
 
-        <div style={{ padding: 40, overflowY: 'auto', maxHeight: 600 }}>
+        <div className="mdi-content" style={{ padding: 40, overflowY: 'auto', maxHeight: 600 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
             <div>
               <div style={{
@@ -297,6 +297,14 @@ const MemberDetailsInline = ({ member, onClose }) => {
           )}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 800px) {
+          .mdi-grid { grid-template-columns: 1fr !important; min-height: 0 !important; }
+          .mdi-photo { padding: 28px !important; }
+          .mdi-content { max-height: none !important; padding: 28px !important; }
+        }
+      `}</style>
     </div>
   );
 };
@@ -499,52 +507,49 @@ function Team({ palette, onOpen }) {
       "Others": [
         {
           "name": "Fatin Noor",
-          "title": "Biochemist\n Executive Operations and Supply Chain",
+          "title": " Executive Operations and Supply Chain\n Institute of Health Sciences ",
           "img": "images/fatin.jpg",
           "linkedin": "https://linkedin.com",
           "bio": "",
-          "detailedBio": "Samir Hossainy is a <strong> researcher at the University of Chicago</strong>  and<strong>  co-developer of thermoreversible polymersomes</strong>  that self-assemble in water, enabling high-efficiency loading of proteins and siRNA for drug and vaccine delivery. He is currently a<strong>  Postdoctoral Associate at NYU Tandon</strong>  and holds a PhD in<strong>  Molecular Engineering  from the University of Chicago</strong>, along with<strong> MS and BS degrees in Materials Science and Bioengineering from UC Berkeley</strong>.\n\nAt the Biohub, he leads the thermoreversible polymersome platform, advancing applications in vaccines, cancer immunotherapy, and tolerogenic therapies. He guides scale-up and translational engineering in close collaboration with Shoeb Ahmed, PhD, ensuring the platform moves toward clinically relevant deployment.",
-          "achievement": "Co-developer of thermoreversible polymersomes | PhD from University of Chicago | Postdoc at NYU Tandon",
-          "education": "Ph.D. | University of Chicago"
+          "detailedBio": "Fatin pursued Biochemistry and Biotechnology at North South University, gaining a comprehensive foundation in industrial and biomedical sciences through both theory and wet-lab work. His undergraduate research investigated antimicrobial resistance and ESBL-producing Enterobacteriaceae in Dhaka's poultry market, using phenotypic and genotypic methods. He developed competencies in bacterial isolation, antibiotic susceptibility testing, DNA extraction, PCR, gel electrophoresis, and gene identification, later expanding these skills to secondary metabolite screening at NGRI and Invent laboratories.\n\n At the Aquanimity Biohubs, Fatin is establishing Quality Assurance SOPs aligned with FDA, EFSA, BSTI, BFSA, and related standards. His work spans formulation refinement, microbial safety in production environments, and biochemical data interpretation from clinical trials.",
+          "education": "BSc in Biotechnology | North South University"
         },
         {
           "name": "Mehadi Hasan Pritom",
-          "title": "Senior Microbiologist",
-          "img": "images/rif.png",
+          "title": "Senior Microbiologist\n Institute of Omics and Microbiology",
+          "img": "images/pritom.png",
           "linkedin": "https://linkedin.com",
           "bio": "",
-          "detailedBio": "Rifa Punnota is pursuing a PhD in Computational Neuroscience at the University of Oxford, with expertise spanning neurophysiology, neurobiology, neuropharmacology, and neurodegeneration. She holds an MSc in Translational Neuroscience from Imperial College London and a BSc in Pharmacology from University College London.\n\nAt the Biohub, she leads translational neuro-psychiatric research, focusing on computational models of depression and mental health. She collaborates closely with Systems Medicine and AI and Data Science institutes to develop precision mental-health therapeutics",
-          "achievement": "PhD candidate at University of Oxford | MSc from Imperial College London | Leading neuro-psychiatric research",
-          "education": "Ph.D. | University of Oxford"
+          "detailedBio": "Mehedi Hasan Pritom is a biotechnologist trained across biochemical engineering and microbiology, with academic foundations at BUET (MSc in Biochemical Technology) and Khulna University (BSc in Biotechnology and Genetic Engineering). He has built research and teaching experience as a Graduate Research Assistant and Graduate Teaching Assistant, alongside earlier industrial and academic roles. His technical profile spans microbial isolation and biochemical assays, antimicrobial screening, plant-extract processing, nanocomposite fabrication, and in vivo models, complemented by computational drug-discovery tools and operation of advanced analytical platforms including HPLC, qPCR, FTIR, and SEM. \n\n At the Biohubs, he is a key member of the Blue Microbiome Initiative, where he works on environmental microbe identification for remediation and the genetic engineering of selected strains, integrating classical microbiology with molecular and bioengineering workflows.",
+          "education": "BSc in Biotechnology and Genetic Engineering | Khulna University | MSc in Biochemical Technology | BUET"
         },
         {
           "name": "Mayad Mashnoon",
-          "title": "AI/ML Engineer",
+          "title": "AI/ML Engineer\nInstitute of Computational Biology and AI",
           "img": "images/mashnoon.png",
           "linkedin": "https://linkedin.com",
           "bio": "",
-          "detailedBio": "Tasnim Mostafa is a Director of Meghna Group of Industries (MGI), one of Bangladesh's largest conglomerates employing more than 60,000 people, and the founder of the leading sanitary napkin brand Anonna. She is deeply engaged in women's health and corporate social responsibility, and has championed inclusive employment and supportive social environments for people with Down syndrome.\n\nAt the Biohub, she drives partnerships with industry and civil society for women's health products, including biosensor sanitary pads and reproductive health interventions. She ensures market access, policy advocacy, and corporate engagement across the Women's Health Innovation program.",
-          "achievement": "Founder of Anonna | Director at MGI (60,000+ employees) | Women's health advocate",
-          "education": "MSc Management | Imperial College London and LLB | Queen Mary University of London"
+          "detailedBio": "Mashnoon Mayad began his journey in Computer Science at BRAC University, where he specialized in Artificial Intelligence through his thesis project AresNN, an attention-based CNN Transformer hybrid with Grad-CAM for explainable skin cancer detection. He complemented this work with independent research on dental disease classification. These projects built his foundation in deep learning, model design, and applied research. He later joined BRAC's Central Data Team, contributing to large-scale analysis. across CRMFT, MF, UPG, UDP, and BracNet datasets. During this time, he also developed practical ML and NLP solutions such as the SAINT-based aid-eligibility model for BRAC UPG.\n\n At the Aquanimity Biohubs, he is working as an Al/ML Lead to develop the Aquanimity Bioplatform, aiding computational biodiscovery research workflows among other in-silico biology, including antibody design",
+          "education": "BSc in Computer Science | BRAC University"
         },
         {
           "name": "Rahul Baroi ",
-          "title": "Research Associate-Nutraceuticals and Vaccine",
-          "img": "images/vaskor.jpeg",
+          "title": "Research Associate-Nutraceuticals and Vaccine Engineering\nInstitute of Applied Bioengineering and Material Science",
+          "img": "images/rahul.png",
           "linkedin": "https://linkedin.com",
           "bio": "",
-          "detailedBio": "Oyishee Ahmad is a PhD researcher in the TRACER consortium at Sanquin Research and the University of Amsterdam, where she works on directing stem cells into fully functioning adult blood cells. She uses donor blood to generate induced pluripotent stem cells (iPSCs) and studies developmental processes to scale up lab-made blood production.\n\nAt the Biohub, she bridges the Applied Bioengineering and Genomics/Microbiomics Institutes. She develops iPSC-derived blood cells, organoids, and regenerative platforms, and collaborates closely with computational teams on development and modelling.",
-          "achievement": "PhD researcher at University of Amsterdam | iPSC and stem cell differentiation expert",
-          "education": "Ph.D. | University of Amsterdam"
+          "detailedBio": "Rahul Baroi is a Chemical Engineering graduate from Bangladesh University of Engineering and Technology (BUET), specializing in Biochemical Engineering, with research interests in biotechnology, bioprocessing, and sustainable chemical processes. He currently works as a Research Assistant at Aquanimity Bangladesh Limited, where his research focuses on bioactive compound extraction, purification, HPLC quantification, formulation support, and preclinical evaluation. His work includes optimizing microwave-assisted extraction of vasicine from Adhatoda vasica using Response Surface Methodology (RSM) to enhance extraction efficiency and product quality. He is also involved in purification research and experimental planning for bioactive formulations. In preclinical research, Rahul contributes to in vivo mouse studies, oral glucose tolerance testing (OGTT), GLP-1 assay planning, and sandwich ELISA-based biochemical evaluation. Additionally, he supports vaccine engineering and drug delivery research involving formulation development, process optimization, and analytical evaluation.",
+         
+          "education": "BSc in Chemical Engineering | BUET"
         },{
           "name": "Borno Das",
-          "title": "Research Associate-Nutraceuticals and Vaccine",
-          "img": "images/fatin.jpg",
+          "title": "Research Associate-Nutraceuticals and Vaccine Engineering\n Institute of Applied Bioengineering and Material Science",
+          "img": "images/borno.png",
           "linkedin": "https://linkedin.com",
           "bio": " ",
-          "detailedBio": "Samir Hossainy is a <strong> researcher at the University of Chicago</strong>  and<strong>  co-developer of thermoreversible polymersomes</strong>  that self-assemble in water, enabling high-efficiency loading of proteins and siRNA for drug and vaccine delivery. He is currently a<strong>  Postdoctoral Associate at NYU Tandon</strong>  and holds a PhD in<strong>  Molecular Engineering  from the University of Chicago</strong>, along with<strong> MS and BS degrees in Materials Science and Bioengineering from UC Berkeley</strong>.\n\nAt the Biohub, he leads the thermoreversible polymersome platform, advancing applications in vaccines, cancer immunotherapy, and tolerogenic therapies. He guides scale-up and translational engineering in close collaboration with Shoeb Ahmed, PhD, ensuring the platform moves toward clinically relevant deployment.",
+          "detailedBio": "Borno Das holds a BSc in Chemical Engineering from Bangladesh University of Engineering and Technology (BUET) and completed higher secondary studies at Ananda Mohan College. Specializing in biochemical engineering and bioprocessing, he works as a Research Assistant on a nutraceuticals project at Aquanimity Bangladesh Limited. His research focuses on bioactive compound extraction, purification, characterization, and formulation development. His technical expertise spans HPLC, FTIR, UV-Vis spectroscopy, and microwave-assisted extraction, which formed the basis of his thesis on vasicine optimization. Borno also contributes to drug delivery research, vaccine engineering, oral glucose tolerance testing, and sandwich ELISA-based biochemical evaluation.",
           "achievement": "Co-developer of thermoreversible polymersomes | PhD from University of Chicago | Postdoc at NYU Tandon",
-          "education": "Ph.D. | University of Chicago"
+          "education": "BSc in Chemical Engineering | BUET"
         }
 
       ]
@@ -659,7 +664,7 @@ function Team({ palette, onOpen }) {
           alt={member.name} 
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           onError={(e) => {
-            e.target.src = `https://via.placeholder.com/260x290/1F6E7A/FFFFFF?text=${member.name.charAt(0)}`;
+           
           }}
         />
       </div>
@@ -716,7 +721,7 @@ function Team({ palette, onOpen }) {
       }}
     >
       <div className="wrap" style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
-        <div className="reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'end', marginBottom: 56 }}>
+        <div className="reveal team-intro-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'end', marginBottom: 56 }}>
           <div>
             <div className="label" style={{ marginBottom: 18, fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--accent)", fontWeight: 600 }}>
               § 03 — Our Team
@@ -733,23 +738,6 @@ function Team({ palette, onOpen }) {
               An interdisciplinary cohort of 40+ founders, scientists, and operators —
               spanning Bangladesh, US, UK, Switzerland and Netherlands.
             </p>
-            <button 
-              onClick={(e) => { e.preventDefault(); if (onOpen) onOpen('team-list'); }} 
-              style={{ 
-                fontWeight: 600,
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                fontSize: 16,
-                color: 'var(--accent)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: 0
-              }}
-            >
-              Meet the full team <Arrow />
-            </button>
           </div>
         </div>
 
@@ -874,6 +862,12 @@ function Team({ palette, onOpen }) {
           <MemberDetailsInline member={selectedMember} onClose={() => setSelectedMember(null)} />
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 800px) {
+          .team-intro-grid { grid-template-columns: 1fr !important; align-items: start !important; gap: 24px !important; }
+        }
+      `}</style>
     </section>
   );
 }

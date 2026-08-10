@@ -274,25 +274,49 @@ function App() {
     return () => window.removeEventListener('scroll', updateScrollProgress);
   }, []);
 
-  // navigation handlers
-  const navigate = useCallback((to, target) => {
-    setRoute(to);
-    if (target) {
-      setScrollTarget(target);
-    } else {
+  // Handle browser back button
+  useEffect(() => {
+    const handlePopState = (e) => {
+      const newRoute = e.state?.route || 'home';
+      setRoute(newRoute);
       window.scrollTo({ top: 0, behavior: 'instant' });
-    }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
+  // navigation handlers
+  const navigate = useCallback((to, target) => {
+    if (to !== route) {
+      window.history.pushState({ route: to }, '', window.location.href);
+      setRoute(to);
+      if (target) {
+        setScrollTarget(target);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    }
+  }, [route]);
+
   const open = useCallback((r) => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    setRoute(r);
+    if (r !== route) {
+      window.history.pushState({ route: r }, '', window.location.href);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      setRoute(r);
+    }
+  }, [route]);
+
+  // Go back to previous page
+  const goBack = useCallback(() => {
+    window.history.back();
   }, []);
 
   // listen for sub-link routes from list views
   useEffect(() => {
     const h = (e) => { 
-      window.scrollTo({ top: 0 }); 
+      window.scrollTo({ top: 0 });
+      window.history.pushState({ route: e.detail }, '', window.location.href);
       setRoute(e.detail); 
     };
     window.addEventListener('aq-route', h);
@@ -380,7 +404,7 @@ function App() {
         </main>
       ) : (
         <main>
-          <DetailPage route={route} onClose={() => navigate('home')} palette={palette} />
+          <DetailPage route={route} onClose={goBack} palette={palette} />
         </main>
       )}
 

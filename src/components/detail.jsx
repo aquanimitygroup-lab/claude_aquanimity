@@ -18,7 +18,7 @@ const appData = {
 The institute combines clinical research, formulation science, indigenous medicinal plant knowledge, nutritional biochemistry, and consumer health strategy to create products that are scientifically grounded and commercially scalable.
 
 Flagship programs include SuperWater, Aquanimity's clinically studied functional water platform; Nutraceutical formulations inspired by Bangladesh's indigenous biodiversity; and future products across digestion, cognitive health, cardiovascular wellness, and precision nutrition.`,
-      focusAreas: ["Functional beverages", "Metabolic health", "Nutraceuticals", "Phytopharmaceuticals", "Clinical nutrition", "Gut health", "Healthy aging", "Consumer biotech"],
+      focusAreas: ["Functional beverages", "Metabolic health", "Nutraceuticals","Consumer biotech"],
       img: "images/health3.jpg"
     },
     { 
@@ -620,7 +620,7 @@ function VentureDetail({ v, data, palette }) {
       <div className="img-frame" style={{ height: 'min(70vh, 700px)', background: '#000', position: 'relative' }}>
         <img src={v.img || cardImages.mainImage} alt={v.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(14,27,44,0.2), rgba(14,27,44,0.85))' }} />
-        <div className="wrap" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingBottom: 60, maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
+        <div className="wrap" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
           <SlideIn from="left">
             <div className="mono" style={{ color: 'rgba(255,255,255,0.7)', fontSize: 11, letterSpacing: '0.22em', marginBottom: 16 }}>
               VENTURE {v.n} · {v.stage.toUpperCase()}
@@ -640,7 +640,7 @@ function VentureDetail({ v, data, palette }) {
       </div>
 
       <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 64, marginBottom: 80 }}>
+        <div className="vd-brief-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 64, marginBottom: 80 }}>
           <SlideIn from="left">
             <div className="label" style={{ fontSize: 11, letterSpacing: '0.2em', color: 'var(--accent)' }}>VENTURE BRIEF</div>
             <div style={{ marginTop: 24, display: 'grid', gap: 18 }}>
@@ -672,7 +672,7 @@ function VentureDetail({ v, data, palette }) {
             </div>
           </SlideIn>
           
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
+          <div className="vd-cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
             <SlideIn from="bottom" delay={0.1}>
               <div 
                 onMouseEnter={() => setHoveredCard('tech')}
@@ -758,7 +758,7 @@ function VentureDetail({ v, data, palette }) {
               </h3>
               <div style={{ width: 50, height: 2, background: 'var(--accent)', margin: '0 auto' }} />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24, textAlign: 'center' }}>
+            <div className="vd-milestones-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24, textAlign: 'center' }}>
               {[
                 { quarter: "Q1 2024", milestone: "Seed Funding Closed" },
                 { quarter: "Q3 2024", milestone: "Prototype Complete" },
@@ -774,6 +774,18 @@ function VentureDetail({ v, data, palette }) {
           </SlideIn>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .vd-brief-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .vd-cards-grid { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
+          .vd-milestones-grid { grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
+        }
+        @media (max-width: 550px) {
+          .vd-cards-grid { grid-template-columns: 1fr !important; }
+          .vd-milestones-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }
@@ -782,19 +794,187 @@ function InstituteDetail({ it, data, palette }) {
   const descriptionParagraphs = it.fullDescription ? it.fullDescription.split('\n\n').filter(p => p.trim().length > 0) : [it.blurb];
   const areas = it.focusAreas || ["Advanced biomedical research", "Cutting-edge molecular technologies", "Interdisciplinary scientific collaboration"];
 
-  const stats = [
-    { label: "RESEARCHERS", value: "45+" },
-    { label: "ACTIVE PROJECTS", value: "28" },
-    { label: "PUBLICATIONS", value: "156" },
-    { label: "PARTNERS", value: "32" }
-  ];
+  // Researchers data for each institute
+  const researchers = {
+    "01": [
+      { name: "Syed Hossainy, PhD", title: "", img: "/images/sayed.png" },
+      { name: "Shoeb Ahmed, PhD", title: "", img: "/images/shoeb.png" },
+      { name: "Abul Iqbal,PhD", title: "", img: "/images/abul.png" },
+      { name: "Professor Dr. Bishwajit Bhowmick, PhD", title: "", img: "/images/bishwjit.png" },
+      { name: "Tasnima Siddique, PhD", title: "", img: "/images/tasnima.png" }
+    ],
+    "02": [
+      { name: "Shoeb Ahmed, PhD", title: "", img: "/images/shoeb.png" },
+      { name: "Samir Hossainy, PhD", title: "", img: "/images/samir.png" },
+      { name: "Nafisa Islam", title: "", img: "/images/nafisa.png" }
+    ],
+    "03": [
+      { name: "Abed Chawdhury, PhD", title: "", img: "/images/abed1.png" }
+    ],
+    "04": [
+      // Empty - Future researchers will be added here
+    ]
+  };
+
+  const instituteResearchers = researchers[it.n] || [];
+
+  // Determine grid layout based on number of researchers
+  const getGridColumns = () => {
+    const count = instituteResearchers.length;
+    if (count === 0) return '1fr';
+    if (count === 1) return '1fr';
+    if (it.n === "01") return `repeat(${Math.min(count, 5)}, 1fr)`;
+    if (count <= 3) return 'repeat(3, 1fr)';
+    return 'repeat(3, 1fr)';
+  };
+
+  // Get grid style based on institute
+  const getGridStyle = () => {
+    const count = instituteResearchers.length;
+    if (count === 0) {
+      return {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '200px',
+        background: 'var(--bone)',
+        borderRadius: 16,
+        padding: '40px'
+      };
+    }
+    if (count === 1) {
+      return {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '0 20%'
+      };
+    }
+    if (it.n === "01") {
+      return {
+        display: 'grid',
+        gridTemplateColumns: `repeat(${Math.min(count, 5)}, 1fr)`,
+        gap: 20
+      };
+    }
+    return {
+      display: 'grid',
+      gridTemplateColumns: getGridColumns(),
+      gap: 32
+    };
+  };
+
+  // Render researcher card
+  const renderResearcherCard = (researcher, idx) => (
+    <div 
+      key={idx}
+      style={{ 
+        textAlign: 'center',
+        padding: '20px 12px',
+        background: 'var(--bone)',
+        borderRadius: 16,
+        transition: 'all 0.3s ease',
+        border: '1px solid transparent',
+        cursor: 'default'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-4px)';
+        e.currentTarget.style.borderColor = 'var(--accent)';
+        e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.borderColor = 'transparent';
+        e.currentTarget.style.boxShadow = 'none';
+      }}
+    >
+      <div style={{ 
+        width: it.n === "01" ? 80 : 100,
+        height: it.n === "01" ? 80 : 100,
+        borderRadius: '50%', 
+        overflow: 'hidden', 
+        margin: '0 auto 12px',
+        border: '3px solid var(--accent)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+      }}>
+        <img 
+          src={researcher.img} 
+          alt={researcher.name} 
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'cover',
+            transition: 'transform 0.3s ease'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        />
+      </div>
+      <div style={{ 
+        fontWeight: 600, 
+        fontSize: it.n === "01" ? 14 : 16, 
+        color: 'var(--ink)' 
+      }}>
+        {researcher.name}
+      </div>
+      <div style={{ 
+        fontSize: it.n === "01" ? 11 : 13, 
+        color: 'var(--accent)', 
+        marginTop: 4, 
+        fontWeight: 500 
+      }}>
+        {researcher.title}
+      </div>
+    </div>
+  );
+
+  // Render placeholder for empty institute (Institute 04)
+  const renderPlaceholder = () => (
+    <div style={{ 
+      textAlign: 'center',
+      padding: '40px 20px',
+      background: 'var(--bone)',
+      borderRadius: 16,
+      border: '2px dashed var(--rule)',
+      minHeight: '200px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+      <div style={{ 
+        fontSize: 48, 
+        color: 'var(--muted)',
+        marginBottom: 16,
+        opacity: 0.3
+      }}>
+        🔬
+      </div>
+      <div style={{ 
+        fontSize: 18, 
+        fontWeight: 600, 
+        color: 'var(--ink-2)',
+        marginBottom: 8
+      }}>
+        Researchers Coming Soon
+      </div>
+      <div style={{ 
+        fontSize: 14, 
+        color: 'var(--muted)',
+        maxWidth: 400
+      }}>
+        We're currently building our computational biology team. 
+        Check back for updates or reach out if you're interested in joining.
+      </div>
+    </div>
+  );
 
   return (
     <div>
       <div className="img-frame" style={{ height: 'min(55vh, 480px)', background: '#000', position: 'relative' }}>
         <img src={it.img} alt={it.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(14,27,44,0.3), rgba(14,27,44,0.85))' }} />
-        <div className="wrap" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingBottom: 50, maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
+        <div className="wrap" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
           <SlideIn from="left">
             <div className="mono" style={{ color: 'rgba(255,255,255,0.8)', fontSize: 11, letterSpacing: '0.22em', marginBottom: 16 }}>
               INSTITUTE {it.n} · {it.tag}
@@ -810,21 +990,6 @@ function InstituteDetail({ it, data, palette }) {
               {it.blurb}
             </p>
           </SlideIn>
-        </div>
-      </div>
-
-      <div style={{ background: 'var(--accent)', padding: '36px 0' }}>
-        <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32, textAlign: 'center' }}>
-            {stats.map((stat, idx) => (
-              <SlideIn key={idx} from="bottom" delay={idx * 0.1}>
-                <div>
-                  <div style={{ fontSize: 32, fontWeight: 700, color: 'white', fontFamily: "'Red Hat Display', sans-serif", fontStyle: 'italic' }}>{stat.value}</div>
-                  <div className="mono" style={{ fontSize: 10, letterSpacing: '0.2em', color: 'rgba(255,255,255,0.7)', marginTop: 6 }}>{stat.label}</div>
-                </div>
-              </SlideIn>
-            ))}
-          </div>
         </div>
       </div>
 
@@ -853,43 +1018,30 @@ function InstituteDetail({ it, data, palette }) {
                 {paragraph}
               </p>
             ))}
-            <div style={{ background: 'var(--bone)', padding: 22, borderRadius: 16, marginTop: 20 }}>
-              <div className="label" style={{ marginBottom: 12, color: 'var(--accent)' }}>KEY INITIATIVES</div>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                <li style={{ padding: '8px 0', borderBottom: '1px solid var(--rule)', fontSize: 13.5 }}>✓ Annual Research Symposium</li>
-                <li style={{ padding: '8px 0', borderBottom: '1px solid var(--rule)', fontSize: 13.5 }}>✓ Visiting Scientist Program</li>
-                <li style={{ padding: '8px 0', borderBottom: '1px solid var(--rule)', fontSize: 13.5 }}>✓ Open Innovation Challenges</li>
-                <li style={{ padding: '8px 0', fontSize: 13.5 }}>✓ Industry Fellowship Program</li>
-              </ul>
-            </div>
           </SlideIn>
         </div>
 
+        {/* Notable Researchers Section */}
         <div style={{ marginTop: 40 }}>
           <SlideIn from="left">
             <div style={{ textAlign: 'center', marginBottom: 40 }}>
-              <h3 style={{ fontSize: 26, fontWeight: 500, marginBottom: 10 }}>
-                Featured <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)' }}>Researchers</span>
+              <h3 style={{ fontSize: 'clamp(24px, 2.8vw, 32px)', fontWeight: 500, marginBottom: 12 }}>
+                <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Notable</span> Researchers
               </h3>
               <div style={{ width: 50, height: 2, background: 'var(--accent)', margin: '0 auto' }} />
             </div>
           </SlideIn>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
-            {[
-              { name: "Dr. Amina Rahman", title: "Principal Investigator", img: "https://randomuser.me/api/portraits/women/44.jpg" },
-              { name: "Prof. James Wilson", title: "Visiting Scholar", img: "https://randomuser.me/api/portraits/men/52.jpg" },
-              { name: "Dr. Farhana Akhter", title: "Research Lead", img: "https://randomuser.me/api/portraits/women/89.jpg" }
-            ].map((researcher, idx) => (
-              <SlideIn key={idx} from="bottom" delay={idx * 0.1}>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{ width: 110, height: 110, borderRadius: '50%', overflow: 'hidden', margin: '0 auto 14px', border: '2px solid var(--accent)' }}>
-                    <img src={researcher.img} alt={researcher.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  </div>
-                  <div style={{ fontWeight: 600, fontSize: 15 }}>{researcher.name}</div>
-                  <div style={{ fontSize: 12, color: 'var(--accent)', marginTop: 4 }}>{researcher.title}</div>
-                </div>
-              </SlideIn>
-            ))}
+          
+          <div style={getGridStyle()}>
+            {instituteResearchers.length === 0 ? (
+              renderPlaceholder()
+            ) : instituteResearchers.length === 1 ? (
+              <div style={{ maxWidth: '400px', width: '100%' }}>
+                {renderResearcherCard(instituteResearchers[0], 0)}
+              </div>
+            ) : (
+              instituteResearchers.map((researcher, idx) => renderResearcherCard(researcher, idx))
+            )}
           </div>
         </div>
 
@@ -922,9 +1074,32 @@ function InstituteDetail({ it, data, palette }) {
           </SlideIn>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 1024px) {
+          #institute-detail [style*="gridTemplateColumns: repeat(5, 1fr)"] {
+            grid-template-columns: repeat(3, 1fr) !important;
+          }
+        }
+        @media (max-width: 768px) {
+          #institute-detail [style*="gridTemplateColumns: repeat(5, 1fr)"] {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          #institute-detail [style*="gridTemplateColumns: 1fr 1.1fr"] {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          #institute-detail [style*="gridTemplateColumns: repeat(5, 1fr)"] {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
+
 
 function ListView({ title, subtitle, items, kind, palette }) {
   const handleItemClick = (e, href) => {

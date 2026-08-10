@@ -32,7 +32,6 @@ const useReveal = () => {
 
 function Partners({ palette, onOpen }) {
   const ref = useReveal();
-  const [selectedStat, setSelectedStat] = useState(null);
   
   // Partner data with images from images folder
   const partnerItems = [
@@ -92,56 +91,22 @@ function Partners({ palette, onOpen }) {
     }
   ];
 
-  // Stats data with details
+  // Stats data 
   const statsData = [
     {
       label: 'SCIENTIFIC PUBLICATIONS',
-      value: '120+',
-      details: {
-        title: 'Scientific Publications',
-        description: 'Our researchers have published over 120 peer-reviewed papers in leading scientific journals including Nature, Cell, Science, and The Lancet. These publications span synthetic biology, drug discovery, bioinformatics, and clinical research.',
-        highlights: [
-          '35 papers in high-impact journals (IF > 10)',
-          '18 collaborative publications with partner institutions',
-          '22 conference proceedings and presentations',
-          '45 papers in regional and specialized journals',
-          '4 patent applications filed'
-        ],
-        imagePlaceholder: "📚"
-      }
+      value: '9+',
+      icon: "📚"
     },
     {
       label: 'PARTNER INSTITUTIONS',
-      value: '24',
-      details: {
-        title: 'Partner Institutions',
-        description: 'We collaborate with 24 leading academic, research, and implementation partners across 6 countries. Our network includes universities, research hospitals, government agencies, and industry partners.',
-        highlights: [
-          '8 International Research Universities',
-          '6 Healthcare & Hospital Networks',
-          '5 Government & Development Agencies',
-          '3 Biotech Industry Partners',
-          '2 Non-profit Research Organizations'
-        ],
-        imagePlaceholder: "🤝"
-      }
+      value: '8+',
+      icon: "🤝"
     },
     {
       label: 'COUNTRIES OPERATING',
-      value: '6',
-      details: {
-        title: 'Countries Operating',
-        description: 'Our research and operations span across 6 countries, with major hubs in South Asia, Southeast Asia, North America, and Europe. This global presence enables diverse collaborations and impact.',
-        highlights: [
-          '🇧🇩 Bangladesh - Dhaka (Headquarters)',
-          '🇸🇬 Singapore - Regional Hub',
-          '🇺🇸 United States - Boston & San Francisco',
-          '🇬🇧 United Kingdom - London',
-          '🇨🇦 Canada - Toronto',
-          '🇦🇺 Australia - Sydney'
-        ],
-        imagePlaceholder: "🌍"
-      }
+      value: '4+',
+      icon: "🌍"
     }
   ];
 
@@ -211,495 +176,283 @@ function Partners({ palette, onOpen }) {
     };
   }, [paused, isVisible, partnerItems.length]);
 
-  const handleViewAllClick = (e) => {
-    e.preventDefault();
-    if (onOpen) onOpen('partners-list');
-  };
-
-  const handleStatClick = (stat) => {
-    setSelectedStat(stat);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedStat(null);
-  };
-
   return (
-    <>
-      <section 
-        ref={ref} 
-        id="partners" 
-        style={{ 
-          paddingTop: 120, 
-          paddingBottom: 120, 
-          background: '#ece8df', 
-          overflow: 'hidden',
-          fontFamily: "'Red Hat Display', 'Red Hat Display Variable', sans-serif"
-        }}
+    <section 
+      ref={ref} 
+      id="partners" 
+      style={{ 
+        paddingTop: 120, 
+        paddingBottom: 120, 
+        background: '#ece8df', 
+        overflow: 'hidden',
+        fontFamily: "'Red Hat Display', 'Red Hat Display Variable', sans-serif"
+      }}
+    >
+      <div className="wrap" style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+        <div className="reveal" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24, marginBottom: 48 }}>
+          <div>
+            <div className="label" style={{ marginBottom: 18, fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", color: "#0E1B2C", fontWeight: 600, fontFamily: "'Red Hat Display', sans-serif" }}>
+              § 04 — Our Partners
+            </div>
+            <h2 style={{ fontSize: 'clamp(32px, 4.4vw, 52px)', lineHeight: 1.05, letterSpacing: '-0.02em', maxWidth: 720, fontWeight: 900, color: "#0E1B2C", fontFamily: "'Red Hat Display', sans-serif", margin: 0 }}>
+              Partnering with leading{' '}
+              <span className="serif" style={{ fontStyle: 'italic', color: "#1F6E7A", fontWeight: 400, fontFamily: "'Times New Roman', Georgia, serif" }}>
+                institutions.
+              </span>
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      {/* Marquee Container - True Seamless Infinite Loop */}
+      <div 
+        ref={containerRef}
+        className="reveal" 
+        onMouseEnter={() => setPaused(true)} 
+        onMouseLeave={() => setPaused(false)}
+        style={{ overflow: 'hidden', position: 'relative', marginTop: 24, width: '100%' }}
       >
-        <div className="wrap" style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
-          <div className="reveal" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24, marginBottom: 48 }}>
-            <div>
-              <div className="label" style={{ marginBottom: 18, fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", color: "#0E1B2C", fontWeight: 600, fontFamily: "'Red Hat Display', sans-serif" }}>
-                § 04 — Our Partners
-              </div>
-              <h2 style={{ fontSize: 'clamp(32px, 4.4vw, 52px)', lineHeight: 1.05, letterSpacing: '-0.02em', maxWidth: 720, fontWeight: 900, color: "#0E1B2C", fontFamily: "'Red Hat Display', sans-serif", margin: 0 }}>
-                Partnering with leading{' '}
-                <span className="serif" style={{ fontStyle: 'italic', color: "#1F6E7A", fontWeight: 400, fontFamily: "'Times New Roman', Georgia, serif" }}>
-                  institutions.
-                </span>
-              </h2>
-            </div>
-            <button 
-              onClick={handleViewAllClick} 
-              className="ulink" 
-              style={{ 
-                fontWeight: 600,
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                fontSize: 16,
-                fontFamily: "'Red Hat Display', sans-serif",
-                color: "#0E1B2C",
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: 0
-              }}
-            >
-              View all partners <Arrow />
-            </button>
-          </div>
-        </div>
-
-        {/* Marquee Container - True Seamless Infinite Loop */}
         <div 
-          ref={containerRef}
-          className="reveal" 
-          onMouseEnter={() => setPaused(true)} 
-          onMouseLeave={() => setPaused(false)}
-          style={{ overflow: 'hidden', position: 'relative', marginTop: 24, width: '100%' }}
-        >
-          <div 
-            ref={trackRef} 
-            style={{ 
-              display: 'flex', 
-              gap: 24, 
-              willChange: 'transform',
-              width: 'max-content'
-            }}
-          >
-            {items.map((p, i) => (
-              <div
-                key={i}
-                onClick={() => onOpen && onOpen('partner:' + p.short)}
-                style={{
-                  flex: '0 0 auto',
-                  width: 220,
-                  height: 140,
-                  background: '#ffffff',
-                  borderRadius: 16,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'relative',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
-                  overflow: 'hidden',
-                  border: '1px solid rgba(0,0,0,0.08)'
-                }}
-                onMouseEnter={(e) => {
-                  const img = e.currentTarget.querySelector('img');
-                  if (img) img.style.transform = 'scale(1.05)';
-                  const overlay = e.currentTarget.querySelector('.hover-overlay');
-                  if (overlay) overlay.style.opacity = '1';
-                }}
-                onMouseLeave={(e) => {
-                  const img = e.currentTarget.querySelector('img');
-                  if (img) img.style.transform = 'scale(1)';
-                  const overlay = e.currentTarget.querySelector('.hover-overlay');
-                  if (overlay) overlay.style.opacity = '0';
-                }}
-              >
-                <img 
-                  src={p.logo} 
-                  alt={p.name}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    objectPosition: 'center',
-                    padding: '16px',
-                    backgroundColor: '#ffffff',
-                    transition: 'transform 0.3s ease'
-                  }}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    const parent = e.target.parentElement;
-                    if (parent) {
-                      const fallback = parent.querySelector('.fallback-text');
-                      if (fallback) fallback.style.display = 'flex';
-                    }
-                  }}
-                />
-                <div 
-                  className="fallback-text"
-                  style={{
-                    display: 'none',
-                    fontSize: 14,
-                    fontWeight: 600,
-                    color: '#0E1B2C',
-                    textAlign: 'center',
-                    padding: 8,
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '100%',
-                    fontFamily: "'Red Hat Display', sans-serif"
-                  }}
-                >
-                  {p.name}
-                </div>
-                <div 
-                  className="hover-overlay"
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(135deg, rgba(31,110,122,0.08), rgba(31,110,122,0.04))',
-                    opacity: 0,
-                    transition: 'opacity 0.3s ease',
-                    pointerEvents: 'none',
-                    borderRadius: 16
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-          
-          {/* Edge fades for smooth visual effect */}
-          <div style={{ 
-            position: 'absolute', 
-            top: 0, 
-            left: 0, 
-            width: 100, 
-            height: '100%', 
-            background: 'linear-gradient(90deg, #ece8df, transparent)', 
-            pointerEvents: 'none',
-            zIndex: 2
-          }} />
-          <div style={{ 
-            position: 'absolute', 
-            top: 0, 
-            right: 0, 
-            width: 100, 
-            height: '100%', 
-            background: 'linear-gradient(270deg, #ece8df, transparent)', 
-            pointerEvents: 'none',
-            zIndex: 2
-          }} />
-        </div>
-
-        {/* Quote and Stats Section - Clickable Stats */}
-        <div className="wrap" style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px", marginTop: 64 }}>
-          <div className="reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, paddingTop: 32, borderTop: '1px solid rgba(0,0,0,0.1)' }}>
-            <div>
-              <div className="serif" style={{ fontSize: 'clamp(24px, 3vw, 40px)', fontWeight: 500, lineHeight: 1.25, letterSpacing: '-0.01em', color: "#0E1B2C", fontFamily: "'Red Hat Display', sans-serif" }}>
-                "A bioeconomy worthy of the Bay of Bengal — engineered with the discipline of a global lab and the urgency of a delta nation."
-              </div>
-              <div className="mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: '#0E1B2C', marginTop: 24, fontFamily: "'Red Hat Display', sans-serif", fontWeight: 500 }}>
-                — DR. RAFIA AHMED · CHAIR, NATIONAL BIOECONOMY COUNCIL
-              </div>
-            </div>
-            <div style={{ display: 'grid', gap: 16 }}>
-              {statsData.map((m, i) => (
-                <div 
-                  key={i} 
-                  onClick={() => handleStatClick(m)}
-                  style={{
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'space-between',
-                    padding: '18px 0', 
-                    borderBottom: '1px solid rgba(0,0,0,0.1)',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    borderRadius: 8
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(31,110,122,0.05)';
-                    e.currentTarget.style.paddingLeft = '12px';
-                    e.currentTarget.style.paddingRight = '12px';
-                    const arrow = e.currentTarget.querySelector('.stat-arrow');
-                    if (arrow) arrow.style.opacity = '1';
-                    const value = e.currentTarget.querySelector('.stat-value');
-                    if (value) value.style.color = '#1F6E7A';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.paddingLeft = '0';
-                    e.currentTarget.style.paddingRight = '0';
-                    const arrow = e.currentTarget.querySelector('.stat-arrow');
-                    if (arrow) arrow.style.opacity = '0';
-                    const value = e.currentTarget.querySelector('.stat-value');
-                    if (value) value.style.color = '#0E1B2C';
-                  }}
-                >
-                  <div className="mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: '#0E1B2C', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 600 }}>
-                    {m.label}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <div style={{ fontSize: 32, fontWeight: 900, color: "#0E1B2C", fontFamily: "'Red Hat Display', sans-serif", transition: 'color 0.3s ease' }} className="stat-value">
-                      {m.value}
-                    </div>
-                    <span 
-                      className="stat-arrow"
-                      style={{ 
-                        opacity: 0, 
-                        transition: 'opacity 0.3s ease',
-                        fontSize: 18,
-                        color: '#1F6E7A'
-                      }}
-                    >
-                      →
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <style>{`
-          .reveal {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-          }
-          .reveal.in {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          
-          @media (max-width: 900px) {
-            #partners > .wrap > div:last-child {
-              grid-template-columns: 1fr !important;
-              gap: 32px !important;
-            }
-          }
-          
-          @media (max-width: 600px) {
-            #partners .wrap {
-              padding: 0 20px !important;
-            }
-          }
-        `}</style>
-      </section>
-
-      {/* Stat Details Modal */}
-      {selectedStat && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0,0,0,0.85)',
-            backdropFilter: 'blur(10px)',
-            zIndex: 1000,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '20px',
-            animation: 'fadeIn 0.3s ease',
-            fontFamily: "'Red Hat Display', sans-serif"
+          ref={trackRef} 
+          style={{ 
+            display: 'flex', 
+            gap: 24, 
+            willChange: 'transform',
+            width: 'max-content'
           }}
-          onClick={handleCloseModal}
         >
-          <div
-            style={{
-              maxWidth: 600,
-              width: '100%',
-              maxHeight: '85vh',
-              background: '#FAF7F0',
-              borderRadius: 32,
-              overflow: 'auto',
-              position: 'relative',
-              animation: 'slideUp 0.4s ease'
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              onClick={handleCloseModal}
+          {items.map((p, i) => (
+            <div
+              key={i}
+              onClick={() => onOpen && onOpen('partner:' + p.short)}
               style={{
-                position: 'absolute',
-                top: 20,
-                right: 20,
-                width: 40,
-                height: 40,
-                borderRadius: 20,
-                border: 'none',
-                background: 'rgba(0,0,0,0.05)',
-                cursor: 'pointer',
-                fontSize: 24,
+                flex: '0 0 auto',
+                width: 220,
+                height: 140,
+                background: '#ffffff',
+                borderRadius: 16,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                position: 'relative',
+                cursor: 'pointer',
                 transition: 'all 0.3s ease',
-                zIndex: 10,
-                color: '#07152b',
-                fontFamily: "'Red Hat Display', sans-serif",
-                fontWeight: 400
+                boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
+                overflow: 'hidden',
+                border: '1px solid rgba(0,0,0,0.08)'
               }}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.1)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.05)'}
+              onMouseEnter={(e) => {
+                const img = e.currentTarget.querySelector('img');
+                if (img) img.style.transform = 'scale(1.05)';
+                const overlay = e.currentTarget.querySelector('.hover-overlay');
+                if (overlay) overlay.style.opacity = '1';
+              }}
+              onMouseLeave={(e) => {
+                const img = e.currentTarget.querySelector('img');
+                if (img) img.style.transform = 'scale(1)';
+                const overlay = e.currentTarget.querySelector('.hover-overlay');
+                if (overlay) overlay.style.opacity = '0';
+              }}
             >
-              ×
-            </button>
-
-            {/* Modal Content */}
-            <div style={{ padding: '48px 40px' }}>
-              {/* Header */}
-              <div style={{ marginBottom: 28, textAlign: 'center' }}>
-                <div
-                  style={{
-                    fontSize: 48,
-                    marginBottom: 16
-                  }}
-                >
-                  {selectedStat.details.imagePlaceholder}
-                </div>
-                <h2
-                  style={{
-                    fontSize: 'clamp(28px, 5vw, 36px)',
-                    lineHeight: 1.2,
-                    marginTop: 16,
-                    marginBottom: 16,
-                    color: '#07152b',
-                    fontWeight: 700,
-                    fontFamily: "'Red Hat Display', sans-serif",
-                    textAlign: 'center'
-                  }}
-                >
-                  {selectedStat.details.title}
-                </h2>
-                <div
-                  style={{
-                    width: 60,
-                    height: 3,
-                    background: '#1F6E7A',
-                    borderRadius: 2,
-                    margin: '0 auto'
-                  }}
-                />
-              </div>
-
-              {/* Description */}
-              <div style={{ marginBottom: 32 }}>
-                <p
-                  style={{
-                    fontSize: 16,
-                    lineHeight: 1.6,
-                    color: '#4a5568',
-                    marginBottom: 24,
-                    fontFamily: "'Red Hat Display', sans-serif",
-                    fontWeight: 400
-                  }}
-                >
-                  {selectedStat.details.description}
-                </p>
-              </div>
-
-              {/* Key Highlights */}
-              <div style={{ marginBottom: 32 }}>
-                <h4
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 700,
-                    color: '#07152b',
-                    marginBottom: 16,
-                    fontFamily: "'Red Hat Display', sans-serif"
-                  }}
-                >
-                  Key Highlights
-                </h4>
-                <div
-                  style={{
-                    display: 'grid',
-                    gap: 12
-                  }}
-                >
-                  {selectedStat.details.highlights.map((highlight, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 10,
-                        padding: '10px 14px',
-                        background: 'rgba(31,110,122,0.08)',
-                        borderRadius: 12,
-                        fontSize: 14,
-                        color: '#1F6E7A',
-                        fontWeight: 500,
-                        fontFamily: "'Red Hat Display', sans-serif"
-                      }}
-                    >
-                      <span style={{ fontSize: 16 }}>✦</span>
-                      {highlight}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* CTA Button */}
-              <button
-                onClick={handleCloseModal}
+              <img 
+                src={p.logo} 
+                alt={p.name}
                 style={{
                   width: '100%',
-                  padding: '14px',
-                  background: '#09182d',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: 40,
+                  height: '100%',
+                  objectFit: 'contain',
+                  objectPosition: 'center',
+                  padding: '16px',
+                  backgroundColor: '#ffffff',
+                  transition: 'transform 0.3s ease'
+                }}
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  const parent = e.target.parentElement;
+                  if (parent) {
+                    const fallback = parent.querySelector('.fallback-text');
+                    if (fallback) fallback.style.display = 'flex';
+                  }
+                }}
+              />
+              <div 
+                className="fallback-text"
+                style={{
+                  display: 'none',
                   fontSize: 14,
                   fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  marginTop: 8,
+                  color: '#0E1B2C',
+                  textAlign: 'center',
+                  padding: 8,
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '100%',
                   fontFamily: "'Red Hat Display', sans-serif"
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = '#1F6E7A'}
-                onMouseLeave={(e) => e.currentTarget.style.background = '#09182d'}
               >
-                Close
-              </button>
+                {p.name}
+              </div>
+              <div 
+                className="hover-overlay"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(135deg, rgba(31,110,122,0.08), rgba(31,110,122,0.04))',
+                  opacity: 0,
+                  transition: 'opacity 0.3s ease',
+                  pointerEvents: 'none',
+                  borderRadius: 16
+                }}
+              />
             </div>
-          </div>
+          ))}
         </div>
-      )}
+        
+        {/* Edge fades for smooth visual effect */}
+        <div style={{ 
+          position: 'absolute', 
+          top: 0, 
+          left: 0, 
+          width: 100, 
+          height: '100%', 
+          background: 'linear-gradient(90deg, #ece8df, transparent)', 
+          pointerEvents: 'none',
+          zIndex: 2
+        }} />
+        <div style={{ 
+          position: 'absolute', 
+          top: 0, 
+          right: 0, 
+          width: 100, 
+          height: '100%', 
+          background: 'linear-gradient(270deg, #ece8df, transparent)', 
+          pointerEvents: 'none',
+          zIndex: 2
+        }} />
+      </div>
+
+      {/* Stats Cards Section - Static, non-clickable */}
+      <div className="wrap" style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px", marginTop: 64 }}>
+        <div className="reveal" style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(3, 1fr)', 
+          gap: 24,
+          paddingTop: 32,
+          borderTop: '1px solid rgba(0,0,0,0.1)'
+        }}>
+          {statsData.map((stat, index) => (
+            <div
+              key={index}
+              style={{
+                background: '#ffffff',
+                borderRadius: 20,
+                padding: '32px 28px',
+                transition: 'all 0.3s cubic-bezier(0.22, 1, 0.36, 1)',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                border: '1px solid rgba(0,0,0,0.06)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+            >
+              {/* Decorative gradient line */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 3,
+                background: 'linear-gradient(90deg, #1F6E7A, #2A9D8F)',
+                opacity: 0.6
+              }} />
+              
+              {/* Icon/Emoji */}
+              <div 
+                style={{
+                  fontSize: 36,
+                  marginBottom: 16,
+                  display: 'block'
+                }}
+              >
+                {stat.icon}
+              </div>
+
+              {/* Value */}
+              <div style={{
+                fontSize: 'clamp(36px, 4vw, 48px)',
+                fontWeight: 900,
+                color: '#0E1B2C',
+                fontFamily: "'Red Hat Display', sans-serif",
+                lineHeight: 1,
+                marginBottom: 8,
+                letterSpacing: '-0.02em'
+              }}>
+                {stat.value}
+              </div>
+
+              {/* Label */}
+              <div style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: '#1F6E7A',
+                fontFamily: "'Red Hat Display', sans-serif",
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+                marginBottom: 4
+              }}>
+                {stat.label}
+              </div>
+
+              {/* Subtle background pattern */}
+              <div style={{
+                position: 'absolute',
+                bottom: -20,
+                right: -20,
+                fontSize: 120,
+                fontWeight: 900,
+                color: 'rgba(31,110,122,0.03)',
+                fontFamily: "'Red Hat Display', sans-serif",
+                pointerEvents: 'none',
+                userSelect: 'none',
+                lineHeight: 1
+              }}>
+                {stat.value.replace('+', '')}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+        .reveal {
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.in {
+          opacity: 1;
+          transform: translateY(0);
         }
         
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
+        @media (max-width: 900px) {
+          #partners > .wrap > div:last-child {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 20px !important;
           }
-          to {
-            opacity: 1;
-            transform: translateY(0);
+        }
+        
+        @media (max-width: 600px) {
+          #partners .wrap {
+            padding: 0 20px !important;
+          }
+          
+          #partners > .wrap > div:last-child {
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>
-    </>
+    </section>
   );
 }
 
