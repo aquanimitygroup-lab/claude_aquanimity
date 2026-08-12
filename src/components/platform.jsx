@@ -91,19 +91,56 @@ function Platform({ palette, onOpen }) {
   const typingText = "Four Phases, One Platform — AQUANIMITY";
   const { displayText, isTyping } = useTypingAnimation(typingText, 80, typingRef);
 
+  // Better error handling for JSON parsing
   let phases = [];
+  let parseError = null;
+  
   try {
     const dataElement = document.getElementById("aquanimity-data");
     if (dataElement && dataElement.textContent) {
-      const data = JSON.parse(dataElement.textContent);
+      // Clean the JSON string
+      let jsonString = dataElement.textContent.trim();
+      
+      // Remove BOM if present
+      jsonString = jsonString.replace(/^\uFEFF/, '');
+      
+      // Try to parse
+      const data = JSON.parse(jsonString);
       phases = data.phases || [];
+      
+      // Validate phases is array
+      if (!Array.isArray(phases)) {
+        console.warn("Phases is not an array, using fallback");
+        phases = [];
+      }
     }
   } catch (error) {
+    parseError = error;
     console.error("Failed to load platform data:", error);
+    console.error("Error message:", error.message);
+    
+    // Try to find the position of the error
+    if (error.message.includes("position")) {
+      const posMatch = error.message.match(/position (\d+)/);
+      if (posMatch && posMatch[1]) {
+        const pos = parseInt(posMatch[1]);
+        const dataElement = document.getElementById("aquanimity-data");
+        if (dataElement && dataElement.textContent) {
+          const jsonString = dataElement.textContent.trim();
+          const start = Math.max(0, pos - 80);
+          const end = Math.min(jsonString.length, pos + 80);
+          console.error("JSON around error position:", jsonString.substring(start, end));
+          console.error("Error at position:", pos);
+          console.error("Character at error position:", jsonString[pos]);
+          console.error("Expected: double-quoted property name");
+        }
+      }
+    }
   }
 
   // Fallback phase data with local images
   if (phases.length === 0) {
+    console.log("Using fallback phase data");
     phases = [
       { 
         n: "01", 
@@ -135,6 +172,8 @@ function Platform({ palette, onOpen }) {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
+    if (phases.length === 0) return;
+    
     const t = setInterval(
       () => setActive((a) => (a + 1) % phases.length),
       3800
@@ -148,6 +187,47 @@ function Platform({ palette, onOpen }) {
     if (phase.bgImage) return phase.bgImage;
     return null;
   };
+
+  // Show error if no phases
+  if (phases.length === 0) {
+    return (
+      <section
+        ref={ref}
+        id="platform"
+        style={{
+          paddingTop: 80,
+          paddingBottom: 80,
+          background: "var(--paper)",
+          fontFamily: "'Red Hat Display', 'Red Hat Display Variable', sans-serif"
+        }}
+      >
+        <div className="wrap" style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+          <div style={{ textAlign: "center", padding: "40px 0" }}>
+            <p style={{ fontSize: 18, color: "var(--ink-2)" }}>No platform data available</p>
+            {parseError && (
+              <details style={{ marginTop: 20, textAlign: "left", maxWidth: 600, margin: "20px auto" }}>
+                <summary style={{ cursor: "pointer", color: "var(--accent)", fontWeight: 500 }}>
+                  🔍 Click to see error details
+                </summary>
+                <pre style={{ 
+                  background: "#f5f5f5", 
+                  padding: 16, 
+                  borderRadius: 8, 
+                  fontSize: 12,
+                  overflow: "auto",
+                  maxHeight: 200,
+                  marginTop: 10,
+                  border: "1px solid #e0e0e0"
+                }}>
+                  {parseError.message}
+                </pre>
+              </details>
+            )}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section

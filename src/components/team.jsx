@@ -1,7 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-
-// Arrow icon component
-
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 // Custom hook for reveal animation
 const useReveal = () => {
@@ -96,7 +93,12 @@ const highlightKeyInfo = (text) => {
 const MemberDetailsInline = ({ member, onClose }) => {
   useEffect(() => {
     const detailsElement = document.getElementById('member-details');
-    if (detailsElement) {
+    const isIos = typeof navigator !== 'undefined' && (
+      /iPad|iPhone|iPod/.test(navigator.platform) ||
+      (navigator.userAgent.includes('Mac') && navigator.maxTouchPoints > 1)
+    );
+
+    if (detailsElement && !isIos) {
       detailsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [member]);
@@ -105,10 +107,10 @@ const MemberDetailsInline = ({ member, onClose }) => {
     <div 
       id="member-details"
       style={{
-        marginTop: 48,
-        marginBottom: 48,
+        marginTop: '48px',
+        marginBottom: '48px',
         background: 'var(--bone)',
-        borderRadius: 32,
+        borderRadius: '32px',
         overflow: 'hidden',
         animation: 'fadeInUp 0.5s ease'
       }}
@@ -117,19 +119,19 @@ const MemberDetailsInline = ({ member, onClose }) => {
         display: 'grid',
         gridTemplateColumns: '0.8fr 1.2fr',
         gap: 0,
-        minHeight: 500
+        minHeight: '500px'
       }}>
         <div className="mdi-photo" style={{
           background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 40
+          padding: '40px'
         }}>
           <div style={{
             width: '100%',
-            maxWidth: 280,
-            borderRadius: 20,
+            maxWidth: '280px',
+            borderRadius: '20px',
             overflow: 'hidden',
             boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
             border: '3px solid white'
@@ -139,53 +141,62 @@ const MemberDetailsInline = ({ member, onClose }) => {
               alt={member.name}
               style={{ width: '100%', height: 'auto', display: 'block' }}
               onError={(e) => {
-               
+                e.target.src = 'https://via.placeholder.com/280x280/1F6E7A/FFFFFF?text=Team';
               }}
             />
           </div>
         </div>
 
-        <div className="mdi-content" style={{ padding: 40, overflowY: 'auto', maxHeight: 600 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
+        <div className="mdi-content" style={{ 
+          padding: '40px', 
+          overflowY: 'auto', 
+          maxHeight: '600px'
+        }}>
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'flex-start', 
+            marginBottom: '20px'
+          }}>
             <div>
               <div style={{
-                fontSize: 12,
+                fontSize: '12px',
                 letterSpacing: '0.2em',
                 textTransform: 'uppercase',
                 color: 'var(--accent)',
                 fontWeight: 600,
-                marginBottom: 8,
+                marginBottom: '8px',
                 whiteSpace: 'pre-line',
                 lineHeight: 1.3
               }}>
                 {member.title}
               </div>
               <h2 style={{
-                fontSize: 32,
+                fontSize: '32px',
                 fontWeight: 700,
                 color: 'var(--ink)',
-                marginBottom: 12,
+                marginBottom: '12px',
                 letterSpacing: '-0.02em'
               }}>
                 {member.name}
               </h2>
               <div style={{
-                width: 50,
-                height: 3,
+                width: '50px',
+                height: '3px',
                 background: 'var(--accent)',
-                marginBottom: 24
+                marginBottom: '24px'
               }} />
             </div>
             <button
               onClick={onClose}
               style={{
-                width: 36,
-                height: 36,
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
                 background: 'var(--paper)',
                 border: '1px solid var(--rule)',
                 cursor: 'pointer',
-                fontSize: 18,
+                fontSize: '18px',
                 transition: 'all 0.3s ease',
                 display: 'flex',
                 alignItems: 'center',
@@ -200,27 +211,27 @@ const MemberDetailsInline = ({ member, onClose }) => {
 
           {/* Key Achievements Section - Highlighted */}
           {member.achievement && (
-            <div style={{ marginBottom: 24 }}>
+            <div style={{ marginBottom: '24px' }}>
               <h3 style={{
-                fontSize: 16,
+                fontSize: '16px',
                 fontWeight: 600,
                 color: 'var(--ink)',
-                marginBottom: 10,
+                marginBottom: '10px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 8
+                gap: '8px'
               }}>
-                <span style={{ fontSize: 20 }}>🏆</span> Key Achievement
+                <span style={{ fontSize: '20px' }}>🏆</span> Key Achievement
               </h3>
               <div style={{
                 background: 'linear-gradient(135deg, rgba(255,40,0,0.05) 0%, rgba(31,110,122,0.05) 100%)',
-                padding: 14,
-                borderRadius: 14,
-                fontSize: 14,
+                padding: '14px',
+                borderRadius: '14px',
+                fontSize: '14px',
                 fontWeight: 500,
                 color: '#1F6E7A',
                 lineHeight: 1.5,
-                borderLeft: `3px solid #FF2800`
+                borderLeft: '3px solid #FF2800'
               }}>
                 {member.achievement}
               </div>
@@ -229,20 +240,20 @@ const MemberDetailsInline = ({ member, onClose }) => {
 
           {/* Detailed Bio Section with highlighted key info */}
           {member.detailedBio && (
-            <div style={{ marginBottom: 24 }}>
+            <div style={{ marginBottom: '24px' }}>
               <h3 style={{
-                fontSize: 16,
+                fontSize: '16px',
                 fontWeight: 600,
                 color: 'var(--ink)',
-                marginBottom: 10,
+                marginBottom: '10px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 8
+                gap: '8px'
               }}>
-                <span style={{ fontSize: 20 }}>📋</span> Biography
+                <span style={{ fontSize: '20px' }}>📋</span> Biography
               </h3>
               <div style={{
-                fontSize: 14,
+                fontSize: '14px',
                 lineHeight: 1.6,
                 color: 'var(--ink-2)',
                 textAlign: 'justify'
@@ -254,23 +265,23 @@ const MemberDetailsInline = ({ member, onClose }) => {
 
           {/* Education Section */}
           {member.education && (
-            <div style={{ marginBottom: 24 }}>
+            <div style={{ marginBottom: '24px' }}>
               <h3 style={{
-                fontSize: 16,
+                fontSize: '16px',
                 fontWeight: 600,
                 color: 'var(--ink)',
-                marginBottom: 10,
+                marginBottom: '10px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 8
+                gap: '8px'
               }}>
-                <span style={{ fontSize: 20 }}>🎓</span> Education
+                <span style={{ fontSize: '20px' }}>🎓</span> Education
               </h3>
               <div style={{
                 background: 'var(--paper)',
-                padding: 14,
-                borderRadius: 14,
-                fontSize: 13,
+                padding: '14px',
+                borderRadius: '14px',
+                fontSize: '13px',
                 color: 'var(--ink-2)',
                 lineHeight: 1.5,
                 textAlign: 'justify'
@@ -350,7 +361,6 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Research focus includes <strong>industrial processes, intracellular signalling, and advanced microscopy methods</strong>",
           "detailedBio": "Shoeb Ahmed is a <strong> Professor and Chair of the Department Chemical Engineering at BUET</strong>  and the <strong> Project Director of the Applied Bioengineering Research Incubator (ABRI)</strong> . He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
-
           "education": "Ph.D. | North Carolina State University"
         },
         {
@@ -360,7 +370,6 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Specialist in <strong>biocompatible materials</strong> and <strong>biosensor development</strong>",
           "detailedBio": "Nafisa Islam is a<strong>  chemical engineer specializing in biocompatible materials, biosensing, and environmental chemistry</strong> . She holds a PhD in Chemical Engineering from North Carolina State University and is a member of the<strong>  BUET faculty</strong> .\n\nAt the Biohub, she leads development of biosensor-based sanitary pads and women's health diagnostics. She also advises on biocompatible materials and packaging innovations across the Biohub, guiding programs that intersect women's health, materials science, and translational engineering.",
-
           "education": "Ph.D. | North Carolina State University"
         },
         {
@@ -370,7 +379,6 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Expert in <strong>gender studies</strong> with her research focus including equity and inclusion",
           "detailedBio": "Ayesha Banu is a <strong> Professor in the Department of Women and Gender Studies at the University of Dhaka</strong> , where she has served since 2001. She holds a<strong>  PhD on the Bangladesh women's movement and master's degrees in sociology and gender and development</strong> . Her research covers women's movements, poverty, religion, body and sexuality, and gender and development.\n\nAt the Biohub, she provides expertise on gender, socio-cultural context, and community outreach. She guides ethical frameworks for women-centric innovations and ensures that research incorporates gender equity and societal impact considerations",
-
           "education": "Ph.D. | University of Dhaka"
         }
       ],
@@ -406,11 +414,7 @@ function Team({ palette, onOpen }) {
         {
           "name": "Oyishee Ahmad",
           "title": "Program Director, Regenerative and Stem Cell Biology\n\nPhD Researcher, Sanquin Research and the University of Amsterdam",
-<<<<<<< HEAD
           "img": "images/oyshii.png",
-=======
-          "img": "images/oyshi.png",
->>>>>>> 45045dc6bfc1bf063fcf476c0842ea41690795f4
           "linkedin": "https://linkedin.com",
           "bio": "Expertise in <strong>developing iPSC models for blood cell generation and regenerative medicine applications</strong>",
           "detailedBio": "Oyishee Ahmad is a PhD researcher in the TRACER consortium at Sanquin Research and the University of Amsterdam, where she works on directing stem cells into fully functioning adult blood cells. She uses donor blood to generate induced pluripotent stem cells (iPSCs) and studies developmental processes to scale up lab-made blood production.\n\nAt the Biohub, she bridges the Applied Bioengineering and Genomics/Microbiomics Institutes. She develops iPSC-derived blood cells, organoids, and regenerative platforms, and collaborates closely with computational teams on development and modelling.",
@@ -418,7 +422,7 @@ function Team({ palette, onOpen }) {
         }
       ],
       "Founding Management Team": [
-               {
+        {
           "name": "Rafez Alam Chowdhury",
           "title": "Chairman\n\nChairman, Convince Group\nFormer President, BGAPMEA\nFormer President, Gulshan Youth Club",
           "img": "images/rafez.jpg",
@@ -435,7 +439,6 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Oversees all stages of the company<strong> development </strong>and makes all<strong> key decisions</strong>. ",
           "detailedBio": "Rashik Alam Chowdhury is the Managing Director of Biohub, bringing responsible for <strong>overseeking every stage of the company development</strong> and one of the <strong>key decision maker </strong>in every real world situation.",
- 
           "education": "BSc Economics | City University of London"
         },
         {
@@ -445,7 +448,6 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Oversees the <strong>operational coordination</strong> across all divisions in close partnership with the Managing Director",
           "detailedBio": "Arif Jawad Siam is the Executive Director (Operations) at Biohub.He oversees <strong>operational coordination </strong>across all divisions in <strong>close partnership with the Managing Director</strong>, ensuring <strong>scientific programs, infrastructure development, and cross institute initiatives</strong> advance in a unified and execution- focused manner.",
-
           "education": "MSc in Medicinal Chemistry | University College London"
         },
         {
@@ -455,7 +457,6 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Leading <strong>administration and revenue-generating</strong> functions with<strong> HR and talent development</strong>.",
           "detailedBio": "Farzhad Ahmed is the Executive Director (HR, Admin, Sales) at Biohub, with the responsible for<strong> leading organizational administration, and revenue-generating functions</strong>, ensuring <strong>talent development, and operational efficiency</strong>.",
-
           "education": "Bsc Economics | University of Texas at Austin"
         },
         {
@@ -465,7 +466,6 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Drives bold, purpose-led growth by building <strong>brand trust, and scaling customer engagement</strong>",
           "detailedBio": "Faizus Saquib Chowdhury is the Chief Marketing Officer at Biohub, with highly<strong> skilled analytics and data</strong>. He is critical in offering Aquanimity Group Inc. with the information required for <strong>major decision making and product innovation</strong>, previously particularly helping towards the ideation of</strong> Aqualite</strong>.",
-
           "education": "Msc Economics, University of Warwick | Bsc Economics, University of London"
         }, 
         {
@@ -475,7 +475,6 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Previously at <strong>DSE and Nestle</strong>. Leading <strong>budget allocation, product costing, and all other financial matters </strong>of the company",
           "detailedBio": "Saif Haque is the Chief Financial Officer at Biohub.Vital in managing <strong>the financial health</strong> of Aquanimity Group Inc. and has been key towards product costing and developing <strong>budget allocation strategic</strong>",
-
           "education": "BBA in Finance and Accounting | North South University"
         },
         {
@@ -485,7 +484,6 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Works alongside the CMO regarding <strong>brand development and product marketing </strong>",
           "detailedBio": "Samman Haque is the Vice President of Key Accounts at Biohub, applying his experience of <strong>founding a startup</strong> . Samman is mainly involved in <strong> product development and marketing</strong>.",
-
           "education": "BBA in  Accounting | North South University"
         }
       ],
@@ -524,9 +522,9 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "",
           "detailedBio": "Rahul Baroi is a Chemical Engineering graduate from Bangladesh University of Engineering and Technology (BUET), specializing in Biochemical Engineering, with research interests in biotechnology, bioprocessing, and sustainable chemical processes. He currently works as a Research Assistant at Aquanimity Bangladesh Limited, where his research focuses on bioactive compound extraction, purification, HPLC quantification, formulation support, and preclinical evaluation. His work includes optimizing microwave-assisted extraction of vasicine from Adhatoda vasica using Response Surface Methodology (RSM) to enhance extraction efficiency and product quality. He is also involved in purification research and experimental planning for bioactive formulations. In preclinical research, Rahul contributes to in vivo mouse studies, oral glucose tolerance testing (OGTT), GLP-1 assay planning, and sandwich ELISA-based biochemical evaluation. Additionally, he supports vaccine engineering and drug delivery research involving formulation development, process optimization, and analytical evaluation.",
-         
           "education": "BSc in Chemical Engineering | BUET"
-        },{
+        },
+        {
           "name": "Borno Das",
           "title": "Research Associate-Nutraceuticals and Vaccine Engineering\n Institute of Applied Bioengineering & Material Science",
           "img": "images/borno.png",
@@ -536,7 +534,6 @@ function Team({ palette, onOpen }) {
           "achievement": "Co-developer of thermoreversible polymersomes | PhD from University of Chicago | Postdoc at NYU Tandon",
           "education": "BSc in Chemical Engineering | BUET"
         }
-
       ]
     };
   }
@@ -566,40 +563,36 @@ function Team({ palette, onOpen }) {
   const marqueeRef = useRef(null);
   
   useEffect(() => {
-    if (!isAllMembers) return;
-    if (!marqueeRef.current) return;
-    
-    const styleSheet = document.createElement("style");
-    styleSheet.textContent = `
-      @keyframes marqueeScroll {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
+    if (!document.getElementById('marquee-styles')) {
+      const styleSheet = document.createElement('style');
+      styleSheet.id = 'marquee-styles';
+      styleSheet.textContent = `
+        @keyframes marqueeScroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+        .team-marquee-track {
+          animation: marqueeScroll var(--marquee-speed, 60s) linear infinite;
+          transform: translateZ(0);
+          backface-visibility: hidden;
+          will-change: transform;
         }
-      }
-    `;
-    document.head.appendChild(styleSheet);
-    
-    if (marqueeRef.current) {
-      const duration = Math.max(20, members.length * 3);
-      marqueeRef.current.style.animation = `marqueeScroll ${duration}s linear infinite`;
-      marqueeRef.current.style.animationPlayState = isPaused ? 'paused' : 'running';
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `;
+      document.head.appendChild(styleSheet);
     }
-    
-    return () => {
-      document.head.removeChild(styleSheet);
-    };
-  }, [members, isPaused, isAllMembers]);
+  }, []);
 
-  const duplicatedMembers = [...members, ...members];
+  const duplicatedMembers = useMemo(() => [...members, ...members], [members]);
 
   const handleMemberClick = (member) => {
     if (selectedMember === member) {
@@ -611,7 +604,6 @@ function Team({ palette, onOpen }) {
 
   const renderBio = (bio) => {
     if (!bio) return null;
-    // Return bio with HTML formatting (strong tags and Ferrari Red color will work)
     return <span dangerouslySetInnerHTML={{ __html: bio }} />;
   };
 
@@ -621,9 +613,9 @@ function Team({ palette, onOpen }) {
       onClick={() => handleMemberClick(member)}
       style={{
         flex: isAllMembers ? '0 0 auto' : '1',
-        width: isAllMembers ? 260 : 'auto',
-        minWidth: isAllMembers ? 'auto' : 260,
-        marginRight: isAllMembers ? 24 : 0,
+        width: isAllMembers ? '260px' : 'auto',
+        minWidth: isAllMembers ? 'auto' : '260px',
+        marginRight: isAllMembers ? '24px' : '0px',
         cursor: 'pointer',
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
       }}
@@ -638,31 +630,31 @@ function Team({ palette, onOpen }) {
     >
       <div style={{ 
         width: '100%', 
-        height: 290,
-        borderRadius: 16,
+        height: '290px',
+        borderRadius: '16px',
         overflow: 'hidden', 
         background: '#f0f0f0',
-        marginBottom: 16
+        marginBottom: '16px'
       }}>
         <img 
           src={member.img} 
           alt={member.name} 
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           onError={(e) => {
-           
+            e.target.src = 'https://via.placeholder.com/280x280/1F6E7A/FFFFFF?text=Team';
           }}
         />
       </div>
       
       <div>
-        <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4, color: 'var(--ink)' }}>
+        <div style={{ fontSize: '18px', fontWeight: 700, marginBottom: '4px', color: 'var(--ink)' }}>
           {member.name}
         </div>
         <div style={{ 
-          fontSize: 13, 
+          fontSize: '13px', 
           color: 'var(--accent)', 
           fontWeight: 600, 
-          marginBottom: 12,
+          marginBottom: '12px',
           whiteSpace: 'pre-line',
           lineHeight: 1.3
         }}>
@@ -671,9 +663,9 @@ function Team({ palette, onOpen }) {
         
         {member.bio && (
           <div style={{ 
-            fontSize: 12, 
+            fontSize: '12px', 
             color: 'var(--muted)', 
-            marginBottom: 6, 
+            marginBottom: '6px', 
             lineHeight: 1.5,
             display: '-webkit-box',
             WebkitLineClamp: 3,
@@ -689,7 +681,7 @@ function Team({ palette, onOpen }) {
 
   if (!members.length) {
     return (
-      <section style={{ padding: 140, textAlign: 'center' }}>
+      <section style={{ paddingTop: '140px', paddingBottom: '140px', textAlign: 'center' }}>
         <p>Loading team data...</p>
       </section>
     );
@@ -700,45 +692,97 @@ function Team({ palette, onOpen }) {
       ref={ref} 
       id="team" 
       style={{ 
-        paddingTop: 140, 
-        paddingBottom: 120, 
+        paddingTop: '140px', 
+        paddingBottom: '120px', 
         background: "var(--paper)"
       }}
     >
-      <div className="wrap" style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
-        <div className="reveal team-intro-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'end', marginBottom: 56 }}>
+      <div className="wrap" style={{ 
+        maxWidth: '1400px', 
+        marginTop: '0px',
+        marginRight: 'auto',
+        marginBottom: '0px',
+        marginLeft: 'auto',
+        paddingLeft: '32px',
+        paddingRight: '32px'
+      }}>
+        <div className="reveal team-intro-grid" style={{ 
+          display: 'grid', 
+          gridTemplateColumns: '1fr 1fr', 
+          gap: '56px', 
+          alignItems: 'end', 
+          marginBottom: '56px'
+        }}>
           <div>
-            <div className="label" style={{ marginBottom: 18, fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--accent)", fontWeight: 600 }}>
+            <div className="label" style={{ 
+              marginBottom: '18px', 
+              fontSize: '12px', 
+              letterSpacing: '0.2em', 
+              textTransform: 'uppercase', 
+              color: 'var(--accent)', 
+              fontWeight: 600
+            }}>
               § 03 — Our Team
             </div>
-            <h2 style={{ fontSize: 'clamp(36px, 5vw, 64px)', lineHeight: 1.02, letterSpacing: '-0.025em', fontWeight: 900, color: "var(--ink)", margin: 0 }}>
+            <h2 style={{ 
+              fontSize: 'clamp(36px, 5vw, 64px)', 
+              lineHeight: 1.02, 
+              letterSpacing: '-0.025em', 
+              fontWeight: 900, 
+              color: 'var(--ink)', 
+              marginTop: '0px',
+              marginRight: '0px',
+              marginBottom: '0px',
+              marginLeft: '0px'
+            }}>
               Built by world class<br/>
               <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>
                 scientists & researchers.
               </span>
             </h2>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 18 }}>
-            <p style={{ fontSize: 17, color: 'var(--ink-2)', maxWidth: 460, lineHeight: 1.55 }}>
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'flex-start', 
+            gap: '18px'
+          }}>
+            <p style={{ 
+              fontSize: '17px', 
+              color: 'var(--ink-2)', 
+              maxWidth: '460px', 
+              lineHeight: 1.55,
+              marginTop: '0px',
+              marginRight: '0px',
+              marginBottom: '0px',
+              marginLeft: '0px'
+            }}>
               An interdisciplinary cohort of 40+ founders, scientists, and operators —
               spanning Bangladesh, US, UK, Switzerland and Netherlands.
             </p>
           </div>
         </div>
 
-        <div className="reveal" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 48 }}>
+        <div className="reveal" style={{ 
+          display: 'flex', 
+          flexWrap: 'wrap', 
+          gap: '12px', 
+          marginBottom: '48px'
+        }}>
           <button 
-            onClick={() => {
+            type="button"
+            onClick={(event) => {
+              event.currentTarget.blur();
               setActiveCategory(null);
               setSelectedMember(null);
             }}
             style={{
               padding: '10px 24px', 
-              borderRadius: 40,
+              borderRadius: '40px',
               border: 'none',
               background: activeCategory === null ? 'var(--ink)' : 'transparent',
               color: activeCategory === null ? 'var(--paper)' : 'var(--ink)',
-              fontSize: 14, 
+              fontSize: '14px', 
               fontWeight: activeCategory === null ? 600 : 500,
               cursor: 'pointer',
               transition: 'all 0.25s ease',
@@ -750,17 +794,19 @@ function Team({ palette, onOpen }) {
           {categories.map(c => (
             <button 
               key={c} 
-              onClick={() => {
+              type="button"
+              onClick={(event) => {
+                event.currentTarget.blur();
                 setActiveCategory(c);
                 setSelectedMember(null);
               }}
               style={{
                 padding: '10px 24px', 
-                borderRadius: 40,
+                borderRadius: '40px',
                 border: 'none',
                 background: activeCategory === c ? 'var(--ink)' : 'transparent',
                 color: activeCategory === c ? 'var(--paper)' : 'var(--ink)',
-                fontSize: 14, 
+                fontSize: '14px', 
                 fontWeight: activeCategory === c ? 600 : 500,
                 cursor: 'pointer',
                 transition: 'all 0.25s ease',
@@ -778,17 +824,18 @@ function Team({ palette, onOpen }) {
             overflow: 'hidden',
             position: 'relative',
             width: '100%',
-            marginTop: 20
+            marginTop: '20px'
           }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
           <div
             ref={marqueeRef}
+            className="team-marquee-track"
             style={{
               display: 'flex',
               width: 'max-content',
-              willChange: 'transform'
+              '--marquee-speed': `${Math.max(20, members.length * 3)}s`
             }}
           >
             {duplicatedMembers.map((member, idx) => (
@@ -800,7 +847,7 @@ function Team({ palette, onOpen }) {
             position: 'absolute', 
             top: 0, 
             left: 0, 
-            width: 80, 
+            width: '80px', 
             height: '100%', 
             background: 'linear-gradient(to right, var(--paper), transparent)',
             pointerEvents: 'none',
@@ -810,7 +857,7 @@ function Team({ palette, onOpen }) {
             position: 'absolute', 
             top: 0, 
             right: 0, 
-            width: 80, 
+            width: '80px', 
             height: '100%', 
             background: 'linear-gradient(to left, var(--paper), transparent)',
             pointerEvents: 'none',
@@ -821,20 +868,30 @@ function Team({ palette, onOpen }) {
         <div 
           className="reveal"
           style={{ 
-            maxWidth: 1400,
-            margin: "0 auto",
-            padding: "0 32px",
-            marginTop: 20
+            maxWidth: '1400px',
+            marginTop: '20px',
+            marginRight: 'auto',
+            marginBottom: '0px',
+            marginLeft: 'auto',
+            paddingLeft: '32px',
+            paddingRight: '32px'
           }}
         >
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-            gap: 40,
+            gap: '40px',
             justifyContent: 'center'
           }}>
             {members.map((member, idx) => (
-              <div key={idx} style={{ maxWidth: 280, margin: '0 auto', width: '100%' }}>
+              <div key={idx} style={{ 
+                maxWidth: '280px', 
+                marginTop: '0px',
+                marginRight: 'auto',
+                marginBottom: '0px',
+                marginLeft: 'auto',
+                width: '100%' 
+              }}>
                 <MemberCard member={member} idx={idx} />
               </div>
             ))}
@@ -843,7 +900,15 @@ function Team({ palette, onOpen }) {
       )}
 
       {selectedMember && (
-        <div className="wrap" style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
+        <div className="wrap" style={{ 
+          maxWidth: '1200px', 
+          marginTop: '0px',
+          marginRight: 'auto',
+          marginBottom: '0px',
+          marginLeft: 'auto',
+          paddingLeft: '32px',
+          paddingRight: '32px'
+        }}>
           <MemberDetailsInline member={selectedMember} onClose={() => setSelectedMember(null)} />
         </div>
       )}

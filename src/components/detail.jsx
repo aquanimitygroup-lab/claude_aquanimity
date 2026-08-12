@@ -118,7 +118,7 @@ const useReveal = () => {
   return ref;
 };
 
-// Footer Component - Exact match to your design
+// Footer Component - Platform section removed
 function Footer() {
   const handleLinkClick = (e, item) => {
     e.preventDefault();
@@ -126,7 +126,6 @@ function Footer() {
       'Institutes': 'institutes',
       'Ventures': 'ventures',
       'Team': 'team',
-      'Careers': 'careers',
       'News': 'contact',
       'Contact': 'contact',
       'Press kit': 'contact',
@@ -134,10 +133,20 @@ function Footer() {
       'X / Twitter': 'contact'
     };
     const sectionId = sectionMap[item] || item.toLowerCase();
-    const el = document.getElementById(sectionId);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Navigate back to home and scroll to section
+    window.dispatchEvent(new CustomEvent('aq-route', { detail: 'home' }));
+    setTimeout(() => {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
   };
-  
+
+  // Handle email click - opens Gmail
+  const handleEmailClick = (e) => {
+    e.preventDefault();
+    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=aquanimitygroup@gmail.com', '_blank');
+  };
+
   return (
     <footer style={{ 
       marginTop: 80, 
@@ -160,7 +169,7 @@ function Footer() {
                   objectFit: 'contain'
                 }}
                 onError={(e) => {
-                  e.target.style.display = 'none';
+                  e.target.src = 'https://via.placeholder.com/150x40?text=AQUANIMITY';
                 }}
               />
             </div>
@@ -174,7 +183,7 @@ function Footer() {
               COMPANY
             </div>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 10 }}>
-              {['Institutes', 'Ventures', 'Team', 'Careers', 'News'].map((item, i) => (
+              {['Institutes', 'Ventures', 'Team'].map((item, i) => (
                 <li key={i}>
                   <button 
                     onClick={(e) => handleLinkClick(e, item)}
@@ -204,28 +213,47 @@ function Footer() {
               CONNECT
             </div>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 10 }}>
-              {['Contact', 'Press kit', 'LinkedIn', 'X / Twitter'].map((item, i) => (
-                <li key={i}>
-                  <button 
-                    onClick={(e) => handleLinkClick(e, item)}
-                    style={{ 
-                      fontSize: 14, 
-                      color: 'var(--ink-2)',
-                      background: 'none',
-                      border: 'none',
-                      cursor: 'pointer',
-                      padding: 0,
-                      fontFamily: "'Red Hat Display', sans-serif",
-                      fontWeight: 400,
-                      transition: 'color 0.2s ease'
-                    }} 
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
-                  >
-                    {item}
-                  </button>
-                </li>
-              ))}
+              <li>
+                <button 
+                  onClick={(e) => handleLinkClick(e, 'Contact')}
+                  style={{ 
+                    fontSize: 14, 
+                    color: 'var(--ink-2)',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: 0,
+                    fontFamily: "'Red Hat Display', sans-serif",
+                    fontWeight: 400,
+                    transition: 'color 0.2s ease'
+                  }} 
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
+                >
+                  Contact
+                </button>
+              </li>
+              <li>
+                <a 
+                  href="https://www.linkedin.com/company/aquanimitygroup/about/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ 
+                    fontSize: 14, 
+                    color: 'var(--ink-2)',
+                    textDecoration: 'none',
+                    fontFamily: "'Red Hat Display', sans-serif",
+                    fontWeight: 400,
+                    transition: 'color 0.2s ease',
+                    cursor: 'pointer',
+                    display: 'inline-block'
+                  }} 
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
+                >
+                  LinkedIn
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -236,18 +264,33 @@ function Footer() {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 10 }}>
               <li>
                 <span style={{ fontSize: 14, color: 'var(--ink-2)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
-                  Address: Mirpur, Dhaka-1210
+                  Address: Plot 68-71, Block K,<br /> Road 4 Rupnagar Rd, Dhaka 1216
                 </span>
               </li>
               <li>
                 <span style={{ fontSize: 14, color: 'var(--ink-2)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
-                  Phone: 0177777789
+                  Phone: +8801310346592
                 </span>
               </li>
               <li>
-                <span style={{ fontSize: 14, color: 'var(--ink-2)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
-                  Email: aquanimity@gmail.com
-                </span>
+                <a 
+                  href="#"
+                  onClick={handleEmailClick}
+                  style={{ 
+                    fontSize: 14, 
+                    color: 'var(--ink-2)',
+                    textDecoration: 'none',
+                    fontFamily: "'Red Hat Display', sans-serif",
+                    fontWeight: 400,
+                    transition: 'color 0.2s ease',
+                    cursor: 'pointer',
+                    display: 'inline-block'
+                  }} 
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
+                >
+                  aquanimitygroup@gmail.com
+                </a>
               </li>
             </ul>
           </div>
@@ -267,7 +310,7 @@ function Footer() {
             © {new Date().getFullYear()} AQUANIMITY. ALL RIGHTS RESERVED.
           </div>
           <div className="mono" style={{ fontSize: 11, letterSpacing: '0.18em', color: 'var(--muted)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 500 }}>
-            Mirpur, Rupnagar · DHAKA, BD
+            Rupnagar, Mirpur-2 · DHAKA, BD
           </div>
         </div>
       </div>
