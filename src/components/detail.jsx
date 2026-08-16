@@ -1028,9 +1028,9 @@ function InstituteDetail({ it, data, palette }) {
       { name: "Tasnima Siddique, PhD", title: "", img: "/images/tasnima.png" }
     ],
     "01_associates": [
-      { name: "Dr. Rasheda Khan", title: "", img: "/images/associate1.png" },
-      { name: "Dr. Kamal Hossain", title: "", img: "/images/associate2.png" },
-      { name: "Dr. Nasrin Akhter", title: "", img: "/images/associate3.png" }
+      { name: "Fatin Noor", title: "", img: "/images/fatin.jpg" },
+      { name: "Rahul Baroi", title: "", img: "/images/rahul.png" },
+      { name: "Borno Das", title: "", img: "/images/borno.png" }
     ],
     "02": [
       { name: "Shoeb Ahmed, PhD", title: "", img: "/images/shoeb.png" },
@@ -1038,21 +1038,20 @@ function InstituteDetail({ it, data, palette }) {
       { name: "Nafisa Islam", title: "", img: "/images/nafisa.png" }
     ],
     "02_associates": [
-      { name: "Dr. Farhad Ali", title: "", img: "/images/associate4.png" },
-      { name: "Dr. Sumaiya Rahman", title: "", img: "/images/associate5.png" }
+      { name: "Mehadi Hasan Pritom", title: "", img: "/images/pritom.png" },
+      
     ],
     "03": [
       { name: "Abed Chawdhury, PhD", title: "", img: "/images/abed1.png" }
     ],
     "03_associates": [
-      { name: "Dr. Tanvir Ahmed", title: "", img: "/images/associate6.png" },
-      { name: "Dr. Farzana Akter", title: "", img: "/images/associate7.png" }
+     { name: "Mehadi Hasan Pritom", title: "", img: "/images/pritom.png" },
     ],
     "04": [
       // Empty - Future researchers will be added here
     ],
     "04_associates": [
-      // Empty - Future research associates will be added here
+      { name: "Mayad Mashnoon", title: "", img: "/images/mashnoon.png" },
     ]
   };
 
@@ -1227,7 +1226,7 @@ function InstituteDetail({ it, data, palette }) {
           <SlideIn from="left">
             <div style={{ textAlign: 'center', marginBottom: 40 }}>
               <h3 style={{ fontSize: 'clamp(24px, 2.8vw, 32px)', fontWeight: 500, marginBottom: 12 }}>
-                <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Notable</span> Researchers
+                <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}></span> Researchers
               </h3>
               <div style={{ width: 50, height: 2, background: 'var(--accent)', margin: '0 auto' }} />
             </div>

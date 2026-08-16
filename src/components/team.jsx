@@ -325,7 +325,7 @@ function Team({ palette, onOpen }) {
         {
           "name": "Syed Hossainy, PhD",
           "title": "Founding Scientist and Chair,\nScience Advisory Board\n\n Director of Applied Bioengineering, UC Berkeley", 
-          "img": "images/sayed.png",
+          "img": "images/hossainy.png",
           "linkedin": "https://linkedin.com",
           "bio": "Prolific inventor with <strong>286 issued patents</strong> and <strong>390 patents pending</strong>",
           "detailedBio": "Syed Hossainy is an <strong> Adjunct Professor and Director of Applied Bioengineering at UC Berkeley</strong> and <strong>Advisor to the BUET Applied Bioengineering Research Incubator</strong>. He previously led<strong> Abbott Vascular's innovation incubator</strong>, delivering 10 feasibility programs, including bio absorbable vascular scaffolds. With <strong>286 issued patents and nearly 390 pending</strong>, he is widely recognized as the co-inventor of the first Drug Eluting Stents.\n\nAt the Biohub, he sets the scientific direction, guides all translational R&D, and mentors teams on research innovation, biomaterials, bioengineering design, and regulatory strategy.",
@@ -382,7 +382,7 @@ function Team({ palette, onOpen }) {
           "education": "Ph.D. | University of Dhaka"
         }
       ],
-      "Researchers & Consultants": [
+      "Consultants": [
         {
           "name": "Samir Hossainy, PhD",
           "title": "Program Director, Novel Delivery Technologies\n\nPostdoctoral Associate, NYU Tandon",
@@ -425,7 +425,7 @@ function Team({ palette, onOpen }) {
         {
           "name": "Rafez Alam Chowdhury",
           "title": "Chairman\n\nChairman, Convince Group\nFormer President, BGAPMEA\nFormer President, Gulshan Youth Club",
-          "img": "images/rafez.jpg",
+          "img": "images/rafez.png",
           "linkedin": "https://linkedin.com",
           "bio": "<strong>25+ years extensive industrial experience</strong> in the sector of ready-made garments (RMG) industry",
           "detailedBio": "Rafez Alam Chowdhury has<strong> over 25 years of experience in the ready-made garments (RMG) industry</strong> alongside promoting and administering diverse business ventures and social initiatives. He now provides <strong>strategic direction, governance oversight, and long-term growth leadership</strong> of Aquanimity Bangldesh Limited alongside the Managing Director.",
@@ -444,7 +444,7 @@ function Team({ palette, onOpen }) {
         {
           "name": "Arif Jawad Siam",
           "title": "Executive Director (Operations)\n\nDirector, Gunee Bangladesh Ltd.",
-          "img": "images/arif.jpg",
+          "img": "images/arif.png",
           "linkedin": "https://linkedin.com",
           "bio": "Oversees the <strong>operational coordination</strong> across all divisions in close partnership with the Managing Director",
           "detailedBio": "Arif Jawad Siam is the Executive Director (Operations) at Biohub.He oversees <strong>operational coordination </strong>across all divisions in <strong>close partnership with the Managing Director</strong>, ensuring <strong>scientific programs, infrastructure development, and cross institute initiatives</strong> advance in a unified and execution- focused manner.",
@@ -453,7 +453,7 @@ function Team({ palette, onOpen }) {
         {
           "name": "Farzhad Ahmed",
           "title": "Executive Director (HR, Admin, Sales)\n\nExecutive Director, Convince Zipper and Accessories",
-          "img": "images/farzhad.jpg",
+          "img": "images/farzhad.png",
           "linkedin": "https://linkedin.com",
           "bio": "Leading <strong>administration and revenue-generating</strong> functions with<strong> HR and talent development</strong>.",
           "detailedBio": "Farzhad Ahmed is the Executive Director (HR, Admin, Sales) at Biohub, with the responsible for<strong> leading organizational administration, and revenue-generating functions</strong>, ensuring <strong>talent development, and operational efficiency</strong>.",
@@ -471,7 +471,7 @@ function Team({ palette, onOpen }) {
         {
           "name": "Saif Haque",
           "title": "Chief Financial Officer\n\n Equity Research, Accounting, and Compliance at B&B Enterprise (a stock brpkerage house)",
-          "img": "images/saif.jpg",
+          "img": "images/saif.png",
           "linkedin": "https://linkedin.com",
           "bio": "Previously at <strong>DSE and Nestle</strong>. Leading <strong>budget allocation, product costing, and all other financial matters </strong>of the company",
           "detailedBio": "Saif Haque is the Chief Financial Officer at Biohub.Vital in managing <strong>the financial health</strong> of Aquanimity Group Inc. and has been key towards product costing and developing <strong>budget allocation strategic</strong>",
@@ -487,7 +487,7 @@ function Team({ palette, onOpen }) {
           "education": "BBA in  Accounting | North South University"
         }
       ],
-      "Staff": [
+      "Research Associates": [
         {
           "name": "Fatin Noor",
           "title": " Executive-Operations and Supply Chain\n Institute of Health Sciences ",
@@ -500,7 +500,7 @@ function Team({ palette, onOpen }) {
         {
           "name": "Mehadi Hasan Pritom",
           "title": "Senior Microbiologist\n Institute of Omics & Molecular Microbiology",
-          "img": "images/pritom.png",
+          "img": "images/pritom1.png",
           "linkedin": "https://linkedin.com",
           "bio": "",
           "detailedBio": "Mehedi Hasan Pritom is a biotechnologist trained across biochemical engineering and microbiology, with academic foundations at BUET (MSc in Biochemical Technology) and Khulna University (BSc in Biotechnology and Genetic Engineering). He has built research and teaching experience as a Graduate Research Assistant and Graduate Teaching Assistant, alongside earlier industrial and academic roles. His technical profile spans microbial isolation and biochemical assays, antimicrobial screening, plant-extract processing, nanocomposite fabrication, and in vivo models, complemented by computational drug-discovery tools and operation of advanced analytical platforms including HPLC, qPCR, FTIR, and SEM. \n\n At the Biohubs, he is a key member of the Blue Microbiome Initiative, where he works on environmental microbe identification for remediation and the genetic engineering of selected strains, integrating classical microbiology with molecular and bioengineering workflows.",
@@ -538,19 +538,19 @@ function Team({ palette, onOpen }) {
     };
   }
 
-  // Reorder categories - Founding Management comes AFTER Researchers & Consultants
-  const orderedCategories = [];
-  if (teamData["Founding Scientists"]) orderedCategories.push("Founding Scientists");
-  if (teamData["Scientific Advisory Board"]) orderedCategories.push("Scientific Advisory Board");
-  if (teamData["Researchers & Consultants"]) orderedCategories.push("Researchers & Consultants");
-  if (teamData["Founding Management Team"]) orderedCategories.push("Founding Management Team");
-  
-  // If there are other categories not in the list, add them too
-  Object.keys(teamData).forEach(key => {
-    if (!orderedCategories.includes(key)) {
-      orderedCategories.push(key);
-    }
-  });
+const orderedCategories = [];
+if (teamData["Founding Scientists"]) orderedCategories.push("Founding Scientists");
+if (teamData["Scientific Advisory Board"]) orderedCategories.push("Scientific Advisory Board");
+if (teamData["Researchers & Consultants"]) orderedCategories.push("Researchers & Consultants");
+if (teamData["Consultants"]) orderedCategories.push("Consultants");  // ← MOVED HERE
+if (teamData["Founding Management Team"]) orderedCategories.push("Founding Management Team");
+
+// If there are other categories not in the list, add them too
+Object.keys(teamData).forEach(key => {
+  if (!orderedCategories.includes(key)) {
+    orderedCategories.push(key);
+  }
+});
 
   const allMembers = Object.values(teamData).flat();
   const categories = orderedCategories;
