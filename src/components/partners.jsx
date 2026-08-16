@@ -33,7 +33,7 @@ const useReveal = () => {
 function Partners({ palette, onOpen }) {
   const ref = useReveal();
   
-  // Partner data with images from images folder
+  // Partner data with images and website URLs
   const partnerItems = [
     {
       name: "ABRI",
@@ -42,7 +42,8 @@ function Partners({ palette, onOpen }) {
       blurb: "Leading international health research institution.",
       loc: "Dhaka, BD",
       since: "2024",
-      logo: "/images/ibr.jpeg"
+      logo: "/images/ibr.jpeg",
+      website: "https://abri.org.bd"
     },
     {
       name: "IQC",
@@ -51,7 +52,8 @@ function Partners({ palette, onOpen }) {
       blurb: "Global development organization based in Bangladesh.",
       loc: "Dhaka, BD",
       since: "2024",
-      logo: "/images/iqc.jpeg"
+      logo: "/images/iqc.jpeg",
+      website: "https://iqc.org.bd"
     },
     {
       name: "Heart Foundation Bangladesh",
@@ -60,7 +62,8 @@ function Partners({ palette, onOpen }) {
       blurb: "World-leading research university.",
       loc: "Boston, USA",
       since: "2024",
-      logo: "/images/heart.jpeg"
+      logo: "/images/heart.jpeg",
+      website: "https://www.nhf.org.bd/"
     },
     {
       name: "Diabetics Association of Bangladesh",
@@ -69,7 +72,8 @@ function Partners({ palette, onOpen }) {
       blurb: "Leading Asian university.",
       loc: "Bangladesh",
       since: "2024",
-      logo: "/images/dia.jpeg"
+      logo: "/images/dia.jpeg",
+      website: "https://www.dab-bd.org/"
     },
     {
       name: "Centre for Global Health Research",
@@ -78,7 +82,8 @@ function Partners({ palette, onOpen }) {
       blurb: "Leading research institution in bioengineering.",
       loc: "California, USA",
       since: "2024",
-      logo: "/images/cghr.jpeg"
+      logo: "/images/cghr.jpeg",
+      website: "https://cghr-badas.org/"
     },
     {
       name: "BioEngineering",
@@ -87,7 +92,8 @@ function Partners({ palette, onOpen }) {
       blurb: "Premier public university in Bangladesh.",
       loc: "Dhaka, BD",
       since: "2024",
-      logo: "/images/bio.jpeg"
+      logo: "/images/bio.jpeg",
+      website: "https://du.ac.bd"
     }
   ];
 
@@ -119,7 +125,7 @@ function Partners({ palette, onOpen }) {
   const trackRef = useRef(null);
   const animationRef = useRef(null);
   const positionRef = useRef(0);
-  const speed = 0.5;
+  const speed = 1.5; // Increased from 0.5 to 1.2 for faster animation
 
   // Start animation when component is visible
   useEffect(() => {
@@ -176,6 +182,18 @@ function Partners({ palette, onOpen }) {
     };
   }, [paused, isVisible, partnerItems.length]);
 
+  // Handle partner card click - open website in new tab
+  const handlePartnerClick = (partner) => {
+    if (partner.website) {
+      window.open(partner.website, '_blank', 'noopener,noreferrer');
+    } else {
+      console.log(`No website available for ${partner.name}`);
+      if (onOpen) {
+        onOpen('partner:' + partner.short);
+      }
+    }
+  };
+
   return (
     <section 
       ref={ref} 
@@ -224,7 +242,7 @@ function Partners({ palette, onOpen }) {
           {items.map((p, i) => (
             <div
               key={i}
-              onClick={() => onOpen && onOpen('partner:' + p.short)}
+              onClick={() => handlePartnerClick(p)}
               style={{
                 flex: '0 0 auto',
                 width: 220,
@@ -246,12 +264,16 @@ function Partners({ palette, onOpen }) {
                 if (img) img.style.transform = 'scale(1.05)';
                 const overlay = e.currentTarget.querySelector('.hover-overlay');
                 if (overlay) overlay.style.opacity = '1';
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.12)';
               }}
               onMouseLeave={(e) => {
                 const img = e.currentTarget.querySelector('img');
                 if (img) img.style.transform = 'scale(1)';
                 const overlay = e.currentTarget.querySelector('.hover-overlay');
                 if (overlay) overlay.style.opacity = '0';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.08)';
               }}
             >
               <img 
@@ -306,6 +328,28 @@ function Partners({ palette, onOpen }) {
                   borderRadius: 16
                 }}
               />
+              {/* Visit indicator */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 8,
+                  right: 12,
+                  fontSize: 11,
+                  color: 'rgba(31,110,122,0.5)',
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  fontWeight: 500,
+                  letterSpacing: '0.05em',
+                  textTransform: 'uppercase',
+                  opacity: 0,
+                  transition: 'opacity 0.3s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 4
+                }}
+                className="visit-indicator"
+              >
+                Visit <Arrow size={10} />
+              </div>
             </div>
           ))}
         </div>
@@ -433,6 +477,14 @@ function Partners({ palette, onOpen }) {
         .reveal.in {
           opacity: 1;
           transform: translateY(0);
+        }
+        
+        /* Show visit indicator on hover */
+        .visit-indicator {
+          opacity: 0 !important;
+        }
+        .partner-card:hover .visit-indicator {
+          opacity: 1 !important;
         }
         
         @media (max-width: 900px) {

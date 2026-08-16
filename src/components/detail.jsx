@@ -77,8 +77,78 @@ For health sciences, the institute can rank plant bioactives against targets inv
     ]
   },
   partners: [
-    { name: "University of Dhaka", kind: "Academic Partner", blurb: "Leading research collaboration on indigenous biodiversity and clinical studies.", loc: "Dhaka, BD", since: "2024", logo: "https://via.placeholder.com/120x80?text=DU" },
-    { name: "BRAC", kind: "Implementation Partner", blurb: "Field deployment and community health integration across Bangladesh.", loc: "Dhaka, BD", since: "2024", logo: "https://via.placeholder.com/120x80?text=BRAC" }
+    { 
+      name: "ABRI", 
+      short: "ABRI",
+      kind: "Research Partner", 
+      blurb: "Leading international health research institution focused on infectious diseases and public health.",
+      loc: "Dhaka, BD", 
+      since: "2024", 
+      logo: "/images/ibr.jpeg",
+      website: "https://abri.org.bd",
+      fullDescription: "ABRI is a premier research institution dedicated to advancing health research in Bangladesh and the region. With state-of-the-art laboratories and a team of world-class researchers, ABRI conducts cutting-edge research on infectious diseases, vaccine development, and public health interventions.",
+      focusAreas: ["Infectious Diseases", "Vaccine Research", "Public Health", "Epidemiology", "Clinical Trials"]
+    },
+    { 
+      name: "IQC", 
+      short: "IQC",
+      kind: "Implementation Partner", 
+      blurb: "Global development organization based in Bangladesh focused on quality healthcare delivery.",
+      loc: "Dhaka, BD", 
+      since: "2024", 
+      logo: "/images/iqc.jpeg",
+      website: "https://iqc.org.bd",
+      fullDescription: "IQC is a leading implementation partner committed to improving healthcare quality and access across Bangladesh. With a network of healthcare facilities and community health workers, IQC works to bridge the gap between research and real-world impact.",
+      focusAreas: ["Healthcare Delivery", "Community Health", "Quality Improvement", "Health Systems Strengthening"]
+    },
+    { 
+      name: "Heart Foundation Bangladesh", 
+      short: "Heart Foundation Bangladesh",
+      kind: "Academic Partner", 
+      blurb: "Leading cardiovascular research and healthcare institution in Bangladesh.",
+      loc: "Dhaka, BD", 
+      since: "2024", 
+      logo: "/images/heart.jpeg",
+      website: "https://heartfoundationbd.com",
+      fullDescription: "The Heart Foundation Bangladesh is a premier institution dedicated to cardiovascular health research, clinical care, and health education. With a network of specialized cardiac centers, the foundation works to reduce the burden of heart disease in Bangladesh.",
+      focusAreas: ["Cardiovascular Health", "Preventive Cardiology", "Clinical Research", "Health Education"]
+    },
+    { 
+      name: "Diabetics Association of Bangladesh", 
+      short: "Diabetics Association of Bangladesh",
+      kind: "Academic Partner", 
+      blurb: "Leading institution for diabetes research and care in Bangladesh.",
+      loc: "Dhaka, BD", 
+      since: "2024", 
+      logo: "/images/dia.jpeg",
+      website: "https://diabetesbd.org",
+      fullDescription: "The Diabetics Association of Bangladesh is a pioneering institution dedicated to diabetes research, patient care, and health education. Through its network of diabetes centers and research facilities, the association works to improve diabetes management and prevention across Bangladesh.",
+      focusAreas: ["Diabetes Research", "Metabolic Health", "Patient Care", "Health Education"]
+    },
+    { 
+      name: "Centre for Global Health Research", 
+      short: "Centre for Global Health Research",
+      kind: "Academic Partner", 
+      blurb: "Leading research institution in bioengineering and global health.",
+      loc: "California, USA", 
+      since: "2024", 
+      logo: "/images/cghr.jpeg",
+      website: "https://cghr.org",
+      fullDescription: "The Centre for Global Health Research is a world-class research institution focused on bioengineering innovations for global health challenges. With a multidisciplinary team of scientists and engineers, the centre develops cutting-edge solutions for healthcare delivery in resource-limited settings.",
+      focusAreas: ["Bioengineering", "Global Health", "Medical Devices", "Health Technology"]
+    },
+    { 
+      name: "BioEngineering", 
+      short: "DU",
+      kind: "Academic Partner", 
+      blurb: "Premier public university in Bangladesh with strong bioengineering programs.",
+      loc: "Dhaka, BD", 
+      since: "2024", 
+      logo: "/images/bio.jpeg",
+      website: "https://du.ac.bd",
+      fullDescription: "The Department of BioEngineering at the University of Dhaka is a leading academic program dedicated to advancing bioengineering education and research in Bangladesh. With a focus on biotechnology, biomedical engineering, and materials science, the department trains the next generation of bioengineers.",
+      focusAreas: ["Bioengineering", "Biotechnology", "Biomedical Engineering", "Materials Science"]
+    }
   ],
   phases: [
     { n: "01", title: "Discover", body: "Genomics, microbiology, and biodiversity exploration to identify novel biological assets." },
@@ -372,57 +442,164 @@ const BackButton = ({ onClick }) => {
   );
 };
 
-// Detail page used for venture / institute / list views
-function DetailPage({ route, onClose, palette }) {
-  const data = appData;
-  const ref = useReveal();
-
-  let view;
-  
-  if (route.startsWith('venture:')) {
-    const id = route.split(':')[1];
-    const v = data.ventures?.find(x => x.id === id);
-    if (v) {
-      view = <VentureDetail v={v} data={data} palette={palette} />;
-    }
-  } else if (route.startsWith('institute:')) {
-    const n = route.split(':')[1];
-    const it = data.institutes?.find(x => x.n === n);
-    if (it) {
-      view = <InstituteDetail it={it} data={data} palette={palette} />;
-    }
-  } else if (route === 'ventures-list') {
-    view = <ListView title="Our Ventures" subtitle="Building category-defining ventures." items={data.ventures?.map(v => ({
-      n: v.n, title: v.name, blurb: v.blurb, img: v.img, tag: v.stage, href: 'venture:' + v.id
-    })) || []} kind="venture" palette={palette} />;
-  } else if (route === 'institutes-list') {
-    view = <InstitutesZigzagView institutes={data.institutes} palette={palette} />;
-  } else if (route === 'team-list') {
-    view = <TeamFull data={data} palette={palette} />;
-  } else if (route === 'partners-list') {
-    view = <PartnersFull data={data} palette={palette} />;
-  } else if (route === 'careers') {
-    view = <CareersView palette={palette} />;
-  } else if (route === 'platform-detail') {
-    view = <PlatformDetail data={data} palette={palette} />;
-  } else if (route === 'contact') {
-    view = <Contact palette={palette} />;
-  }
-  else {
-    view = <div style={{ padding: 80, textAlign: 'center' }}>Page not found.</div>;
-  }
+// Partner Detail Component
+function PartnerDetail({ partner, palette }) {
+  const descriptionParagraphs = partner.fullDescription ? partner.fullDescription.split('\n\n').filter(p => p.trim().length > 0) : [partner.blurb];
+  const areas = partner.focusAreas || ["Research", "Innovation", "Collaboration"];
 
   return (
-    <div ref={ref} style={{ minHeight: '100vh', background: '#FAF7F0' }}>
-      <BackButton onClick={onClose} />
-      <div style={{ background: '#ECE5D6' }}>
-        {view}
+    <div>
+      <div className="img-frame" style={{ height: 'min(55vh, 480px)', background: '#000', position: 'relative' }}>
+        <div style={{ 
+          width: '100%', 
+          height: '100%', 
+          background: 'linear-gradient(135deg, #1F6E7A, #0E1B2C)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <img 
+            src={partner.logo} 
+            alt={partner.name}
+            style={{ 
+              maxWidth: '60%',
+              maxHeight: '60%',
+              objectFit: 'contain',
+              background: 'white',
+              padding: '40px',
+              borderRadius: 20
+            }}
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
+          />
+        </div>
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(14,27,44,0.3), rgba(14,27,44,0.85))' }} />
+        <div className="wrap" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
+          <SlideIn from="left">
+            <div className="mono" style={{ color: 'rgba(255,255,255,0.8)', fontSize: 11, letterSpacing: '0.22em', marginBottom: 16 }}>
+              {partner.kind.toUpperCase()}
+            </div>
+          </SlideIn>
+          <SlideIn from="left" delay={0.1}>
+            <h1 style={{ color: 'var(--paper)', fontSize: 'clamp(40px, 5.5vw, 72px)', lineHeight: 1, fontWeight: 800, letterSpacing: '-0.025em', maxWidth: 900, fontFamily: "'Red Hat Display', sans-serif" }}>
+              {partner.name}
+            </h1>
+          </SlideIn>
+          <SlideIn from="left" delay={0.2}>
+            <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: 17, marginTop: 18, maxWidth: 600, lineHeight: 1.45 }}>
+              {partner.blurb}
+            </p>
+          </SlideIn>
+        </div>
       </div>
-      <Footer />
+
+      <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 70, paddingBottom: 70 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 56, marginBottom: 70 }}>
+          <SlideIn from="left">
+            <h2 style={{ fontSize: 'clamp(26px, 3.2vw, 38px)', fontWeight: 500, lineHeight: 1.15, marginBottom: 24 }}>
+              <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Focus</span> Areas
+            </h2>
+            <div style={{ display: 'grid', gap: 14 }}>
+              {areas.slice(0, 8).map((area, idx) => (
+                <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--rule)' }}>
+                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)' }} />
+                  <span style={{ fontSize: 14.5, color: 'var(--ink-2)' }}>{area}</span>
+                </div>
+              ))}
+            </div>
+          </SlideIn>
+          
+          <SlideIn from="right">
+            <h2 style={{ fontSize: 'clamp(26px, 3.2vw, 38px)', fontWeight: 500, lineHeight: 1.15, marginBottom: 24 }}>
+              About <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>{partner.name}</span>
+            </h2>
+            {descriptionParagraphs.map((paragraph, idx) => (
+              <p key={idx} style={{ fontSize: 15.5, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 18 }}>
+                {paragraph}
+              </p>
+            ))}
+            
+            {/* Partner Details */}
+            <div style={{ marginTop: 24, background: 'var(--bone)', borderRadius: 16, padding: 24 }}>
+              <div style={{ display: 'grid', gap: 12 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 8, borderBottom: '1px solid var(--rule)' }}>
+                  <span style={{ fontSize: 12, color: 'var(--muted)', fontWeight: 600 }}>Location</span>
+                  <span style={{ fontSize: 14, color: 'var(--ink)' }}>{partner.loc}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 8, borderBottom: '1px solid var(--rule)' }}>
+                  <span style={{ fontSize: 12, color: 'var(--muted)', fontWeight: 600 }}>Partner Since</span>
+                  <span style={{ fontSize: 14, color: 'var(--ink)' }}>{partner.since}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 12, color: 'var(--muted)', fontWeight: 600 }}>Website</span>
+                  <a 
+                    href={partner.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      fontSize: 14, 
+                      color: 'var(--accent)',
+                      textDecoration: 'none',
+                      fontWeight: 500
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                    onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+                  >
+                    Visit Website →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </SlideIn>
+        </div>
+
+        <div style={{ marginTop: 40, background: 'var(--accent-soft)', borderRadius: 20, padding: 48, textAlign: 'center' }}>
+          <SlideIn from="bottom">
+            <h4 style={{ fontSize: 24, fontWeight: 500, marginBottom: 14 }}>
+              <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)' }}>Collaborating</span> for impact
+            </h4>
+            <p style={{ fontSize: 14.5, color: 'var(--ink-2)', marginBottom: 22, maxWidth: 450, margin: '0 auto 22px' }}>
+              Together with {partner.name}, we're building a healthier, more sustainable future.
+            </p>
+            <a 
+              href={partner.website} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '11px 30px',
+                background: 'var(--accent)',
+                color: 'white',
+                border: 'none',
+                borderRadius: 999,
+                fontSize: 13.5,
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                textDecoration: 'none'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--accent-2)';
+                e.currentTarget.style.transform = 'scale(1.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'var(--accent)';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+            >
+              Visit {partner.name} Website <Arrow size={14} />
+            </a>
+          </SlideIn>
+        </div>
+      </div>
     </div>
   );
 }
 
+// SlideIn Component
 function SlideIn({ from = 'left', delay = 0, children, style }) {
   const ref = useRef(null);
   const [seen, setSeen] = useState(false);
@@ -1331,6 +1508,65 @@ function Row({ k, v }) {
     <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 12, paddingBottom: 14, borderBottom: '1px solid var(--rule)' }}>
       <div className="mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: 'var(--accent)' }}>{k.toUpperCase()}</div>
       <div style={{ fontSize: 15, color: 'var(--ink)' }}>{v}</div>
+    </div>
+  );
+}
+
+// Detail page used for venture / institute / list views
+function DetailPage({ route, onClose, palette }) {
+  const data = appData;
+  const ref = useReveal();
+
+  let view;
+  
+  if (route.startsWith('venture:')) {
+    const id = route.split(':')[1];
+    const v = data.ventures?.find(x => x.id === id);
+    if (v) {
+      view = <VentureDetail v={v} data={data} palette={palette} />;
+    }
+  } else if (route.startsWith('institute:')) {
+    const n = route.split(':')[1];
+    const it = data.institutes?.find(x => x.n === n);
+    if (it) {
+      view = <InstituteDetail it={it} data={data} palette={palette} />;
+    }
+  } else if (route.startsWith('partner:')) {
+    const short = route.split(':')[1];
+    const partner = data.partners?.find(x => x.short === short);
+    if (partner) {
+      view = <PartnerDetail partner={partner} palette={palette} />;
+    } else {
+      view = <div style={{ padding: 80, textAlign: 'center' }}>Partner not found.</div>;
+    }
+  } else if (route === 'ventures-list') {
+    view = <ListView title="Our Ventures" subtitle="Building category-defining ventures." items={data.ventures?.map(v => ({
+      n: v.n, title: v.name, blurb: v.blurb, img: v.img, tag: v.stage, href: 'venture:' + v.id
+    })) || []} kind="venture" palette={palette} />;
+  } else if (route === 'institutes-list') {
+    view = <InstitutesZigzagView institutes={data.institutes} palette={palette} />;
+  } else if (route === 'team-list') {
+    view = <TeamFull data={data} palette={palette} />;
+  } else if (route === 'partners-list') {
+    view = <PartnersFull data={data} palette={palette} />;
+  } else if (route === 'careers') {
+    view = <CareersView palette={palette} />;
+  } else if (route === 'platform-detail') {
+    view = <PlatformDetail data={data} palette={palette} />;
+  } else if (route === 'contact') {
+    view = <Contact palette={palette} />;
+  }
+  else {
+    view = <div style={{ padding: 80, textAlign: 'center' }}>Page not found.</div>;
+  }
+
+  return (
+    <div ref={ref} style={{ minHeight: '100vh', background: '#FAF7F0' }}>
+      <BackButton onClick={onClose} />
+      <div style={{ background: '#ECE5D6' }}>
+        {view}
+      </div>
+      <Footer />
     </div>
   );
 }
