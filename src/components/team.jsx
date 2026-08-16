@@ -486,7 +486,7 @@ function Team({ palette, onOpen }) {
           "img": "images/faizus.png",
           "linkedin": "https://linkedin.com",
           "bio": "Drives bold, purpose-led growth by building <strong>brand trust, and scaling customer engagement</strong>",
-          "detailedBio": "Faizus Saquib Chowdhury is the Chief Marketing Officer at Biohub, with highly<strong> skilled analytics and data</strong>. He is critical in offering Aquanimity Group Inc. with the information required for <strong>major decision making and product innovation</strong>, previously particularly helping towards the ideation of</strong> Aqualite</strong>.",
+          "detailedBio": "Bringing expertise in marketing strategy, business analytics, and data-driven decision-making. He plays a key role in shaping Aquanimity’s commercial strategy, product development, and market positioning, and was instrumental in the early ideation and development of Aqualite.",
           "education": "Msc Economics, University of Warwick | Bsc Economics, University of London"
         }, 
         {
