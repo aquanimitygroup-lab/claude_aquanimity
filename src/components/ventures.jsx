@@ -55,37 +55,37 @@ function Ventures({ palette, onOpen }) {
   const ventures = [
     {
       id: "superwater",
-      
+      n: "01",
       name: "Super Water",
       tag: "Enhanced Water",
-      blurb: "Revolutionizing water purification with bio-inspired filtration membranes for arsenic and microplastic removal. Our technology provides clean, safe drinking water to communities across South Asia.",
+      blurb: "Patented and clinically validated. Following successful 150-participant human trials confirming benefits for hydration, post-meal glucose control, and heart health, our functional water has proven its efficacy. We are now preparing full-scale production to bring smarter daily wellness to everyone.",
       video: "#",
       bgImage: "/images/v1.jpg"
     },
     {
       id: "bluemicrobiome",
-      
+      n: "02",
       name: "Blue Microbiome",
       tag: "Environmental Remediation",
-      blurb: "Pioneering next-generation microbiome therapies for autoimmune and metabolic disorders. Our synthetic biology platform engineers beneficial bacteria to deliver targeted treatments with unprecedented precision.",
+      blurb: "Engineering biology for a cleaner planet. By isolating and mutagenizing coastal bacteria that break down persistent PVC, PET, and polyurethane, we are decoding key genetic pathways to commercially produce powerful plastic-degrading enzymes for a waste-free future.",
       video: "#",
       bgImage: "/images/biom.jpg"
     },
     {
       id: "omnibio",
-      
+      n: "03",
       name: "OmniBio",
       tag: "Computational Biology",
-      blurb: "Combining deep learning and quantum chemistry to discover novel small molecule therapeutics. Our platform reduces drug discovery timelines by 70% while increasing success rates in clinical trials.",
+      blurb: "OmniBio is Aquanimity's computational biology platform unifying tools for drug discovery and protein engineering - including MolProfiler (a Docking and ADMET analysis tool), a mutation analysis engine, and an enzyme discovery platform. Core modules are functional, with integration underway toward a unified research workflow.",
       video: "#",
       bgImage: "/images/omics.png"
     },
     {
       id: "thermorevax",
-     
+      n: "04",
       name: "ThermoReVaQ",
       tag: "Vaccine Engineering",
-      blurb: "Developing thermostable vaccine formulations that eliminate cold-chain requirements. Our proprietary stabilization technology enables global vaccine distribution without refrigeration, saving millions of lives in developing nations.",
+      blurb: "Reinventing vaccine delivery without the cold chain. Our breakthrough polymer replaces traditional LNPs, eliminating refrigeration requirements while enhancing bioavailability. We are developing next-generation mRNA, siRNA, and chimeric vaccines to make life-saving therapeutics accessible worldwide.",
       video: "#",
       bgImage: "/images/vaccinpng.png"
     }
@@ -341,7 +341,7 @@ function Ventures({ palette, onOpen }) {
               {currentVenture.name}
             </h3>
 
-            {/* Description */}
+            {/* Description - Justified Text */}
             <p
               style={{
                 fontSize: 18,
@@ -351,12 +351,46 @@ function Ventures({ palette, onOpen }) {
                 maxWidth: '90%',
                 fontFamily: "'Red Hat Display', sans-serif",
                 fontWeight: 400,
-                textShadow: '0 1px 20px rgba(0,0,0,0.2)'
+                textShadow: '0 1px 20px rgba(0,0,0,0.2)',
+                textAlign: 'justify',
+                textJustify: 'inter-word'
               }}
             >
               {currentVenture.blurb}
             </p>
 
+            {/* Explore More Button 
+            <button
+              onClick={handleExploreClick}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 10,
+                background: 'var(--accent-2)',
+                border: 'none',
+                borderRadius: 999,
+                padding: '14px 28px',
+                fontSize: 15,
+                fontWeight: 600,
+                color: 'var(--ink)',
+                cursor: 'pointer',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                fontFamily: "'Red Hat Display', sans-serif",
+                boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.4)';
+                e.currentTarget.style.gap = '14px';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                e.currentTarget.style.gap = '10px';
+              }}
+            >
+              Explore more <Arrow size={14} />
+            </button>*/}
           </div>
 
           {/* Venture Number - Decorative with Glass Effect */}
@@ -421,6 +455,12 @@ function Ventures({ palette, onOpen }) {
         .venture-image {
           transition: opacity 0.8s ease;
         }
+
+        /* Justify text for all screen sizes */
+        .venture-description {
+          text-align: justify;
+          text-justify: inter-word;
+        }
         
         @media (max-width: 980px) {
           #ventures .wrap {
@@ -446,9 +486,46 @@ function Ventures({ palette, onOpen }) {
             bottom: 20px !important;
           }
           
-          #ventures [style*="padding: 16px 32px"] {
+          #ventures [style*="padding: 14px 28px"] {
             padding: 12px 24px !important;
             font-size: 14px !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          #ventures [style*="min-height: 520px"] {
+            min-height: 380px !important;
+          }
+          
+          #ventures [style*="padding: 60px"] {
+            padding: 24px !important;
+          }
+          
+          #ventures p[style*="font-size: 18px"] {
+            font-size: 15px !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          #ventures [style*="padding: 60px"] {
+            padding: 20px !important;
+            min-height: 320px !important;
+          }
+          
+          #ventures p[style*="font-size: 18px"] {
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+          }
+          
+          #ventures [style*="font-size: 90px"] {
+            font-size: 36px !important;
+            right: 16px !important;
+            bottom: 16px !important;
+          }
+          
+          #ventures [style*="padding: 14px 28px"] {
+            padding: 10px 18px !important;
+            font-size: 12px !important;
           }
         }
       `}</style>
