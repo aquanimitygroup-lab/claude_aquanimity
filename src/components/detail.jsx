@@ -19,7 +19,7 @@ const appData = {
 The institute combines clinical research, formulation science, indigenous medicinal plant knowledge, nutritional biochemistry, and consumer health strategy to create products that are scientifically grounded and commercially scalable.
 
 Flagship programs include SuperWater, Aquanimity's clinically studied functional water platform; Nutraceutical formulations inspired by Bangladesh's indigenous biodiversity; and future products across digestion, cognitive health, cardiovascular wellness, and precision nutrition.`,
-      focusAreas: ["Functional beverages", "Metabolic health", "Nutraceuticals","Consumer biotech"],
+      focusAreas: ["Functional Beverages", "Metabolic Health", "Nutraceuticals","Consumer Biotech"],
       img: "images/health3.jpg"
     },
     { 
@@ -1035,7 +1035,7 @@ function InstituteDetail({ it, data, palette }) {
     "02": [
       { name: "Shoeb Ahmed, PhD", title: "", img: "/images/shoeb.png" },
       { name: "Samir Hossainy, PhD", title: "", img: "/images/samir.png" },
-      { name: "Nafisa Islam", title: "", img: "/images/nafisa.png" }
+      { name: "Nafisa Islam, PhD", title: "", img: "/images/nafisa.png" }
     ],
     "02_associates": [
       { name: "Mehadi Hasan Pritom", title: "", img: "/images/pritom.png" },
