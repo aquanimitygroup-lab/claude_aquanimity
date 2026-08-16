@@ -515,7 +515,7 @@ function PartnerDetail({ partner, palette }) {
               About <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>{partner.name}</span>
             </h2>
             {descriptionParagraphs.map((paragraph, idx) => (
-              <p key={idx} style={{ fontSize: 15.5, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 18 }}>
+              <p key={idx} style={{ fontSize: 15.5, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 18, textAlign: 'justify' }}>
                 {paragraph}
               </p>
             ))}
@@ -652,10 +652,10 @@ Each institute is not merely a research division. It is a venture-building engin
           marginBottom: 80,
           border: '1px solid var(--rule)'
         }}>
-          <p style={{ fontSize: 18, lineHeight: 1.65, color: 'var(--ink-2)', marginBottom: 20, fontStyle: 'italic' }}>
+          <p style={{ fontSize: 18, lineHeight: 1.65, color: 'var(--ink-2)', marginBottom: 20, fontStyle: 'italic', textAlign: 'justify' }}>
             {zigzagIntro.split('\n\n')[0]}
           </p>
-          <p style={{ fontSize: 18, lineHeight: 1.65, color: 'var(--ink-2)' }}>
+          <p style={{ fontSize: 18, lineHeight: 1.65, color: 'var(--ink-2)', textAlign: 'justify' }}>
             {zigzagIntro.split('\n\n')[1]}
           </p>
         </div>
@@ -723,7 +723,7 @@ Each institute is not merely a research division. It is a venture-building engin
               }}>
                 {institute.title}
               </h2>
-              <p style={{ fontSize: 17, lineHeight: 1.55, color: 'var(--ink-2)', marginBottom: 24 }}>
+              <p style={{ fontSize: 17, lineHeight: 1.55, color: 'var(--ink-2)', marginBottom: 24, textAlign: 'justify' }}>
                 {institute.blurb}
               </p>
               
@@ -1214,7 +1214,7 @@ function InstituteDetail({ it, data, palette }) {
               About the <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Institute</span>
             </h2>
             {descriptionParagraphs.map((paragraph, idx) => (
-              <p key={idx} style={{ fontSize: 15.5, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 18 }}>
+              <p key={idx} style={{ fontSize: 15.5, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 18, textAlign: 'justify' }}>
                 {paragraph}
               </p>
             ))}
@@ -1447,7 +1447,7 @@ function PartnersFull({ data, palette }) {
               <div>
                 <div className="label" style={{ marginBottom: 8, color: 'var(--accent)' }}>{p.kind}</div>
                 <div style={{ fontSize: 'clamp(22px, 2.4vw, 30px)', fontWeight: 600, lineHeight: 1.15, marginBottom: 10 }}>{p.name}</div>
-                <p style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.55, maxWidth: 640 }}>{p.blurb}</p>
+                <p style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.55, maxWidth: 640, textAlign: 'justify' }}>{p.blurb}</p>
               </div>
               <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.18em', color: 'var(--muted)' }}>
                 <div>{p.loc}</div>
@@ -1509,7 +1509,7 @@ function PlatformDetail({ data, palette }) {
         </h1>
       </SlideIn>
       <SlideIn from="left" delay={0.16}>
-        <p style={{ fontSize: 20, marginTop: 20, color: 'var(--ink-2)', maxWidth: 760, lineHeight: 1.4 }}>
+        <p style={{ fontSize: 20, marginTop: 20, color: 'var(--ink-2)', maxWidth: 760, lineHeight: 1.4, textAlign: 'justify' }}>
           Four phases. One platform. From frontier discovery to launched ventures.
         </p>
       </SlideIn>
@@ -1520,7 +1520,7 @@ function PlatformDetail({ data, palette }) {
             <div style={{ padding: 32, borderRight: i < 3 ? '1px solid var(--rule)' : 'none', background: i % 2 === 0 ? 'var(--bone)' : 'transparent' }}>
               <div className="mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: 'var(--accent)', marginBottom: 16 }}>PHASE {p.n}</div>
               <div style={{ fontSize: 28, fontWeight: 600, marginBottom: 12, letterSpacing: '-0.02em' }}>{p.title}</div>
-              <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.55 }}>{p.body}</p>
+              <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.55, textAlign: 'justify' }}>{p.body}</p>
             </div>
           </SlideIn>
         ))}

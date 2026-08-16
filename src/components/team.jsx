@@ -517,7 +517,7 @@ function Team({ palette, onOpen }) {
         },
         {
           "name": "Rahul Baroi ",
-          "title": "Research Associate-Nutraceuticals and Vaccine Engineering\nInstitute of Applied Bioengineering & Material Science",
+          "title": "Junior Research Associate-Nutraceuticals and Vaccine Engineering\nInstitute of Applied Bioengineering & Material Science",
           "img": "images/rahul.png",
           "linkedin": "https://linkedin.com",
           "bio": "",
@@ -526,7 +526,7 @@ function Team({ palette, onOpen }) {
         },
         {
           "name": "Borno Das",
-          "title": "Research Associate-Nutraceuticals and Vaccine Engineering\n Institute of Applied Bioengineering & Material Science",
+          "title": "Junior Research Associate-Nutraceuticals and Vaccine Engineering\n Institute of Applied Bioengineering & Material Science",
           "img": "images/borno.png",
           "linkedin": "https://linkedin.com",
           "bio": " ",
