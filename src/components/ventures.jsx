@@ -55,25 +55,25 @@ function Ventures({ palette, onOpen }) {
   const ventures = [
     {
       id: "superwater",
-      n: "01",
+     
       name: "Super Water",
       tag: "Enhanced Water",
       blurb: "Patented and clinically validated. Following successful 150-participant human trials confirming benefits for hydration, post-meal glucose control, and heart health, our functional water has proven its efficacy. We are now preparing full-scale production to bring smarter daily wellness to everyone.",
       video: "#",
-      bgImage: "/images/v1.jpg"
+      bgImage: "/images/v2.png"
     },
     {
       id: "bluemicrobiome",
-      n: "02",
+   
       name: "Blue Microbiome",
       tag: "Environmental Remediation",
       blurb: "Engineering biology for a cleaner planet. By isolating and mutagenizing coastal bacteria that break down persistent PVC, PET, and polyurethane, we are decoding key genetic pathways to commercially produce powerful plastic-degrading enzymes for a waste-free future.",
       video: "#",
-      bgImage: "/images/biom.jpg"
+      bgImage: "/images/biom.png"
     },
     {
       id: "omnibio",
-      n: "03",
+      
       name: "OmniBio",
       tag: "Computational Biology",
       blurb: "OmniBio is Aquanimity's computational biology platform unifying tools for drug discovery and protein engineering - including MolProfiler (a Docking and ADMET analysis tool), a mutation analysis engine, and an enzyme discovery platform. Core modules are functional, with integration underway toward a unified research workflow.",
@@ -82,7 +82,7 @@ function Ventures({ palette, onOpen }) {
     },
     {
       id: "thermorevax",
-      n: "04",
+      
       name: "ThermoReVaQ",
       tag: "Vaccine Engineering",
       blurb: "Reinventing vaccine delivery without the cold chain. Our breakthrough polymer replaces traditional LNPs, eliminating refrigeration requirements while enhancing bioavailability. We are developing next-generation mRNA, siRNA, and chimeric vaccines to make life-saving therapeutics accessible worldwide.",
