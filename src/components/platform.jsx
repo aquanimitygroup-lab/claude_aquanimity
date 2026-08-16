@@ -146,13 +146,13 @@ function Platform({ palette, onOpen }) {
         n: "01", 
         title: "Discover", 
         body: "Frontier research at the intersection of biology, computation, and climate science. We identify high-potential breakthroughs from global ecosystems.",
-        image: "/images/discover.jpg"
+        image: "/images/discover.png"
       },
       { 
         n: "02", 
         title: "Build", 
         body: "Prototyping and validation in our GMP-ready labs and field sites. From benchtop to bioreactor, we compress iteration cycles.",
-        image: "/images/build.jpg"
+        image: "/images/build.jpeg"
       },
       { 
         n: "03", 
@@ -361,8 +361,8 @@ function Platform({ palette, onOpen }) {
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                             filter: "blur(0px)",
-                            opacity: 0.60,
-                            transform: "scale(1.05)",
+                            opacity: 0.30,
+                            transform: "scale(1.20)",
                           }}
                         />
                       )}

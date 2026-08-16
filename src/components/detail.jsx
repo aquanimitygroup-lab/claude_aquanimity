@@ -32,7 +32,7 @@ Flagship programs include SuperWater, Aquanimity's clinically studied functional
 A core focus of the institute is Aquanimity's next-generation vaccine and biologics delivery platform. By exploring advanced nanoparticle-based delivery systems, the institute aims to improve antigen loading, immune presentation, thermostability, and accessibility for vaccines and biologics — especially in low- and middle-income health systems.
 
 Beyond drug delivery, the institute also explores Bangladesh-relevant biomaterials such as indigenous material medical materials, sustainable packaging systems, biosensor-enabled health products, and advanced materials for diagnostics and healthcare infrastructure.`,
-      focusAreas: ["Drug delivery", "Vaccine delivery", "Polymersomes", "Biomaterials", "Medical materials", "Biosensors", "Sustainable packaging", "Protein formulation", "Lyophilization", "Advanced healthcare engineering"],
+      focusAreas: ["Drug Delivery", "Vaccine Delivery", "Polymersomes", "Biomaterials", "Medical Materials", "Biosensors", "Sustainable Packaging", "Cancer Therapy"],
       img: "images/bio.jpg"
     },
     { 
@@ -47,7 +47,7 @@ The institute's flagship initiative investigates microbes from Bangladesh's uniq
 The institute also supports human health programs by studying the microbiome's role in metabolism, inflammation, gut health, immunity, and disease risk. This creates a natural bridge between microbial discovery and Aquanimity's health science programs.
 
 Through this institute, Aquanimity treats Bangladesh's biodiversity not only as a natural heritage, but as a scientific and economic asset — a source of new enzymes, microbes, metabolites, diagnostics, and biological products.`,
-      focusAreas: ["Genomics", "Microbiology", "Microbiome science", "Microbial biotechnology", "Enzyme discovery", "Marine biology", "Climate biotech", "Biofertilizers", "Metabolomics", "Environmental biotechnology", "Metagenomics"],
+      focusAreas: ["Genomics", "Microbial Biotechnology", "Enzyme Engineering", "Marine Biology", "Biofertilizers", "Metagenomics"],
       img: "images/omics.jpg"
     },
     { 
@@ -60,7 +60,7 @@ Through this institute, Aquanimity treats Bangladesh's biodiversity not only as 
 The institute's flagship platform is The Aquanimity Bioplatform — an integrated computational biology engine designed to organize biological data, identify promising compounds and proteins, predict molecular interactions, prioritize experiments, and help transform raw scientific information into commercializable innovation.
 
 For health sciences, the institute can rank plant bioactives against targets involved in glucose metabolism, inflammation, cardiovascular health, and aging. For molecular microbiology, it can analyze microbial genomes to identify enzymes and metabolites with industrial or therapeutic potential. For bioengineering, it can support protein structure analysis, antigen selection, formulation design, and delivery-system optimization.`,
-      focusAreas: ["Computational biology", "AI drug discovery", "Protein modeling", "Bioinformatics", "Knowledge graphs", "Molecular docking", "ADME prediction", "Enzyme discovery", "Biological data platforms", "AI-native R&D systems"],
+      focusAreas: ["AI Drug Discovery", "Protein Modeling", "Bioinformatics", "ADME Prediction", "Enzyme Engineering", "Biological Data Platforms"],
       img: "images/com.jpg"
     }
   ],

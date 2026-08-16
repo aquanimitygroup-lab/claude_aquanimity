@@ -358,7 +358,7 @@ function Institutes({ palette, onOpen }) {
                       left: 0,
                       width: "100%",
                       height: "100%",
-                      background: "#5FAFBE",
+                      background: "linear-gradient(90deg, #01B6D3, #0D1136)",
                       opacity: 0.85,
                       zIndex: 1,
                     }}
