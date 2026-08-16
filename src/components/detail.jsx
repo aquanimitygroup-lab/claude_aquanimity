@@ -1018,107 +1018,81 @@ function InstituteDetail({ it, data, palette }) {
   const descriptionParagraphs = it.fullDescription ? it.fullDescription.split('\n\n').filter(p => p.trim().length > 0) : [it.blurb];
   const areas = it.focusAreas || ["Advanced biomedical research", "Cutting-edge molecular technologies", "Interdisciplinary scientific collaboration"];
 
-  // Researchers data for each institute
+  // Researchers data for each institute with Research Associates
   const researchers = {
     "01": [
       { name: "Syed Hossainy, PhD", title: "", img: "/images/sayed.png" },
       { name: "Shoeb Ahmed, PhD", title: "", img: "/images/shoeb.png" },
-      { name: "Abul Iqbal,PhD", title: "", img: "/images/abul.png" },
+      { name: "Abul Iqbal, PhD", title: "", img: "/images/abul.png" },
       { name: "Professor Dr. Bishwajit Bhowmick, PhD", title: "", img: "/images/bishwjit.png" },
       { name: "Tasnima Siddique, PhD", title: "", img: "/images/tasnima.png" }
+    ],
+    "01_associates": [
+      { name: "Dr. Rasheda Khan", title: "", img: "/images/associate1.png" },
+      { name: "Dr. Kamal Hossain", title: "", img: "/images/associate2.png" },
+      { name: "Dr. Nasrin Akhter", title: "", img: "/images/associate3.png" }
     ],
     "02": [
       { name: "Shoeb Ahmed, PhD", title: "", img: "/images/shoeb.png" },
       { name: "Samir Hossainy, PhD", title: "", img: "/images/samir.png" },
       { name: "Nafisa Islam", title: "", img: "/images/nafisa.png" }
     ],
+    "02_associates": [
+      { name: "Dr. Farhad Ali", title: "", img: "/images/associate4.png" },
+      { name: "Dr. Sumaiya Rahman", title: "", img: "/images/associate5.png" }
+    ],
     "03": [
       { name: "Abed Chawdhury, PhD", title: "", img: "/images/abed1.png" }
     ],
+    "03_associates": [
+      { name: "Dr. Tanvir Ahmed", title: "", img: "/images/associate6.png" },
+      { name: "Dr. Farzana Akter", title: "", img: "/images/associate7.png" }
+    ],
     "04": [
       // Empty - Future researchers will be added here
+    ],
+    "04_associates": [
+      // Empty - Future research associates will be added here
     ]
   };
 
   const instituteResearchers = researchers[it.n] || [];
-
-  // Determine grid layout based on number of researchers
-  const getGridColumns = () => {
-    const count = instituteResearchers.length;
-    if (count === 0) return '1fr';
-    if (count === 1) return '1fr';
-    if (it.n === "01") return `repeat(${Math.min(count, 5)}, 1fr)`;
-    if (count <= 3) return 'repeat(3, 1fr)';
-    return 'repeat(3, 1fr)';
-  };
-
-  // Get grid style based on institute
-  const getGridStyle = () => {
-    const count = instituteResearchers.length;
-    if (count === 0) {
-      return {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '200px',
-        background: 'var(--bone)',
-        borderRadius: 16,
-        padding: '40px'
-      };
-    }
-    if (count === 1) {
-      return {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '0 20%'
-      };
-    }
-    if (it.n === "01") {
-      return {
-        display: 'grid',
-        gridTemplateColumns: `repeat(${Math.min(count, 5)}, 1fr)`,
-        gap: 20
-      };
-    }
-    return {
-      display: 'grid',
-      gridTemplateColumns: getGridColumns(),
-      gap: 32
-    };
-  };
+  const instituteAssociates = researchers[it.n + "_associates"] || [];
 
   // Render researcher card
-  const renderResearcherCard = (researcher, idx) => (
+  const renderResearcherCard = (researcher, idx, isAssociate = false) => (
     <div 
       key={idx}
       style={{ 
         textAlign: 'center',
-        padding: '20px 12px',
-        background: 'var(--bone)',
+        padding: isAssociate ? '16px 12px' : '20px 12px',
+        background: isAssociate ? 'rgba(31,110,122,0.05)' : 'var(--bone)',
         borderRadius: 16,
         transition: 'all 0.3s ease',
-        border: '1px solid transparent',
-        cursor: 'default'
+        border: isAssociate ? '1px solid rgba(31,110,122,0.1)' : '1px solid transparent',
+        cursor: 'default',
+        width: '100%',
+        maxWidth: isAssociate ? '200px' : '250px',
+        margin: '0 auto'
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-4px)';
-        e.currentTarget.style.borderColor = 'var(--accent)';
+        e.currentTarget.style.borderColor = isAssociate ? 'var(--accent)' : 'var(--accent)';
         e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.borderColor = 'transparent';
+        e.currentTarget.style.borderColor = isAssociate ? 'rgba(31,110,122,0.1)' : 'transparent';
         e.currentTarget.style.boxShadow = 'none';
       }}
     >
       <div style={{ 
-        width: it.n === "01" ? 80 : 100,
-        height: it.n === "01" ? 80 : 100,
+        width: isAssociate ? 70 : (it.n === "01" ? 80 : 100),
+        height: isAssociate ? 70 : (it.n === "01" ? 80 : 100),
         borderRadius: '50%', 
         overflow: 'hidden', 
-        margin: '0 auto 12px',
-        border: '3px solid var(--accent)',
+        margin: '0 auto 10px',
+        border: isAssociate ? '2px solid rgba(31,110,122,0.3)' : '3px solid var(--accent)',
         boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
       }}>
         <img 
@@ -1132,18 +1106,21 @@ function InstituteDetail({ it, data, palette }) {
           }}
           onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
           onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          onError={(e) => {
+            e.target.src = 'https://via.placeholder.com/100x100?text=' + researcher.name.charAt(0);
+          }}
         />
       </div>
       <div style={{ 
         fontWeight: 600, 
-        fontSize: it.n === "01" ? 14 : 16, 
+        fontSize: isAssociate ? 13 : (it.n === "01" ? 14 : 16), 
         color: 'var(--ink)' 
       }}>
         {researcher.name}
       </div>
       <div style={{ 
-        fontSize: it.n === "01" ? 11 : 13, 
-        color: 'var(--accent)', 
+        fontSize: isAssociate ? 11 : (it.n === "01" ? 11 : 13), 
+        color: isAssociate ? 'rgba(31,110,122,0.7)' : 'var(--accent)', 
         marginTop: 4, 
         fontWeight: 500 
       }}>
@@ -1152,43 +1129,43 @@ function InstituteDetail({ it, data, palette }) {
     </div>
   );
 
-  // Render placeholder for empty institute (Institute 04)
-  const renderPlaceholder = () => (
+  // Render placeholder for empty section
+  const renderPlaceholder = (type) => (
     <div style={{ 
       textAlign: 'center',
-      padding: '40px 20px',
+      padding: '30px 20px',
       background: 'var(--bone)',
       borderRadius: 16,
       border: '2px dashed var(--rule)',
-      minHeight: '200px',
+      minHeight: '150px',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      width: '100%'
     }}>
       <div style={{ 
-        fontSize: 48, 
+        fontSize: 32, 
         color: 'var(--muted)',
-        marginBottom: 16,
+        marginBottom: 12,
         opacity: 0.3
       }}>
-        🔬
+        {type === 'researcher' ? '🔬' : '🧪'}
       </div>
       <div style={{ 
-        fontSize: 18, 
+        fontSize: 16, 
         fontWeight: 600, 
         color: 'var(--ink-2)',
-        marginBottom: 8
+        marginBottom: 6
       }}>
-        Researchers Coming Soon
+        {type === 'researcher' ? 'Researchers Coming Soon' : 'Research Associates Coming Soon'}
       </div>
       <div style={{ 
-        fontSize: 14, 
+        fontSize: 13, 
         color: 'var(--muted)',
-        maxWidth: 400
+        maxWidth: 350
       }}>
-        We're currently building our computational biology team. 
-        Check back for updates or reach out if you're interested in joining.
+        We're currently building our team. Check back for updates.
       </div>
     </div>
   );
@@ -1256,16 +1233,66 @@ function InstituteDetail({ it, data, palette }) {
             </div>
           </SlideIn>
           
-          <div className="id-researchers-grid" style={getGridStyle()}>
-            {instituteResearchers.length === 0 ? (
-              renderPlaceholder()
-            ) : instituteResearchers.length === 1 ? (
-              <div style={{ maxWidth: '400px', width: '100%' }}>
+          {/* Principal Researchers */}
+          <div style={{ marginBottom: 32 }}>
+            <SlideIn from="left" delay={0.1}>
+              <h4 style={{ fontSize: 18, fontWeight: 600, color: 'var(--ink)', marginBottom: 20, textAlign: 'center' }}>
+                Principal Investigators & Lead Scientists
+              </h4>
+            </SlideIn>
+            
+            {/* For Institute 03 with single researcher - centered */}
+            {it.n === "03" && instituteResearchers.length === 1 ? (
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center',
+                width: '100%'
+              }}>
                 {renderResearcherCard(instituteResearchers[0], 0)}
               </div>
             ) : (
-              instituteResearchers.map((researcher, idx) => renderResearcherCard(researcher, idx))
+              <div className="id-researchers-grid" style={{
+                display: instituteResearchers.length === 0 ? 'flex' : 'grid',
+                justifyContent: instituteResearchers.length === 0 ? 'center' : 'unset',
+                gridTemplateColumns: instituteResearchers.length === 0 ? '1fr' : 
+                  it.n === "01" ? `repeat(${Math.min(instituteResearchers.length, 5)}, 1fr)` :
+                  instituteResearchers.length <= 3 ? 'repeat(3, 1fr)' : 'repeat(3, 1fr)',
+                gap: 20
+              }}>
+                {instituteResearchers.length === 0 ? (
+                  renderPlaceholder('researcher')
+                ) : (
+                  instituteResearchers.map((researcher, idx) => renderResearcherCard(researcher, idx))
+                )}
+              </div>
             )}
+          </div>
+
+          {/* Research Associates - Centered */}
+          <div>
+            <SlideIn from="left" delay={0.2}>
+              <h4 style={{ fontSize: 18, fontWeight: 600, color: 'var(--ink)', marginBottom: 20, textAlign: 'center' }}>
+                Research Associates
+              </h4>
+            </SlideIn>
+            <div className="id-researchers-grid" style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: 20
+            }}>
+              {instituteAssociates.length === 0 ? (
+                renderPlaceholder('associate')
+              ) : (
+                instituteAssociates.map((associate, idx) => (
+                  <div key={idx} style={{ maxWidth: '200px', width: '100%' }}>
+                    {renderResearcherCard(associate, idx, true)}
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
 

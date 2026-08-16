@@ -145,14 +145,34 @@ function Hero({ palette, onGoto }) {
 
   const { displayText, showCursor } = useSlowTitleTypewriter();
 
-  const handlePlatformClick = (e) => {
+  // Handle Venture Click - Scroll to Ventures section
+  const handleVentureClick = (e) => {
     e.preventDefault();
-    onGoto('platform');
+    
+    // First navigate to home if on a different page
+    window.dispatchEvent(new CustomEvent('aq-route', { detail: 'home' }));
+    
+    // Then scroll to ventures section after a short delay
+    setTimeout(() => {
+      const venturesSection = document.getElementById('ventures');
+      if (venturesSection) {
+        venturesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        // If ventures section not found, try to find it by class or use onGoto
+        const venturesElement = document.querySelector('#ventures');
+        if (venturesElement) {
+          venturesElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          // Fallback: use onGoto to navigate to ventures list
+          if (onGoto) onGoto('ventures-list');
+        }
+      }
+    }, 150);
   };
 
   const handlePartnerClick = (e) => {
     e.preventDefault();
-    onGoto('contact');
+    if (onGoto) onGoto('contact');
   };
 
   useEffect(() => {
@@ -244,7 +264,7 @@ function Hero({ palette, onGoto }) {
           </p>
 
           <div className="hero-buttons reveal">
-            <button className="btn-dark" onClick={handlePlatformClick}>
+            <button className="btn-dark" onClick={handleVentureClick}>
               Explore Our SuperWater
               <Arrow size={13} />
             </button>

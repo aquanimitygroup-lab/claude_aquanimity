@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 //import ReactDOM from 'react-dom/client';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+  
 
 // Import all components
 import Nav from './components/nav';
