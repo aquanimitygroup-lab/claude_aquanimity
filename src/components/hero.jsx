@@ -260,7 +260,7 @@ function Hero({ palette, onGoto }) {
           </div>
 
           <p className="hero-desc reveal">
-            <span className="highlight">Aquanimity</span> is building the BioHub for Bangladesh and beyond — <span className="normal-text">uniting institutes, scientists, academia, and strategic partners to bring breakthrough bioinnovations to market.</span>.
+           <span className="highlight">Aquanimity</span> is building the BioHub— <span className="normal-text">uniting institutes, scientists, academia, and strategic partners to </span><span style={{ fontWeight: 700 }}>discover, translate, and commercialize biosciences for Bangladesh and beyond.</span>
           </p>
 
           <div className="hero-buttons reveal">
