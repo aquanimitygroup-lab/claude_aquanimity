@@ -96,7 +96,7 @@ const MemberDetailsInline = ({ member, onClose }) => {
   useEffect(() => {
     // Scroll to details when member is selected
     if (detailsRef.current) {
-      const yOffset = -80; // Adjust for header height
+      const yOffset = -80;
       const element = detailsRef.current;
       const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       
@@ -106,6 +106,22 @@ const MemberDetailsInline = ({ member, onClose }) => {
       });
     }
   }, [member]);
+
+  const handleClose = () => {
+    onClose();
+    // Scroll back to team section after closing
+    setTimeout(() => {
+      const teamSection = document.getElementById('team');
+      if (teamSection) {
+        const yOffset = -80;
+        const y = teamSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({
+          top: y,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
+  };
 
   return (
     <div 
@@ -193,7 +209,7 @@ const MemberDetailsInline = ({ member, onClose }) => {
               }} />
             </div>
             <button
-              onClick={onClose}
+              onClick={handleClose}
               style={{
                 width: '36px',
                 height: '36px',
