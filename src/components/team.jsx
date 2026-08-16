@@ -91,20 +91,25 @@ const highlightKeyInfo = (text) => {
 
 // Member Details Component (Inline)
 const MemberDetailsInline = ({ member, onClose }) => {
-  useEffect(() => {
-    const detailsElement = document.getElementById('member-details');
-    const isIos = typeof navigator !== 'undefined' && (
-      /iPad|iPhone|iPod/.test(navigator.platform) ||
-      (navigator.userAgent.includes('Mac') && navigator.maxTouchPoints > 1)
-    );
+  const detailsRef = useRef(null);
 
-    if (detailsElement && !isIos) {
-      detailsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  useEffect(() => {
+    // Scroll to details when member is selected
+    if (detailsRef.current) {
+      const yOffset = -80; // Adjust for header height
+      const element = detailsRef.current;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      
+      window.scrollTo({
+        top: y,
+        behavior: 'smooth'
+      });
     }
   }, [member]);
 
   return (
     <div 
+      ref={detailsRef}
       id="member-details"
       style={{
         marginTop: '48px',
@@ -542,7 +547,7 @@ const orderedCategories = [];
 if (teamData["Founding Scientists"]) orderedCategories.push("Founding Scientists");
 if (teamData["Scientific Advisory Board"]) orderedCategories.push("Scientific Advisory Board");
 if (teamData["Researchers & Consultants"]) orderedCategories.push("Researchers & Consultants");
-if (teamData["Consultants"]) orderedCategories.push("Consultants");  // ← MOVED HERE
+if (teamData["Consultants"]) orderedCategories.push("Consultants");
 if (teamData["Founding Management Team"]) orderedCategories.push("Founding Management Team");
 
 // If there are other categories not in the list, add them too
@@ -599,6 +604,18 @@ Object.keys(teamData).forEach(key => {
       setSelectedMember(null);
     } else {
       setSelectedMember(member);
+      // Scroll to details after state update
+      setTimeout(() => {
+        const detailsElement = document.getElementById('member-details');
+        if (detailsElement) {
+          const yOffset = -80;
+          const y = detailsElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({
+            top: y,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
     }
   };
 
