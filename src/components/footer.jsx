@@ -48,12 +48,50 @@ function FooterCTA({ palette, onOpen }) {
     message: ''
   });
   const [selectedTags, setSelectedTags] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
   
   const tags = ['Founder', 'Scientist', 'Investor', 'Operator', 'Government', 'Press'];
   
+  // Validation function
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    
+    if (!formData.organisation.trim()) {
+      newErrors.organisation = 'Organisation name is required';
+    }
+    
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Check if all fields are filled
+  const isFormValid = () => {
+    return (
+      formData.name.trim() !== '' &&
+      formData.email.trim() !== '' &&
+      /\S+@\S+\.\S+/.test(formData.email) &&
+      formData.organisation.trim() !== '' &&
+      formData.message.trim() !== ''
+    );
+  };
+
   const handleGetInTouch = (e) => {
     e.preventDefault();
-    // Opens Gmail compose in new tab
     window.open('https://mail.google.com/mail/?view=cm&fs=1&to=aquanimitygroup@gmail.com', '_blank');
   };
   
@@ -64,6 +102,20 @@ function FooterCTA({ palette, onOpen }) {
   
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Mark all fields as touched
+    setTouched({
+      name: true,
+      email: true,
+      organisation: true,
+      message: true
+    });
+    
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
+    
     // Opens Gmail compose in new tab with form data pre-filled
     const subject = encodeURIComponent('Inquiry from ' + (formData.name || 'Visitor'));
     const body = encodeURIComponent(
@@ -78,6 +130,8 @@ function FooterCTA({ palette, onOpen }) {
     // Reset form after opening Gmail
     setFormData({ name: '', email: '', organisation: '', message: '' });
     setSelectedTags([]);
+    setErrors({});
+    setTouched({});
   };
   
   const handleTagToggle = (tag) => {
@@ -89,10 +143,34 @@ function FooterCTA({ palette, onOpen }) {
   };
   
   const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: ''
+      });
+    }
+  };
+  
+  const handleBlur = (field) => {
+    setTouched({
+      ...touched,
+      [field]: true
+    });
+    
+    // Validate individual field on blur
+    if (field === 'email' && formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
+      setErrors({
+        ...errors,
+        email: 'Please enter a valid email address'
+      });
+    }
   };
   
   return (
@@ -181,7 +259,10 @@ function FooterCTA({ palette, onOpen }) {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              placeholder="Mahmuda Ahmed" 
+              onBlur={() => handleBlur('name')}
+              placeholder="Mahmuda Ahmed"
+              error={touched.name && errors.name}
+              required
             />
             
             <Field 
@@ -190,7 +271,10 @@ function FooterCTA({ palette, onOpen }) {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              placeholder="you@org.com" 
+              onBlur={() => handleBlur('email')}
+              placeholder="you@org.com"
+              error={touched.email && errors.email}
+              required
             />
             
             <Field 
@@ -198,12 +282,15 @@ function FooterCTA({ palette, onOpen }) {
               name="organisation"
               value={formData.organisation}
               onChange={handleInputChange}
-              placeholder="ICDDR,B / BRAC / Independent" 
+              onBlur={() => handleBlur('organisation')}
+              placeholder="ICDDR,B / BRAC / Independent"
+              error={touched.organisation && errors.organisation}
+              required
             />
             
             <div style={{ marginBottom: 24 }}>
               <label className="label" style={{ display: 'block', marginBottom: 10, fontSize: 11, letterSpacing: '0.2em', color: 'var(--muted)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 500 }}>
-                I am
+                I am (optional)
               </label>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
                 {tags.map(tag => (
@@ -223,7 +310,10 @@ function FooterCTA({ palette, onOpen }) {
               name="message"
               value={formData.message}
               onChange={handleInputChange}
-              placeholder="A line or two — we'll reply within 48h." 
+              onBlur={() => handleBlur('message')}
+              placeholder="A line or two — we'll reply within 48h."
+              error={touched.message && errors.message}
+              required
             />
             
             <button 
@@ -233,30 +323,50 @@ function FooterCTA({ palette, onOpen }) {
                 justifyContent: 'center', 
                 marginTop: 16,
                 padding: '14px 24px',
-                background: 'var(--ink)',
-                color: 'white',
+                background: isFormValid() ? 'var(--ink)' : '#cccccc',
+                color: isFormValid() ? 'white' : '#999999',
                 border: 'none',
                 borderRadius: 40,
-                cursor: 'pointer',
+                cursor: isFormValid() ? 'pointer' : 'not-allowed',
                 display: 'flex',
                 alignItems: 'center',
                 gap: 10,
                 fontSize: 15,
                 fontWeight: 600,
                 transition: 'all 0.3s ease',
-                fontFamily: "'Red Hat Display', sans-serif"
+                fontFamily: "'Red Hat Display', sans-serif",
+                opacity: isFormValid() ? 1 : 0.7
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--accent)';
-                e.currentTarget.style.gap = '14px';
+                if (isFormValid()) {
+                  e.currentTarget.style.background = 'var(--accent)';
+                  e.currentTarget.style.gap = '14px';
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--ink)';
-                e.currentTarget.style.gap = '10px';
+                if (isFormValid()) {
+                  e.currentTarget.style.background = 'var(--ink)';
+                  e.currentTarget.style.gap = '10px';
+                }
               }}
+              disabled={!isFormValid()}
             >
               Send brief <Arrow />
             </button>
+            
+            {/* Validation summary - show when form is invalid */}
+            {!isFormValid() && Object.values(touched).some(v => v === true) && (
+              <div style={{ 
+                marginTop: 12, 
+                fontSize: 12, 
+                color: '#e74c3c', 
+                textAlign: 'center',
+                fontFamily: "'Red Hat Display', sans-serif",
+                fontWeight: 500
+              }}>
+                Please fill in all required fields correctly.
+              </div>
+            )}
           </form>
         </div>
 
@@ -292,14 +402,14 @@ function FooterCTA({ palette, onOpen }) {
   );
 }
 
-function Field({ label, type = 'text', placeholder, name, value, onChange }) {
+function Field({ label, type = 'text', placeholder, name, value, onChange, onBlur, error, required }) {
   const [focus, setFocus] = useState(false);
   
   const fieldStyle = {
     width: '100%',
     background: 'transparent',
     border: 'none',
-    borderBottom: '1px solid ' + (focus ? 'var(--accent)' : 'var(--rule)'),
+    borderBottom: '2px solid ' + (error ? '#e74c3c' : (focus ? 'var(--accent)' : 'var(--rule)')),
     padding: '12px 0 8px 0',
     fontFamily: "'Red Hat Display', sans-serif",
     fontSize: 15,
@@ -312,7 +422,7 @@ function Field({ label, type = 'text', placeholder, name, value, onChange }) {
   return (
     <div style={{ marginBottom: 22 }}>
       <label className="label" style={{ display: 'block', marginBottom: 6, fontSize: 11, letterSpacing: '0.2em', color: 'var(--muted)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 500 }}>
-        {label}
+        {label} {required && <span style={{ color: '#e74c3c' }}>*</span>}
       </label>
       {type === 'textarea' ? (
         <textarea 
@@ -320,7 +430,10 @@ function Field({ label, type = 'text', placeholder, name, value, onChange }) {
           value={value}
           onChange={onChange}
           onFocus={() => setFocus(true)} 
-          onBlur={() => setFocus(false)}
+          onBlur={(e) => {
+            setFocus(false);
+            if (onBlur) onBlur();
+          }}
           rows={3} 
           placeholder={placeholder}
           style={fieldStyle}
@@ -332,10 +445,18 @@ function Field({ label, type = 'text', placeholder, name, value, onChange }) {
           value={value}
           onChange={onChange}
           onFocus={() => setFocus(true)} 
-          onBlur={() => setFocus(false)}
+          onBlur={(e) => {
+            setFocus(false);
+            if (onBlur) onBlur();
+          }}
           placeholder={placeholder}
           style={fieldStyle}
         />
+      )}
+      {error && (
+        <div style={{ fontSize: 11, color: '#e74c3c', marginTop: 4, fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
+          {error}
+        </div>
       )}
     </div>
   );
