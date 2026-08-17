@@ -86,12 +86,12 @@ const useTypewriter = (phrases, options = {}) => {
   return displayText;
 };
 
-// Slow Title Typewriter hook for "Engineering\nlife. For humanity."
+// Slow Title Typewriter hook for "Engineering\nlife. For humanity." - WITHOUT BLINKING CURSOR
 const useSlowTitleTypewriter = () => {
   const fullText = "Engineering\nlife. For humanity.";
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
-  const [showCursor, setShowCursor] = useState(true);
+  const [showCursor, setShowCursor] = useState(false); // Changed to false
 
   useEffect(() => {
     let index = 0;
@@ -104,9 +104,8 @@ const useSlowTitleTypewriter = () => {
         timer = setTimeout(typeNextChar, 85);
       } else {
         setIsTyping(false);
-        setTimeout(() => {
-          setShowCursor(false);
-        }, 1500);
+        // Cursor will not show
+        setShowCursor(false);
       }
     };
     
@@ -245,14 +244,15 @@ function Hero({ palette, onGoto }) {
             </span>
           </div>
 
-          {/* SLOW TYPEWRITER TITLE */}
+          {/* SLOW TYPEWRITER TITLE - NO BLINKING CURSOR */}
           <h1 className="hero-title reveal">
             {renderTitle()}
-            {showCursor && <span className="cursor-title"></span>}
+            {/* Cursor removed - no blinking */}
           </h1>
 
           <div className="hero-build reveal">
-            <span className="hero-build-label">We are advancing Bioinnovations in →</span>
+            <span className="hero-build-label">We are advancing Bioinnovations in</span>
+            <span className="hero-build-arrow">→</span>
             <span className="hero-build-text">
               {typed}
               <span className="cursor"></span>
@@ -435,30 +435,31 @@ function Hero({ palette, onGoto }) {
           line-height: 1;
         }
 
-        /* Title cursor animation */
-        .cursor-title {
-          display: inline-block;
-          width: 3px;
-          height: 0.9em;
-          background: var(--text);
-          margin-left: 4px;
-          vertical-align: middle;
-          animation: blink 1s step-end infinite;
-        }
-
         .hero-build {
           margin-top: 24px;
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 5px;
           flex-wrap: wrap;
         }
 
         .hero-build-label {
           font-size: 12px;
-          letter-spacing: 0.25em;
+          letter-spacing: 0.39em;
           color: var(--muted);
           font-weight: 600;
+          line-height: 1.4;
+          white-space: nowrap;
+        }
+
+        .hero-build-arrow {
+          font-size: 16px;
+          color: var(--text);
+          font-weight: 500;
+          line-height: 1.4;
+          margin: 0 0px;
+          display: inline-flex;
+          align-items: center;
         }
 
         .hero-build-text {
@@ -466,6 +467,9 @@ function Hero({ palette, onGoto }) {
           color: var(--text);
           font-weight: 500;
           min-height: 32px;
+          line-height: 1.4;
+          display: inline-flex;
+          align-items: center;
         }
 
         .cursor {
@@ -473,7 +477,7 @@ function Hero({ palette, onGoto }) {
           width: 2px;
           height: 1em;
           background: var(--text);
-          margin-left: 3px;
+          margin-left: 2px;
           vertical-align: middle;
           animation: blink 1s step-end infinite;
         }
@@ -634,10 +638,6 @@ function Hero({ palette, onGoto }) {
 
           .metrics {
             gap: 15px;
-          }
-          
-          .cursor-title {
-            height: 0.7em;
           }
         }
 

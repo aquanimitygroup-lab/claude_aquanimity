@@ -93,7 +93,7 @@ function Partners({ palette, onOpen }) {
       loc: "Dhaka, BD",
       since: "2024",
       logo: "/images/bio.jpeg",
-      website: "https://du.ac.bd"
+      website: "https://www.berkeley.edu/"
     }
   ];
 
