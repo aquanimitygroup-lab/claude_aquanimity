@@ -1039,14 +1039,14 @@ function InstituteDetail({ it, data, palette }) {
       { name: "Nafisa Islam, PhD", title: "", img: "/images/nafisa.png" }
     ],
     "02_associates": [
-      { name: "Mehadi Hasan Pritom", title: "", img: "/images/pritom.png" },
+      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
       
     ],
     "03": [
       { name: "Abed Chawdhury, PhD", title: "", img: "/images/abed1.png" }
     ],
     "03_associates": [
-     { name: "Mehadi Hasan Pritom", title: "", img: "/images/pritom.png" },
+     { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
     ],
     "04": [
       // Empty - Future researchers will be added here
@@ -1315,7 +1315,8 @@ function InstituteDetail({ it, data, palette }) {
     fontSize: 13.5,
     fontWeight: 600,
     cursor: 'pointer',
-    transition: 'all 0.3s ease'
+    transition: 'all 0.3s ease',
+    fontFamily:'Red Hat Display'
   }}
   onMouseEnter={(e) => {
     e.currentTarget.style.background = '#1a2444';

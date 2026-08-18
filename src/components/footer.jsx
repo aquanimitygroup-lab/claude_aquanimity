@@ -223,7 +223,7 @@ function FooterCTA({ palette, onOpen }) {
             fontFamily: "'Red Hat Display', sans-serif"
           }}>
             <div className="mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: 'var(--accent)', marginBottom: 24, fontWeight: 600, fontFamily: "'Red Hat Display', sans-serif" }}>
-              BRIEF · 60 SECONDS
+              BRIEF · 100 Words
             </div>
             
             <Field 
@@ -519,11 +519,11 @@ function Footer() {
             </div>
           </div>
           <p style={{ fontSize: 14, color: 'var(--muted)', maxWidth: 320, lineHeight: 1.55, fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
-            Engineering life. For humanity. 
+            Engineering life. For humanity. Discovering, translating and commercializing biosciences for Bangladesh and beyond.
           </p>
         </div>
         
-        <FooterCol title="Company" items={['Institutes','Ventures','News']} onClick={handleFooterClick} />
+        <FooterCol title="Company" items={['Institutes','Ventures','Team','News']} onClick={handleFooterClick} />
         
         {/* Connect Column with LinkedIn link */}
         <div>

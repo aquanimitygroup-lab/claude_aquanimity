@@ -112,9 +112,11 @@ ${formData.message}`;
               fontSize: 11, 
               letterSpacing: "0.2em", 
               textTransform: "uppercase", 
-              color: "#1F6E7A" 
+              color: "#1F6E7A",
+              fontFamily: "'Red Hat Display', sans-serif",
+              fontWeight: 600
             }}>
-              § 06 — Partner with Aquanimity
+              § 06 — Partner with Us
             </div>
             <h2 style={{ 
               fontSize: 'clamp(48px, 5.5vw, 88px)', 
@@ -122,9 +124,10 @@ ${formData.message}`;
               letterSpacing: '-0.02em', 
               fontWeight: 900, 
               marginBottom: 32,
-              color:'#0E1136'
+              color:'#0E1136',
+              fontFamily: "'Red Hat Display', sans-serif"
             }}>
-              Let's <span className="serif" style={{ fontStyle: 'italic', color: '#2a7a7a', fontWeight: 400 }}>engineer</span>
+              Let's <span className="serif" style={{ fontStyle: 'italic', color: '#2a7a7a', fontWeight: 400, fontFamily: "'Times New Roman', Georgia, serif" }}>engineer</span>
               <br />
               what's next.
             </h2>
@@ -134,7 +137,9 @@ ${formData.message}`;
               color: '#0E1136', 
               maxWidth: 460,
               marginBottom: 40,
-              textAlign:'justify'
+              textAlign:'justify',
+              fontFamily: "'Red Hat Display', sans-serif",
+              fontWeight: 400
             }}>
               Founders, scientists, capital, governments. If you're building the bioeconomy of the Global South, we want to hear from you.
             </p>
@@ -155,9 +160,11 @@ ${formData.message}`;
               fontSize: 11, 
               letterSpacing: "0.2em", 
               textTransform: "uppercase", 
-              color: "#5a5a5a" 
+              color: "rgb(42, 122, 122)",
+              fontFamily: "'Red Hat Display', sans-serif",
+              fontWeight: 600
             }}>
-              Brief · 60 Seconds
+              Brief · 100 Words
             </div>
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
@@ -169,7 +176,9 @@ ${formData.message}`;
                   textTransform: 'uppercase', 
                   color: '#5a5a5a',
                   display: 'block',
-                  marginBottom: 8
+                  marginBottom: 8,
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  fontWeight: 500
                 }}>
                   Your Name <span style={{ color: '#e74c3c' }}>*</span>
                 </label>
@@ -186,10 +195,12 @@ ${formData.message}`;
                     border: 'none',
                     borderBottom: '1px solid #c8c5bc',
                     padding: '12px 0',
-                    color: '#3a3a3a',
+                    color: '#0E1136',
                     fontSize: 16,
                     outline: 'none',
-                    transition: 'border-color 0.3s ease'
+                    transition: 'border-color 0.3s ease',
+                    fontFamily: "'Red Hat Display', sans-serif",
+                    fontWeight: 400
                   }}
                   onFocus={(e) => e.target.style.borderBottomColor = '#0f1a2a'}
                   onBlur={(e) => e.target.style.borderBottomColor = '#c8c5bc'}
@@ -204,7 +215,9 @@ ${formData.message}`;
                   textTransform: 'uppercase', 
                   color: '#5a5a5a',
                   display: 'block',
-                  marginBottom: 8
+                  marginBottom: 8,
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  fontWeight: 500
                 }}>
                   Email <span style={{ color: '#e74c3c' }}>*</span>
                 </label>
@@ -221,10 +234,12 @@ ${formData.message}`;
                     border: 'none',
                     borderBottom: '1px solid #c8c5bc',
                     padding: '12px 0',
-                    color: '#3a3a3a',
+                    color: '#0E1136',
                     fontSize: 16,
                     outline: 'none',
-                    transition: 'border-color 0.3s ease'
+                    transition: 'border-color 0.3s ease',
+                    fontFamily: "'Red Hat Display', sans-serif",
+                    fontWeight: 400
                   }}
                   onFocus={(e) => e.target.style.borderBottomColor = '#0f1a2a'}
                   onBlur={(e) => e.target.style.borderBottomColor = '#c8c5bc'}
@@ -239,7 +254,9 @@ ${formData.message}`;
                   textTransform: 'uppercase', 
                   color: '#5a5a5a',
                   display: 'block',
-                  marginBottom: 8
+                  marginBottom: 8,
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  fontWeight: 500
                 }}>
                   Organisation <span style={{ color: '#e74c3c' }}>*</span>
                 </label>
@@ -256,10 +273,12 @@ ${formData.message}`;
                     border: 'none',
                     borderBottom: '1px solid #c8c5bc',
                     padding: '12px 0',
-                    color: '#3a3a3a',
+                    color: '#0E1136',
                     fontSize: 16,
                     outline: 'none',
-                    transition: 'border-color 0.3s ease'
+                    transition: 'border-color 0.3s ease',
+                    fontFamily: "'Red Hat Display', sans-serif",
+                    fontWeight: 400
                   }}
                   onFocus={(e) => e.target.style.borderBottomColor = '#0f1a2a'}
                   onBlur={(e) => e.target.style.borderBottomColor = '#c8c5bc'}
@@ -274,7 +293,9 @@ ${formData.message}`;
                   textTransform: 'uppercase', 
                   color: '#5a5a5a',
                   display: 'block',
-                  marginBottom: 12
+                  marginBottom: 12,
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  fontWeight: 500
                 }}>
                   I Am (Optional)
                 </label>
@@ -291,9 +312,10 @@ ${formData.message}`;
                         fontWeight: 500,
                         border: selectedRole === role ? '1px solid #0f1a2a' : '1px solid #c8c5bc',
                         background: selectedRole === role ? '#0f1a2a' : 'transparent',
-                        color: selectedRole === role ? 'white' : '#3a3a3a',
+                        color: selectedRole === role ? 'white' : '#0E1136',
                         cursor: 'pointer',
-                        transition: 'all 0.25s ease'
+                        transition: 'all 0.25s ease',
+                        fontFamily: "'Red Hat Display', sans-serif"
                       }}
                       onMouseEnter={(e) => {
                         if (selectedRole !== role) {
@@ -320,7 +342,9 @@ ${formData.message}`;
                   textTransform: 'uppercase', 
                   color: '#5a5a5a',
                   display: 'block',
-                  marginBottom: 8
+                  marginBottom: 8,
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  fontWeight: 500
                 }}>
                   What's on your mind <span style={{ color: '#e74c3c' }}>*</span>
                 </label>
@@ -337,12 +361,13 @@ ${formData.message}`;
                     border: 'none',
                     borderBottom: '1px solid #c8c5bc',
                     padding: '12px 0',
-                    color: '#3a3a3a',
+                    color: '#0E1136',
                     fontSize: 16,
                     outline: 'none',
                     resize: 'vertical',
                     transition: 'border-color 0.3s ease',
-                    fontFamily: 'inherit'
+                    fontFamily: "'Red Hat Display', sans-serif",
+                    fontWeight: 400
                   }}
                   onFocus={(e) => e.target.style.borderBottomColor = '#0f1a2a'}
                   onBlur={(e) => e.target.style.borderBottomColor = '#c8c5bc'}
@@ -368,7 +393,8 @@ ${formData.message}`;
                   gap: 8,
                   marginTop: 8,
                   transition: 'all 0.3s ease',
-                  opacity: isFormValid() ? 1 : 0.6
+                  opacity: isFormValid() ? 1 : 0.6,
+                  fontFamily: "'Red Hat Display', sans-serif"
                 }}
                 onMouseEnter={(e) => {
                   if (isFormValid()) {
@@ -383,7 +409,7 @@ ${formData.message}`;
                 disabled={!isFormValid()}
               >
                 Send brief
-                <span style={{ fontSize: 16 }}>→</span>
+                <span style={{ fontSize: 16, fontFamily: "'Red Hat Display', sans-serif" }}>→</span>
               </button>
             </form>
           </div>
