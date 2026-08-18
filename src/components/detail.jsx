@@ -244,7 +244,7 @@ function Footer() {
               />
             </div>
            <p style={{ fontSize: 14, color: '#0E1136', maxWidth: 320, lineHeight: 1.55, fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400,textAlign:'justify' }}>
-            Engineering life. For humanity. Discovering, translating and commercializing biosciences for Bangladesh and beyond.
+            Discovering, translating and commercializing biosciences for Bangladesh and beyond.
           </p>
           </div>
           
