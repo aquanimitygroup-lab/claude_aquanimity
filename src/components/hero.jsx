@@ -127,10 +127,9 @@ function Hero({ palette, onGoto }) {
   const videoRef = useRef(null);
 
   const phrases = [
-    "Health",
-    "Climate Biotech",
-    "Microbiome Science",
-    "Novel Drug Delivery Systems",
+    "Non Communicable Diseases",
+    "Environmental Remediation",
+    "Novel Delivery Systems",
     "Frontier AI in Biology",
     "Biomaterials"
   ];
