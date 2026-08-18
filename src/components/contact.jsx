@@ -47,28 +47,43 @@ function Contact({ palette, onOpen }) {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Check if all required fields are filled
+  const isFormValid = () => {
+    return formData.name.trim() !== '' && 
+           formData.email.trim() !== '' && 
+           formData.organisation.trim() !== '' && 
+           formData.message.trim() !== '';
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (onOpen) {
-      onOpen('contact-submit', { ...formData, role: selectedRole });
+    
+    // Check if form is valid before submitting
+    if (!isFormValid()) {
+      alert('Please fill in all required fields.');
+      return;
     }
+
+    // Open Gmail compose with pre-filled details
+    const subject = `Brief from ${formData.name} - ${selectedRole || 'Guest'}`;
+    const body = `Name: ${formData.name}
+Email: ${formData.email}
+Organisation: ${formData.organisation}
+Role: ${selectedRole || 'Not specified'}
+
+Message:
+${formData.message}`;
+
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=aquanimitygroup@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    window.open(gmailUrl, '_blank');
+
+    // Log to console for debugging
     console.log('Form submitted:', { ...formData, role: selectedRole });
+    
     // Reset form
     setFormData({ name: '', email: '', organisation: '', message: '' });
     setSelectedRole('');
-  };
-
-  const handleGetInTouch = (e) => {
-    e.preventDefault();
-    const formElement = document.getElementById('contact-form');
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
-  const handleOpenRoles = (e) => {
-    e.preventDefault();
-    if (onOpen) onOpen('careers');
   };
 
   return (
@@ -105,9 +120,9 @@ function Contact({ palette, onOpen }) {
               fontSize: 'clamp(48px, 5.5vw, 88px)', 
               lineHeight: 1.05, 
               letterSpacing: '-0.02em', 
-              fontWeight: 400, 
-              color: '#0f1a2a',
-              marginBottom: 32
+              fontWeight: 900, 
+              marginBottom: 32,
+              color:'#0E1136'
             }}>
               Let's <span className="serif" style={{ fontStyle: 'italic', color: '#2a7a7a', fontWeight: 400 }}>engineer</span>
               <br />
@@ -116,63 +131,14 @@ function Contact({ palette, onOpen }) {
             <p style={{ 
               fontSize: 18, 
               lineHeight: 1.55, 
-              color: '#3a3a3a', 
+              color: '#0E1136', 
               maxWidth: 460,
-              marginBottom: 40
+              marginBottom: 40,
+              textAlign:'justify'
             }}>
               Founders, scientists, capital, governments. If you're building the bioeconomy of the Global South, we want to hear from you.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-              <button 
-                onClick={handleGetInTouch}
-                style={{
-                  background: '#0f1a2a',
-                  color: 'white',
-                  padding: '16px 32px',
-                  borderRadius: 999,
-                  fontSize: 14,
-                  fontWeight: 500,
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  transition: 'all 0.3s ease'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.background = '#1a2a3a'}
-                onMouseLeave={(e) => e.currentTarget.style.background = '#0f1a2a'}
-              >
-                Get in touch
-                <span style={{ fontSize: 16 }}>→</span>
-              </button>
-              <button 
-                onClick={handleOpenRoles}
-                style={{
-                  background: 'transparent',
-                  border: '1px solid #0f1a2a',
-                  color: '#0f1a2a',
-                  padding: '16px 32px',
-                  borderRadius: 999,
-                  fontSize: 14,
-                  fontWeight: 500,
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  transition: 'all 0.3s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#0f1a2a';
-                  e.currentTarget.style.color = 'white';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'transparent';
-                  e.currentTarget.style.color = '#0f1a2a';
-                }}
-              >
-                See open roles
-                <span style={{ fontSize: 16 }}>→</span>
-              </button>
             </div>
           </div>
 
@@ -205,7 +171,7 @@ function Contact({ palette, onOpen }) {
                   display: 'block',
                   marginBottom: 8
                 }}>
-                  Your Name
+                  Your Name <span style={{ color: '#e74c3c' }}>*</span>
                 </label>
                 <input
                   type="text"
@@ -240,7 +206,7 @@ function Contact({ palette, onOpen }) {
                   display: 'block',
                   marginBottom: 8
                 }}>
-                  Email
+                  Email <span style={{ color: '#e74c3c' }}>*</span>
                 </label>
                 <input
                   type="email"
@@ -275,7 +241,7 @@ function Contact({ palette, onOpen }) {
                   display: 'block',
                   marginBottom: 8
                 }}>
-                  Organisation
+                  Organisation <span style={{ color: '#e74c3c' }}>*</span>
                 </label>
                 <input
                   type="text"
@@ -283,6 +249,7 @@ function Contact({ palette, onOpen }) {
                   value={formData.organisation}
                   onChange={handleInputChange}
                   placeholder="ICDDR,B / BRAC / Independent"
+                  required
                   style={{
                     width: '100%',
                     background: 'transparent',
@@ -309,7 +276,7 @@ function Contact({ palette, onOpen }) {
                   display: 'block',
                   marginBottom: 12
                 }}>
-                  I Am
+                  I Am (Optional)
                 </label>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                   {roles.map((role) => (
@@ -355,7 +322,7 @@ function Contact({ palette, onOpen }) {
                   display: 'block',
                   marginBottom: 8
                 }}>
-                  What's on your mind
+                  What's on your mind <span style={{ color: '#e74c3c' }}>*</span>
                 </label>
                 <textarea
                   name="message"
@@ -363,6 +330,7 @@ function Contact({ palette, onOpen }) {
                   onChange={handleInputChange}
                   placeholder="A line or two — we'll reply within 48h."
                   rows={3}
+                  required
                   style={{
                     width: '100%',
                     background: 'transparent',
@@ -386,23 +354,33 @@ function Contact({ palette, onOpen }) {
                 type="submit"
                 style={{
                   width: '100%',
-                  background: '#0f1a2a',
+                  background: '#0E1136',
                   color: 'white',
                   padding: '16px 32px',
                   borderRadius: 999,
                   fontSize: 15,
                   fontWeight: 500,
                   border: 'none',
-                  cursor: 'pointer',
+                  cursor: isFormValid() ? 'pointer' : 'not-allowed',
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: 8,
                   marginTop: 8,
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  opacity: isFormValid() ? 1 : 0.6
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = '#1a2a3a'}
-                onMouseLeave={(e) => e.currentTarget.style.background = '#0f1a2a'}
+                onMouseEnter={(e) => {
+                  if (isFormValid()) {
+                    e.currentTarget.style.background = '#1a2444';
+                    e.currentTarget.style.transform = 'scale(1.02)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#0E1136';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
+                disabled={!isFormValid()}
               >
                 Send brief
                 <span style={{ fontSize: 16 }}>→</span>

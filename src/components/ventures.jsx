@@ -126,7 +126,7 @@ function Ventures({ palette, onOpen }) {
       style={{
         paddingTop: 120,
         paddingBottom: 140,
-        background: 'var(--ink)',
+        background: '#0E1136',
         color: 'var(--paper)',
         fontFamily: "'Red Hat Display', 'Red Hat Display Variable', sans-serif",
         minHeight: '100vh'
@@ -153,7 +153,7 @@ function Ventures({ palette, onOpen }) {
                 fontSize: 11,
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: 'rgba(255,255,255,0.55)',
+                color: 'var(--paper)',
                 fontFamily: "'Red Hat Display', sans-serif",
                 fontWeight: 600
               }}

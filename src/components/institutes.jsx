@@ -236,7 +236,7 @@ function Institutes({ palette, onOpen }) {
                   fontFamily: "'Red Hat Display', sans-serif"
                 }}
               >
-                <span style={{ fontWeight: 900, color: "#000000" }}>Four</span>{" "}
+                <span style={{ fontWeight: 900, color: "#0E1136" }}>Four</span>{" "}
                 <span
                   className="serif"
                   style={{
@@ -248,7 +248,7 @@ function Institutes({ palette, onOpen }) {
                 >
                   cross-disciplinary
                 </span>{" "}
-                <span style={{ fontWeight: 900, color: "#000000" }}>institutes.</span>
+                <span style={{ fontWeight: 900, color: "#181A43" }}>institutes.</span>
               </h2>
             </div>
 

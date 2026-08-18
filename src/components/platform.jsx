@@ -88,7 +88,7 @@ function Platform({ palette, onOpen }) {
   const ref = useReveal();
   const typingRef = useRef(null);
   
-  const typingText = "Four Phases, One Platform — AQUANIMITY";
+  const typingText = "Four Phases, One Platform";
   const { displayText, isTyping } = useTypingAnimation(typingText, 80, typingRef);
 
   // Better error handling for JSON parsing
@@ -262,7 +262,7 @@ function Platform({ palette, onOpen }) {
                   lineHeight: 1.15,
                   letterSpacing: "-0.03em",
                   fontWeight: 900,
-                  color: "var(--ink)",
+                  color: "#0E1136",
                   fontFamily: "'Red Hat Display', sans-serif",
                   margin: 0
                 }}
@@ -340,7 +340,7 @@ function Platform({ palette, onOpen }) {
                         minHeight: "200px",
                         display: "flex",
                         flexDirection: "column",
-                        border: isActive ? `1.5px solid ${palette?.accent || "#1F6E7A"}` : "1px solid var(--rule)",
+                        border: isActive ? `1.5px solid ${palette?.accent || "#1F6E7A"}` : "1px solid #0E1136",
                         background: isActive ? "rgba(31,110,122,0.02)" : "var(--bone)",
                         boxShadow: isActive 
                           ? `0 6px 16px rgba(31,110,122,0.1)` 
@@ -405,7 +405,7 @@ function Platform({ palette, onOpen }) {
                             style={{
                               fontSize: 10,
                               fontWeight: 600,
-                              color: isActive ? "var(--accent)" : "var(--muted)",
+                              color: isActive ? "#0E1136" : "var(--muted)",
                               background: isActive ? "rgba(31,110,122,0.1)" : "rgba(31,110,122,0.05)",
                               padding: "2px 10px",
                               borderRadius: 20,
@@ -430,7 +430,7 @@ function Platform({ palette, onOpen }) {
                             fontWeight: 700,
                             margin: 0,
                             letterSpacing: "-0.02em",
-                            color: isActive ? "var(--accent)" : "var(--ink)",
+                            color: isActive ? "var(--accent)" : "#0e1136",
                             lineHeight: 1.3,
                             fontFamily: "'Red Hat Display', sans-serif"
                           }}
@@ -442,7 +442,7 @@ function Platform({ palette, onOpen }) {
                         <p
                           style={{
                             fontSize: 11,
-                            color: "var(--ink-2)",
+                            color: "#0E1136",
                             lineHeight: 1.45,
                             margin: 0,
                             opacity: 0.85,

@@ -82,7 +82,7 @@ const highlightKeyInfo = (text) => {
   
   rolePatterns.forEach(pattern => {
     highlighted = highlighted.replace(pattern, (match) => {
-      return `<span style="font-weight: 600; color: #1B2A3F;">${match}</span>`;
+      return `<span style="font-weight: 600; color: #0E1136;">${match}</span>`;
     });
   });
   
@@ -195,7 +195,7 @@ const MemberDetailsInline = ({ member, onClose }) => {
               <h2 style={{
                 fontSize: '32px',
                 fontWeight: 700,
-                color: 'var(--ink)',
+                color: '#0E1136',
                 marginBottom: '12px',
                 letterSpacing: '-0.02em'
               }}>
@@ -236,7 +236,7 @@ const MemberDetailsInline = ({ member, onClose }) => {
               <h3 style={{
                 fontSize: '16px',
                 fontWeight: 600,
-                color: 'var(--ink)',
+                color: '#0E1136',
                 marginBottom: '10px',
                 display: 'flex',
                 alignItems: 'center',
@@ -265,7 +265,7 @@ const MemberDetailsInline = ({ member, onClose }) => {
               <h3 style={{
                 fontSize: '16px',
                 fontWeight: 600,
-                color: 'var(--ink)',
+                color: '#0E1136',
                 marginBottom: '10px',
                 display: 'flex',
                 alignItems: 'center',
@@ -276,7 +276,7 @@ const MemberDetailsInline = ({ member, onClose }) => {
               <div style={{
                 fontSize: '14px',
                 lineHeight: 1.6,
-                color: 'var(--ink-2)',
+                color: '#0E1136',
                 textAlign: 'justify'
               }}>
                 {highlightKeyInfo(member.detailedBio)}
@@ -290,7 +290,7 @@ const MemberDetailsInline = ({ member, onClose }) => {
               <h3 style={{
                 fontSize: '16px',
                 fontWeight: 600,
-                color: 'var(--ink)',
+                color: '#0E1136',
                 marginBottom: '10px',
                 display: 'flex',
                 alignItems: 'center',
@@ -303,7 +303,7 @@ const MemberDetailsInline = ({ member, onClose }) => {
                 padding: '14px',
                 borderRadius: '14px',
                 fontSize: '13px',
-                color: 'var(--ink-2)',
+                color: '#0E1136',
                 lineHeight: 1.5,
                 textAlign: 'justify'
               }}>
@@ -680,7 +680,7 @@ Object.keys(teamData).forEach(key => {
       </div>
       
       <div>
-        <div style={{ fontSize: '18px', fontWeight: 700, marginBottom: '4px', color: 'var(--ink)' }}>
+        <div style={{ fontSize: '18px', fontWeight: 700, marginBottom: '4px', color: '#0E1136' }}>
           {member.name}
         </div>
         <div style={{ 
@@ -762,7 +762,7 @@ Object.keys(teamData).forEach(key => {
               lineHeight: 1.02, 
               letterSpacing: '-0.025em', 
               fontWeight: 900, 
-              color: 'var(--ink)', 
+              color: '#0E1136', 
               marginTop: '0px',
               marginRight: '0px',
               marginBottom: '0px',
@@ -782,7 +782,7 @@ Object.keys(teamData).forEach(key => {
           }}>
             <p style={{ 
               fontSize: '17px', 
-              color: 'var(--ink-2)', 
+              color: '#0E1136', 
               maxWidth: '460px', 
               lineHeight: 1.55,
               marginTop: '0px',
@@ -813,8 +813,8 @@ Object.keys(teamData).forEach(key => {
               padding: '10px 24px', 
               borderRadius: '40px',
               border: 'none',
-              background: activeCategory === null ? 'var(--ink)' : 'transparent',
-              color: activeCategory === null ? 'var(--paper)' : 'var(--ink)',
+              background: activeCategory === null ? '#0E1136' : 'transparent',
+              color: activeCategory === null ? 'var(--paper)' : '#0E1136',
               fontSize: '14px', 
               fontWeight: activeCategory === null ? 600 : 500,
               cursor: 'pointer',
@@ -837,8 +837,8 @@ Object.keys(teamData).forEach(key => {
                 padding: '10px 24px', 
                 borderRadius: '40px',
                 border: 'none',
-                background: activeCategory === c ? 'var(--ink)' : 'transparent',
-                color: activeCategory === c ? 'var(--paper)' : 'var(--ink)',
+                background: activeCategory === c ? '#0E1136' : 'transparent',
+                color: activeCategory === c ? 'var(--paper)' : '#0E1136',
                 fontSize: '14px', 
                 fontWeight: activeCategory === c ? 600 : 500,
                 cursor: 'pointer',

@@ -248,7 +248,7 @@ function Nav({ onNavigate, route }) {
         .nav-link {
           position: relative;
           text-decoration: none;
-          color: var(--text);
+          color: #0E1136;
           font-size: 16px;
           font-weight: 500;
           letter-spacing: 0.3px;

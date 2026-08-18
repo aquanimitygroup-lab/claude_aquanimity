@@ -43,7 +43,7 @@ function Partners({ palette, onOpen }) {
       loc: "Dhaka, BD",
       since: "2024",
       logo: "/images/ibr.jpeg",
-      website: "https://abri.org.bd"
+      website: " https://www.facebook.com/ABRI.BUET/"
     },
     {
       name: "IQC",
@@ -87,14 +87,25 @@ function Partners({ palette, onOpen }) {
     },
     {
       name: "BioEngineering",
-      short: "DU",
+      short: "BioEngineering",
       kind: "Academic Partner",
-      blurb: "Premier public university in Bangladesh.",
+      blurb: "Premier Uuniversity in USA",
       loc: "Dhaka, BD",
       since: "2024",
       logo: "/images/bio.jpeg",
-      website: "https://www.berkeley.edu/"
+      website: " https://bioeng.berkeley.edu/"
+    },
+        {
+      name: "Dhaka University",
+      short: "Dhaka University",
+      kind: "Academic Partner",
+      blurb: "Premier Uuniversity in Bangladesh",
+      loc: "Dhaka, BD",
+      since: "2024",
+      logo: "/images/du.png",
+      website: " https://www.du.ac.bd/"
     }
+
   ];
 
   // Stats data 
@@ -209,10 +220,10 @@ function Partners({ palette, onOpen }) {
       <div className="wrap" style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
         <div className="reveal" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24, marginBottom: 48 }}>
           <div>
-            <div className="label" style={{ marginBottom: 18, fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", color: "#0E1B2C", fontWeight: 600, fontFamily: "'Red Hat Display', sans-serif" }}>
+            <div className="label" style={{ marginBottom: 18, fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgb(31, 110, 122)", fontWeight: 600, fontFamily: "'Red Hat Display', sans-serif" }}>
               § 04 — Our Partners
             </div>
-            <h2 style={{ fontSize: 'clamp(32px, 4.4vw, 52px)', lineHeight: 1.05, letterSpacing: '-0.02em', maxWidth: 720, fontWeight: 900, color: "#0E1B2C", fontFamily: "'Red Hat Display', sans-serif", margin: 0 }}>
+            <h2 style={{ fontSize: 'clamp(32px, 4.4vw, 52px)', lineHeight: 1.05, letterSpacing: '-0.02em', maxWidth: 720, fontWeight: 900, color: "#0E1136", fontFamily: "'Red Hat Display', sans-serif", margin: 0 }}>
               Partnering with leading{' '}
               <span className="serif" style={{ fontStyle: 'italic', color: "#1F6E7A", fontWeight: 400, fontFamily: "'Times New Roman', Georgia, serif" }}>
                 institutions.
@@ -426,7 +437,7 @@ function Partners({ palette, onOpen }) {
               <div style={{
                 fontSize: 'clamp(36px, 4vw, 48px)',
                 fontWeight: 900,
-                color: '#0E1B2C',
+                color: '#0E1136',
                 fontFamily: "'Red Hat Display', sans-serif",
                 lineHeight: 1,
                 marginBottom: 8,

@@ -251,7 +251,20 @@ function Hero({ palette, onGoto }) {
           </h1>
 
           <div className="hero-build reveal">
-            <span className="hero-build-label">We are advancing Bioinnovations in</span>
+<span className="hero-build-label">
+  <i style={{ 
+    fontFamily: 'Georgia, serif', 
+    fontSize: '14px', 
+    letterSpacing: '0.07em', 
+    color: 'rgb(45, 144, 161)', 
+    fontWeight: 600, 
+    lineHeight: 1.4, 
+    whiteSpace: 'nowrap',
+    fontStyle: 'italic'
+  }}>
+    Advancing bioinnovations in
+  </i>
+</span>
             <span className="hero-build-arrow">→</span>
             <span className="hero-build-text">
               {typed}
@@ -295,6 +308,7 @@ function Hero({ palette, onGoto }) {
       </div>
 
       <style>{`
+      @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700;800;900&display=swap');
 
         :root {
           --bg: #ece8df;
@@ -385,10 +399,12 @@ function Hero({ palette, onGoto }) {
         }
 
         .hero-mini {
+          font-family: "Red Hat Display", sans-serif;
           font-size: 10px;
-          letter-spacing: 0.3em;
-          color: var(--muted);
+          letter-spacing: 0.06em;
+          color: #0E1136;
           font-weight: 600;
+          text-transform: uppercase;
         }
 
         .hero-title {
@@ -407,7 +423,7 @@ function Hero({ palette, onGoto }) {
         .engineering-life {
           font-family: 'Red Hat Display', sans-serif;
           font-weight: 900;
-          color: #000000;
+          color: #0E1136;
         }
 
         .hero-for {
@@ -429,7 +445,7 @@ function Hero({ palette, onGoto }) {
         .metric-number {
           font-family: 'Red Hat Display', sans-serif;
           font-weight: 900;
-          color: #000000;
+          color: #0E1136;
           font-size: clamp(28px, 3vw, 36px);
           margin: 0;
           line-height: 1;
@@ -443,14 +459,8 @@ function Hero({ palette, onGoto }) {
           flex-wrap: wrap;
         }
 
-        .hero-build-label {
-          font-size: 12px;
-          letter-spacing: 0.39em;
-          color: var(--muted);
-          font-weight: 600;
-          line-height: 1.4;
-          white-space: nowrap;
-        }
+
+
 
         .hero-build-arrow {
           font-size: 16px;
@@ -464,7 +474,7 @@ function Hero({ palette, onGoto }) {
 
         .hero-build-text {
           font-size: 16px;
-          color: var(--text);
+          color: #0E1136;
           font-weight: 500;
           min-height: 32px;
           line-height: 1.4;
@@ -486,7 +496,7 @@ function Hero({ palette, onGoto }) {
           margin-top: 20px;
           font-size: 15px;
           line-height: 1.5;
-          color: #4a5568;
+          color: #0E1136;
           max-width: 520px;
         }
 
@@ -504,7 +514,7 @@ function Hero({ palette, onGoto }) {
 
         .btn-dark {
           border: none;
-          background: #09182d;
+          background: #0E1136;
           color: white;
           padding: 12px 24px;
           border-radius: 40px;
@@ -523,9 +533,9 @@ function Hero({ palette, onGoto }) {
         }
 
         .btn-light {
-          border: 1px solid rgba(7,21,43,0.2);
+          border: 1px solid rgb(14,17,54);
           background: transparent;
-          color: var(--text);
+          color: #0E1136;
           padding: 12px 24px;
           border-radius: 40px;
           font-size: 13px;
@@ -555,7 +565,7 @@ function Hero({ palette, onGoto }) {
           margin: 8px 0 0;
           font-size: 8px;
           letter-spacing: 0.3em;
-          color: var(--muted);
+          color: #0E1136;
           font-weight: 600;
         }
 

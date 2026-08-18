@@ -259,7 +259,7 @@ function Footer() {
                     onClick={(e) => handleLinkClick(e, item)}
                     style={{ 
                       fontSize: 14, 
-                      color: 'var(--ink-2)',
+                      color: '#0E1136',
                       background: 'none',
                       border: 'none',
                       cursor: 'pointer',
@@ -269,7 +269,7 @@ function Footer() {
                       transition: 'color 0.2s ease'
                     }} 
                     onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#0E1136'}
                   >
                     {item}
                   </button>
@@ -288,7 +288,7 @@ function Footer() {
                   onClick={(e) => handleLinkClick(e, 'Contact')}
                   style={{ 
                     fontSize: 14, 
-                    color: 'var(--ink-2)',
+                    color: '#0E1136',
                     background: 'none',
                     border: 'none',
                     cursor: 'pointer',
@@ -298,7 +298,7 @@ function Footer() {
                     transition: 'color 0.2s ease'
                   }} 
                   onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#0E1136'}
                 >
                   Contact
                 </button>
@@ -310,7 +310,7 @@ function Footer() {
                   rel="noopener noreferrer"
                   style={{ 
                     fontSize: 14, 
-                    color: 'var(--ink-2)',
+                    color: '#0E1136',
                     textDecoration: 'none',
                     fontFamily: "'Red Hat Display', sans-serif",
                     fontWeight: 400,
@@ -319,7 +319,7 @@ function Footer() {
                     display: 'inline-block'
                   }} 
                   onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#0E1136'}
                 >
                   LinkedIn
                 </a>
@@ -333,12 +333,12 @@ function Footer() {
             </div>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 10 }}>
               <li>
-                <span style={{ fontSize: 14, color: 'var(--ink-2)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
+                <span style={{ fontSize: 14, color: '#0E1136', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
                   Address: Plot 68-71, Block K,<br /> Road 4 Rupnagar Rd, Dhaka 1216
                 </span>
               </li>
               <li>
-                <span style={{ fontSize: 14, color: 'var(--ink-2)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
+                <span style={{ fontSize: 14, color: '#0E1136', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
                   Phone: +8801310346592
                 </span>
               </li>
@@ -348,7 +348,7 @@ function Footer() {
                   onClick={handleEmailClick}
                   style={{ 
                     fontSize: 14, 
-                    color: 'var(--ink-2)',
+                    color: '#0E1136',
                     textDecoration: 'none',
                     fontFamily: "'Red Hat Display', sans-serif",
                     fontWeight: 400,
@@ -357,7 +357,7 @@ function Footer() {
                     display: 'inline-block'
                   }} 
                   onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#0E1136'}
                 >
                   aquanimitygroup@gmail.com
                 </a>
@@ -422,7 +422,7 @@ const BackButton = ({ onClick }) => {
             border: '1px solid var(--rule)',
             borderRadius: 40,
             padding: '12px 28px',
-            color: 'var(--ink)',
+            color: '#0E1136',
             fontSize: 14,
             fontWeight: 500,
             cursor: 'pointer',
@@ -504,7 +504,7 @@ function PartnerDetail({ partner, palette }) {
               {areas.slice(0, 8).map((area, idx) => (
                 <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--rule)' }}>
                   <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)' }} />
-                  <span style={{ fontSize: 14.5, color: 'var(--ink-2)' }}>{area}</span>
+                  <span style={{ fontSize: 14.5, color: '#0E1136' }}>{area}</span>
                 </div>
               ))}
             </div>
@@ -515,7 +515,7 @@ function PartnerDetail({ partner, palette }) {
               About <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>{partner.name}</span>
             </h2>
             {descriptionParagraphs.map((paragraph, idx) => (
-              <p key={idx} style={{ fontSize: 15.5, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 18, textAlign: 'justify' }}>
+              <p key={idx} style={{ fontSize: 15.5, lineHeight: 1.6, color: '#0E1136', marginBottom: 18, textAlign: 'justify' }}>
                 {paragraph}
               </p>
             ))}
@@ -525,11 +525,11 @@ function PartnerDetail({ partner, palette }) {
               <div style={{ display: 'grid', gap: 12 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 8, borderBottom: '1px solid var(--rule)' }}>
                   <span style={{ fontSize: 12, color: 'var(--muted)', fontWeight: 600 }}>Location</span>
-                  <span style={{ fontSize: 14, color: 'var(--ink)' }}>{partner.loc}</span>
+                  <span style={{ fontSize: 14, color: '#0E1136' }}>{partner.loc}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 8, borderBottom: '1px solid var(--rule)' }}>
                   <span style={{ fontSize: 12, color: 'var(--muted)', fontWeight: 600 }}>Partner Since</span>
-                  <span style={{ fontSize: 14, color: 'var(--ink)' }}>{partner.since}</span>
+                  <span style={{ fontSize: 14, color: '#0E1136' }}>{partner.since}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span style={{ fontSize: 12, color: 'var(--muted)', fontWeight: 600 }}>Website</span>
@@ -559,7 +559,7 @@ function PartnerDetail({ partner, palette }) {
             <h4 style={{ fontSize: 24, fontWeight: 500, marginBottom: 14 }}>
               <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)' }}>Collaborating</span> for impact
             </h4>
-            <p style={{ fontSize: 14.5, color: 'var(--ink-2)', marginBottom: 22, maxWidth: 450, margin: '0 auto 22px' }}>
+            <p style={{ fontSize: 14.5, color: '#0E1136', marginBottom: 22, maxWidth: 450, margin: '0 auto 22px' }}>
               Together with {partner.name}, we're building a healthier, more sustainable future.
             </p>
             <a 
@@ -639,7 +639,7 @@ Each institute is not merely a research division. It is a venture-building engin
         <div className="label" style={{ marginBottom: 18, fontSize: 11, letterSpacing: '0.2em', color: 'var(--accent)' }}>OUR INSTITUTES</div>
       </SlideIn>
       <SlideIn from="left" delay={0.08}>
-        <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', lineHeight: 1, letterSpacing: '-0.025em', fontWeight: 800, fontFamily: "'Red Hat Display', sans-serif", marginBottom: 32 }}>
+        <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', lineHeight: 1, letterSpacing: '-0.025em',color:'#0E1136', fontWeight: 800, fontFamily: "'Red Hat Display', sans-serif", marginBottom: 32 }}>
           Four specialized institutes. <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>One mission</span> — transform biology.
         </h1>
       </SlideIn>
@@ -652,10 +652,10 @@ Each institute is not merely a research division. It is a venture-building engin
           marginBottom: 80,
           border: '1px solid var(--rule)'
         }}>
-          <p style={{ fontSize: 18, lineHeight: 1.65, color: 'var(--ink-2)', marginBottom: 20, fontStyle: 'italic', textAlign: 'justify' }}>
+          <p style={{ fontSize: 18, lineHeight: 1.65, color: '#0E1136', marginBottom: 20, fontStyle: 'italic', textAlign: 'justify' }}>
             {zigzagIntro.split('\n\n')[0]}
           </p>
-          <p style={{ fontSize: 18, lineHeight: 1.65, color: 'var(--ink-2)', textAlign: 'justify' }}>
+          <p style={{ fontSize: 18, lineHeight: 1.65, color: '#0E1136', textAlign: 'justify' }}>
             {zigzagIntro.split('\n\n')[1]}
           </p>
         </div>
@@ -719,11 +719,11 @@ Each institute is not merely a research division. It is a venture-building engin
                 fontFamily: "'Red Hat Display', sans-serif",
                 letterSpacing: '-0.02em',
                 marginBottom: 20,
-                color: 'var(--ink)'
+                color: '#0E1136'
               }}>
                 {institute.title}
               </h2>
-              <p style={{ fontSize: 17, lineHeight: 1.55, color: 'var(--ink-2)', marginBottom: 24, textAlign: 'justify' }}>
+              <p style={{ fontSize: 17, lineHeight: 1.55, color: '#0E1136', marginBottom: 24, textAlign: 'justify' }}>
                 {institute.blurb}
               </p>
               
@@ -766,7 +766,8 @@ Each institute is not merely a research division. It is a venture-building engin
                 fontSize: 14,
                 cursor: 'pointer',
                 padding: 0,
-                width: 'fit-content'
+                width: 'fit-content',
+                fontFamily:'Red Hat Display'
               }}>
                 Explore Institute <Arrow size={14} />
               </button>
@@ -878,7 +879,7 @@ function VentureDetail({ v, data, palette }) {
             <h2 style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', fontWeight: 500, lineHeight: 1.15, letterSpacing: '-0.015em', marginBottom: 28 }}>
               <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>The vision.</span> {v.blurb}
             </h2>
-            <p style={{ fontSize: 17, lineHeight: 1.65, color: 'var(--ink-2)' }}>
+            <p style={{ fontSize: 17, lineHeight: 1.65, color: '#0E1136' }}>
               {v.name} is a wholly-owned operating venture of Aquanimity BioHubs. We use the BioPlatform to compress
               the timeline from frontier science to real impact — co-developing technology, capital,
               and go-to-market with founders who choose to build from Bangladesh.
@@ -917,7 +918,7 @@ function VentureDetail({ v, data, palette }) {
                 <div style={{ padding: 24 }}>
                   <div className="label" style={{ marginBottom: 12, color: 'var(--accent)' }}>TECHNOLOGY</div>
                   <h4 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12, letterSpacing: '-0.01em' }}>Advanced Platform</h4>
-                  <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--ink-2)' }}>Cutting-edge biotech solutions developed at Aquanimity's labs.</p>
+                  <p style={{ fontSize: 14, lineHeight: 1.55, color: '#0E1136' }}>Cutting-edge biotech solutions developed at Aquanimity's labs.</p>
                 </div>
               </div>
             </SlideIn>
@@ -942,7 +943,7 @@ function VentureDetail({ v, data, palette }) {
                 <div style={{ padding: 24 }}>
                   <div className="label" style={{ marginBottom: 12, color: 'var(--accent)' }}>IMPACT</div>
                   <h4 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12, letterSpacing: '-0.01em' }}>Measurable Change</h4>
-                  <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--ink-2)' }}>Transforming lives across Bangladesh and beyond.</p>
+                  <p style={{ fontSize: 14, lineHeight: 1.55, color: '#0E1136' }}>Transforming lives across Bangladesh and beyond.</p>
                 </div>
               </div>
             </SlideIn>
@@ -967,7 +968,7 @@ function VentureDetail({ v, data, palette }) {
                 <div style={{ padding: 24 }}>
                   <div className="label" style={{ marginBottom: 12, color: 'var(--accent)' }}>TEAM</div>
                   <h4 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12, letterSpacing: '-0.01em' }}>World-Class Talent</h4>
-                  <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--ink-2)' }}>Leading scientists and engineers from around the world.</p>
+                  <p style={{ fontSize: 14, lineHeight: 1.55, color: '#0E1136' }}>Leading scientists and engineers from around the world.</p>
                 </div>
               </div>
             </SlideIn>
@@ -977,7 +978,7 @@ function VentureDetail({ v, data, palette }) {
         <div style={{ marginTop: 80, background: 'var(--accent-soft)', borderRadius: 20, padding: 48 }}>
           <SlideIn from="bottom">
             <div style={{ textAlign: 'center', marginBottom: 40 }}>
-              <h3 style={{ fontSize: 28, fontWeight: 500, marginBottom: 12, color: 'var(--ink)' }}>
+              <h3 style={{ fontSize: 28, fontWeight: 500, marginBottom: 12, color: '#0E1136' }}>
                 Key <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Milestones</span>
               </h3>
               <div style={{ width: 50, height: 2, background: 'var(--accent)', margin: '0 auto' }} />
@@ -1113,7 +1114,7 @@ function InstituteDetail({ it, data, palette }) {
       <div style={{ 
         fontWeight: 600, 
         fontSize: isAssociate ? 13 : (it.n === "01" ? 14 : 16), 
-        color: 'var(--ink)' 
+        color: '#0E1136' 
       }}>
         {researcher.name}
       </div>
@@ -1154,7 +1155,7 @@ function InstituteDetail({ it, data, palette }) {
       <div style={{ 
         fontSize: 16, 
         fontWeight: 600, 
-        color: 'var(--ink-2)',
+        color: '#0E1136',
         marginBottom: 6
       }}>
         {type === 'researcher' ? 'Researchers Coming Soon' : 'Research Associates Coming Soon'}
@@ -1197,24 +1198,24 @@ function InstituteDetail({ it, data, palette }) {
         <div className="id-focus-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 56, marginBottom: 70 }}>
           <SlideIn from="left">
             <h2 style={{ fontSize: 'clamp(26px, 3.2vw, 38px)', fontWeight: 500, lineHeight: 1.15, marginBottom: 24 }}>
-              <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Focus</span> Areas
+              <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Focus</span> <span style={{color:'#0E1136'}}>Areas</span> 
             </h2>
             <div style={{ display: 'grid', gap: 14 }}>
               {areas.slice(0, 8).map((area, idx) => (
                 <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--rule)' }}>
                   <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)' }} />
-                  <span style={{ fontSize: 14.5, color: 'var(--ink-2)' }}>{area}</span>
+                  <span style={{ fontSize: 14.5, color: '#0E1136' }}>{area}</span>
                 </div>
               ))}
             </div>
           </SlideIn>
           
           <SlideIn from="right">
-            <h2 style={{ fontSize: 'clamp(26px, 3.2vw, 38px)', fontWeight: 500, lineHeight: 1.15, marginBottom: 24 }}>
+            <h2 style={{ fontSize: 'clamp(26px, 3.2vw, 38px)', fontWeight: 500, lineHeight: 1.15, marginBottom: 24, color:'#0E1136' }}>
               About the <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Institute</span>
             </h2>
             {descriptionParagraphs.map((paragraph, idx) => (
-              <p key={idx} style={{ fontSize: 15.5, lineHeight: 1.6, color: 'var(--ink-2)', marginBottom: 18, textAlign: 'justify' }}>
+              <p key={idx} style={{ fontSize: 15.5, lineHeight: 1.6, color: '#0E1136', marginBottom: 18, textAlign: 'justify' }}>
                 {paragraph}
               </p>
             ))}
@@ -1225,17 +1226,17 @@ function InstituteDetail({ it, data, palette }) {
         <div style={{ marginTop: 40 }}>
           <SlideIn from="left">
             <div style={{ textAlign: 'center', marginBottom: 40 }}>
-              <h3 style={{ fontSize: 'clamp(24px, 2.8vw, 32px)', fontWeight: 500, marginBottom: 12 }}>
+              <h3 style={{ fontSize: 'clamp(24px, 2.8vw, 32px)', fontWeight: 500, marginBottom: 12, color:'#0E1136' }}>
                 <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}></span> Researchers
               </h3>
-              <div style={{ width: 50, height: 2, background: 'var(--accent)', margin: '0 auto' }} />
+              <div style={{ width: 50, height: 2, background: '#0E1136', margin: '0 auto' }} />
             </div>
           </SlideIn>
           
           {/* Principal Researchers */}
           <div style={{ marginBottom: 32 }}>
             <SlideIn from="left" delay={0.1}>
-              <h4 style={{ fontSize: 18, fontWeight: 600, color: 'var(--ink)', marginBottom: 20, textAlign: 'center' }}>
+              <h4 style={{ fontSize: 18, fontWeight: 600, marginBottom: 20, textAlign: 'center', color:'#0E1136'}}>
                 Principal Investigators & Lead Scientists
               </h4>
             </SlideIn>
@@ -1271,7 +1272,7 @@ function InstituteDetail({ it, data, palette }) {
           {/* Research Associates - Centered */}
           <div>
             <SlideIn from="left" delay={0.2}>
-              <h4 style={{ fontSize: 18, fontWeight: 600, color: 'var(--ink)', marginBottom: 20, textAlign: 'center' }}>
+              <h4 style={{ fontSize: 18, fontWeight: 600, color: '#0E1136', marginBottom: 20, textAlign: 'center' }}>
                 Research Associates
               </h4>
             </SlideIn>
@@ -1297,30 +1298,36 @@ function InstituteDetail({ it, data, palette }) {
 
         <div style={{ marginTop: 70, background: 'var(--bone)', borderRadius: 20, padding: 40, textAlign: 'center' }}>
           <SlideIn from="bottom">
-            <h4 style={{ fontSize: 24, fontWeight: 500, marginBottom: 14 }}>
+            <h4 style={{ fontSize: 24, fontWeight: 500, marginBottom: 14, color:'#0E1136' }}>
               Interested in <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)' }}>collaborating</span>?
             </h4>
-            <p style={{ fontSize: 14.5, color: 'var(--ink-2)', marginBottom: 22, maxWidth: 450, margin: '0 auto 22px' }}>
+            <p style={{ fontSize: 14.5, color: '#0E1136', marginBottom: 22, maxWidth: 450, margin: '0 auto 22px' }}>
               We're always open to research partnerships and visiting positions.
             </p>
-            <button 
-              onClick={() => window.dispatchEvent(new CustomEvent('aq-route', { detail: 'contact' }))}
-              style={{
-                padding: '11px 30px',
-                background: 'var(--accent)',
-                color: 'white',
-                border: 'none',
-                borderRadius: 999,
-                fontSize: 13.5,
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'var(--accent-2)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'var(--accent)'}
-            >
-              Get in touch →
-            </button>
+<button 
+  onClick={() => window.dispatchEvent(new CustomEvent('aq-route', { detail: 'contact' }))}
+  style={{
+    padding: '11px 30px',
+    background: '#0E1136',
+    color: 'white',
+    border: 'none',
+    borderRadius: 999,
+    fontSize: 13.5,
+    fontWeight: 600,
+    cursor: 'pointer',
+    transition: 'all 0.3s ease'
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.background = '#1a2444';
+    e.currentTarget.style.transform = 'scale(1.02)';
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.background = '#0E1136';
+    e.currentTarget.style.transform = 'scale(1)';
+  }}
+>
+  Get in touch →
+</button>
           </SlideIn>
         </div>
       </div>
@@ -1359,7 +1366,7 @@ function ListView({ title, subtitle, items, kind, palette }) {
         </h1>
       </SlideIn>
       <SlideIn from="left" delay={0.16}>
-        <p style={{ fontSize: 20, color: 'var(--ink-2)', maxWidth: 700, marginTop: 18, lineHeight: 1.4 }}>{subtitle}</p>
+        <p style={{ fontSize: 20, color: '#0E1136', maxWidth: 700, marginTop: 18, lineHeight: 1.4 }}>{subtitle}</p>
       </SlideIn>
 
       <div style={{ marginTop: 56, display: 'grid', gridTemplateColumns: kind === 'venture' ? '1fr 1fr' : '1fr', gap: kind === 'venture' ? 24 : 0 }}>
@@ -1412,7 +1419,7 @@ function TeamFull({ data, palette }) {
                   <img src={m.img} alt={m.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ marginTop: 12 }}>
-                  <div style={{ fontSize: 17, fontWeight: 600, color: 'var(--ink)' }}>{m.name}</div>
+                  <div style={{ fontSize: 17, fontWeight: 600, color: '#0E1136' }}>{m.name}</div>
                   <div style={{ fontSize: 13, color: 'var(--muted)', marginTop: 4 }}>{m.title}</div>
                 </div>
               </SlideIn>
@@ -1447,7 +1454,7 @@ function PartnersFull({ data, palette }) {
               <div>
                 <div className="label" style={{ marginBottom: 8, color: 'var(--accent)' }}>{p.kind}</div>
                 <div style={{ fontSize: 'clamp(22px, 2.4vw, 30px)', fontWeight: 600, lineHeight: 1.15, marginBottom: 10 }}>{p.name}</div>
-                <p style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.55, maxWidth: 640, textAlign: 'justify' }}>{p.blurb}</p>
+                <p style={{ fontSize: 15, color: '#0E1136', lineHeight: 1.55, maxWidth: 640, textAlign: 'justify' }}>{p.blurb}</p>
               </div>
               <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.18em', color: 'var(--muted)' }}>
                 <div>{p.loc}</div>
@@ -1509,7 +1516,7 @@ function PlatformDetail({ data, palette }) {
         </h1>
       </SlideIn>
       <SlideIn from="left" delay={0.16}>
-        <p style={{ fontSize: 20, marginTop: 20, color: 'var(--ink-2)', maxWidth: 760, lineHeight: 1.4, textAlign: 'justify' }}>
+        <p style={{ fontSize: 20, marginTop: 20, color: '#0E1136', maxWidth: 760, lineHeight: 1.4, textAlign: 'justify' }}>
           Four phases. One platform. From frontier discovery to launched ventures.
         </p>
       </SlideIn>
@@ -1520,7 +1527,7 @@ function PlatformDetail({ data, palette }) {
             <div style={{ padding: 32, borderRight: i < 3 ? '1px solid var(--rule)' : 'none', background: i % 2 === 0 ? 'var(--bone)' : 'transparent' }}>
               <div className="mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: 'var(--accent)', marginBottom: 16 }}>PHASE {p.n}</div>
               <div style={{ fontSize: 28, fontWeight: 600, marginBottom: 12, letterSpacing: '-0.02em' }}>{p.title}</div>
-              <p style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.55, textAlign: 'justify' }}>{p.body}</p>
+              <p style={{ fontSize: 14, color: '#0E1136', lineHeight: 1.55, textAlign: 'justify' }}>{p.body}</p>
             </div>
           </SlideIn>
         ))}
@@ -1533,7 +1540,7 @@ function Row({ k, v }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 12, paddingBottom: 14, borderBottom: '1px solid var(--rule)' }}>
       <div className="mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: 'var(--accent)' }}>{k.toUpperCase()}</div>
-      <div style={{ fontSize: 15, color: 'var(--ink)' }}>{v}</div>
+      <div style={{ fontSize: 15, color: '#0E1136' }}>{v}</div>
     </div>
   );
 }

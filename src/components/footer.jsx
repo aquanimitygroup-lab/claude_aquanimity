@@ -180,14 +180,14 @@ function FooterCTA({ palette, onOpen }) {
           {/* Left side - Text Content */}
           <div>
             <div className="label" style={{ marginBottom: 18, fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--accent)", fontFamily: "'Red Hat Display', sans-serif", fontWeight: 600 }}>
-              § 06 — Partner with Aquanimity
+              § 06 — Partner with Us
             </div>
             <h2 style={{ 
               fontSize: 'clamp(40px, 6vw, 88px)', 
               lineHeight: 1, 
               letterSpacing: '-0.03em', 
               fontWeight: 900,
-              color: 'var(--ink)',
+              color: '#0e1136',
               fontFamily: "'Red Hat Display', sans-serif",
               margin: 0
             }}>
@@ -201,7 +201,7 @@ function FooterCTA({ palette, onOpen }) {
             <p style={{ 
               marginTop: 28, 
               fontSize: 18, 
-              color: 'var(--ink-2)', 
+              color: '#0E1136', 
               lineHeight: 1.55, 
               maxWidth: 480,
               fontFamily: "'Red Hat Display', sans-serif",
@@ -210,34 +210,6 @@ function FooterCTA({ palette, onOpen }) {
               Founders, scientists, capital, governments. If you're building the bioeconomy of the Global South, we want to hear from you.
             </p>
             <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginTop: 36 }}>
-              <button 
-                onClick={handleGetInTouch}
-                style={{
-                  padding: '14px 28px',
-                  background: 'var(--accent)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: 40,
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 10,
-                  fontSize: 15,
-                  fontWeight: 600,
-                  transition: 'all 0.3s ease',
-                  fontFamily: "'Red Hat Display', sans-serif"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.gap = '14px';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.gap = '10px';
-                }}
-              >
-                Get in touch <Arrow />
-              </button>
             </div>
           </div>
 
@@ -323,7 +295,7 @@ function FooterCTA({ palette, onOpen }) {
                 justifyContent: 'center', 
                 marginTop: 16,
                 padding: '14px 24px',
-                background: isFormValid() ? 'var(--ink)' : '#cccccc',
+                background: isFormValid() ? '#0E1136' : '#0E1136',
                 color: isFormValid() ? 'white' : '#999999',
                 border: 'none',
                 borderRadius: 40,
@@ -339,13 +311,13 @@ function FooterCTA({ palette, onOpen }) {
               }}
               onMouseEnter={(e) => {
                 if (isFormValid()) {
-                  e.currentTarget.style.background = 'var(--accent)';
+                  e.currentTarget.style.background = '#0E1136';
                   e.currentTarget.style.gap = '14px';
                 }
               }}
               onMouseLeave={(e) => {
                 if (isFormValid()) {
-                  e.currentTarget.style.background = 'var(--ink)';
+                  e.currentTarget.style.background = '#0E1136';
                   e.currentTarget.style.gap = '10px';
                 }
               }}
@@ -413,7 +385,7 @@ function Field({ label, type = 'text', placeholder, name, value, onChange, onBlu
     padding: '12px 0 8px 0',
     fontFamily: "'Red Hat Display', sans-serif",
     fontSize: 15,
-    color: 'var(--ink)',
+    color: '#0E1136',
     outline: 'none',
     transition: 'border-color 0.25s ease',
     resize: 'vertical'
@@ -472,7 +444,7 @@ function Chip({ label, isActive, onClick }) {
         borderRadius: 40,
         border: '1px solid ' + (isActive ? 'var(--accent)' : 'var(--rule)'),
         background: isActive ? 'var(--accent)' : 'transparent',
-        color: isActive ? 'white' : 'var(--ink)',
+        color: isActive ? 'white' : '#0E1136',
         fontSize: 13, 
         fontWeight: 500,
         transition: 'all 0.2s ease',
@@ -566,7 +538,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 style={{ 
                   fontSize: 14, 
-                  color: 'var(--ink-2)',
+                  color: '#0E1136',
                   textDecoration: 'none',
                   fontFamily: "'Red Hat Display', sans-serif",
                   fontWeight: 400,
@@ -575,7 +547,7 @@ function Footer() {
                   display: 'inline-block'
                 }} 
                 onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#0E1136'}
               >
                 LinkedIn
               </a>
@@ -589,10 +561,10 @@ function Footer() {
             Contact
           </div>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 10 }}>
-            <li style={{ fontSize: 14, color: 'var(--ink-2)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
+            <li style={{ fontSize: 14, color: '#0E1136', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
               Address: Plot 68-71, Block K, Road 4 Rupnagar Rd, Dhaka 1216
             </li>
-            <li style={{ fontSize: 14, color: 'var(--ink-2)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
+            <li style={{ fontSize: 14, color: '#0E1136', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 400 }}>
               Phone: 
               +8801310346592
             </li>
@@ -602,7 +574,7 @@ function Footer() {
                 onClick={handleEmailClick}
                 style={{ 
                   fontSize: 14, 
-                  color: 'var(--ink-2)',
+                  color: '#0E1136',
                   textDecoration: 'none',
                   fontFamily: "'Red Hat Display', sans-serif",
                   fontWeight: 400,
@@ -611,7 +583,7 @@ function Footer() {
                   display: 'inline-block'
                 }} 
                 onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#0E1136'}
               >
                 aquanimitygroup@gmail.com
               </a>
@@ -663,7 +635,7 @@ function FooterCol({ title, items, onClick }) {
               onClick={(e) => onClick(e, i)}
               style={{ 
                 fontSize: 14, 
-                color: 'var(--ink-2)',
+                color: '#0E1136',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
@@ -673,7 +645,7 @@ function FooterCol({ title, items, onClick }) {
                 transition: 'color 0.2s ease'
               }} 
               onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-2)'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#0E1136'}
             >
               {i}
             </button>
