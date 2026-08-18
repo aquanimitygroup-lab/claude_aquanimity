@@ -748,6 +748,7 @@ Object.keys(teamData).forEach(key => {
         }}>
           <div>
             <div className="label" style={{ 
+              fontFamily:'Red Hat Display',
               marginBottom: '18px', 
               fontSize: '12px', 
               letterSpacing: '0.2em', 
