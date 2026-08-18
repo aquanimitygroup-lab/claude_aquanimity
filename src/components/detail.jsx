@@ -1226,10 +1226,10 @@ function InstituteDetail({ it, data, palette }) {
         <div style={{ marginTop: 40 }}>
           <SlideIn from="left">
             <div style={{ textAlign: 'center', marginBottom: 40 }}>
-              <h3 style={{ fontSize: 'clamp(24px, 2.8vw, 32px)', fontWeight: 500, marginBottom: 12, color:'#0E1136' }}>
+              <h3 style={{ fontSize: 'clamp(24px, 2.8vw, 32px)', fontWeight: 500, marginBottom: 12, color:'rgb(31, 110, 122)' }}>
                 <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}></span> Researchers
               </h3>
-              <div style={{ width: 50, height: 2, background: '#0E1136', margin: '0 auto' }} />
+              <div style={{ width: 50, height: 2, background: 'rgb(31, 110, 122)', margin: '0 auto' }} />
             </div>
           </SlideIn>
           
