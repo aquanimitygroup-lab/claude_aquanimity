@@ -1053,7 +1053,7 @@ function InstituteDetail({ it, data, palette }) {
       // Empty - Future researchers will be added here
     ],
     "04_associates": [
-      { name: "Mayad Mashnoon", title: "", img: "/images/mashnoon.png" },
+      { name: "Mashnoon Mayad", title: "", img: "/images/mashnoon.png" },
     ]
   };
 

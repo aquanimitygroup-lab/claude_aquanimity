@@ -161,9 +161,25 @@ function Nav({ onNavigate, route }) {
           
           <div className="mobile-menu-footer">
             <div className="mobile-menu-social">
-              <a href="#" className="social-link">LinkedIn</a>
-              <a href="#" className="social-link">Twitter</a>
-              <a href="#" className="social-link">Instagram</a>
+                           <a 
+                href="https://www.linkedin.com/company/aquanimitygroup/about/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{ 
+                  fontSize: 14, 
+                  color: '#0E1136',
+                  textDecoration: 'none',
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  fontWeight: 400,
+                  transition: 'color 0.2s ease',
+                  cursor: 'pointer',
+                  display: 'inline-block'
+                }} 
+                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#0E1136'}
+              >
+                LinkedIn
+              </a>
             </div>
             <div className="mobile-menu-copyright">
               <span>&copy; 2026 Aquanimity. All rights reserved.</span>
@@ -409,7 +425,7 @@ function Nav({ onNavigate, route }) {
           display: block;
           font-size: 32px;
           font-weight: 700;
-          color: var(--text);
+          color: #0E1136;
           letter-spacing: -0.5px;
         }
 
@@ -425,7 +441,7 @@ function Nav({ onNavigate, route }) {
           display: block;
           padding: 14px 18px;
           text-decoration: none;
-          color: var(--text);
+          color: #0E1136;
           border-radius: 14px;
           transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           opacity: 0;
