@@ -1030,6 +1030,7 @@ function InstituteDetail({ it, data, palette }) {
     ],
     "01_associates": [
       { name: "Fatin Noor", title: "", img: "/images/fatin.jpg" },
+      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
       { name: "Rahul Baroi", title: "", img: "/images/rahul.png" },
       { name: "Borno Das", title: "", img: "/images/borno.png" }
     ],
