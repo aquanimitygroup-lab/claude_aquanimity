@@ -603,10 +603,10 @@ function Footer() {
         alignItems: 'center' 
       }}>
         <div className="mono" style={{ fontSize: 11, letterSpacing: '0.18em', color: 'var(--muted)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 500 }}>
-          © {new Date().getFullYear()} AQUANIMITY. ALL RIGHTS RESERVED.
+          © {new Date().getFullYear()} AQUANIMITY GROUP. ALL RIGHTS RESERVED.
         </div>
         <div className="mono" style={{ fontSize: 11, letterSpacing: '0.18em', color: 'var(--muted)', fontFamily: "'Red Hat Display', sans-serif", fontWeight: 500 }}>
-           Rupnagar, Mirpur-2 · DHAKA, BD
+          DHAKA, BANGLADESH
         </div>
       </div>
       
