@@ -417,11 +417,11 @@ const BackButton = ({ onClick }) => {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: isHovered ? '14px' : '10px',
+            gap: isHovered ? '10px' : '6px',
             background: '#ECE5D6',
             border: '1px solid var(--rule)',
             borderRadius: 40,
-            padding: '12px 28px',
+            padding: '5px 8px',
             color: '#0E1136',
             fontSize: 14,
             fontWeight: 500,
