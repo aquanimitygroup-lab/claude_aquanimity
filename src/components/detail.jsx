@@ -1025,7 +1025,7 @@ function InstituteDetail({ it, data, palette }) {
     "01": [
       { 
         name: "Syed Hossainy, PhD", 
-        title: "Senior Research Scientist", 
+        title: "Founding Scientist and Chair,\nScience Advisory Board\n\n Director of Applied Bioengineering, UC Berkeley", 
         img: "/images/sayed.png",
         bio: "Prolific inventor with 286 issued patents and 390 patents pending",
         detailedBio: "Syed Hossainy is an Adjunct Professor and Director of Applied Bioengineering at UC Berkeley and Advisor to the BUET Applied Bioengineering Research Incubator. He previously led Abbott Vascular's innovation incubator, delivering 10 feasibility programs, including bio absorbable vascular scaffolds. With 286 issued patents and nearly 390 pending, he is widely recognized as the co-inventor of the first Drug Eluting Stents.\n\nAt the Biohub, he sets the scientific direction, guides all translational R&D, and mentors teams on research innovation, biomaterials, bioengineering design, and regulatory strategy.",
@@ -1034,7 +1034,7 @@ function InstituteDetail({ it, data, palette }) {
       },
             { 
         name: "Abul Iqbal, PhD", 
-        title: "Principal Investigator", 
+        title: "Founding Scientist and\nSenior Advisor, Chemistry", 
         img: "/images/abul.png",
         bio: "Former head of R&D at Ciba-Geigy and inventor of the industrial process of the Ferrari Red",
         detailedBio: "Abul Iqbal is a world-renowned chemist and recipient of the Society of Dyers and Colourists' Perkin Medal (1993) for pioneering the chemistry behind diketopyrrolopyrrole (DPP) pigments, the core of the signature Ferrari Red. A former Head of R&D at Ciba-Geigy, he has authored over 100 patents in pigments and functional materials.\n\nAt the Biohub, he advises on high-performance pigments, polymers, and sustainable materials. He guides development of jute/RPET composites, colour-stable biomaterials, and supports teams with chemical synthesis, formulation strategy, and industrial scale-up.",
@@ -1043,7 +1043,7 @@ function InstituteDetail({ it, data, palette }) {
       },
       { 
         name: "Shoeb Ahmed, PhD", 
-        title: "Lead Researcher", 
+        title: "Senior Scientific Advisor and Chair, Institute of Applied Bioengineering and Material Science \n\n Chair and Professor, Dept. of Chemical Engineering, BUET", 
         img: "/images/shoeb.png",
         bio: "Research focus includes industrial processes, intracellular signalling, and advanced microscopy methods",
         detailedBio: "Shoeb Ahmed is a Professor and Chair of the Department Chemical Engineering at BUET and the Project Director of the Applied Bioengineering Research Incubator (ABRI). He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
@@ -1061,7 +1061,7 @@ function InstituteDetail({ it, data, palette }) {
       },
       { 
         name: "Tasnima Siddique, PhD", 
-        title: "Lab Manager", 
+        title: "Research Director", 
         img: "/images/tasnima.png",
         bio: "Expert in laboratory management and quality assurance in biomedical research",
         detailedBio: "Tasnima Siddique is a seasoned professional with extensive experience in laboratory management and quality assurance in biomedical research. She holds a PhD in Biochemistry and has worked in leading research institutions in Bangladesh and abroad.\n\nAt the Biohub, she oversees laboratory operations, ensures quality assurance compliance, and manages research infrastructure. She also provides training and mentorship to junior researchers and lab technicians.",
@@ -1078,7 +1078,7 @@ function InstituteDetail({ it, data, palette }) {
     "02": [
       { 
         name: "Shoeb Ahmed, PhD", 
-        title: "Lead Bioengineer", 
+        title: "Senior Scientific Advisor and Chair, Institute of Applied Bioengineering and Material Science \n\n Chair and Professor, Dept. of Chemical Engineering, BUET", 
         img: "/images/shoeb.png",
         bio: "Research focus includes industrial processes, intracellular signalling, and advanced microscopy methods",
         detailedBio: "Shoeb Ahmed is a Professor and Chair of the Department Chemical Engineering at BUET and the Project Director of the Applied Bioengineering Research Incubator (ABRI). He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
@@ -1087,7 +1087,7 @@ function InstituteDetail({ it, data, palette }) {
       },
       { 
         name: "Samir Hossainy, PhD", 
-        title: "Senior Researcher", 
+        title: "Program Director, Novel Delivery Technologies\n\nPostdoctoral Associate, NYU Tandon", 
         img: "/images/samir.png",
         bio: "Co-developer of thermoreversible polymersomes",
         detailedBio: "Samir Hossainy is a researcher at the University of Chicago and co-developer of thermoreversible polymersomes that self-assemble in water, enabling high-efficiency loading of proteins and siRNA for drug and vaccine delivery. He is currently a Postdoctoral Associate at NYU Tandon and holds a PhD in Molecular Engineering from the University of Chicago, along with MS and BS degrees in Materials Science and Bioengineering from UC Berkeley.\n\nAt the Biohub, he leads the thermoreversible polymersome platform, advancing applications in vaccines, cancer immunotherapy, and tolerogenic therapies.",
@@ -1096,7 +1096,7 @@ function InstituteDetail({ it, data, palette }) {
       },
       { 
         name: "Nafisa Islam, PhD", 
-        title: "Materials Scientist", 
+        title: "Senior Scientific Advisor\n\n Professor, Dept. of Chemical Engineering, BUET", 
         img: "/images/nafisa.png",
         bio: "Specialist in biocompatible materials and biosensor development",
         detailedBio: "Nafisa Islam is a chemical engineer specializing in biocompatible materials, biosensing, and environmental chemistry. She holds a PhD in Chemical Engineering from North Carolina State University and is a member of the BUET faculty.\n\nAt the Biohub, she leads development of biosensor-based sanitary pads and women's health diagnostics. She also advises on biocompatible materials and packaging innovations across the Biohub.",
@@ -1110,7 +1110,7 @@ function InstituteDetail({ it, data, palette }) {
     "03": [
       { 
         name: "Abed Chawdhury, PhD", 
-        title: "Lead Microbiologist", 
+        title: "Senior Scientific Advisor\n\nPreviously the Hoffman-LaRoche Fellow of Molecular Biology at MIT and Principal Scientist at Syngenta Australia", 
         img: "/images/abed1.png",
         bio: "Leading geneticist with more than 3 decades of experience, having discovered Panchabrihi (five-harvest rice)",
         detailedBio: "Abed Chaudhury is a leading geneticist with more than three decades of experience in genetics, molecular biology, microbiomics, and crop science. He is known internationally for discovering Panchabrihi (five-harvest rice). His career includes serving as a Hoffman-LaRoche Fellow of Molecular Biology at MIT, Principal Scientist at Syngenta Australia, and Head of Research Innovation at Loam Bio, where he applied next-generation sequencing and metagenomics to harness soil microbiomes for carbon sequestration. He also discovered a fungus capable of reducing cattle methane emissions by up to 90 percent.\n\nAt the Biohub, he directs programs in plant genetics, soil and marine microbiomes, and CRISPR-enabled crop innovation.",
