@@ -129,8 +129,17 @@ function Nav({ onNavigate, route }) {
 
         <div className={`mobile-menu ${open ? 'open' : ''}`}>
           <div className="mobile-menu-header">
-            <span className="mobile-menu-subtitle" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-  Explore
+            <span className="mobile-menu-subtitle" style={{ 
+  display: 'flex', 
+  alignItems: 'center', 
+  gap: '8px'
+}}>
+  <span style={{ 
+    fontFamily: "'Red Hat Display', sans-serif", 
+    fontWeight: 700 
+  }}>
+    Explore
+  </span>
   <img 
     src={process.env.PUBLIC_URL + '/images/logo1.png'} 
     alt="AQUANIMITY BIOHUBS™" 
