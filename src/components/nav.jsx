@@ -136,7 +136,7 @@ function Nav({ onNavigate, route }) {
 }}>
   <span style={{ 
     fontFamily: "'Red Hat Display', sans-serif", 
-    fontWeight: 700 
+    fontWeight: 800 
   }}>
     Explore
   </span>
