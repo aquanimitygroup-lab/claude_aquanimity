@@ -56,7 +56,7 @@ function Ventures({ palette, onOpen }) {
     {
       id: "superwater",
      
-      name: "Super Water",
+      name: "SuperWater",
       tag: "Enhanced Water",
       blurb: "Patented and clinically validated. Following successful 150-participant human trials confirming benefits for hydration, post-meal glucose control, and heart health, our functional water has proven its efficacy. We are now preparing full-scale production to bring smarter daily wellness to everyone.",
       video: "#",
@@ -207,8 +207,8 @@ function Ventures({ palette, onOpen }) {
               style={{
                 padding: '10px 24px',
                 borderRadius: 999,
-                border: index === activeVenture ? '1.5px solid var(--accent-2)' : '1.5px solid rgba(255,255,255,0.2)',
-                background: index === activeVenture ? 'var(--accent-2)' : 'transparent',
+                border: index === activeVenture ? '1.5px solid rgb(250, 247, 240)' : '1.5px solid rgba(255,255,255,0.2)',
+                background: index === activeVenture ? 'rgb(250, 247, 240)' : 'transparent',
                 color: index === activeVenture ? 'var(--ink)' : 'var(--paper)',
                 cursor: 'pointer',
                 fontSize: 14,
@@ -218,7 +218,7 @@ function Ventures({ palette, onOpen }) {
               }}
               onMouseEnter={(e) => {
                 if (index !== activeVenture) {
-                  e.currentTarget.style.borderColor = 'var(--accent-2)';
+                  e.currentTarget.style.borderColor = 'rgb(250, 247, 240)';
                 }
               }}
               onMouseLeave={(e) => {

@@ -92,7 +92,7 @@ function FooterCTA({ palette, onOpen }) {
 
   const handleGetInTouch = (e) => {
     e.preventDefault();
-    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=aquanimitygroup@gmail.com', '_blank');
+    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=contact@aquanimitygroup.com', '_blank');
   };
   
   const handleSeeRoles = (e) => {
@@ -125,7 +125,7 @@ function FooterCTA({ palette, onOpen }) {
       `I am: ${selectedTags.join(', ') || 'Not specified'}\n\n` +
       `Message:\n${formData.message}`
     );
-    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=aquanimitygroup@gmail.com&su=${subject}&body=${body}`, '_blank');
+    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=contact@aquanimitygroup.com&su=${subject}&body=${body}`, '_blank');
     
     // Reset form after opening Gmail
     setFormData({ name: '', email: '', organisation: '', message: '' });
@@ -492,7 +492,7 @@ function Footer() {
   // Handle email click - opens Gmail
   const handleEmailClick = (e) => {
     e.preventDefault();
-    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=aquanimitygroup@gmail.com', '_blank');
+    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=contact@aquanimitygroup.com', '_blank');
   };
   
   return (
@@ -585,7 +585,7 @@ function Footer() {
                 onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#0E1136'}
               >
-                aquanimitygroup@gmail.com
+                contact@aquanimitygroup.com
               </a>
             </li>
           </ul>

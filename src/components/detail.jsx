@@ -214,7 +214,7 @@ function Footer() {
   // Handle email click - opens Gmail
   const handleEmailClick = (e) => {
     e.preventDefault();
-    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=aquanimitygroup@gmail.com', '_blank');
+    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=contact@aquanimitygroup.com', '_blank');
   };
 
   return (
@@ -359,7 +359,7 @@ function Footer() {
                   onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#0E1136'}
                 >
-                  aquanimitygroup@gmail.com
+                  contact@aquanimitygroup.com
                 </a>
               </li>
             </ul>
@@ -449,7 +449,7 @@ function PartnerDetail({ partner, palette }) {
 
   return (
     <div>
-      <div className="img-frame" style={{ height: 'min(55vh, 480px)', background: '#000', position: 'relative' }}>
+      <div className="img-frame" style={{ height: 'min(55vh, 480px)', background: '#f2f2f2', position: 'relative' }}>
         <div style={{ 
           width: '100%', 
           height: '100%', 
@@ -782,27 +782,28 @@ Each institute is not merely a research division. It is a venture-building engin
           textAlign: 'center',
           marginTop: 40,
           padding: 60,
-          background: 'linear-gradient(135deg, var(--accent) 0%, #1a5a66 100%)',
+          background: 'linear-gradient(135deg, #0E1136 0%, #0E1136 100%)',
           borderRadius: 32,
           color: 'white'
         }}>
-          <h3 style={{ fontSize: 'clamp(28px, 3vw, 36px)', fontWeight: 700, marginBottom: 16, fontFamily: "'Red Hat Display', sans-serif" }}>
+          <h3 style={{ fontSize: 'clamp(28px, 3vw, 36px)', fontWeight: 700, marginBottom: 16, fontFamily: "'Red Hat Display', sans-serif", color:"white" }}>
             One BioHub. Four Engines.
           </h3>
-          <p style={{ fontSize: 17, maxWidth: 700, margin: '0 auto 24px', opacity: 0.9 }}>
+          <p style={{ fontSize: 17, maxWidth: 700, margin: '0 auto 24px', opacity: 0.9, color:"white" }}>
             Together, the four institutes form Aquanimity's BioHub operating system — turning biodiversity into biology, biology into engineering, engineering into products, and products into global impact.
           </p>
           <button 
             onClick={() => window.dispatchEvent(new CustomEvent('aq-route', { detail: 'platform-detail' }))}
             style={{
               padding: '12px 32px',
-              background: 'white',
-              color: 'var(--accent)',
+              background: 'rgb(250, 247, 240)',
+              color: '#0E1136',
               border: 'none',
               borderRadius: 40,
               fontSize: 14,
               fontWeight: 600,
-              cursor: 'pointer'
+              cursor: 'pointer',
+              fontFamily: "'Red Hat Display', sans-serif"
             }}
           >
             Discover the BioPlatform →
@@ -1220,10 +1221,6 @@ function InstituteDetail({ it, data, palette }) {
   );
 
   // Member Details Inline Component for Institute
-// Member Details Inline Component for Institute - Updated with index.html design
-// Member Details Inline Component for Institute - Updated with index.html design
-// Member Details Inline Component for Institute
-// Member Details Inline Component for Institute
 const MemberDetailsInline = ({ member, onClose }) => {
   const detailsRef = useRef(null);
 
@@ -1541,8 +1538,24 @@ const MemberDetailsInline = ({ member, onClose }) => {
 
   return (
     <div>
-      <div className="img-frame" style={{ height: 'min(55vh, 480px)', background: '#000', position: 'relative' }}>
-        <img src={it.img} alt={it.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      {/* Institute Detail Image - Radius removed */}
+      <div className="img-frame" style={{ 
+        height: 'min(55vh, 480px)', 
+        background: '#000', 
+        position: 'relative',
+        borderRadius: '0px',
+        overflow: 'hidden'
+      }}>
+        <img 
+          src={it.img} 
+          alt={it.title} 
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'cover',
+            borderRadius: '0px'
+          }} 
+        />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(14,27,44,0.3), rgba(14,27,44,0.85))' }} />
         <div className="wrap" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
           <SlideIn from="left">
