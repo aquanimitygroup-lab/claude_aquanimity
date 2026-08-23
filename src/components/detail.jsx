@@ -1071,10 +1071,10 @@ function InstituteDetail({ it, data, palette }) {
       }
     ],
     "01_associates": [
-      { name: "Fatin Noor", title: "Research Associate", img: "/images/fatin.jpg" },
-      { name: "Mehedi Hasan Pritom", title: "Research Associate", img: "/images/pritom.png" },
-      { name: "Rahul Baroi", title: "Research Associate", img: "/images/rahul.png" },
-      { name: "Borno Das", title: "Research Associate", img: "/images/borno.png" }
+      { name: "Fatin Noor", title: "", img: "/images/fatin.jpg" },
+      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
+      { name: "Rahul Baroi", title: "", img: "/images/rahul.png" },
+      { name: "Borno Das", title: "", img: "/images/borno.png" }
     ],
     "02": [
       { 
@@ -1106,7 +1106,7 @@ function InstituteDetail({ it, data, palette }) {
       }
     ],
     "02_associates": [
-      { name: "Mehedi Hasan Pritom", title: "Research Associate", img: "/images/pritom.png" },
+      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
     ],
     "03": [
       { 
@@ -1120,13 +1120,13 @@ function InstituteDetail({ it, data, palette }) {
       }
     ],
     "03_associates": [
-      { name: "Mehedi Hasan Pritom", title: "Research Associate", img: "/images/pritom.png" },
+      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
     ],
     "04": [
       // Empty - Future researchers will be added here
     ],
     "04_associates": [
-      { name: "Mashnoon Mayad", title: "Research Associate", img: "/images/mashnoon.png" },
+      { name: "Mashnoon Mayad", title: "", img: "/images/mashnoon.png" },
     ]
   };
 
