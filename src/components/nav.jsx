@@ -129,8 +129,21 @@ function Nav({ onNavigate, route }) {
 
         <div className={`mobile-menu ${open ? 'open' : ''}`}>
           <div className="mobile-menu-header">
-            <span className="mobile-menu-title">Navigation</span>
-            <span className="mobile-menu-subtitle">Explore Our World</span>
+            <span className="mobile-menu-subtitle" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+  Explore
+  <img 
+    src={process.env.PUBLIC_URL + '/images/logo1.png'} 
+    alt="AQUANIMITY BIOHUBS™" 
+    style={{ 
+      height: '20px', 
+      width: 'auto',
+      objectFit: 'contain'
+    }}
+    onError={(e) => {
+      e.target.style.display = 'none';
+    }}
+  />
+</span>
           </div>
           
           <div className="mobile-menu-inner">
