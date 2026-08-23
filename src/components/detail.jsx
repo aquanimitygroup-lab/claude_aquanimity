@@ -1018,52 +1018,129 @@ function VentureDetail({ v, data, palette }) {
 function InstituteDetail({ it, data, palette }) {
   const descriptionParagraphs = it.fullDescription ? it.fullDescription.split('\n\n').filter(p => p.trim().length > 0) : [it.blurb];
   const areas = it.focusAreas || ["Advanced biomedical research", "Cutting-edge molecular technologies", "Interdisciplinary scientific collaboration"];
+  const [selectedMember, setSelectedMember] = useState(null);
 
-  // Researchers data for each institute with Research Associates
+  // Researchers data for each institute with Research Associates - Updated with index.html data
   const researchers = {
     "01": [
-      { name: "Syed Hossainy, PhD", title: "", img: "/images/sayed.png" },
-      { name: "Shoeb Ahmed, PhD", title: "", img: "/images/shoeb.png" },
-      { name: "Abul Iqbal, PhD", title: "", img: "/images/abul.png" },
-      { name: "Professor Dr. Bishwajit Bhowmick, PhD", title: "", img: "/images/bishwjit.png" },
-      { name: "Tasnima Siddique, PhD", title: "", img: "/images/tasnima.png" }
+      { 
+        name: "Syed Hossainy, PhD", 
+        title: "Senior Research Scientist", 
+        img: "/images/sayed.png",
+        bio: "Prolific inventor with 286 issued patents and 390 patents pending",
+        detailedBio: "Syed Hossainy is an Adjunct Professor and Director of Applied Bioengineering at UC Berkeley and Advisor to the BUET Applied Bioengineering Research Incubator. He previously led Abbott Vascular's innovation incubator, delivering 10 feasibility programs, including bio absorbable vascular scaffolds. With 286 issued patents and nearly 390 pending, he is widely recognized as the co-inventor of the first Drug Eluting Stents.\n\nAt the Biohub, he sets the scientific direction, guides all translational R&D, and mentors teams on research innovation, biomaterials, bioengineering design, and regulatory strategy.",
+        achievement: "Co-inventor of the first Drug Eluting Stents | Holder of 286 issued patents and nearly 390 pending patents",
+        education: "PhD in Chemical Engineering | The University of Texas at Austin; BS in Chemical Engineering | BUET"
+      },
+            { 
+        name: "Abul Iqbal, PhD", 
+        title: "Principal Investigator", 
+        img: "/images/abul.png",
+        bio: "Former head of R&D at Ciba-Geigy and inventor of the industrial process of the Ferrari Red",
+        detailedBio: "Abul Iqbal is a world-renowned chemist and recipient of the Society of Dyers and Colourists' Perkin Medal (1993) for pioneering the chemistry behind diketopyrrolopyrrole (DPP) pigments, the core of the signature Ferrari Red. A former Head of R&D at Ciba-Geigy, he has authored over 100 patents in pigments and functional materials.\n\nAt the Biohub, he advises on high-performance pigments, polymers, and sustainable materials. He guides development of jute/RPET composites, colour-stable biomaterials, and supports teams with chemical synthesis, formulation strategy, and industrial scale-up.",
+        achievement: "World-renowned chemist | Perkin Medal recipient | Author of 100+ patents",
+        education: "PhD | University of St Andrews"
+      },
+      { 
+        name: "Shoeb Ahmed, PhD", 
+        title: "Lead Researcher", 
+        img: "/images/shoeb.png",
+        bio: "Research focus includes industrial processes, intracellular signalling, and advanced microscopy methods",
+        detailedBio: "Shoeb Ahmed is a Professor and Chair of the Department Chemical Engineering at BUET and the Project Director of the Applied Bioengineering Research Incubator (ABRI). He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
+        education: "PhD in Chemical and Biomolecular Engineering | North Carolina State University; MSc in Chemical and Biomolecular Engineering | North Carolina State University"
+      },
+
+      { 
+        name: "Professor Dr. Bishwajit Bhowmick, PhD", 
+        title: "Research Director", 
+        img: "/images/bishwjit.png",
+        bio: "Expert in biomaterials and tissue engineering with over 20 years of research experience",
+        detailedBio: "Professor Dr. Bishwajit Bhowmick is a distinguished researcher in biomaterials and tissue engineering. He has over 20 years of experience in developing advanced biomaterials for medical applications. His research focuses on biodegradable polymers, drug delivery systems, and tissue regeneration.\n\nAt the Biohub, he provides strategic guidance on biomaterials development and tissue engineering applications. He oversees the development of novel biomaterials for medical devices, drug delivery systems, and regenerative medicine applications.",
+
+        education: "PhD | University of Tokyo"
+      },
+      { 
+        name: "Tasnima Siddique, PhD", 
+        title: "Lab Manager", 
+        img: "/images/tasnima.png",
+        bio: "Expert in laboratory management and quality assurance in biomedical research",
+        detailedBio: "Tasnima Siddique is a seasoned professional with extensive experience in laboratory management and quality assurance in biomedical research. She holds a PhD in Biochemistry and has worked in leading research institutions in Bangladesh and abroad.\n\nAt the Biohub, she oversees laboratory operations, ensures quality assurance compliance, and manages research infrastructure. She also provides training and mentorship to junior researchers and lab technicians.",
+
+        education: "PhD | University of Dhaka"
+      }
     ],
     "01_associates": [
-      { name: "Fatin Noor", title: "", img: "/images/fatin.jpg" },
-      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
-      { name: "Rahul Baroi", title: "", img: "/images/rahul.png" },
-      { name: "Borno Das", title: "", img: "/images/borno.png" }
+      { name: "Fatin Noor", title: "Research Associate", img: "/images/fatin.jpg" },
+      { name: "Mehedi Hasan Pritom", title: "Research Associate", img: "/images/pritom.png" },
+      { name: "Rahul Baroi", title: "Research Associate", img: "/images/rahul.png" },
+      { name: "Borno Das", title: "Research Associate", img: "/images/borno.png" }
     ],
     "02": [
-      { name: "Shoeb Ahmed, PhD", title: "", img: "/images/shoeb.png" },
-      { name: "Samir Hossainy, PhD", title: "", img: "/images/samir.png" },
-      { name: "Nafisa Islam, PhD", title: "", img: "/images/nafisa.png" }
+      { 
+        name: "Shoeb Ahmed, PhD", 
+        title: "Lead Bioengineer", 
+        img: "/images/shoeb.png",
+        bio: "Research focus includes industrial processes, intracellular signalling, and advanced microscopy methods",
+        detailedBio: "Shoeb Ahmed is a Professor and Chair of the Department Chemical Engineering at BUET and the Project Director of the Applied Bioengineering Research Incubator (ABRI). He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
+  
+        education: "PhD in Chemical and Biomolecular Engineering | North Carolina State University; MSc in Chemical and Biomolecular Engineering | North Carolina State University"
+      },
+      { 
+        name: "Samir Hossainy, PhD", 
+        title: "Senior Researcher", 
+        img: "/images/samir.png",
+        bio: "Co-developer of thermoreversible polymersomes",
+        detailedBio: "Samir Hossainy is a researcher at the University of Chicago and co-developer of thermoreversible polymersomes that self-assemble in water, enabling high-efficiency loading of proteins and siRNA for drug and vaccine delivery. He is currently a Postdoctoral Associate at NYU Tandon and holds a PhD in Molecular Engineering from the University of Chicago, along with MS and BS degrees in Materials Science and Bioengineering from UC Berkeley.\n\nAt the Biohub, he leads the thermoreversible polymersome platform, advancing applications in vaccines, cancer immunotherapy, and tolerogenic therapies.",
+        achievement: "Co-developer of thermoreversible polymersomes | PhD from University of Chicago | Postdoc at NYU Tandon",
+        education: "PhD in Molecular Engineering | University of Chicago; MSc Materials Science and Engineering | UC Berkeley; BS in Bioengineering | UC Berkeley"
+      },
+      { 
+        name: "Nafisa Islam, PhD", 
+        title: "Materials Scientist", 
+        img: "/images/nafisa.png",
+        bio: "Specialist in biocompatible materials and biosensor development",
+        detailedBio: "Nafisa Islam is a chemical engineer specializing in biocompatible materials, biosensing, and environmental chemistry. She holds a PhD in Chemical Engineering from North Carolina State University and is a member of the BUET faculty.\n\nAt the Biohub, she leads development of biosensor-based sanitary pads and women's health diagnostics. She also advises on biocompatible materials and packaging innovations across the Biohub.",
+     
+        education: "PhD in Chemical and Biomolecular Engineering | North Carolina State University; MSc in Chemical and Biomolecular Engineering | North Carolina State University ; BSc in Chemical Engineering | BUET"
+      }
     ],
     "02_associates": [
-      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
-      
+      { name: "Mehedi Hasan Pritom", title: "Research Associate", img: "/images/pritom.png" },
     ],
     "03": [
-      { name: "Abed Chawdhury, PhD", title: "", img: "/images/abed1.png" }
+      { 
+        name: "Abed Chawdhury, PhD", 
+        title: "Lead Microbiologist", 
+        img: "/images/abed1.png",
+        bio: "Leading geneticist with more than 3 decades of experience, having discovered Panchabrihi (five-harvest rice)",
+        detailedBio: "Abed Chaudhury is a leading geneticist with more than three decades of experience in genetics, molecular biology, microbiomics, and crop science. He is known internationally for discovering Panchabrihi (five-harvest rice). His career includes serving as a Hoffman-LaRoche Fellow of Molecular Biology at MIT, Principal Scientist at Syngenta Australia, and Head of Research Innovation at Loam Bio, where he applied next-generation sequencing and metagenomics to harness soil microbiomes for carbon sequestration. He also discovered a fungus capable of reducing cattle methane emissions by up to 90 percent.\n\nAt the Biohub, he directs programs in plant genetics, soil and marine microbiomes, and CRISPR-enabled crop innovation.",
+        achievement: "Discovered Panchabrihi rice | Discovered methane-reducing fungus (90% reduction) | Hoffman-LaRoche Fellow at MIT",
+        education: "PhD in Molecular Biology | University of Oregon"
+      }
     ],
     "03_associates": [
-     { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
+      { name: "Mehedi Hasan Pritom", title: "Research Associate", img: "/images/pritom.png" },
     ],
     "04": [
       // Empty - Future researchers will be added here
     ],
     "04_associates": [
-      { name: "Mashnoon Mayad", title: "", img: "/images/mashnoon.png" },
+      { name: "Mashnoon Mayad", title: "Research Associate", img: "/images/mashnoon.png" },
     ]
   };
 
   const instituteResearchers = researchers[it.n] || [];
   const instituteAssociates = researchers[it.n + "_associates"] || [];
 
-  // Render researcher card
+  // Render researcher card with click handler
   const renderResearcherCard = (researcher, idx, isAssociate = false) => (
     <div 
       key={idx}
+      onClick={() => {
+        if (!isAssociate && researcher.detailedBio) {
+          setSelectedMember(researcher);
+        }
+      }}
       style={{ 
         textAlign: 'center',
         padding: isAssociate ? '16px 12px' : '20px 12px',
@@ -1071,15 +1148,17 @@ function InstituteDetail({ it, data, palette }) {
         borderRadius: 16,
         transition: 'all 0.3s ease',
         border: isAssociate ? '1px solid rgba(31,110,122,0.1)' : '1px solid transparent',
-        cursor: 'default',
+        cursor: !isAssociate && researcher.detailedBio ? 'pointer' : 'default',
         width: '100%',
         maxWidth: isAssociate ? '200px' : '250px',
         margin: '0 auto'
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-4px)';
-        e.currentTarget.style.borderColor = isAssociate ? 'var(--accent)' : 'var(--accent)';
-        e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+        if (!isAssociate && researcher.detailedBio) {
+          e.currentTarget.style.transform = 'translateY(-4px)';
+          e.currentTarget.style.borderColor = 'var(--accent)';
+          e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+        }
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0)';
@@ -1127,9 +1206,298 @@ function InstituteDetail({ it, data, palette }) {
       }}>
         {researcher.title}
       </div>
+      {!isAssociate && researcher.detailedBio && (
+        <div style={{ 
+          fontSize: 10, 
+          color: '#0E1136', 
+          marginTop: 6,
+          fontStyle: 'italic'
+        }}>
+          Click for details
+        </div>
+      )}
     </div>
   );
 
+  // Member Details Inline Component for Institute
+// Member Details Inline Component for Institute - Updated with index.html design
+// Member Details Inline Component for Institute - Updated with index.html design
+// Member Details Inline Component for Institute
+// Member Details Inline Component for Institute
+const MemberDetailsInline = ({ member, onClose }) => {
+  const detailsRef = useRef(null);
+
+  useEffect(() => {
+    if (detailsRef.current) {
+      const yOffset = -80;
+      const element = detailsRef.current;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({
+        top: y,
+        behavior: 'smooth'
+      });
+    }
+  }, [member]);
+
+  const handleClose = () => {
+    onClose();
+    setTimeout(() => {
+      // Find the researchers section
+      const researchersSection = document.querySelector('.id-researchers-grid');
+      if (researchersSection) {
+        const yOffset = -100; // Offset for header
+        const y = researchersSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({
+          top: y,
+          behavior: 'smooth'
+        });
+      } else {
+        // Fallback: scroll to institute section
+        const instituteSection = document.querySelector('[class*="id-focus-grid"]');
+        if (instituteSection) {
+          const yOffset = -80;
+          const y = instituteSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({
+            top: y,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }, 100);
+  };
+
+  return (
+    <div 
+      ref={detailsRef}
+      style={{
+        marginTop: '48px',
+        marginBottom: '48px',
+        background: '#F2EDE3',
+        borderRadius: '32px',
+        overflow: 'hidden',
+        animation: 'fadeInUp 0.5s ease',
+        fontFamily: "'Red Hat Display', sans-serif"
+      }}
+    >
+      <div className="mdi-grid" style={{
+        display: 'grid',
+        gridTemplateColumns: '0.8fr 1.2fr',
+        gap: 0,
+        minHeight: '500px'
+      }}>
+        <div className="mdi-photo" style={{
+          background: 'linear-gradient(135deg, #1F6E7A 0%, #4FA0AC 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '40px'
+        }}>
+          <div style={{
+            width: '100%',
+            maxWidth: '280px',
+            borderRadius: '20px',
+            overflow: 'hidden',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+            border: '3px solid white'
+          }}>
+            <img
+              src={member.img}
+              alt={member.name}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+              onError={(e) => {
+                e.target.src = 'https://via.placeholder.com/280x280/1F6E7A/FFFFFF?text=Team';
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="mdi-content" style={{ 
+          padding: '40px', 
+          overflowY: 'auto', 
+          maxHeight: '600px',
+          background: '#F2EDE3'
+        }}>
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'flex-start', 
+            marginBottom: '20px'
+          }}>
+            <div>
+              <div style={{
+                fontSize: '12px',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color: '#1F6E7A',
+                fontWeight: 600,
+                marginBottom: '8px',
+                whiteSpace: 'pre-line',
+                lineHeight: 1.3,
+                fontFamily: "'Red Hat Display', sans-serif"
+              }}>
+                {member.title}
+              </div>
+              <h2 style={{
+                fontSize: '32px',
+                fontWeight: 700,
+                color: '#0E1136',
+                marginBottom: '12px',
+                letterSpacing: '-0.02em',
+                fontFamily: "'Red Hat Display', sans-serif"
+              }}>
+                {member.name}
+              </h2>
+              <div style={{
+                width: '50px',
+                height: '3px',
+                background: '#1F6E7A',
+                marginBottom: '24px'
+              }} />
+            </div>
+            <button
+              onClick={handleClose}
+              style={{
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                background: '#FAF7F0',
+                border: '1px solid #D8D0BE',
+                cursor: 'pointer',
+                fontSize: '18px',
+                transition: 'all 0.3s ease',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#0E1136',
+                fontFamily: "'Red Hat Display', sans-serif",
+                flexShrink: 0
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = '#BFD4D5'}
+              onMouseLeave={(e) => e.currentTarget.style.background = '#FAF7F0'}
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Key Achievements Section */}
+          {member.achievement && (
+            <div style={{ marginBottom: '24px' }}>
+              <h3 style={{
+                fontSize: '16px',
+                fontWeight: 600,
+                color: '#0E1136',
+                marginBottom: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontFamily: "'Red Hat Display', sans-serif"
+              }}>
+                <span style={{ fontSize: '20px' }}>🏆</span> Key Achievement
+              </h3>
+              <div style={{
+                background: 'linear-gradient(135deg, rgba(255,40,0,0.05) 0%, rgba(31,110,122,0.05) 100%)',
+                padding: '14px',
+                borderRadius: '14px',
+                fontSize: '14px',
+                fontWeight: 500,
+                color: '#0E1136',
+                lineHeight: 1.5,
+                borderLeft: '3px solid #FF2800',
+                fontFamily: "'Red Hat Display', sans-serif"
+              }}>
+                {member.achievement}
+              </div>
+            </div>
+          )}
+
+          {/* Detailed Bio Section */}
+          {member.detailedBio && (
+            <div style={{ marginBottom: '24px' }}>
+              <h3 style={{
+                fontSize: '16px',
+                fontWeight: 600,
+                color: '#0E1136',
+                marginBottom: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontFamily: "'Red Hat Display', sans-serif"
+              }}>
+                <span style={{ fontSize: '20px' }}>📋</span> Biography
+              </h3>
+              <div style={{
+                fontSize: '14px',
+                lineHeight: 1.6,
+                color: '#0E1136',
+                textAlign: 'justify',
+                fontFamily: "'Red Hat Display', sans-serif",
+                fontWeight: 400
+              }}>
+                {member.detailedBio.split('\n\n').map((paragraph, idx) => (
+                  <p key={idx} style={{ 
+                    marginBottom: '12px',
+                    color: '#0E1136'
+                  }}>
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Education Section */}
+          {member.education && (
+            <div style={{ marginBottom: '24px' }}>
+              <h3 style={{
+                fontSize: '16px',
+                fontWeight: 600,
+                color: '#0E1136',
+                marginBottom: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontFamily: "'Red Hat Display', sans-serif"
+              }}>
+                <span style={{ fontSize: '20px' }}>🎓</span> Education
+              </h3>
+              <div style={{
+                background: '#FAF7F0',
+                padding: '14px',
+                borderRadius: '14px',
+                fontSize: '13px',
+                color: '#0E1136',
+                lineHeight: 1.5,
+                textAlign: 'justify',
+                fontFamily: "'Red Hat Display', sans-serif",
+                fontWeight: 400
+              }}>
+                {member.education}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <style>{`
+        @media (max-width: 800px) {
+          .mdi-grid { grid-template-columns: 1fr !important; min-height: 0 !important; }
+          .mdi-photo { padding: 28px !important; }
+          .mdi-content { max-height: none !important; padding: 28px !important; }
+        }
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </div>
+  );
+};
   // Render placeholder for empty section
   const renderPlaceholder = (type) => (
     <div style={{ 
@@ -1147,7 +1515,7 @@ function InstituteDetail({ it, data, palette }) {
     }}>
       <div style={{ 
         fontSize: 32, 
-        color: 'var(--muted)',
+        color: '#0E1136',
         marginBottom: 12,
         opacity: 0.3
       }}>
@@ -1163,7 +1531,7 @@ function InstituteDetail({ it, data, palette }) {
       </div>
       <div style={{ 
         fontSize: 13, 
-        color: 'var(--muted)',
+        color: '#0E1136',
         maxWidth: 350
       }}>
         We're currently building our team. Check back for updates.
@@ -1227,10 +1595,10 @@ function InstituteDetail({ it, data, palette }) {
         <div style={{ marginTop: 40 }}>
           <SlideIn from="left">
             <div style={{ textAlign: 'center', marginBottom: 40 }}>
-              <h3 style={{ fontSize: 'clamp(24px, 2.8vw, 32px)', fontWeight: 500, marginBottom: 12, color:'rgb(31, 110, 122)' }}>
-                <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}></span> Researchers
-              </h3>
-              <div style={{ width: 50, height: 2, background: 'rgb(31, 110, 122)', margin: '0 auto' }} />
+        <h3 style={{ fontSize: 'clamp(24px, 2.8vw, 32px)', fontWeight: 500, marginBottom: 12, color:'rgb(31, 110, 122)' }}>
+          <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400, fontFamily: "Georgia, serif" }}>Researchers</span>
+        </h3>
+           <div style={{ width: 50, height: 2, background: 'rgb(31, 110, 122)', margin: '0 auto' }} />
             </div>
           </SlideIn>
           
@@ -1297,6 +1665,11 @@ function InstituteDetail({ it, data, palette }) {
           </div>
         </div>
 
+        {/* Member Details Modal */}
+        {selectedMember && (
+          <MemberDetailsInline member={selectedMember} onClose={() => setSelectedMember(null)} />
+        )}
+
         <div style={{ marginTop: 70, background: 'var(--bone)', borderRadius: 20, padding: 40, textAlign: 'center' }}>
           <SlideIn from="bottom">
             <h4 style={{ fontSize: 24, fontWeight: 500, marginBottom: 14, color:'#0E1136' }}>
@@ -1305,31 +1678,31 @@ function InstituteDetail({ it, data, palette }) {
             <p style={{ fontSize: 14.5, color: '#0E1136', marginBottom: 22, maxWidth: 450, margin: '0 auto 22px' }}>
               We're always open to research partnerships and visiting positions.
             </p>
-<button 
-  onClick={() => window.dispatchEvent(new CustomEvent('aq-route', { detail: 'contact' }))}
-  style={{
-    padding: '11px 30px',
-    background: '#0E1136',
-    color: 'white',
-    border: 'none',
-    borderRadius: 999,
-    fontSize: 13.5,
-    fontWeight: 600,
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    fontFamily:'Red Hat Display'
-  }}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.background = '#1a2444';
-    e.currentTarget.style.transform = 'scale(1.02)';
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.background = '#0E1136';
-    e.currentTarget.style.transform = 'scale(1)';
-  }}
->
-  Get in touch →
-</button>
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent('aq-route', { detail: 'contact' }))}
+              style={{
+                padding: '11px 30px',
+                background: '#0E1136',
+                color: 'white',
+                border: 'none',
+                borderRadius: 999,
+                fontSize: 13.5,
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                fontFamily:'Red Hat Display'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#1a2444';
+                e.currentTarget.style.transform = 'scale(1.02)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#0E1136';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+            >
+              Get in touch →
+            </button>
           </SlideIn>
         </div>
       </div>
@@ -1349,6 +1722,7 @@ function InstituteDetail({ it, data, palette }) {
     </div>
   );
 }
+
 
 
 function ListView({ title, subtitle, items, kind, palette }) {

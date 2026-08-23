@@ -91,7 +91,7 @@ const useSlowTitleTypewriter = () => {
   const fullText = "Engineering\nlife. For humanity.";
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
-  const [showCursor, setShowCursor] = useState(false); // Changed to false
+  const [showCursor, setShowCursor] = useState(false);
 
   useEffect(() => {
     let index = 0;
@@ -104,7 +104,6 @@ const useSlowTitleTypewriter = () => {
         timer = setTimeout(typeNextChar, 85);
       } else {
         setIsTyping(false);
-        // Cursor will not show
         setShowCursor(false);
       }
     };
@@ -125,6 +124,7 @@ const useSlowTitleTypewriter = () => {
 function Hero({ palette, onGoto }) {
   const ref = useReveal();
   const videoRef = useRef(null);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
   const phrases = [
     "Non Communicable Diseases",
@@ -143,25 +143,62 @@ function Hero({ palette, onGoto }) {
 
   const { displayText, showCursor } = useSlowTitleTypewriter();
 
+  // ✅ Improved video playback with seamless loop
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Seamless loop function - resets before video ends
+    const handleTimeUpdate = () => {
+      // Reset video 0.15 seconds before it ends to avoid gap
+      if (video.duration - video.currentTime < 0.15) {
+        video.currentTime = 0;
+      }
+    };
+
+    // Handle video ready state
+    const handleCanPlay = () => {
+      setIsVideoReady(true);
+      video.play().catch(e => console.log("Video autoplay failed:", e));
+    };
+
+    // Handle when video ends (fallback)
+    const handleEnded = () => {
+      video.currentTime = 0;
+      video.play().catch(e => console.log("Video replay failed:", e));
+    };
+
+    // Add event listeners
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('ended', handleEnded);
+
+    // Try to play immediately
+    video.play().catch(e => console.log("Video autoplay failed:", e));
+
+    // Cleanup
+    return () => {
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, []);
+
   // Handle Venture Click - Scroll to Ventures section
   const handleVentureClick = (e) => {
     e.preventDefault();
     
-    // First navigate to home if on a different page
     window.dispatchEvent(new CustomEvent('aq-route', { detail: 'home' }));
     
-    // Then scroll to ventures section after a short delay
     setTimeout(() => {
       const venturesSection = document.getElementById('ventures');
       if (venturesSection) {
         venturesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
-        // If ventures section not found, try to find it by class or use onGoto
         const venturesElement = document.querySelector('#ventures');
         if (venturesElement) {
           venturesElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
-          // Fallback: use onGoto to navigate to ventures list
           if (onGoto) onGoto('ventures-list');
         }
       }
@@ -172,12 +209,6 @@ function Hero({ palette, onGoto }) {
     e.preventDefault();
     if (onGoto) onGoto('contact');
   };
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(e => console.log("Video autoplay failed:", e));
-    }
-  }, []);
 
   // Split the display text into lines and format
   const renderTitle = () => {
@@ -222,9 +253,14 @@ function Hero({ palette, onGoto }) {
           loop 
           muted 
           playsInline
+          preload="auto"
+          style={{
+            opacity: isVideoReady ? 1 : 0.5,
+            transition: 'opacity 0.5s ease'
+          }}
         >
           <source 
-            src="/images/video.mp4" 
+            src="/images/video1.mp4" 
             type="video/mp4" 
           />
         </video>
@@ -246,24 +282,23 @@ function Hero({ palette, onGoto }) {
           {/* SLOW TYPEWRITER TITLE - NO BLINKING CURSOR */}
           <h1 className="hero-title reveal">
             {renderTitle()}
-            {/* Cursor removed - no blinking */}
           </h1>
 
           <div className="hero-build reveal">
-<span className="hero-build-label">
-  <i style={{ 
-    fontFamily: 'Georgia, serif', 
-    fontSize: '14px', 
-    letterSpacing: '0.07em', 
-    color: 'rgb(45, 144, 161)', 
-    fontWeight: 600, 
-    lineHeight: 1.4, 
-    whiteSpace: 'nowrap',
-    fontStyle: 'italic'
-  }}>
-    Advancing bioinnovations in
-  </i>
-</span>
+            <span className="hero-build-label">
+              <i style={{ 
+                fontFamily: 'Georgia, serif', 
+                fontSize: '14px', 
+                letterSpacing: '0.07em', 
+                color: 'rgb(45, 144, 161)', 
+                fontWeight: 600, 
+                lineHeight: 1.4, 
+                whiteSpace: 'nowrap',
+                fontStyle: 'italic'
+              }}>
+                Advancing bioinnovations in
+              </i>
+            </span>
             <span className="hero-build-arrow">→</span>
             <span className="hero-build-text">
               {typed}
@@ -272,7 +307,7 @@ function Hero({ palette, onGoto }) {
           </div>
 
           <p className="hero-desc reveal">
-           <span className="highlight">Aquanimity</span> is building the BioHub— <span className="normal-text">uniting institutes, scientists, academia, and strategic partners to </span><span className="highlight">discover, translate, and commercialize biosciences for Bangladesh and beyond.</span>
+            <span className="highlight">Aquanimity</span> is building the BioHub— <span className="normal-text">uniting institutes, scientists, academia, and strategic partners to </span><span className="highlight">discover, translate, and commercialize biosciences for Bangladesh and beyond.</span>
           </p>
 
           <div className="hero-buttons reveal">
@@ -299,7 +334,7 @@ function Hero({ palette, onGoto }) {
 
         </div>
 
-        {/* RIGHT - Circle/Bubble removed */}
+        {/* RIGHT - Empty area */}
         <div className="hero-right reveal">
           {/* Empty area - circle removed */}
         </div>
@@ -307,7 +342,7 @@ function Hero({ palette, onGoto }) {
       </div>
 
       <style>{`
-      @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700;800;900&display=swap');
 
         :root {
           --bg: #ece8df;
@@ -418,7 +453,6 @@ function Hero({ palette, onGoto }) {
           white-space: pre-wrap;
         }
 
-        /* Engineering life - Red Hat Display Bold Black */
         .engineering-life {
           font-family: 'Red Hat Display', sans-serif;
           font-weight: 900;
@@ -433,14 +467,12 @@ function Hero({ palette, onGoto }) {
           margin: 0 0 0 8px;
         }
 
-        /* Normal text style */
         .normal-text {
           font-family: 'Red Hat Display', sans-serif;
           font-style: normal;
           font-weight: 400;
         }
 
-        /* Metric numbers - Red Hat Display Black */
         .metric-number {
           font-family: 'Red Hat Display', sans-serif;
           font-weight: 900;
@@ -457,9 +489,6 @@ function Hero({ palette, onGoto }) {
           gap: 5px;
           flex-wrap: wrap;
         }
-
-
-
 
         .hero-build-arrow {
           font-size: 16px;
@@ -568,7 +597,6 @@ function Hero({ palette, onGoto }) {
           font-weight: 600;
         }
 
-        /* RIGHT - Empty area */
         .hero-right {
           position: relative;
           display: flex;
@@ -577,7 +605,6 @@ function Hero({ palette, onGoto }) {
           min-height: 200px;
         }
 
-        /* ANIMATIONS */
         .reveal {
           opacity: 0;
           transform: translateY(20px);
@@ -594,7 +621,6 @@ function Hero({ palette, onGoto }) {
           50% { opacity: 0; }
         }
 
-        /* RESPONSIVE */
         @media (max-width: 980px) {
           .hero-container {
             grid-template-columns: 1fr;
@@ -649,7 +675,6 @@ function Hero({ palette, onGoto }) {
             gap: 15px;
           }
         }
-
       `}</style>
 
     </section>
