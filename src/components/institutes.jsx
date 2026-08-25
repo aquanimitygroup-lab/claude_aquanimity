@@ -146,6 +146,17 @@ function Institutes({ palette, onOpen }) {
     }
   ];
 
+  // Navigation functions
+  const goToPrevious = (e) => {
+    e.stopPropagation();
+    setMobileActiveIndex((prev) => (prev - 1 + items.length) % items.length);
+  };
+
+  const goToNext = (e) => {
+    e.stopPropagation();
+    setMobileActiveIndex((prev) => (prev + 1) % items.length);
+  };
+
   const handleViewAllClick = (e) => {
     e.preventDefault();
     if (onOpen) {
@@ -219,7 +230,19 @@ function Institutes({ palette, onOpen }) {
 
     return (
       <div className="mobile-institutes">
-
+        {/* Dot Indicators */}
+        <div className="mobile-dots">
+          {items.map((_, index) => (
+            <button
+              key={index}
+              className={`mobile-dot ${mobileActiveIndex === index ? 'active' : ''}`}
+              onClick={() => setMobileActiveIndex(index)}
+              style={{
+                background: mobileActiveIndex === index ? '#1F6E7A' : 'rgba(31,110,122,0.2)'
+              }}
+            />
+          ))}
+        </div>
 
         {/* Active Institute Card with Swipe */}
         <div 
@@ -445,37 +468,95 @@ function Institutes({ palette, onOpen }) {
               }}
             />
 
-            {/* Swipe hint - left/right arrows */}
-            <div
+            {/* Swipe hint - Clickable left arrow */}
+            <button
+              onClick={goToPrevious}
               style={{
                 position: "absolute",
-                left: 12,
+                left: 8,
                 top: '50%',
                 transform: 'translateY(-50%)',
                 zIndex: 4,
-                opacity: 0.3,
-                pointerEvents: 'none',
+                background: 'rgba(0,0,0,0.3)',
+                border: 'none',
+                borderRadius: '50%',
+                width: 'clamp(36px, 4vw, 44px)',
+                height: 'clamp(36px, 4vw, 44px)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
                 color: 'white',
-                fontSize: 24
+                fontSize: 'clamp(20px, 2.5vw, 28px)',
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(4px)',
+                WebkitBackdropFilter: 'blur(4px)',
+                padding: 0
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(0,0,0,0.5)';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+              }}
+              onTouchStart={(e) => {
+                e.stopPropagation();
+                e.currentTarget.style.background = 'rgba(0,0,0,0.6)';
+              }}
+              onTouchEnd={(e) => {
+                e.stopPropagation();
+                e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
               }}
             >
               ‹
-            </div>
-            <div
+            </button>
+
+            {/* Swipe hint - Clickable right arrow */}
+            <button
+              onClick={goToNext}
               style={{
                 position: "absolute",
-                right: 12,
+                right: 8,
                 top: '50%',
                 transform: 'translateY(-50%)',
                 zIndex: 4,
-                opacity: 0.3,
-                pointerEvents: 'none',
+                background: 'rgba(0,0,0,0.3)',
+                border: 'none',
+                borderRadius: '50%',
+                width: 'clamp(36px, 4vw, 44px)',
+                height: 'clamp(36px, 4vw, 44px)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
                 color: 'white',
-                fontSize: 24
+                fontSize: 'clamp(20px, 2.5vw, 28px)',
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(4px)',
+                WebkitBackdropFilter: 'blur(4px)',
+                padding: 0
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(0,0,0,0.5)';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+              }}
+              onTouchStart={(e) => {
+                e.stopPropagation();
+                e.currentTarget.style.background = 'rgba(0,0,0,0.6)';
+              }}
+              onTouchEnd={(e) => {
+                e.stopPropagation();
+                e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
               }}
             >
               ›
-            </div>
+            </button>
           </button>
         </div>
       </div>
