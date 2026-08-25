@@ -52,6 +52,8 @@ function Institutes({ palette, onOpen }) {
   const [selectedInstitute, setSelectedInstitute] = useState(null);
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchEndX, setTouchEndX] = useState(0);
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -189,33 +191,43 @@ function Institutes({ palette, onOpen }) {
     return [firstLine, secondLine];
   };
 
-  // Render mobile version with category tabs
+  // Handle touch events for swipe
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEndX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX - touchEndX > 50) {
+      // Swipe left - next
+      setMobileActiveIndex((prev) => (prev + 1) % items.length);
+    } else if (touchEndX - touchStartX > 50) {
+      // Swipe right - previous
+      setMobileActiveIndex((prev) => (prev - 1 + items.length) % items.length);
+    }
+    setTouchStartX(0);
+    setTouchEndX(0);
+  };
+
+  // Render mobile version with swipeable gallery
   const renderMobileView = () => {
     const activeInstitute = items[mobileActiveIndex];
     const titleLines = splitTitleIntoTwoLines(activeInstitute.title);
 
     return (
       <div className="mobile-institutes">
-        {/* Category Tabs */}
-        <div className="mobile-tabs">
-          {items.map((item, index) => (
-            <button
-              key={item.n}
-              className={`mobile-tab ${mobileActiveIndex === index ? 'active' : ''}`}
-              onClick={() => setMobileActiveIndex(index)}
-              style={{
-                borderColor: mobileActiveIndex === index ? item.color : 'rgba(0,0,0,0.1)',
-                color: mobileActiveIndex === index ? item.color : '#0E1136'
-              }}
-            >
-              <span className="tab-number">{item.n}</span>
-              <span className="tab-title">{item.tag}</span>
-            </button>
-          ))}
-        </div>
 
-        {/* Active Institute Card */}
-        <div className="mobile-card-wrapper">
+
+        {/* Active Institute Card with Swipe */}
+        <div 
+          className="mobile-card-wrapper"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <button
             onClick={(e) => handleInstituteClick(e, activeInstitute)}
             className="institute-card mobile-card"
@@ -225,7 +237,7 @@ function Institutes({ palette, onOpen }) {
               border: "none",
               borderRadius: 'clamp(16px, 2vw, 24px)',
               padding: 'clamp(20px, 3vw, 28px) clamp(16px, 2.5vw, 24px)',
-              minHeight: 'clamp(200px, 35vh, 320px)',
+              minHeight: 'clamp(280px, 45vh, 380px)',
               textAlign: "left",
               cursor: "pointer",
               overflow: "hidden",
@@ -285,7 +297,7 @@ function Institutes({ palette, onOpen }) {
                 <span
                   className="card-number"
                   style={{
-                    fontSize: 'clamp(24px, 3.5vw, 32px)',
+                    fontSize: 'clamp(28px, 4vw, 36px)',
                     fontWeight: 800,
                     letterSpacing: "-0.03em",
                     color: "#ffffff",
@@ -296,12 +308,22 @@ function Institutes({ palette, onOpen }) {
                 >
                   {activeInstitute.n}
                 </span>
+                <span
+                  style={{
+                    fontSize: 'clamp(11px, 1.5vw, 13px)',
+                    color: 'rgba(255,255,255,0.5)',
+                    fontWeight: 500,
+                    fontFamily: "'Red Hat Display', sans-serif"
+                  }}
+                >
+                  {mobileActiveIndex + 1} / {items.length}
+                </span>
               </div>
 
               <div
                 className="card-tag"
                 style={{
-                  fontSize: 'clamp(10px, 1.2vw, 12px)',
+                  fontSize: 'clamp(11px, 1.5vw, 13px)',
                   letterSpacing: "0.15em",
                   textTransform: "uppercase",
                   color: "#FFE0A3",
@@ -318,8 +340,8 @@ function Institutes({ palette, onOpen }) {
                 <h3
                   className="card-title"
                   style={{
-                    fontSize: 'clamp(18px, 2.5vw, 24px)',
-                    lineHeight: 1.3,
+                    fontSize: 'clamp(20px, 3vw, 28px)',
+                    lineHeight: 1.2,
                     letterSpacing: "-0.02em",
                     fontWeight: 700,
                     color: "#ffffff",
@@ -333,8 +355,8 @@ function Institutes({ palette, onOpen }) {
                 <h3
                   className="card-title"
                   style={{
-                    fontSize: 'clamp(18px, 2.5vw, 24px)',
-                    lineHeight: 1.3,
+                    fontSize: 'clamp(20px, 3vw, 28px)',
+                    lineHeight: 1.2,
                     letterSpacing: "-0.02em",
                     fontWeight: 700,
                     color: "#ffffff",
@@ -350,7 +372,7 @@ function Institutes({ palette, onOpen }) {
               <p
                 className="card-blurb"
                 style={{
-                  fontSize: 'clamp(13px, 1.5vw, 16px)',
+                  fontSize: 'clamp(14px, 1.8vw, 17px)',
                   lineHeight: 1.5,
                   color: "rgba(255,255,255,0.95)",
                   margin: 0,
@@ -382,7 +404,7 @@ function Institutes({ palette, onOpen }) {
               <span
                 className="card-learn-text"
                 style={{
-                  fontSize: 'clamp(13px, 1.5vw, 15px)',
+                  fontSize: 'clamp(14px, 1.8vw, 16px)',
                   fontWeight: 500,
                   color: "rgba(255,255,255,0.9)",
                   fontFamily: "'Red Hat Display', sans-serif",
@@ -394,8 +416,8 @@ function Institutes({ palette, onOpen }) {
               <span
                 className="card-arrow"
                 style={{
-                  width: 'clamp(32px, 4vw, 40px)',
-                  height: 'clamp(32px, 4vw, 40px)',
+                  width: 'clamp(36px, 4.5vw, 44px)',
+                  height: 'clamp(36px, 4.5vw, 44px)',
                   borderRadius: "50%",
                   background: "rgba(255,255,255,0.25)",
                   display: "flex",
@@ -408,7 +430,7 @@ function Institutes({ palette, onOpen }) {
                   flexShrink: 0
                 }}
               >
-                <Arrow size={16} />
+                <Arrow size={18} />
               </span>
             </div>
 
@@ -422,6 +444,38 @@ function Institutes({ palette, onOpen }) {
                 zIndex: 3,
               }}
             />
+
+            {/* Swipe hint - left/right arrows */}
+            <div
+              style={{
+                position: "absolute",
+                left: 12,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 4,
+                opacity: 0.3,
+                pointerEvents: 'none',
+                color: 'white',
+                fontSize: 24
+              }}
+            >
+              ‹
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                right: 12,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 4,
+                opacity: 0.3,
+                pointerEvents: 'none',
+                color: 'white',
+                fontSize: 24
+              }}
+            >
+              ›
+            </div>
           </button>
         </div>
       </div>
@@ -539,7 +593,7 @@ function Institutes({ palette, onOpen }) {
             </button>
           </div>
 
-          {/* Mobile View - Category Tabs + Card */}
+          {/* Mobile View - Swipeable Gallery */}
           {isMobile ? (
             <div className="reveal">{renderMobileView()}</div>
           ) : (
@@ -814,72 +868,39 @@ function Institutes({ palette, onOpen }) {
             gap: 24px;
           }
 
-          /* Mobile Tabs */
+          /* Mobile Gallery */
           .mobile-institutes {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
+            align-items: center;
           }
 
-          .mobile-tabs {
+          .mobile-dots {
             display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
+            gap: 10px;
+            justify-content: center;
+            padding: 4px 0;
           }
 
-          .mobile-tabs::-webkit-scrollbar {
-            display: none;
-          }
-
-          .mobile-tab {
-            flex: 1;
-            min-width: 0;
-            padding: 10px 12px;
-            border-radius: 12px;
-            border: 2px solid rgba(0,0,0,0.1);
-            background: transparent;
+          .mobile-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Red Hat Display', sans-serif;
-            font-weight: 600;
-            font-size: 10px;
-            justify-content: center;
-            white-space: nowrap;
+            padding: 0;
           }
 
-          .mobile-tab.active {
-            background: rgba(31,110,122,0.05);
-          }
-
-          .mobile-tab .tab-number {
-            font-size: 11px;
-            font-weight: 800;
-            opacity: 0.6;
-          }
-
-          .mobile-tab.active .tab-number {
-            opacity: 1;
-          }
-
-          .mobile-tab .tab-title {
-            font-size: 9px;
-            letter-spacing: 0.08em;
-            opacity: 0.7;
-            text-transform: uppercase;
-          }
-
-          .mobile-tab.active .tab-title {
-            opacity: 1;
+          .mobile-dot.active {
+            width: 28px;
+            border-radius: 4px;
           }
 
           .mobile-card-wrapper {
             width: 100%;
+            position: relative;
           }
 
           /* Tablet */
@@ -904,17 +925,13 @@ function Institutes({ palette, onOpen }) {
               margin-bottom: 24px !important;
             }
 
-            .mobile-tab {
-              padding: 8px 10px !important;
-              font-size: 9px !important;
+            .mobile-dot {
+              width: 6px !important;
+              height: 6px !important;
             }
 
-            .mobile-tab .tab-number {
-              font-size: 10px !important;
-            }
-
-            .mobile-tab .tab-title {
-              font-size: 8px !important;
+            .mobile-dot.active {
+              width: 22px !important;
             }
           }
 
@@ -930,21 +947,14 @@ function Institutes({ palette, onOpen }) {
               padding: 0 16px !important;
             }
 
-            .mobile-tabs {
-              gap: 6px !important;
+            .mobile-dot {
+              width: 5px !important;
+              height: 5px !important;
+              gap: 8px !important;
             }
 
-            .mobile-tab {
-              padding: 6px 8px !important;
-              border-radius: 10px !important;
-            }
-
-            .mobile-tab .tab-number {
-              font-size: 9px !important;
-            }
-
-            .mobile-tab .tab-title {
-              font-size: 7px !important;
+            .mobile-dot.active {
+              width: 18px !important;
             }
           }
 
@@ -961,10 +971,6 @@ function Institutes({ palette, onOpen }) {
             .card-arrow {
               background: rgba(255,255,255,0.25) !important;
               color: #ffffff !important;
-            }
-
-            .mobile-tab:active {
-              transform: scale(0.96);
             }
           }
         `}</style>

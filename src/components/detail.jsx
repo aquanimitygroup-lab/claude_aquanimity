@@ -188,7 +188,7 @@ const useReveal = () => {
   return ref;
 };
 
-// Footer Component - Platform section removed
+// Footer Component
 function Footer() {
   const handleLinkClick = (e, item) => {
     e.preventDefault();
@@ -203,7 +203,6 @@ function Footer() {
       'X / Twitter': 'contact'
     };
     const sectionId = sectionMap[item] || item.toLowerCase();
-    // Navigate back to home and scroll to section
     window.dispatchEvent(new CustomEvent('aq-route', { detail: 'home' }));
     setTimeout(() => {
       const el = document.getElementById(sectionId);
@@ -211,7 +210,6 @@ function Footer() {
     }, 100);
   };
 
-  // Handle email click - opens Gmail
   const handleEmailClick = (e) => {
     e.preventDefault();
     window.open('https://mail.google.com/mail/?view=cm&fs=1&to=contact@aquanimitygroup.com', '_blank');
@@ -384,15 +382,6 @@ function Footer() {
           </div>
         </div>
       </div>
-      
-      <style>{`
-        @media (max-width: 900px) {
-          .ftr-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
-        }
-        @media (max-width: 550px) {
-          .ftr-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </footer>
   );
 }
@@ -402,7 +391,7 @@ const BackButton = ({ onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
   
   return (
-    <div style={{
+    <div className="detail-back" style={{
       position: 'relative',
       zIndex: 10,
       background: '#FAF7F0',
@@ -442,163 +431,6 @@ const BackButton = ({ onClick }) => {
   );
 };
 
-// Partner Detail Component
-function PartnerDetail({ partner, palette }) {
-  const descriptionParagraphs = partner.fullDescription ? partner.fullDescription.split('\n\n').filter(p => p.trim().length > 0) : [partner.blurb];
-  const areas = partner.focusAreas || ["Research", "Innovation", "Collaboration"];
-
-  return (
-    <div>
-      <div className="img-frame" style={{ height: 'min(55vh, 480px)', background: '#f2f2f2', position: 'relative' }}>
-        <div style={{ 
-          width: '100%', 
-          height: '100%', 
-          background: 'linear-gradient(135deg, #1F6E7A, #0E1B2C)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <img 
-            src={partner.logo} 
-            alt={partner.name}
-            style={{ 
-              maxWidth: '60%',
-              maxHeight: '60%',
-              objectFit: 'contain',
-              background: 'white',
-              padding: '40px',
-              borderRadius: 20
-            }}
-            onError={(e) => {
-              e.target.style.display = 'none';
-            }}
-          />
-        </div>
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(14,27,44,0.3), rgba(14,27,44,0.85))' }} />
-        <div className="wrap" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
-          <SlideIn from="left">
-            <div className="mono" style={{ color: 'rgba(255,255,255,0.8)', fontSize: 11, letterSpacing: '0.22em', marginBottom: 16 }}>
-              {partner.kind.toUpperCase()}
-            </div>
-          </SlideIn>
-          <SlideIn from="left" delay={0.1}>
-            <h1 style={{ color: 'var(--paper)', fontSize: 'clamp(40px, 5.5vw, 72px)', lineHeight: 1, fontWeight: 800, letterSpacing: '-0.025em', maxWidth: 900, fontFamily: "'Red Hat Display', sans-serif" }}>
-              {partner.name}
-            </h1>
-          </SlideIn>
-          <SlideIn from="left" delay={0.2}>
-            <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: 17, marginTop: 18, maxWidth: 600, lineHeight: 1.45 }}>
-              {partner.blurb}
-            </p>
-          </SlideIn>
-        </div>
-      </div>
-
-      <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 70, paddingBottom: 70 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 56, marginBottom: 70 }}>
-          <SlideIn from="left">
-            <h2 style={{ fontSize: 'clamp(26px, 3.2vw, 38px)', fontWeight: 500, lineHeight: 1.15, marginBottom: 24 }}>
-              <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Focus</span> Areas
-            </h2>
-            <div style={{ display: 'grid', gap: 14 }}>
-              {areas.slice(0, 8).map((area, idx) => (
-                <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--rule)' }}>
-                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)' }} />
-                  <span style={{ fontSize: 14.5, color: '#0E1136' }}>{area}</span>
-                </div>
-              ))}
-            </div>
-          </SlideIn>
-          
-          <SlideIn from="right">
-            <h2 style={{ fontSize: 'clamp(26px, 3.2vw, 38px)', fontWeight: 500, lineHeight: 1.15, marginBottom: 24 }}>
-              About <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>{partner.name}</span>
-            </h2>
-            {descriptionParagraphs.map((paragraph, idx) => (
-              <p key={idx} style={{ fontSize: 15.5, lineHeight: 1.6, color: '#0E1136', marginBottom: 18, textAlign: 'justify' }}>
-                {paragraph}
-              </p>
-            ))}
-            
-            {/* Partner Details */}
-            <div style={{ marginTop: 24, background: 'var(--bone)', borderRadius: 16, padding: 24 }}>
-              <div style={{ display: 'grid', gap: 12 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 8, borderBottom: '1px solid var(--rule)' }}>
-                  <span style={{ fontSize: 12, color: 'var(--muted)', fontWeight: 600 }}>Location</span>
-                  <span style={{ fontSize: 14, color: '#0E1136' }}>{partner.loc}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 8, borderBottom: '1px solid var(--rule)' }}>
-                  <span style={{ fontSize: 12, color: 'var(--muted)', fontWeight: 600 }}>Partner Since</span>
-                  <span style={{ fontSize: 14, color: '#0E1136' }}>{partner.since}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: 12, color: 'var(--muted)', fontWeight: 600 }}>Website</span>
-                  <a 
-                    href={partner.website} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ 
-                      fontSize: 14, 
-                      color: 'var(--accent)',
-                      textDecoration: 'none',
-                      fontWeight: 500
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
-                    onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
-                  >
-                    Visit Website →
-                  </a>
-                </div>
-              </div>
-            </div>
-          </SlideIn>
-        </div>
-
-        <div style={{ marginTop: 40, background: 'var(--accent-soft)', borderRadius: 20, padding: 48, textAlign: 'center' }}>
-          <SlideIn from="bottom">
-            <h4 style={{ fontSize: 24, fontWeight: 500, marginBottom: 14 }}>
-              <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)' }}>Collaborating</span> for impact
-            </h4>
-            <p style={{ fontSize: 14.5, color: '#0E1136', marginBottom: 22, maxWidth: 450, margin: '0 auto 22px' }}>
-              Together with {partner.name}, we're building a healthier, more sustainable future.
-            </p>
-            <a 
-              href={partner.website} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 10,
-                padding: '11px 30px',
-                background: 'var(--accent)',
-                color: 'white',
-                border: 'none',
-                borderRadius: 999,
-                fontSize: 13.5,
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                textDecoration: 'none'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--accent-2)';
-                e.currentTarget.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--accent)';
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
-            >
-              Visit {partner.name} Website <Arrow size={14} />
-            </a>
-          </SlideIn>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // SlideIn Component
 function SlideIn({ from = 'left', delay = 0, children, style }) {
   const ref = useRef(null);
@@ -622,7 +454,16 @@ function SlideIn({ from = 'left', delay = 0, children, style }) {
   );
 }
 
-// Professional Zigzag Institutes View
+function Row({ k, v }) {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 12, paddingBottom: 14, borderBottom: '1px solid var(--rule)' }}>
+      <div className="mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: 'var(--accent)' }}>{k.toUpperCase()}</div>
+      <div style={{ fontSize: 15, color: '#0E1136' }}>{v}</div>
+    </div>
+  );
+}
+
+// ===== INSTITUTES ZIGZAG VIEW =====
 function InstitutesZigzagView({ institutes, palette }) {
   const handleInstituteClick = (href) => {
     window.dispatchEvent(new CustomEvent('aq-route', { detail: href }));
@@ -633,8 +474,7 @@ function InstitutesZigzagView({ institutes, palette }) {
 Each institute is not merely a research division. It is a venture-building engine — bringing together scientists, technologists, clinicians, universities, and strategic partners to discover, validate, engineer, and commercialize breakthrough solutions from Bangladesh for the world.`;
 
   return (
-    <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
-      {/* Hero Section with Intro */}
+    <div className="wrap zigzag-section" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
       <SlideIn from="left">
         <div className="label" style={{ marginBottom: 18, fontSize: 11, letterSpacing: '0.2em', color: 'var(--accent)' }}>OUR INSTITUTES</div>
       </SlideIn>
@@ -645,7 +485,7 @@ Each institute is not merely a research division. It is a venture-building engin
       </SlideIn>
       
       <SlideIn from="left" delay={0.16}>
-        <div style={{ 
+        <div className="zigzag-intro-box" style={{ 
           background: 'linear-gradient(135deg, var(--accent-soft) 0%, transparent 100%)',
           padding: '40px 48px',
           borderRadius: 24,
@@ -661,10 +501,10 @@ Each institute is not merely a research division. It is a venture-building engin
         </div>
       </SlideIn>
 
-      {/* Zigzag Layout for Institutes */}
       {institutes.map((institute, idx) => (
         <SlideIn key={idx} from={idx % 2 === 0 ? 'left' : 'right'} delay={idx * 0.1}>
           <div 
+            className="zigzag-grid-item"
             onClick={() => handleInstituteClick('institute:' + institute.n)}
             style={{
               display: 'grid',
@@ -681,13 +521,12 @@ Each institute is not merely a research division. It is a venture-building engin
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
-            {/* Image Section */}
-            <div style={{ 
+            <div className="zigzag-image-wrap" style={{ 
               order: idx % 2 === 0 ? 1 : 2,
               borderRadius: 24,
               overflow: 'hidden',
               boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-              height: 400
+              height: 360
             }}>
               <img 
                 src={institute.img} 
@@ -703,7 +542,6 @@ Each institute is not merely a research division. It is a venture-building engin
               />
             </div>
 
-            {/* Content Section */}
             <div style={{ 
               order: idx % 2 === 0 ? 2 : 1,
               display: 'flex',
@@ -727,7 +565,6 @@ Each institute is not merely a research division. It is a venture-building engin
                 {institute.blurb}
               </p>
               
-              {/* Focus Areas Tags */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 24 }}>
                 {institute.focusAreas.slice(0, 4).map((area, i) => (
                   <span key={i} style={{
@@ -741,18 +578,6 @@ Each institute is not merely a research division. It is a venture-building engin
                     {area}
                   </span>
                 ))}
-                {institute.focusAreas.length > 4 && (
-                  <span style={{
-                    background: 'var(--bone)',
-                    padding: '6px 14px',
-                    borderRadius: 20,
-                    fontSize: 12,
-                    fontWeight: 500,
-                    color: 'var(--muted)'
-                  }}>
-                    +{institute.focusAreas.length - 4} more
-                  </span>
-                )}
               </div>
 
               <button style={{
@@ -776,44 +601,1168 @@ Each institute is not merely a research division. It is a venture-building engin
         </SlideIn>
       ))}
 
-      {/* Bottom CTA */}
-      <SlideIn from="bottom">
-        <div style={{
-          textAlign: 'center',
-          marginTop: 40,
-          padding: 60,
-          background: 'linear-gradient(135deg, #0E1136 0%, #0E1136 100%)',
-          borderRadius: 32,
-          color: 'white'
-        }}>
-          <h3 style={{ fontSize: 'clamp(28px, 3vw, 36px)', fontWeight: 700, marginBottom: 16, fontFamily: "'Red Hat Display', sans-serif", color:"white" }}>
-            One BioHub. Four Engines.
-          </h3>
-          <p style={{ fontSize: 17, maxWidth: 700, margin: '0 auto 24px', opacity: 0.9, color:"white" }}>
-            Together, the four institutes form Aquanimity's BioHub operating system — turning biodiversity into biology, biology into engineering, engineering into products, and products into global impact.
-          </p>
-          <button 
-            onClick={() => window.dispatchEvent(new CustomEvent('aq-route', { detail: 'platform-detail' }))}
-            style={{
-              padding: '12px 32px',
-              background: 'rgb(250, 247, 240)',
-              color: '#0E1136',
-              border: 'none',
-              borderRadius: 40,
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: 'pointer',
-              fontFamily: "'Red Hat Display', sans-serif"
-            }}
-          >
-            Discover the BioPlatform →
-          </button>
-        </div>
-      </SlideIn>
+<SlideIn from="bottom">
+  <div className="zigzag-cta" style={{
+    textAlign: 'center',
+    marginTop: 40,
+    padding: 60,
+    background: 'linear-gradient(135deg, #0E1136 0%, #0E1136 100%)',
+    borderRadius: 32,
+    color: 'white'
+  }}>
+    <h3 style={{ fontSize: 'clamp(28px, 3vw, 36px)', fontWeight: 700, marginBottom: 16, fontFamily: "'Red Hat Display', sans-serif", color:"white" }}>
+      One BioHub. <span className="serif" style={{ 
+        fontStyle: 'italic', 
+        fontWeight: 400,
+        fontFamily: "Georgia, 'Times New Roman', serif",
+        color: '#5FAFBE'
+      }}>Four Engines.</span>
+    </h3>
+    <p style={{ fontSize: 17, maxWidth: 700, margin: '0 auto 24px', opacity: 0.9, color:"white" }}>
+      Together, the four institutes form Aquanimity's BioHub operating system — turning biodiversity into biology, biology into engineering, engineering into products, and products into global impact.
+    </p>
+    <button 
+      onClick={() => {
+        // Navigate to contact page
+        window.dispatchEvent(new CustomEvent('aq-route', { detail: 'contact' }));
+      }}
+      style={{
+        padding: '12px 32px',
+        background: 'rgb(250, 247, 240)',
+        color: '#0E1136',
+        border: 'none',
+        borderRadius: 40,
+        fontSize: 14,
+        fontWeight: 600,
+        cursor: 'pointer',
+        fontFamily: "'Red Hat Display', sans-serif",
+        transition: 'all 0.3s ease',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = '#ffffff';
+        e.currentTarget.style.transform = 'scale(1.03)';
+        e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = 'rgb(250, 247, 240)';
+        e.currentTarget.style.transform = 'scale(1)';
+        e.currentTarget.style.boxShadow = 'none';
+      }}
+    >
+      Join With Us →
+    </button>
+  </div>
+</SlideIn>
+
     </div>
   );
 }
 
+// ===== INSTITUTE DETAIL - FIXED VERSION =====
+function InstituteDetail({ it, data, palette }) {
+  const descriptionParagraphs = it.fullDescription ? it.fullDescription.split('\n\n').filter(p => p.trim().length > 0) : [it.blurb];
+  const areas = it.focusAreas || ["Advanced biomedical research", "Cutting-edge molecular technologies", "Interdisciplinary scientific collaboration"];
+  const [selectedMember, setSelectedMember] = useState(null);
+
+  // Researchers data
+  const researchers = {
+    "01": [
+      { 
+        name: "Syed Hossainy, PhD", 
+        title: "Founding Scientist and Chair,\nScience Advisory Board\n\n Director of Applied Bioengineering, UC Berkeley", 
+        img: "/images/sayed.png",
+        bio: "Prolific inventor with 286 issued patents and 390 patents pending",
+        detailedBio: "Syed Hossainy is an Adjunct Professor and Director of Applied Bioengineering at UC Berkeley and Advisor to the BUET Applied Bioengineering Research Incubator. He previously led Abbott Vascular's innovation incubator, delivering 10 feasibility programs, including bio absorbable vascular scaffolds. With 286 issued patents and nearly 390 pending, he is widely recognized as the co-inventor of the first Drug Eluting Stents.\n\nAt the Biohub, he sets the scientific direction, guides all translational R&D, and mentors teams on research innovation, biomaterials, bioengineering design, and regulatory strategy.",
+        achievement: "Co-inventor of the first Drug Eluting Stents | Holder of 286 issued patents and nearly 390 pending patents",
+        education: "PhD in Chemical Engineering | The University of Texas at Austin; BS in Chemical Engineering | BUET"
+      },
+      { 
+        name: "Abul Iqbal, PhD", 
+        title: "Founding Scientist and\nSenior Advisor, Chemistry", 
+        img: "/images/abul.png",
+        bio: "Former head of R&D at Ciba-Geigy and inventor of the industrial process of the Ferrari Red",
+        detailedBio: "Abul Iqbal is a world-renowned chemist and recipient of the Society of Dyers and Colourists' Perkin Medal (1993) for pioneering the chemistry behind diketopyrrolopyrrole (DPP) pigments, the core of the signature Ferrari Red. A former Head of R&D at Ciba-Geigy, he has authored over 100 patents in pigments and functional materials.\n\nAt the Biohub, he advises on high-performance pigments, polymers, and sustainable materials. He guides development of jute/RPET composites, colour-stable biomaterials, and supports teams with chemical synthesis, formulation strategy, and industrial scale-up.",
+        achievement: "World-renowned chemist | Perkin Medal recipient | Author of 100+ patents",
+        education: "PhD | University of St Andrews"
+      },
+      { 
+        name: "Shoeb Ahmed, PhD", 
+        title: "Senior Scientific Advisor and Chair, Institute of Applied Bioengineering and Material Science \n\n Chair and Professor, Dept. of Chemical Engineering, BUET", 
+        img: "/images/shoeb.png",
+        bio: "Research focus includes industrial processes, intracellular signalling, and advanced microscopy methods",
+        detailedBio: "Shoeb Ahmed is a Professor and Chair of the Department Chemical Engineering at BUET and the Project Director of the Applied Bioengineering Research Incubator (ABRI). He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
+        education: "PhD in Chemical and Biomolecular Engineering | North Carolina State University; MSc in Chemical and Biomolecular Engineering | North Carolina State University"
+      },
+      { 
+        name: "Professor Dr. Bishwajit Bhowmick, PhD", 
+        title: "Research Director", 
+        img: "/images/bishwjit.png",
+        bio: "Expert in biomaterials and tissue engineering with over 20 years of research experience",
+        detailedBio: "Professor Dr. Bishwajit Bhowmick is a distinguished researcher in biomaterials and tissue engineering. He has over 20 years of experience in developing advanced biomaterials for medical applications. His research focuses on biodegradable polymers, drug delivery systems, and tissue regeneration.\n\nAt the Biohub, he provides strategic guidance on biomaterials development and tissue engineering applications. He oversees the development of novel biomaterials for medical devices, drug delivery systems, and regenerative medicine applications.",
+        education: "PhD | University of Tokyo"
+      },
+      { 
+        name: "Tasnima Siddique, PhD", 
+        title: "Research Director", 
+        img: "/images/tasnima.png",
+        bio: "Expert in laboratory management and quality assurance in biomedical research",
+        detailedBio: "Tasnima Siddique is a seasoned professional with extensive experience in laboratory management and quality assurance in biomedical research. She holds a PhD in Biochemistry and has worked in leading research institutions in Bangladesh and abroad.\n\nAt the Biohub, she oversees laboratory operations, ensures quality assurance compliance, and manages research infrastructure. She also provides training and mentorship to junior researchers and lab technicians.",
+        education: "PhD | University of Dhaka"
+      }
+    ],
+    "01_associates": [
+      { name: "Fatin Noor", title: "", img: "/images/fatin.jpg" },
+      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
+      { name: "Rahul Baroi", title: "", img: "/images/rahul.png" },
+      { name: "Borno Das", title: "", img: "/images/borno.png" }
+    ],
+    "02": [
+      { 
+        name: "Shoeb Ahmed, PhD", 
+        title: "Senior Scientific Advisor and Chair, Institute of Applied Bioengineering and Material Science \n\n Chair and Professor, Dept. of Chemical Engineering, BUET", 
+        img: "/images/shoeb.png",
+        bio: "Research focus includes industrial processes, intracellular signalling, and advanced microscopy methods",
+        detailedBio: "Shoeb Ahmed is a Professor and Chair of the Department Chemical Engineering at BUET and the Project Director of the Applied Bioengineering Research Incubator (ABRI). He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
+        education: "PhD in Chemical and Biomolecular Engineering | North Carolina State University; MSc in Chemical and Biomolecular Engineering | North Carolina State University"
+      },
+      { 
+        name: "Samir Hossainy, PhD", 
+        title: "Program Director, Novel Delivery Technologies\n\nPostdoctoral Associate, NYU Tandon", 
+        img: "/images/samir.png",
+        bio: "Co-developer of thermoreversible polymersomes",
+        detailedBio: "Samir Hossainy is a researcher at the University of Chicago and co-developer of thermoreversible polymersomes that self-assemble in water, enabling high-efficiency loading of proteins and siRNA for drug and vaccine delivery. He is currently a Postdoctoral Associate at NYU Tandon and holds a PhD in Molecular Engineering from the University of Chicago, along with MS and BS degrees in Materials Science and Bioengineering from UC Berkeley.\n\nAt the Biohub, he leads the thermoreversible polymersome platform, advancing applications in vaccines, cancer immunotherapy, and tolerogenic therapies.",
+        achievement: "Co-developer of thermoreversible polymersomes | PhD from University of Chicago | Postdoc at NYU Tandon",
+        education: "PhD in Molecular Engineering | University of Chicago; MSc Materials Science and Engineering | UC Berkeley; BS in Bioengineering | UC Berkeley"
+      },
+      { 
+        name: "Nafisa Islam, PhD", 
+        title: "Senior Scientific Advisor\n\n Professor, Dept. of Chemical Engineering, BUET", 
+        img: "/images/nafisa.png",
+        bio: "Specialist in biocompatible materials and biosensor development",
+        detailedBio: "Nafisa Islam is a chemical engineer specializing in biocompatible materials, biosensing, and environmental chemistry. She holds a PhD in Chemical Engineering from North Carolina State University and is a member of the BUET faculty.\n\nAt the Biohub, she leads development of biosensor-based sanitary pads and women's health diagnostics. She also advises on biocompatible materials and packaging innovations across the Biohub.",
+        education: "PhD in Chemical and Biomolecular Engineering | North Carolina State University; MSc in Chemical and Biomolecular Engineering | North Carolina State University ; BSc in Chemical Engineering | BUET"
+      }
+    ],
+    "02_associates": [
+      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
+    ],
+    "03": [
+      { 
+        name: "Abed Chawdhury, PhD", 
+        title: "Senior Scientific Advisor\n\nPreviously the Hoffman-LaRoche Fellow of Molecular Biology at MIT and Principal Scientist at Syngenta Australia", 
+        img: "/images/abed1.png",
+        bio: "Leading geneticist with more than 3 decades of experience, having discovered Panchabrihi (five-harvest rice)",
+        detailedBio: "Abed Chaudhury is a leading geneticist with more than three decades of experience in genetics, molecular biology, microbiomics, and crop science. He is known internationally for discovering Panchabrihi (five-harvest rice). His career includes serving as a Hoffman-LaRoche Fellow of Molecular Biology at MIT, Principal Scientist at Syngenta Australia, and Head of Research Innovation at Loam Bio, where he applied next-generation sequencing and metagenomics to harness soil microbiomes for carbon sequestration. He also discovered a fungus capable of reducing cattle methane emissions by up to 90 percent.\n\nAt the Biohub, he directs programs in plant genetics, soil and marine microbiomes, and CRISPR-enabled crop innovation.",
+        achievement: "Discovered Panchabrihi rice | Discovered methane-reducing fungus (90% reduction) | Hoffman-LaRoche Fellow at MIT",
+        education: "PhD in Molecular Biology | University of Oregon"
+      }
+    ],
+    "03_associates": [
+      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
+    ],
+    "04": [],
+    "04_associates": [
+      { name: "Mashnoon Mayad", title: "", img: "/images/mashnoon.png" },
+    ]
+  };
+
+  const instituteResearchers = researchers[it.n] || [];
+  const instituteAssociates = researchers[it.n + "_associates"] || [];
+
+  // Render researcher card - FIXED for mobile
+  const renderResearcherCard = (researcher, idx, isAssociate = false) => (
+    <div 
+      key={idx}
+      onClick={() => {
+        if (!isAssociate && researcher.detailedBio) {
+          setSelectedMember(researcher);
+        }
+      }}
+      style={{ 
+        textAlign: 'center',
+        padding: isAssociate ? '12px 8px' : '16px 12px',
+        background: isAssociate ? 'rgba(31,110,122,0.05)' : 'var(--bone)',
+        borderRadius: 16,
+        transition: 'all 0.3s ease',
+        border: isAssociate ? '1px solid rgba(31,110,122,0.1)' : '1px solid transparent',
+        cursor: !isAssociate && researcher.detailedBio ? 'pointer' : 'default',
+        width: '100%',
+        maxWidth: '100%',
+        margin: '0 auto',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+      }}
+      onMouseEnter={(e) => {
+        if (!isAssociate && researcher.detailedBio) {
+          e.currentTarget.style.transform = 'translateY(-4px)';
+          e.currentTarget.style.borderColor = 'var(--accent)';
+          e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+        }
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.borderColor = isAssociate ? 'rgba(31,110,122,0.1)' : 'transparent';
+        e.currentTarget.style.boxShadow = 'none';
+      }}
+    >
+      <div style={{ 
+        width: isAssociate ? 70 : 90,
+        height: isAssociate ? 70 : 90,
+        borderRadius: '50%', 
+        overflow: 'hidden', 
+        margin: '0 auto 10px',
+        border: isAssociate ? '2px solid rgba(31,110,122,0.3)' : '3px solid var(--accent)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+        flexShrink: 0,
+        position: 'relative',
+        backgroundColor: '#f0f0f0'
+      }}>
+        <img 
+          src={researcher.img} 
+          alt={researcher.name} 
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'cover',
+            display: 'block',
+            transition: 'transform 0.3s ease'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          onError={(e) => {
+            e.target.src = 'https://via.placeholder.com/100x100?text=' + researcher.name.charAt(0);
+            e.target.style.objectFit = 'contain';
+          }}
+        />
+      </div>
+      <div style={{ 
+        fontWeight: 600, 
+        fontSize: isAssociate ? 13 : 15, 
+        color: '#0E1136',
+        lineHeight: 1.3,
+        marginTop: 4
+      }}>
+        {researcher.name}
+      </div>
+      <div style={{ 
+        fontSize: isAssociate ? 11 : 12, 
+        color: isAssociate ? 'rgba(31,110,122,0.7)' : 'var(--accent)', 
+        marginTop: 2, 
+        fontWeight: 500,
+        lineHeight: 1.4,
+        padding: '0 4px'
+      }}>
+        {researcher.title}
+      </div>
+      {!isAssociate && researcher.detailedBio && (
+        <div style={{ 
+          fontSize: 10, 
+          color: '#0E1136', 
+          marginTop: 6,
+          fontStyle: 'italic',
+          opacity: 0.6
+        }}>
+          Click for details
+        </div>
+      )}
+    </div>
+  );
+
+  const renderPlaceholder = (type) => (
+    <div style={{ 
+      textAlign: 'center',
+      padding: '30px 20px',
+      background: 'var(--bone)',
+      borderRadius: 16,
+      border: '2px dashed var(--rule)',
+      minHeight: '150px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%'
+    }}>
+      <div style={{ 
+        fontSize: 32, 
+        color: '#0E1136',
+        marginBottom: 12,
+        opacity: 0.3
+      }}>
+        {type === 'researcher' ? '🔬' : '🧪'}
+      </div>
+      <div style={{ 
+        fontSize: 16, 
+        fontWeight: 600, 
+        color: '#0E1136',
+        marginBottom: 6
+      }}>
+        {type === 'researcher' ? 'Researchers Coming Soon' : 'Research Associates Coming Soon'}
+      </div>
+      <div style={{ 
+        fontSize: 13, 
+        color: '#0E1136',
+        maxWidth: 350
+      }}>
+        We're currently building our team. Check back for updates.
+      </div>
+    </div>
+  );
+
+  // Member Details Inline Component
+  const MemberDetailsInline = ({ member, onClose }) => {
+    const detailsRef = useRef(null);
+
+    useEffect(() => {
+      if (detailsRef.current) {
+        const yOffset = -80;
+        const element = detailsRef.current;
+        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({
+          top: y,
+          behavior: 'smooth'
+        });
+      }
+    }, [member]);
+
+    const handleClose = () => {
+      onClose();
+      setTimeout(() => {
+        const principalSection = document.querySelector('.id-principal-section');
+        if (principalSection) {
+          const y = principalSection.getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+          return;
+        }
+        const researchersSection = document.querySelector('.id-researchers-section');
+        if (researchersSection) {
+          const y = researchersSection.getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 100);
+    };
+
+    return (
+      <div 
+        ref={detailsRef}
+        className="member-details-wrapper"
+        style={{
+          marginTop: '48px',
+          marginBottom: '48px',
+          background: '#F2EDE3',
+          borderRadius: '32px',
+          overflow: 'hidden',
+          animation: 'fadeInUp 0.5s ease',
+          fontFamily: "'Red Hat Display', sans-serif"
+        }}
+      >
+        <div className="mdi-grid" style={{
+          display: 'grid',
+          gridTemplateColumns: '0.8fr 1.2fr',
+          gap: 0,
+          minHeight: '500px'
+        }}>
+          <div className="mdi-photo" style={{
+            background: 'linear-gradient(135deg, #1F6E7A 0%, #4FA0AC 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '40px'
+          }}>
+            <div style={{
+              width: '100%',
+              maxWidth: '280px',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+              border: '3px solid white',
+              backgroundColor: '#f0f0f0'
+            }}>
+              <img
+                src={member.img}
+                alt={member.name}
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+                onError={(e) => {
+                  e.target.src = 'https://via.placeholder.com/280x280/1F6E7A/FFFFFF?text=Team';
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="mdi-content" style={{ 
+            padding: '40px', 
+            overflowY: 'auto', 
+            maxHeight: '600px',
+            background: '#F2EDE3'
+          }}>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'flex-start', 
+              marginBottom: '20px'
+            }}>
+              <div>
+                <div style={{
+                  fontSize: '12px',
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                  color: '#1F6E7A',
+                  fontWeight: 600,
+                  marginBottom: '8px',
+                  whiteSpace: 'pre-line',
+                  lineHeight: 1.3,
+                  fontFamily: "'Red Hat Display', sans-serif"
+                }}>
+                  {member.title}
+                </div>
+                <h2 style={{
+                  fontSize: '32px',
+                  fontWeight: 700,
+                  color: '#0E1136',
+                  marginBottom: '12px',
+                  letterSpacing: '-0.02em',
+                  fontFamily: "'Red Hat Display', sans-serif"
+                }}>
+                  {member.name}
+                </h2>
+                <div style={{
+                  width: '50px',
+                  height: '3px',
+                  background: '#1F6E7A',
+                  marginBottom: '24px'
+                }} />
+              </div>
+              <button
+                onClick={handleClose}
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  background: '#FAF7F0',
+                  border: '1px solid #D8D0BE',
+                  cursor: 'pointer',
+                  fontSize: '18px',
+                  transition: 'all 0.3s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#0E1136',
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  flexShrink: 0
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = '#BFD4D5'}
+                onMouseLeave={(e) => e.currentTarget.style.background = '#FAF7F0'}
+              >
+                ✕
+              </button>
+            </div>
+
+            {member.achievement && (
+              <div style={{ marginBottom: '24px' }}>
+                <h3 style={{
+                  fontSize: '16px',
+                  fontWeight: 600,
+                  color: '#0E1136',
+                  marginBottom: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontFamily: "'Red Hat Display', sans-serif"
+                }}>
+                  <span style={{ fontSize: '20px' }}>🏆</span> Key Achievement
+                </h3>
+                <div style={{
+                  background: 'linear-gradient(135deg, rgba(255,40,0,0.05) 0%, rgba(31,110,122,0.05) 100%)',
+                  padding: '14px',
+                  borderRadius: '14px',
+                  fontSize: '14px',
+                  fontWeight: 500,
+                  color: '#0E1136',
+                  lineHeight: 1.5,
+                  borderLeft: '3px solid #FF2800',
+                  fontFamily: "'Red Hat Display', sans-serif"
+                }}>
+                  {member.achievement}
+                </div>
+              </div>
+            )}
+
+            {member.detailedBio && (
+              <div style={{ marginBottom: '24px' }}>
+                <h3 style={{
+                  fontSize: '16px',
+                  fontWeight: 600,
+                  color: '#0E1136',
+                  marginBottom: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontFamily: "'Red Hat Display', sans-serif"
+                }}>
+                  <span style={{ fontSize: '20px' }}>📋</span> Biography
+                </h3>
+                <div style={{
+                  fontSize: '14px',
+                  lineHeight: 1.6,
+                  color: '#0E1136',
+                  textAlign: 'justify',
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  fontWeight: 400
+                }}>
+                  {member.detailedBio.split('\n\n').map((paragraph, idx) => (
+                    <p key={idx} style={{ 
+                      marginBottom: '12px',
+                      color: '#0E1136'
+                    }}>
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {member.education && (
+              <div style={{ marginBottom: '24px' }}>
+                <h3 style={{
+                  fontSize: '16px',
+                  fontWeight: 600,
+                  color: '#0E1136',
+                  marginBottom: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontFamily: "'Red Hat Display', sans-serif"
+                }}>
+                  <span style={{ fontSize: '20px' }}>🎓</span> Education
+                </h3>
+                <div style={{
+                  background: '#FAF7F0',
+                  padding: '14px',
+                  borderRadius: '14px',
+                  fontSize: '13px',
+                  color: '#0E1136',
+                  lineHeight: 1.5,
+                  textAlign: 'justify',
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  fontWeight: 400
+                }}>
+                  {member.education}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="institute-detail-wrapper">
+      {/* Hero Section */}
+      <div className="id-hero" style={{
+        width: '100%',
+        height: 'min(55vh, 480px)',
+        position: 'relative',
+        overflow: 'hidden',
+        borderRadius: 0
+      }}>
+        <div className="id-hero-image" style={{
+          width: '100%',
+          height: '100%',
+          position: 'relative'
+        }}>
+          <img 
+            src={it.img} 
+            alt={it.title} 
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }} 
+          />
+          <div className="id-hero-overlay" style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(135deg, rgba(14,27,44,0.3), rgba(14,27,44,0.85))'
+          }} />
+          <div className="id-hero-content" style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            padding: '0 32px',
+            maxWidth: '900px',
+            margin: '0 auto'
+          }}>
+            <div className="id-hero-label" style={{
+              fontSize: '11px',
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.8)',
+              marginBottom: '16px',
+              fontWeight: 600,
+              fontFamily: "'Red Hat Display', sans-serif"
+            }}>
+              INSTITUTE {it.n} · {it.tag}
+            </div>
+            <h1 className="id-hero-title" style={{
+              fontSize: 'clamp(32px, 5.5vw, 72px)',
+              lineHeight: 1,
+              fontWeight: 800,
+              letterSpacing: '-0.025em',
+              color: '#FAF7F0',
+              margin: 0,
+              fontFamily: "'Red Hat Display', sans-serif"
+            }}>
+              {it.title}
+            </h1>
+            <p className="id-hero-blurb" style={{
+              fontSize: 'clamp(14px, 1.2vw, 17px)',
+              color: 'rgba(255,255,255,0.9)',
+              marginTop: '18px',
+              maxWidth: '600px',
+              lineHeight: 1.45,
+              fontFamily: "'Red Hat Display', sans-serif"
+            }}>
+              {it.blurb}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Body */}
+      <div className="id-body" style={{
+        maxWidth: 1400,
+        margin: '0 auto',
+        padding: '48px 32px 70px'
+      }}>
+        {/* Focus Areas & Description */}
+        <div className="id-focus-grid" style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1.1fr',
+          gap: '56px',
+          marginBottom: '70px'
+        }}>
+          <div className="id-focus-section">
+            <h2 className="id-section-title" style={{
+              fontSize: 'clamp(22px, 3.2vw, 38px)',
+              fontWeight: 500,
+              lineHeight: 1.15,
+              marginBottom: '24px',
+              color: '#0E1136',
+              fontFamily: "'Red Hat Display', sans-serif"
+            }}>
+              <span className="serif" style={{
+                fontStyle: 'italic',
+                color: '#1F6E7A',
+                fontWeight: 400,
+                fontFamily: "Georgia, 'Times New Roman', serif"
+              }}>Focus</span> Areas
+            </h2>
+            <div className="id-focus-list" style={{
+              display: 'grid',
+              gap: '14px'
+            }}>
+              {areas.slice(0, 8).map((area, idx) => (
+                <div key={idx} className="id-focus-item" style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '10px 0',
+                  borderBottom: '1px solid rgba(0,0,0,0.08)'
+                }}>
+                  <span className="id-focus-dot" style={{
+                    width: '6px',
+                    height: '6px',
+                    borderRadius: '50%',
+                    background: '#1F6E7A',
+                    flexShrink: 0
+                  }} />
+                  <span className="id-focus-text" style={{
+                    fontSize: 'clamp(13px, 1.2vw, 14.5px)',
+                    color: '#0E1136',
+                    fontFamily: "'Red Hat Display', sans-serif"
+                  }}>{area}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="id-description-section">
+            <h2 className="id-section-title" style={{
+              fontSize: 'clamp(22px, 3.2vw, 38px)',
+              fontWeight: 500,
+              lineHeight: 1.15,
+              marginBottom: '24px',
+              color: '#0E1136',
+              fontFamily: "'Red Hat Display', sans-serif"
+            }}>
+              About the <span className="serif" style={{
+                fontStyle: 'italic',
+                color: '#1F6E7A',
+                fontWeight: 400,
+                fontFamily: "Georgia, 'Times New Roman', serif"
+              }}>Institute</span>
+            </h2>
+            {descriptionParagraphs.map((paragraph, idx) => (
+              <p key={idx} className="id-description-text" style={{
+                fontSize: 'clamp(14px, 1.2vw, 15.5px)',
+                lineHeight: 1.7,
+                color: '#0E1136',
+                marginBottom: '18px',
+                textAlign: 'justify',
+                fontFamily: "'Red Hat Display', sans-serif"
+              }}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </div>
+
+        {/* Researchers Section */}
+        <div className="id-researchers-section" style={{
+          marginTop: '40px'
+        }}>
+          <div className="id-researchers-header" style={{
+            textAlign: 'center',
+            marginBottom: '40px'
+          }}>
+            <h3 className="id-researchers-title" style={{
+              fontSize: 'clamp(24px, 2.8vw, 32px)',
+              fontWeight: 500,
+              marginBottom: '12px',
+              color: '#1F6E7A',
+              fontFamily: "'Red Hat Display', sans-serif"
+            }}>
+              <span className="serif" style={{
+                fontStyle: 'italic',
+                color: '#1F6E7A',
+                fontWeight: 400,
+                fontFamily: "Georgia, 'Times New Roman', serif"
+              }}>Researchers</span>
+            </h3>
+            <div className="id-researchers-line" style={{
+              width: '50px',
+              height: '2px',
+              background: '#1F6E7A',
+              margin: '0 auto'
+            }} />
+          </div>
+
+          {/* Principal Researchers */}
+          <div className="id-principal-section" style={{
+            marginBottom: '32px'
+          }}>
+            <h4 className="id-principal-title" style={{
+              fontSize: 'clamp(16px, 1.2vw, 18px)',
+              fontWeight: 600,
+              textAlign: 'center',
+              marginBottom: '20px',
+              color: '#0E1136',
+              fontFamily: "'Red Hat Display', sans-serif"
+            }}>
+              Principal Investigators & Lead Scientists
+            </h4>
+            <div className="id-researchers-grid" style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+              gap: '20px',
+              justifyContent: 'center',
+              alignItems: 'stretch'
+            }}>
+              {instituteResearchers.length === 0 ? (
+                renderPlaceholder('researcher')
+              ) : (
+                instituteResearchers.map((researcher, idx) => renderResearcherCard(researcher, idx))
+              )}
+            </div>
+          </div>
+
+          {/* Research Associates */}
+          <div className="id-associates-section" style={{
+            marginBottom: '32px'
+          }}>
+            <h4 className="id-associates-title" style={{
+              fontSize: 'clamp(16px, 1.2vw, 18px)',
+              fontWeight: 600,
+              textAlign: 'center',
+              marginBottom: '20px',
+              color: '#0E1136',
+              fontFamily: "'Red Hat Display', sans-serif"
+            }}>
+              Research Associates
+            </h4>
+            <div className="id-associates-grid" style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+              gap: '16px',
+              justifyContent: 'center',
+              alignItems: 'stretch'
+            }}>
+              {instituteAssociates.length === 0 ? (
+                renderPlaceholder('associate')
+              ) : (
+                instituteAssociates.map((associate, idx) => renderResearcherCard(associate, idx, true))
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Member Details Modal */}
+        {selectedMember && (
+          <MemberDetailsInline member={selectedMember} onClose={() => setSelectedMember(null)} />
+        )}
+
+        {/* CTA Section */}
+        <div className="id-collab-cta" style={{
+          marginTop: '70px',
+          background: '#F2EDE3',
+          borderRadius: '20px',
+          padding: 'clamp(32px, 4vw, 40px)',
+          textAlign: 'center'
+        }}>
+          <h4 className="id-cta-title" style={{
+            fontSize: 'clamp(20px, 1.8vw, 24px)',
+            fontWeight: 500,
+            marginBottom: '14px',
+            color: '#0E1136',
+            fontFamily: "'Red Hat Display', sans-serif"
+          }}>
+            Interested in <span className="serif" style={{
+              fontStyle: 'italic',
+              color: '#1F6E7A',
+              fontWeight: 400,
+              fontFamily: "Georgia, 'Times New Roman', serif"
+            }}>collaborating</span>?
+          </h4>
+          <p className="id-cta-text" style={{
+            fontSize: 'clamp(13px, 1.2vw, 14.5px)',
+            color: '#0E1136',
+            marginBottom: '22px',
+            maxWidth: '450px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            fontFamily: "'Red Hat Display', sans-serif"
+          }}>
+            We're always open to research partnerships and visiting positions.
+          </p>
+          <button 
+            onClick={() => window.dispatchEvent(new CustomEvent('aq-route', { detail: 'contact' }))}
+            className="id-cta-button" style={{
+              padding: '11px 30px',
+              background: '#0E1136',
+              color: 'white',
+              border: 'none',
+              borderRadius: '999px',
+              fontSize: '13.5px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              fontFamily: "'Red Hat Display', sans-serif"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#1a2444';
+              e.currentTarget.style.transform = 'scale(1.02)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#0E1136';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            Get in touch →
+          </button>
+        </div>
+      </div>
+
+      <style>{`
+        /* Institute Detail Mobile Fixes - PROPER IMAGE SIZING */
+        .institute-detail-wrapper {
+          font-family: 'Red Hat Display', sans-serif;
+        }
+
+        /* Hero Section */
+        .id-hero {
+          width: 100%;
+          height: min(55vh, 480px);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .id-hero-image {
+          width: 100%;
+          height: 100%;
+          position: relative;
+        }
+
+        .id-hero-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .id-hero-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(14,27,44,0.3), rgba(14,27,44,0.85));
+        }
+
+        .id-hero-content {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          padding: 0 32px;
+          max-width: 900px;
+          margin: 0 auto;
+        }
+
+        /* Researchers Grid */
+        .id-researchers-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: 20px;
+          justify-content: center;
+          align-items: stretch;
+        }
+
+        .id-associates-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 16px;
+          justify-content: center;
+          align-items: stretch;
+        }
+
+        /* Researcher Card - Mobile Optimized */
+        .id-researchers-grid > div,
+        .id-associates-grid > div {
+          width: 100%;
+          max-width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        /* Image container - ensures consistent sizing */
+        .id-researchers-grid .researcher-image,
+        .id-associates-grid .researcher-image {
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          overflow: hidden;
+          flex-shrink: 0;
+          margin: 0 auto 10px;
+          border: 3px solid #1F6E7A;
+          background: #f0f0f0;
+          position: relative;
+        }
+
+        .id-associates-grid .researcher-image {
+          width: 70px;
+          height: 70px;
+          border: 2px solid rgba(31,110,122,0.3);
+        }
+
+        .id-researchers-grid .researcher-image img,
+        .id-associates-grid .researcher-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        /* Mobile Fixes */
+        @media (max-width: 768px) {
+          .id-hero {
+            height: min(35vh, 260px) !important;
+          }
+          .id-hero-title {
+            font-size: 28px !important;
+          }
+          .id-hero-blurb {
+            font-size: 14px !important;
+            margin-top: 10px !important;
+          }
+          
+          .id-focus-grid {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+          }
+          
+          .id-body {
+            padding: 24px 16px 48px !important;
+          }
+          
+          /* Mobile Researcher Grid - 2 columns */
+          .id-researchers-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+          }
+
+          .id-associates-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 10px !important;
+          }
+
+          /* Mobile image sizes */
+          .id-researchers-grid .researcher-image {
+            width: 70px !important;
+            height: 70px !important;
+          }
+
+          .id-associates-grid .researcher-image {
+            width: 60px !important;
+            height: 60px !important;
+          }
+
+          /* Mobile text sizes */
+          .id-researchers-grid > div > div:first-child {
+            font-size: 13px !important;
+          }
+          .id-researchers-grid > div > div:nth-child(2) {
+            font-size: 10px !important;
+          }
+          
+          .id-associates-grid > div > div:first-child {
+            font-size: 12px !important;
+          }
+          .id-associates-grid > div > div:nth-child(2) {
+            font-size: 9px !important;
+          }
+
+          .id-collab-cta {
+            padding: 28px 20px !important;
+            border-radius: 16px !important;
+            margin-top: 40px !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .id-hero {
+            height: min(30vh, 220px) !important;
+          }
+          .id-hero-title {
+            font-size: 24px !important;
+          }
+          
+          .id-researchers-grid {
+            gap: 10px !important;
+          }
+
+          .id-associates-grid {
+            gap: 8px !important;
+          }
+
+          .id-researchers-grid .researcher-image {
+            width: 60px !important;
+            height: 60px !important;
+          }
+
+          .id-associates-grid .researcher-image {
+            width: 50px !important;
+            height: 50px !important;
+          }
+
+          .id-researchers-grid > div > div:first-child {
+            font-size: 12px !important;
+          }
+          .id-researchers-grid > div > div:nth-child(2) {
+            font-size: 9px !important;
+          }
+          
+          .id-associates-grid > div > div:first-child {
+            font-size: 11px !important;
+          }
+          .id-associates-grid > div > div:nth-child(2) {
+            font-size: 8px !important;
+          }
+        }
+
+        @media (max-width: 360px) {
+          .id-researchers-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .id-associates-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+
+          .id-researchers-grid .researcher-image {
+            width: 50px !important;
+            height: 50px !important;
+          }
+
+          .id-associates-grid .researcher-image {
+            width: 45px !important;
+            height: 45px !important;
+          }
+
+          .id-researchers-grid > div > div:first-child {
+            font-size: 11px !important;
+          }
+          .id-researchers-grid > div > div:nth-child(2) {
+            font-size: 8px !important;
+          }
+          
+          .id-associates-grid > div > div:first-child {
+            font-size: 10px !important;
+          }
+          .id-associates-grid > div > div:nth-child(2) {
+            font-size: 7px !important;
+          }
+        }
+
+        /* Member Details Modal */
+        .member-details-wrapper {
+          margin-top: 48px;
+          margin-bottom: 48px;
+        }
+
+        @media (max-width: 800px) {
+          .member-details-wrapper .mdi-grid {
+            grid-template-columns: 1fr !important;
+            min-height: 0 !important;
+          }
+          .member-details-wrapper .mdi-photo {
+            padding: 24px !important;
+          }
+          .member-details-wrapper .mdi-photo > div {
+            max-width: 180px !important;
+          }
+          .member-details-wrapper .mdi-content {
+            max-height: none !important;
+            padding: 24px !important;
+          }
+          .member-details-wrapper .mdi-content h2 {
+            font-size: 24px !important;
+          }
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+// ===== VENTURE DETAIL =====
 function VentureDetail({ v, data, palette }) {
   const ventureCards = {
     "SuperWater": {
@@ -1000,941 +1949,11 @@ function VentureDetail({ v, data, palette }) {
           </SlideIn>
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 900px) {
-          .vd-brief-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
-          .vd-cards-grid { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
-          .vd-milestones-grid { grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
-        }
-        @media (max-width: 550px) {
-          .vd-cards-grid { grid-template-columns: 1fr !important; }
-          .vd-milestones-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </div>
   );
 }
 
-function InstituteDetail({ it, data, palette }) {
-  const descriptionParagraphs = it.fullDescription ? it.fullDescription.split('\n\n').filter(p => p.trim().length > 0) : [it.blurb];
-  const areas = it.focusAreas || ["Advanced biomedical research", "Cutting-edge molecular technologies", "Interdisciplinary scientific collaboration"];
-  const [selectedMember, setSelectedMember] = useState(null);
-
-  // Researchers data for each institute with Research Associates - Updated with index.html data
-  const researchers = {
-    "01": [
-      { 
-        name: "Syed Hossainy, PhD", 
-        title: "Founding Scientist and Chair,\nScience Advisory Board\n\n Director of Applied Bioengineering, UC Berkeley", 
-        img: "/images/sayed.png",
-        bio: "Prolific inventor with 286 issued patents and 390 patents pending",
-        detailedBio: "Syed Hossainy is an Adjunct Professor and Director of Applied Bioengineering at UC Berkeley and Advisor to the BUET Applied Bioengineering Research Incubator. He previously led Abbott Vascular's innovation incubator, delivering 10 feasibility programs, including bio absorbable vascular scaffolds. With 286 issued patents and nearly 390 pending, he is widely recognized as the co-inventor of the first Drug Eluting Stents.\n\nAt the Biohub, he sets the scientific direction, guides all translational R&D, and mentors teams on research innovation, biomaterials, bioengineering design, and regulatory strategy.",
-        achievement: "Co-inventor of the first Drug Eluting Stents | Holder of 286 issued patents and nearly 390 pending patents",
-        education: "PhD in Chemical Engineering | The University of Texas at Austin; BS in Chemical Engineering | BUET"
-      },
-            { 
-        name: "Abul Iqbal, PhD", 
-        title: "Founding Scientist and\nSenior Advisor, Chemistry", 
-        img: "/images/abul.png",
-        bio: "Former head of R&D at Ciba-Geigy and inventor of the industrial process of the Ferrari Red",
-        detailedBio: "Abul Iqbal is a world-renowned chemist and recipient of the Society of Dyers and Colourists' Perkin Medal (1993) for pioneering the chemistry behind diketopyrrolopyrrole (DPP) pigments, the core of the signature Ferrari Red. A former Head of R&D at Ciba-Geigy, he has authored over 100 patents in pigments and functional materials.\n\nAt the Biohub, he advises on high-performance pigments, polymers, and sustainable materials. He guides development of jute/RPET composites, colour-stable biomaterials, and supports teams with chemical synthesis, formulation strategy, and industrial scale-up.",
-        achievement: "World-renowned chemist | Perkin Medal recipient | Author of 100+ patents",
-        education: "PhD | University of St Andrews"
-      },
-      { 
-        name: "Shoeb Ahmed, PhD", 
-        title: "Senior Scientific Advisor and Chair, Institute of Applied Bioengineering and Material Science \n\n Chair and Professor, Dept. of Chemical Engineering, BUET", 
-        img: "/images/shoeb.png",
-        bio: "Research focus includes industrial processes, intracellular signalling, and advanced microscopy methods",
-        detailedBio: "Shoeb Ahmed is a Professor and Chair of the Department Chemical Engineering at BUET and the Project Director of the Applied Bioengineering Research Incubator (ABRI). He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
-        education: "PhD in Chemical and Biomolecular Engineering | North Carolina State University; MSc in Chemical and Biomolecular Engineering | North Carolina State University"
-      },
-
-      { 
-        name: "Professor Dr. Bishwajit Bhowmick, PhD", 
-        title: "Research Director", 
-        img: "/images/bishwjit.png",
-        bio: "Expert in biomaterials and tissue engineering with over 20 years of research experience",
-        detailedBio: "Professor Dr. Bishwajit Bhowmick is a distinguished researcher in biomaterials and tissue engineering. He has over 20 years of experience in developing advanced biomaterials for medical applications. His research focuses on biodegradable polymers, drug delivery systems, and tissue regeneration.\n\nAt the Biohub, he provides strategic guidance on biomaterials development and tissue engineering applications. He oversees the development of novel biomaterials for medical devices, drug delivery systems, and regenerative medicine applications.",
-
-        education: "PhD | University of Tokyo"
-      },
-      { 
-        name: "Tasnima Siddique, PhD", 
-        title: "Research Director", 
-        img: "/images/tasnima.png",
-        bio: "Expert in laboratory management and quality assurance in biomedical research",
-        detailedBio: "Tasnima Siddique is a seasoned professional with extensive experience in laboratory management and quality assurance in biomedical research. She holds a PhD in Biochemistry and has worked in leading research institutions in Bangladesh and abroad.\n\nAt the Biohub, she oversees laboratory operations, ensures quality assurance compliance, and manages research infrastructure. She also provides training and mentorship to junior researchers and lab technicians.",
-
-        education: "PhD | University of Dhaka"
-      }
-    ],
-    "01_associates": [
-      { name: "Fatin Noor", title: "", img: "/images/fatin.jpg" },
-      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
-      { name: "Rahul Baroi", title: "", img: "/images/rahul.png" },
-      { name: "Borno Das", title: "", img: "/images/borno.png" }
-    ],
-    "02": [
-      { 
-        name: "Shoeb Ahmed, PhD", 
-        title: "Senior Scientific Advisor and Chair, Institute of Applied Bioengineering and Material Science \n\n Chair and Professor, Dept. of Chemical Engineering, BUET", 
-        img: "/images/shoeb.png",
-        bio: "Research focus includes industrial processes, intracellular signalling, and advanced microscopy methods",
-        detailedBio: "Shoeb Ahmed is a Professor and Chair of the Department Chemical Engineering at BUET and the Project Director of the Applied Bioengineering Research Incubator (ABRI). He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
-  
-        education: "PhD in Chemical and Biomolecular Engineering | North Carolina State University; MSc in Chemical and Biomolecular Engineering | North Carolina State University"
-      },
-      { 
-        name: "Samir Hossainy, PhD", 
-        title: "Program Director, Novel Delivery Technologies\n\nPostdoctoral Associate, NYU Tandon", 
-        img: "/images/samir.png",
-        bio: "Co-developer of thermoreversible polymersomes",
-        detailedBio: "Samir Hossainy is a researcher at the University of Chicago and co-developer of thermoreversible polymersomes that self-assemble in water, enabling high-efficiency loading of proteins and siRNA for drug and vaccine delivery. He is currently a Postdoctoral Associate at NYU Tandon and holds a PhD in Molecular Engineering from the University of Chicago, along with MS and BS degrees in Materials Science and Bioengineering from UC Berkeley.\n\nAt the Biohub, he leads the thermoreversible polymersome platform, advancing applications in vaccines, cancer immunotherapy, and tolerogenic therapies.",
-        achievement: "Co-developer of thermoreversible polymersomes | PhD from University of Chicago | Postdoc at NYU Tandon",
-        education: "PhD in Molecular Engineering | University of Chicago; MSc Materials Science and Engineering | UC Berkeley; BS in Bioengineering | UC Berkeley"
-      },
-      { 
-        name: "Nafisa Islam, PhD", 
-        title: "Senior Scientific Advisor\n\n Professor, Dept. of Chemical Engineering, BUET", 
-        img: "/images/nafisa.png",
-        bio: "Specialist in biocompatible materials and biosensor development",
-        detailedBio: "Nafisa Islam is a chemical engineer specializing in biocompatible materials, biosensing, and environmental chemistry. She holds a PhD in Chemical Engineering from North Carolina State University and is a member of the BUET faculty.\n\nAt the Biohub, she leads development of biosensor-based sanitary pads and women's health diagnostics. She also advises on biocompatible materials and packaging innovations across the Biohub.",
-     
-        education: "PhD in Chemical and Biomolecular Engineering | North Carolina State University; MSc in Chemical and Biomolecular Engineering | North Carolina State University ; BSc in Chemical Engineering | BUET"
-      }
-    ],
-    "02_associates": [
-      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
-    ],
-    "03": [
-      { 
-        name: "Abed Chawdhury, PhD", 
-        title: "Senior Scientific Advisor\n\nPreviously the Hoffman-LaRoche Fellow of Molecular Biology at MIT and Principal Scientist at Syngenta Australia", 
-        img: "/images/abed1.png",
-        bio: "Leading geneticist with more than 3 decades of experience, having discovered Panchabrihi (five-harvest rice)",
-        detailedBio: "Abed Chaudhury is a leading geneticist with more than three decades of experience in genetics, molecular biology, microbiomics, and crop science. He is known internationally for discovering Panchabrihi (five-harvest rice). His career includes serving as a Hoffman-LaRoche Fellow of Molecular Biology at MIT, Principal Scientist at Syngenta Australia, and Head of Research Innovation at Loam Bio, where he applied next-generation sequencing and metagenomics to harness soil microbiomes for carbon sequestration. He also discovered a fungus capable of reducing cattle methane emissions by up to 90 percent.\n\nAt the Biohub, he directs programs in plant genetics, soil and marine microbiomes, and CRISPR-enabled crop innovation.",
-        achievement: "Discovered Panchabrihi rice | Discovered methane-reducing fungus (90% reduction) | Hoffman-LaRoche Fellow at MIT",
-        education: "PhD in Molecular Biology | University of Oregon"
-      }
-    ],
-    "03_associates": [
-      { name: "Mehedi Hasan Pritom", title: "", img: "/images/pritom.png" },
-    ],
-    "04": [
-      // Empty - Future researchers will be added here
-    ],
-    "04_associates": [
-      { name: "Mashnoon Mayad", title: "", img: "/images/mashnoon.png" },
-    ]
-  };
-
-  const instituteResearchers = researchers[it.n] || [];
-  const instituteAssociates = researchers[it.n + "_associates"] || [];
-
-  // Render researcher card with click handler
-  const renderResearcherCard = (researcher, idx, isAssociate = false) => (
-    <div 
-      key={idx}
-      onClick={() => {
-        if (!isAssociate && researcher.detailedBio) {
-          setSelectedMember(researcher);
-        }
-      }}
-      style={{ 
-        textAlign: 'center',
-        padding: isAssociate ? '16px 12px' : '20px 12px',
-        background: isAssociate ? 'rgba(31,110,122,0.05)' : 'var(--bone)',
-        borderRadius: 16,
-        transition: 'all 0.3s ease',
-        border: isAssociate ? '1px solid rgba(31,110,122,0.1)' : '1px solid transparent',
-        cursor: !isAssociate && researcher.detailedBio ? 'pointer' : 'default',
-        width: '100%',
-        maxWidth: isAssociate ? '200px' : '250px',
-        margin: '0 auto'
-      }}
-      onMouseEnter={(e) => {
-        if (!isAssociate && researcher.detailedBio) {
-          e.currentTarget.style.transform = 'translateY(-4px)';
-          e.currentTarget.style.borderColor = 'var(--accent)';
-          e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
-        }
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.borderColor = isAssociate ? 'rgba(31,110,122,0.1)' : 'transparent';
-        e.currentTarget.style.boxShadow = 'none';
-      }}
-    >
-      <div style={{ 
-        width: isAssociate ? 70 : (it.n === "01" ? 80 : 100),
-        height: isAssociate ? 70 : (it.n === "01" ? 80 : 100),
-        borderRadius: '50%', 
-        overflow: 'hidden', 
-        margin: '0 auto 10px',
-        border: isAssociate ? '2px solid rgba(31,110,122,0.3)' : '3px solid var(--accent)',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-      }}>
-        <img 
-          src={researcher.img} 
-          alt={researcher.name} 
-          style={{ 
-            width: '100%', 
-            height: '100%', 
-            objectFit: 'cover',
-            transition: 'transform 0.3s ease'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-          onError={(e) => {
-            e.target.src = 'https://via.placeholder.com/100x100?text=' + researcher.name.charAt(0);
-          }}
-        />
-      </div>
-      <div style={{ 
-        fontWeight: 600, 
-        fontSize: isAssociate ? 13 : (it.n === "01" ? 14 : 16), 
-        color: '#0E1136' 
-      }}>
-        {researcher.name}
-      </div>
-      <div style={{ 
-        fontSize: isAssociate ? 11 : (it.n === "01" ? 11 : 13), 
-        color: isAssociate ? 'rgba(31,110,122,0.7)' : 'var(--accent)', 
-        marginTop: 4, 
-        fontWeight: 500 
-      }}>
-        {researcher.title}
-      </div>
-      {!isAssociate && researcher.detailedBio && (
-        <div style={{ 
-          fontSize: 10, 
-          color: '#0E1136', 
-          marginTop: 6,
-          fontStyle: 'italic'
-        }}>
-          Click for details
-        </div>
-      )}
-    </div>
-  );
-
-  // Member Details Inline Component for Institute
-const MemberDetailsInline = ({ member, onClose }) => {
-  const detailsRef = useRef(null);
-
-  useEffect(() => {
-    if (detailsRef.current) {
-      const yOffset = -80;
-      const element = detailsRef.current;
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({
-        top: y,
-        behavior: 'smooth'
-      });
-    }
-  }, [member]);
-
-  const handleClose = () => {
-    onClose();
-    setTimeout(() => {
-      // Find the researchers section
-      const researchersSection = document.querySelector('.id-researchers-grid');
-      if (researchersSection) {
-        const yOffset = -100; // Offset for header
-        const y = researchersSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({
-          top: y,
-          behavior: 'smooth'
-        });
-      } else {
-        // Fallback: scroll to institute section
-        const instituteSection = document.querySelector('[class*="id-focus-grid"]');
-        if (instituteSection) {
-          const yOffset = -80;
-          const y = instituteSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-          window.scrollTo({
-            top: y,
-            behavior: 'smooth'
-          });
-        }
-      }
-    }, 100);
-  };
-
-  return (
-    <div 
-      ref={detailsRef}
-      style={{
-        marginTop: '48px',
-        marginBottom: '48px',
-        background: '#F2EDE3',
-        borderRadius: '32px',
-        overflow: 'hidden',
-        animation: 'fadeInUp 0.5s ease',
-        fontFamily: "'Red Hat Display', sans-serif"
-      }}
-    >
-      <div className="mdi-grid" style={{
-        display: 'grid',
-        gridTemplateColumns: '0.8fr 1.2fr',
-        gap: 0,
-        minHeight: '500px'
-      }}>
-        <div className="mdi-photo" style={{
-          background: 'linear-gradient(135deg, #1F6E7A 0%, #4FA0AC 100%)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '40px'
-        }}>
-          <div style={{
-            width: '100%',
-            maxWidth: '280px',
-            borderRadius: '20px',
-            overflow: 'hidden',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
-            border: '3px solid white'
-          }}>
-            <img
-              src={member.img}
-              alt={member.name}
-              style={{ width: '100%', height: 'auto', display: 'block' }}
-              onError={(e) => {
-                e.target.src = 'https://via.placeholder.com/280x280/1F6E7A/FFFFFF?text=Team';
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="mdi-content" style={{ 
-          padding: '40px', 
-          overflowY: 'auto', 
-          maxHeight: '600px',
-          background: '#F2EDE3'
-        }}>
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'flex-start', 
-            marginBottom: '20px'
-          }}>
-            <div>
-              <div style={{
-                fontSize: '12px',
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                color: '#1F6E7A',
-                fontWeight: 600,
-                marginBottom: '8px',
-                whiteSpace: 'pre-line',
-                lineHeight: 1.3,
-                fontFamily: "'Red Hat Display', sans-serif"
-              }}>
-                {member.title}
-              </div>
-              <h2 style={{
-                fontSize: '32px',
-                fontWeight: 700,
-                color: '#0E1136',
-                marginBottom: '12px',
-                letterSpacing: '-0.02em',
-                fontFamily: "'Red Hat Display', sans-serif"
-              }}>
-                {member.name}
-              </h2>
-              <div style={{
-                width: '50px',
-                height: '3px',
-                background: '#1F6E7A',
-                marginBottom: '24px'
-              }} />
-            </div>
-            <button
-              onClick={handleClose}
-              style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '50%',
-                background: '#FAF7F0',
-                border: '1px solid #D8D0BE',
-                cursor: 'pointer',
-                fontSize: '18px',
-                transition: 'all 0.3s ease',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#0E1136',
-                fontFamily: "'Red Hat Display', sans-serif",
-                flexShrink: 0
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.background = '#BFD4D5'}
-              onMouseLeave={(e) => e.currentTarget.style.background = '#FAF7F0'}
-            >
-              ✕
-            </button>
-          </div>
-
-          {/* Key Achievements Section */}
-          {member.achievement && (
-            <div style={{ marginBottom: '24px' }}>
-              <h3 style={{
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#0E1136',
-                marginBottom: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontFamily: "'Red Hat Display', sans-serif"
-              }}>
-                <span style={{ fontSize: '20px' }}>🏆</span> Key Achievement
-              </h3>
-              <div style={{
-                background: 'linear-gradient(135deg, rgba(255,40,0,0.05) 0%, rgba(31,110,122,0.05) 100%)',
-                padding: '14px',
-                borderRadius: '14px',
-                fontSize: '14px',
-                fontWeight: 500,
-                color: '#0E1136',
-                lineHeight: 1.5,
-                borderLeft: '3px solid #FF2800',
-                fontFamily: "'Red Hat Display', sans-serif"
-              }}>
-                {member.achievement}
-              </div>
-            </div>
-          )}
-
-          {/* Detailed Bio Section */}
-          {member.detailedBio && (
-            <div style={{ marginBottom: '24px' }}>
-              <h3 style={{
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#0E1136',
-                marginBottom: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontFamily: "'Red Hat Display', sans-serif"
-              }}>
-                <span style={{ fontSize: '20px' }}>📋</span> Biography
-              </h3>
-              <div style={{
-                fontSize: '14px',
-                lineHeight: 1.6,
-                color: '#0E1136',
-                textAlign: 'justify',
-                fontFamily: "'Red Hat Display', sans-serif",
-                fontWeight: 400
-              }}>
-                {member.detailedBio.split('\n\n').map((paragraph, idx) => (
-                  <p key={idx} style={{ 
-                    marginBottom: '12px',
-                    color: '#0E1136'
-                  }}>
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Education Section */}
-          {member.education && (
-            <div style={{ marginBottom: '24px' }}>
-              <h3 style={{
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#0E1136',
-                marginBottom: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontFamily: "'Red Hat Display', sans-serif"
-              }}>
-                <span style={{ fontSize: '20px' }}>🎓</span> Education
-              </h3>
-              <div style={{
-                background: '#FAF7F0',
-                padding: '14px',
-                borderRadius: '14px',
-                fontSize: '13px',
-                color: '#0E1136',
-                lineHeight: 1.5,
-                textAlign: 'justify',
-                fontFamily: "'Red Hat Display', sans-serif",
-                fontWeight: 400
-              }}>
-                {member.education}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <style>{`
-        @media (max-width: 800px) {
-          .mdi-grid { grid-template-columns: 1fr !important; min-height: 0 !important; }
-          .mdi-photo { padding: 28px !important; }
-          .mdi-content { max-height: none !important; padding: 28px !important; }
-        }
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
-    </div>
-  );
-};
-  // Render placeholder for empty section
-  const renderPlaceholder = (type) => (
-    <div style={{ 
-      textAlign: 'center',
-      padding: '30px 20px',
-      background: 'var(--bone)',
-      borderRadius: 16,
-      border: '2px dashed var(--rule)',
-      minHeight: '150px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%'
-    }}>
-      <div style={{ 
-        fontSize: 32, 
-        color: '#0E1136',
-        marginBottom: 12,
-        opacity: 0.3
-      }}>
-        {type === 'researcher' ? '🔬' : '🧪'}
-      </div>
-      <div style={{ 
-        fontSize: 16, 
-        fontWeight: 600, 
-        color: '#0E1136',
-        marginBottom: 6
-      }}>
-        {type === 'researcher' ? 'Researchers Coming Soon' : 'Research Associates Coming Soon'}
-      </div>
-      <div style={{ 
-        fontSize: 13, 
-        color: '#0E1136',
-        maxWidth: 350
-      }}>
-        We're currently building our team. Check back for updates.
-      </div>
-    </div>
-  );
-
-  return (
-    <div>
-      {/* Institute Detail Image - Radius removed */}
-      <div className="img-frame" style={{ 
-        height: 'min(55vh, 480px)', 
-        background: '#000', 
-        position: 'relative',
-        borderRadius: '0px',
-        overflow: 'hidden'
-      }}>
-        <img 
-          src={it.img} 
-          alt={it.title} 
-          style={{ 
-            width: '100%', 
-            height: '100%', 
-            objectFit: 'cover',
-            borderRadius: '0px'
-          }} 
-        />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(14,27,44,0.3), rgba(14,27,44,0.85))' }} />
-        <div className="wrap" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
-          <SlideIn from="left">
-            <div className="mono" style={{ color: 'rgba(255,255,255,0.8)', fontSize: 11, letterSpacing: '0.22em', marginBottom: 16 }}>
-              INSTITUTE {it.n} · {it.tag}
-            </div>
-          </SlideIn>
-          <SlideIn from="left" delay={0.1}>
-            <h1 style={{ color: 'var(--paper)', fontSize: 'clamp(40px, 5.5vw, 72px)', lineHeight: 1, fontWeight: 800, letterSpacing: '-0.025em', maxWidth: 900, fontFamily: "'Red Hat Display', sans-serif" }}>
-              {it.title}
-            </h1>
-          </SlideIn>
-          <SlideIn from="left" delay={0.2}>
-            <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: 17, marginTop: 18, maxWidth: 600, lineHeight: 1.45 }}>
-              {it.blurb}
-            </p>
-          </SlideIn>
-        </div>
-      </div>
-
-      <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 70, paddingBottom: 70 }}>
-        <div className="id-focus-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 56, marginBottom: 70 }}>
-          <SlideIn from="left">
-            <h2 style={{ fontSize: 'clamp(26px, 3.2vw, 38px)', fontWeight: 500, lineHeight: 1.15, marginBottom: 24 }}>
-              <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Focus</span> <span style={{color:'#0E1136'}}>Areas</span> 
-            </h2>
-            <div style={{ display: 'grid', gap: 14 }}>
-              {areas.slice(0, 8).map((area, idx) => (
-                <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--rule)' }}>
-                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)' }} />
-                  <span style={{ fontSize: 14.5, color: '#0E1136' }}>{area}</span>
-                </div>
-              ))}
-            </div>
-          </SlideIn>
-          
-          <SlideIn from="right">
-            <h2 style={{ fontSize: 'clamp(26px, 3.2vw, 38px)', fontWeight: 500, lineHeight: 1.15, marginBottom: 24, color:'#0E1136' }}>
-              About the <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Institute</span>
-            </h2>
-            {descriptionParagraphs.map((paragraph, idx) => (
-              <p key={idx} style={{ fontSize: 15.5, lineHeight: 1.6, color: '#0E1136', marginBottom: 18, textAlign: 'justify' }}>
-                {paragraph}
-              </p>
-            ))}
-          </SlideIn>
-        </div>
-
-        {/* Notable Researchers Section */}
-        <div style={{ marginTop: 40 }}>
-          <SlideIn from="left">
-            <div style={{ textAlign: 'center', marginBottom: 40 }}>
-        <h3 style={{ fontSize: 'clamp(24px, 2.8vw, 32px)', fontWeight: 500, marginBottom: 12, color:'rgb(31, 110, 122)' }}>
-          <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400, fontFamily: "Georgia, serif" }}>Researchers</span>
-        </h3>
-           <div style={{ width: 50, height: 2, background: 'rgb(31, 110, 122)', margin: '0 auto' }} />
-            </div>
-          </SlideIn>
-          
-          {/* Principal Researchers */}
-          <div style={{ marginBottom: 32 }}>
-            <SlideIn from="left" delay={0.1}>
-              <h4 style={{ fontSize: 18, fontWeight: 600, marginBottom: 20, textAlign: 'center', color:'#0E1136'}}>
-                Principal Investigators & Lead Scientists
-              </h4>
-            </SlideIn>
-            
-            {/* For Institute 03 with single researcher - centered */}
-            {it.n === "03" && instituteResearchers.length === 1 ? (
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                alignItems: 'center',
-                width: '100%'
-              }}>
-                {renderResearcherCard(instituteResearchers[0], 0)}
-              </div>
-            ) : (
-              <div className="id-researchers-grid" style={{
-                display: instituteResearchers.length === 0 ? 'flex' : 'grid',
-                justifyContent: instituteResearchers.length === 0 ? 'center' : 'unset',
-                gridTemplateColumns: instituteResearchers.length === 0 ? '1fr' : 
-                  it.n === "01" ? `repeat(${Math.min(instituteResearchers.length, 5)}, 1fr)` :
-                  instituteResearchers.length <= 3 ? 'repeat(3, 1fr)' : 'repeat(3, 1fr)',
-                gap: 20
-              }}>
-                {instituteResearchers.length === 0 ? (
-                  renderPlaceholder('researcher')
-                ) : (
-                  instituteResearchers.map((researcher, idx) => renderResearcherCard(researcher, idx))
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Research Associates - Centered */}
-          <div>
-            <SlideIn from="left" delay={0.2}>
-              <h4 style={{ fontSize: 18, fontWeight: 600, color: '#0E1136', marginBottom: 20, textAlign: 'center' }}>
-                Research Associates
-              </h4>
-            </SlideIn>
-            <div className="id-researchers-grid" style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: 20
-            }}>
-              {instituteAssociates.length === 0 ? (
-                renderPlaceholder('associate')
-              ) : (
-                instituteAssociates.map((associate, idx) => (
-                  <div key={idx} style={{ maxWidth: '200px', width: '100%' }}>
-                    {renderResearcherCard(associate, idx, true)}
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Member Details Modal */}
-        {selectedMember && (
-          <MemberDetailsInline member={selectedMember} onClose={() => setSelectedMember(null)} />
-        )}
-
-        <div style={{ marginTop: 70, background: 'var(--bone)', borderRadius: 20, padding: 40, textAlign: 'center' }}>
-          <SlideIn from="bottom">
-            <h4 style={{ fontSize: 24, fontWeight: 500, marginBottom: 14, color:'#0E1136' }}>
-              Interested in <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)' }}>collaborating</span>?
-            </h4>
-            <p style={{ fontSize: 14.5, color: '#0E1136', marginBottom: 22, maxWidth: 450, margin: '0 auto 22px' }}>
-              We're always open to research partnerships and visiting positions.
-            </p>
-            <button 
-              onClick={() => window.dispatchEvent(new CustomEvent('aq-route', { detail: 'contact' }))}
-              style={{
-                padding: '11px 30px',
-                background: '#0E1136',
-                color: 'white',
-                border: 'none',
-                borderRadius: 999,
-                fontSize: 13.5,
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                fontFamily:'Red Hat Display'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#1a2444';
-                e.currentTarget.style.transform = 'scale(1.02)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#0E1136';
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
-            >
-              Get in touch →
-            </button>
-          </SlideIn>
-        </div>
-      </div>
-
-      <style>{`
-        @media (max-width: 1024px) {
-          .id-researchers-grid { grid-template-columns: repeat(3, 1fr) !important; }
-        }
-        @media (max-width: 768px) {
-          .id-researchers-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .id-focus-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
-        }
-        @media (max-width: 480px) {
-          .id-researchers-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
-    </div>
-  );
-}
-
-
-
-function ListView({ title, subtitle, items, kind, palette }) {
-  const handleItemClick = (e, href) => {
-    e.preventDefault();
-    window.dispatchEvent(new CustomEvent('aq-route', { detail: href }));
-  };
-
-  return (
-    <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
-      <SlideIn from="left">
-        <div className="label" style={{ marginBottom: 18, fontSize: 11, letterSpacing: '0.2em', color: 'var(--accent)' }}>ALL {title.toUpperCase()}</div>
-      </SlideIn>
-      <SlideIn from="left" delay={0.08}>
-        <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', lineHeight: 1, letterSpacing: '-0.025em', fontWeight: 800, fontFamily: "'Red Hat Display', sans-serif" }}>
-          {title}
-        </h1>
-      </SlideIn>
-      <SlideIn from="left" delay={0.16}>
-        <p style={{ fontSize: 20, color: '#0E1136', maxWidth: 700, marginTop: 18, lineHeight: 1.4 }}>{subtitle}</p>
-      </SlideIn>
-
-      <div style={{ marginTop: 56, display: 'grid', gridTemplateColumns: kind === 'venture' ? '1fr 1fr' : '1fr', gap: kind === 'venture' ? 24 : 0 }}>
-        {items?.map((i, idx) => (
-          <SlideIn key={idx} from={idx % 2 ? 'right' : 'left'} delay={idx * 0.06}>
-            {kind === 'venture' ? (
-              <button onClick={(e) => handleItemClick(e, i.href)} style={{ display: 'block', width: '100%', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-                <div className="img-frame" style={{ aspectRatio: '4/3', position: 'relative', overflow: 'hidden', borderRadius: 24 }}>
-                  <img src={i.img} alt={i.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(14,27,44,0.05), rgba(14,27,44,0.85))' }} />
-                  <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 28 }}>
-                    <div className="mono" style={{ fontSize: 11, letterSpacing: '0.22em', opacity: 0.8, color: 'white' }}>{i.n} · {i.tag.toUpperCase()}</div>
-                    <div className="serif" style={{ fontSize: 'clamp(34px, 4vw, 54px)', fontWeight: 500, marginTop: 10, lineHeight: 1, color: 'white' }}>{i.title}</div>
-                    <div style={{ fontSize: 15, marginTop: 10, opacity: 0.85, maxWidth: 460, color: 'white' }}>{i.blurb}</div>
-                  </div>
-                </div>
-              </button>
-            ) : null}
-          </SlideIn>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function TeamFull({ data, palette }) {
-  return (
-    <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
-      <SlideIn from="left">
-        <div className="label" style={{ marginBottom: 18, fontSize: 11, letterSpacing: '0.2em', color: 'var(--accent)' }}>THE FULL TEAM</div>
-      </SlideIn>
-      <SlideIn from="left" delay={0.08}>
-        <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', lineHeight: 1, letterSpacing: '-0.025em', fontWeight: 800, fontFamily: "'Red Hat Display', sans-serif" }}>
-          Builders. Scientists. <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>Dreamers.</span> Doers.
-        </h1>
-      </SlideIn>
-
-      {Object.entries(data.team || {}).map(([cat, members], i) => (
-        <div key={cat} style={{ marginTop: 56, paddingTop: 32, borderTop: '1px solid var(--rule)' }}>
-          <SlideIn from="left">
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 28 }}>
-              <span className="mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: 'var(--muted)' }}>0{i+1}</span>
-              <h2 style={{ fontSize: 'clamp(26px, 3vw, 38px)', fontWeight: 600, letterSpacing: '-0.015em' }}>{cat}</h2>
-            </div>
-          </SlideIn>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
-            {members.map((m, j) => (
-              <SlideIn key={j} from="bottom" delay={j * 0.05}>
-                <div className="img-frame" style={{ aspectRatio: '4/5', borderRadius: 20, overflow: 'hidden' }}>
-                  <img src={m.img} alt={m.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={{ marginTop: 12 }}>
-                  <div style={{ fontSize: 17, fontWeight: 600, color: '#0E1136' }}>{m.name}</div>
-                  <div style={{ fontSize: 13, color: 'var(--muted)', marginTop: 4 }}>{m.title}</div>
-                </div>
-              </SlideIn>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function PartnersFull({ data, palette }) {
-  return (
-    <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
-      <SlideIn from="left"><div className="label" style={{ marginBottom: 18, fontSize: 11, letterSpacing: '0.2em', color: 'var(--accent)' }}>ALL PARTNERS</div></SlideIn>
-      <SlideIn from="left" delay={0.08}>
-        <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', lineHeight: 1, letterSpacing: '-0.025em', fontWeight: 800, fontFamily: "'Red Hat Display', sans-serif" }}>
-          Backed by the institutions <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>building</span> the future.
-        </h1>
-      </SlideIn>
-
-      <div style={{ marginTop: 64, borderTop: '1px solid var(--rule)' }}>
-        {(data.partners || []).map((p, i) => (
-          <SlideIn key={i} from={i%2?'right':'left'} delay={i*0.05}>
-            <div style={{
-              display: 'grid', gridTemplateColumns: '220px 1fr 200px 60px',
-              alignItems: 'center', gap: 32, padding: '36px 0', borderBottom: '1px solid var(--rule)'
-            }}>
-              <div style={{ height: 96, display: 'grid', placeItems: 'center', background: 'var(--bone)', border: '1px solid var(--rule)', borderRadius: 12, padding: 14 }}>
-                <img src={p.logo} alt={p.name} style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }} />
-              </div>
-              <div>
-                <div className="label" style={{ marginBottom: 8, color: 'var(--accent)' }}>{p.kind}</div>
-                <div style={{ fontSize: 'clamp(22px, 2.4vw, 30px)', fontWeight: 600, lineHeight: 1.15, marginBottom: 10 }}>{p.name}</div>
-                <p style={{ fontSize: 15, color: '#0E1136', lineHeight: 1.55, maxWidth: 640, textAlign: 'justify' }}>{p.blurb}</p>
-              </div>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.18em', color: 'var(--muted)' }}>
-                <div>{p.loc}</div>
-                <div style={{ marginTop: 6 }}>SINCE {p.since}</div>
-              </div>
-              <Arrow />
-            </div>
-          </SlideIn>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function CareersView({ palette }) {
-  const roles = [
-    { team: 'SuperWater', title: 'Senior Water Engineer', loc: 'Dhaka', type: 'Full-time' },
-    { team: 'ThermoReVax', title: 'Vaccine Formulation Lead', loc: 'Dhaka', type: 'Full-time' },
-    { team: 'Blue Microbiome', title: 'Aquaculture Scientist', loc: 'Khulna', type: 'Full-time' },
-    { team: 'BioPlatform', title: 'Foundation Model Engineer', loc: 'Remote', type: 'Full-time' },
-    { team: 'Operations', title: 'Head of People', loc: 'Dhaka', type: 'Full-time' }
-  ];
-
-  return (
-    <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
-      <SlideIn from="left"><div className="label" style={{ marginBottom: 18, fontSize: 11, letterSpacing: '0.2em', color: 'var(--accent)' }}>OPEN ROLES</div></SlideIn>
-      <SlideIn from="left" delay={0.08}>
-        <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', lineHeight: 1, letterSpacing: '-0.025em', fontWeight: 800, fontFamily: "'Red Hat Display', sans-serif" }}>
-          Help build the <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>bioeconomy.</span>
-        </h1>
-      </SlideIn>
-      <div style={{ marginTop: 56, borderTop: '1px solid var(--rule)' }}>
-        {roles.map((r, i) => (
-          <SlideIn key={i} from={i%2?'right':'left'} delay={i*0.05}>
-            <div style={{
-              display: 'grid', gridTemplateColumns: '160px 1fr 160px 140px 40px',
-              alignItems: 'center', gap: 24, padding: '28px 0', borderBottom: '1px solid var(--rule)'
-            }}>
-              <span className="label" style={{ fontSize: 11, letterSpacing: '0.2em', color: 'var(--accent)' }}>{r.team}</span>
-              <div style={{ fontSize: 'clamp(20px, 2.2vw, 26px)', fontWeight: 500 }}>{r.title}</div>
-              <span style={{ fontSize: 13, color: 'var(--muted)' }}>{r.loc}</span>
-              <span style={{ fontSize: 13, color: 'var(--muted)' }}>{r.type}</span>
-              <Arrow />
-            </div>
-          </SlideIn>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function PlatformDetail({ data, palette }) {
-  return (
-    <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
-      <SlideIn from="left"><div className="label" style={{ marginBottom: 18, fontSize: 11, letterSpacing: '0.2em', color: 'var(--accent)' }}>THE BIOPLATFORM</div></SlideIn>
-      <SlideIn from="left" delay={0.08}>
-        <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', lineHeight: 1, letterSpacing: '-0.025em', fontWeight: 800, fontFamily: "'Red Hat Display', sans-serif" }}>
-          A full-stack <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>bioeconomy</span> engine.
-        </h1>
-      </SlideIn>
-      <SlideIn from="left" delay={0.16}>
-        <p style={{ fontSize: 20, marginTop: 20, color: '#0E1136', maxWidth: 760, lineHeight: 1.4, textAlign: 'justify' }}>
-          Four phases. One platform. From frontier discovery to launched ventures.
-        </p>
-      </SlideIn>
-
-      <div style={{ marginTop: 56, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, border: '1px solid var(--rule)', borderRadius: 24, overflow: 'hidden' }}>
-        {(data.phases || []).map((p, i) => (
-          <SlideIn key={i} from="bottom" delay={i*0.08}>
-            <div style={{ padding: 32, borderRight: i < 3 ? '1px solid var(--rule)' : 'none', background: i % 2 === 0 ? 'var(--bone)' : 'transparent' }}>
-              <div className="mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: 'var(--accent)', marginBottom: 16 }}>PHASE {p.n}</div>
-              <div style={{ fontSize: 28, fontWeight: 600, marginBottom: 12, letterSpacing: '-0.02em' }}>{p.title}</div>
-              <p style={{ fontSize: 14, color: '#0E1136', lineHeight: 1.55, textAlign: 'justify' }}>{p.body}</p>
-            </div>
-          </SlideIn>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function Row({ k, v }) {
-  return (
-    <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 12, paddingBottom: 14, borderBottom: '1px solid var(--rule)' }}>
-      <div className="mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: 'var(--accent)' }}>{k.toUpperCase()}</div>
-      <div style={{ fontSize: 15, color: '#0E1136' }}>{v}</div>
-    </div>
-  );
-}
-
-// Detail page used for venture / institute / list views
+// ===== DETAIL PAGE =====
 function DetailPage({ route, onClose, palette }) {
   const data = appData;
   const ref = useReveal();
@@ -1977,8 +1996,7 @@ function DetailPage({ route, onClose, palette }) {
     view = <PlatformDetail data={data} palette={palette} />;
   } else if (route === 'contact') {
     view = <Contact palette={palette} />;
-  }
-  else {
+  } else {
     view = <div style={{ padding: 80, textAlign: 'center' }}>Page not found.</div>;
   }
 
@@ -1989,6 +2007,267 @@ function DetailPage({ route, onClose, palette }) {
         {view}
       </div>
       <Footer />
+      
+      <style>{`
+        :root {
+          --accent: #1F6E7A;
+          --accent-soft: rgba(31,110,122,0.1);
+          --rule: rgba(0,0,0,0.08);
+          --muted: rgba(0,0,0,0.5);
+          --paper: #FAF7F0;
+          --bone: #F2EDE3;
+        }
+
+        .serif {
+          font-style: italic;
+          font-family: Georgia, 'Times New Roman', serif;
+        }
+        .mono {
+          font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Global Mobile Fixes */
+        @media (max-width: 768px) {
+          .wrap {
+            padding: 0 16px !important;
+          }
+          .detail-back {
+            padding-top: 72px !important;
+          }
+          .detail-back .wrap {
+            padding: 16px !important;
+          }
+        }
+
+        /* Zigzag Mobile Fixes */
+        @media (max-width: 980px) {
+          .zigzag-grid-item {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+            margin-bottom: 48px !important;
+          }
+          .zigzag-grid-item > div {
+            order: unset !important;
+          }
+          .zigzag-image-wrap {
+            height: 280px !important;
+            border-radius: 20px !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .zigzag-section {
+            padding-top: 40px !important;
+            padding-bottom: 40px !important;
+          }
+          .zigzag-section h1 {
+            font-size: 26px !important;
+            margin-bottom: 20px !important;
+          }
+          .zigzag-intro-box {
+            padding: 24px 20px !important;
+            margin-bottom: 40px !important;
+            border-radius: 16px !important;
+          }
+          .zigzag-intro-box p {
+            font-size: 14px !important;
+            line-height: 1.55 !important;
+          }
+          .zigzag-grid-item {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+            margin-bottom: 36px !important;
+          }
+          .zigzag-image-wrap {
+            height: 200px !important;
+            border-radius: 16px !important;
+          }
+          .zigzag-grid-item h2 {
+            font-size: 22px !important;
+            margin-bottom: 12px !important;
+          }
+          .zigzag-grid-item p {
+            font-size: 14px !important;
+          }
+          .zigzag-cta {
+            padding: 32px 20px !important;
+            border-radius: 20px !important;
+            margin-top: 20px !important;
+          }
+          .zigzag-cta h3 {
+            font-size: 22px !important;
+          }
+          .zigzag-cta p {
+            font-size: 14px !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .zigzag-section {
+            padding-top: 28px !important;
+            padding-bottom: 28px !important;
+          }
+          .zigzag-section h1 {
+            font-size: 22px !important;
+          }
+          .zigzag-intro-box {
+            padding: 18px 14px !important;
+            margin-bottom: 28px !important;
+          }
+          .zigzag-image-wrap {
+            height: 180px !important;
+            border-radius: 14px !important;
+          }
+          .zigzag-grid-item {
+            margin-bottom: 28px !important;
+            gap: 12px !important;
+          }
+          .zigzag-grid-item h2 {
+            font-size: 20px !important;
+          }
+          .zigzag-cta {
+            padding: 24px 16px !important;
+            border-radius: 16px !important;
+          }
+          .zigzag-cta h3 {
+            font-size: 20px !important;
+          }
+        }
+
+        /* Venture Mobile Fixes */
+        @media (max-width: 768px) {
+          .vd-brief-grid {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+          }
+          .vd-cards-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+          }
+          .vd-milestones-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .vd-milestones-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+
+        /* Footer Mobile Fixes */
+        @media (max-width: 768px) {
+          .ftr-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 24px !important;
+          }
+          footer {
+            margin-top: 48px !important;
+            padding-top: 28px !important;
+          }
+          footer p, footer span, footer a, footer button {
+            font-size: 12px !important;
+          }
+        }
+
+        @media (max-width: 550px) {
+          .ftr-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// ===== MISSING COMPONENTS =====
+function PartnerDetail({ partner, palette }) {
+  return (
+    <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
+      <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', fontWeight: 800 }}>{partner.name}</h1>
+      <p style={{ fontSize: 18, lineHeight: 1.6 }}>{partner.fullDescription || partner.blurb}</p>
+    </div>
+  );
+}
+
+function ListView({ title, subtitle, items, kind, palette }) {
+  return (
+    <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
+      <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', fontWeight: 800 }}>{title}</h1>
+      <p style={{ fontSize: 20, color: '#0E1136', maxWidth: 700, marginTop: 18 }}>{subtitle}</p>
+      {items?.map((item, idx) => (
+        <div key={idx} style={{ padding: '20px 0', borderBottom: '1px solid var(--rule)' }}>
+          <h3 style={{ fontSize: 24, fontWeight: 600 }}>{item.title}</h3>
+          <p style={{ fontSize: 15, color: '#0E1136' }}>{item.blurb}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TeamFull({ data, palette }) {
+  return (
+    <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
+      <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', fontWeight: 800 }}>Our Team</h1>
+      {Object.entries(data.team || {}).map(([cat, members]) => (
+        <div key={cat} style={{ marginTop: 56 }}>
+          <h2 style={{ fontSize: 'clamp(26px, 3vw, 38px)', fontWeight: 600 }}>{cat}</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24, marginTop: 24 }}>
+            {members.map((m, j) => (
+              <div key={j}>
+                <div style={{ aspectRatio: '4/5', borderRadius: 20, overflow: 'hidden', background: '#f0f0f0' }}>
+                  <img src={m.img} alt={m.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div style={{ marginTop: 12 }}>
+                  <div style={{ fontSize: 17, fontWeight: 600 }}>{m.name}</div>
+                  <div style={{ fontSize: 13, color: 'var(--muted)' }}>{m.title}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PartnersFull({ data, palette }) {
+  return (
+    <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
+      <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', fontWeight: 800 }}>Our Partners</h1>
+      {(data.partners || []).map((p, i) => (
+        <div key={i} style={{ padding: '30px 0', borderBottom: '1px solid var(--rule)' }}>
+          <h3 style={{ fontSize: 'clamp(22px, 2.4vw, 30px)', fontWeight: 600 }}>{p.name}</h3>
+          <p style={{ fontSize: 15, color: '#0E1136' }}>{p.blurb}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CareersView({ palette }) {
+  return (
+    <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
+      <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', fontWeight: 800 }}>Careers</h1>
+      <p style={{ fontSize: 20, color: '#0E1136' }}>Help build the bioeconomy.</p>
+    </div>
+  );
+}
+
+function PlatformDetail({ data, palette }) {
+  return (
+    <div className="wrap" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', paddingTop: 80, paddingBottom: 80 }}>
+      <h1 style={{ fontSize: 'clamp(40px, 6vw, 84px)', fontWeight: 800 }}>BioPlatform</h1>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24, marginTop: 40 }}>
+        {(data.phases || []).map((p, i) => (
+          <div key={i} style={{ padding: 24, background: 'var(--bone)', borderRadius: 16 }}>
+            <div style={{ fontSize: 11, letterSpacing: '0.22em', color: 'var(--accent)' }}>PHASE {p.n}</div>
+            <div style={{ fontSize: 24, fontWeight: 600, marginTop: 8 }}>{p.title}</div>
+            <p style={{ fontSize: 14, color: '#0E1136', marginTop: 8 }}>{p.body}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
