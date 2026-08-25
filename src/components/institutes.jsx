@@ -468,50 +468,7 @@ function Institutes({ palette, onOpen }) {
               }}
             />
 
-            {/* Swipe hint - Clickable left arrow */}
-            <button
-              onClick={goToPrevious}
-              style={{
-                position: "absolute",
-                left: 8,
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 4,
-                background: 'rgba(0,0,0,0.3)',
-                border: 'none',
-                borderRadius: '50%',
-                width: 'clamp(36px, 4vw, 44px)',
-                height: 'clamp(36px, 4vw, 44px)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                color: 'white',
-                fontSize: 'clamp(20px, 2.5vw, 28px)',
-                transition: 'all 0.3s ease',
-                backdropFilter: 'blur(4px)',
-                WebkitBackdropFilter: 'blur(4px)',
-                padding: 0
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(0,0,0,0.5)';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-              }}
-              onTouchStart={(e) => {
-                e.stopPropagation();
-                e.currentTarget.style.background = 'rgba(0,0,0,0.6)';
-              }}
-              onTouchEnd={(e) => {
-                e.stopPropagation();
-                e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
-              }}
-            >
-              ‹
-            </button>
+
 
             {/* Swipe hint - Clickable right arrow */}
             <button
