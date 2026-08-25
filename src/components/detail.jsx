@@ -1603,18 +1603,18 @@ function InstituteDetail({ it, data, palette }) {
           .id-body {
             padding: 24px 16px 48px !important;
           }
-          
-          /* Mobile Researcher Grid - 2 columns */
+
           .id-researchers-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 12px !important;
-          }
+  grid-template-columns: repeat(auto-fit, minmax(140px, 160px)) !important;
+  gap: 12px !important;
+  justify-content: center !important;
+}
 
-          .id-associates-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 10px !important;
-          }
-
+.id-associates-grid {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 140px)) !important;
+  gap: 10px !important;
+  justify-content: center !important;
+}
           /* Mobile image sizes */
           .id-researchers-grid .researcher-image {
             width: 70px !important;
