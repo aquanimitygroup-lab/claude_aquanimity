@@ -1,171 +1,68 @@
 import React, { useState, useEffect, useRef } from "react";
 
-/* =========================
-   REVEAL HOOK
-========================= */
-
 const useReveal = () => {
   const ref = useRef(null);
-
   useEffect(() => {
     if (ref.current) {
       const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("in");
-            }
-          });
-        },
-        { threshold: 0.1 }
+        (entries) => entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add("in"); }),
+        { threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
       );
-
-      const reveals = ref.current.querySelectorAll(".reveal");
-
-      reveals.forEach((el) => observer.observe(el));
-
+      ref.current.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
       return () => observer.disconnect();
     }
   }, []);
-
   return ref;
 };
-
-/* =========================
-   TYPING ANIMATION HOOK - Starts when element is visible
-========================= */
 
 const useTypingAnimation = (text, speed = 100, triggerRef = null) => {
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const animationRef = useRef(null);
 
   useEffect(() => {
     if (!triggerRef?.current || hasStarted) return;
-
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasStarted) {
-            setHasStarted(true);
-            setIsTyping(true);
-            observer.disconnect();
-          }
-        });
-      },
+      (entries) => entries.forEach((entry) => { if (entry.isIntersecting && !hasStarted) { setHasStarted(true); setIsTyping(true); observer.disconnect(); } }),
       { threshold: 0.3 }
     );
-
     observer.observe(triggerRef.current);
-
     return () => observer.disconnect();
   }, [triggerRef, hasStarted]);
 
   useEffect(() => {
     if (!isTyping) return;
-
     if (currentIndex < text.length) {
-      const timer = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex]);
-        setCurrentIndex(prev => prev + 1);
-      }, speed);
+      const timer = setTimeout(() => { setDisplayText(prev => prev + text[currentIndex]); setCurrentIndex(prev => prev + 1); }, speed);
       return () => clearTimeout(timer);
-    } else {
-      setIsTyping(false);
-    }
+    } else { setIsTyping(false); }
   }, [currentIndex, text, speed, isTyping]);
 
   return { displayText, isTyping, hasStarted };
 };
 
-/* =========================
-   MAIN PLATFORM
-========================= */
-
 function Platform({ palette, onOpen }) {
   const ref = useReveal();
   const typingRef = useRef(null);
-  
   const typingText = "Four Phases, One Platform";
   const { displayText, isTyping } = useTypingAnimation(typingText, 80, typingRef);
 
-  // Better error handling for JSON parsing
   let phases = [];
-  let parseError = null;
-  
   try {
     const dataElement = document.getElementById("aquanimity-data");
     if (dataElement && dataElement.textContent) {
-      // Clean the JSON string
-      let jsonString = dataElement.textContent.trim();
-      
-      // Remove BOM if present
-      jsonString = jsonString.replace(/^\uFEFF/, '');
-      
-      // Try to parse
-      const data = JSON.parse(jsonString);
-      phases = data.phases || [];
-      
-      // Validate phases is array
-      if (!Array.isArray(phases)) {
-        console.warn("Phases is not an array, using fallback");
-        phases = [];
-      }
+      const data = JSON.parse(dataElement.textContent.trim().replace(/^\uFEFF/, ''));
+      phases = Array.isArray(data.phases) ? data.phases : [];
     }
-  } catch (error) {
-    parseError = error;
-    console.error("Failed to load platform data:", error);
-    console.error("Error message:", error.message);
-    
-    // Try to find the position of the error
-    if (error.message.includes("position")) {
-      const posMatch = error.message.match(/position (\d+)/);
-      if (posMatch && posMatch[1]) {
-        const pos = parseInt(posMatch[1]);
-        const dataElement = document.getElementById("aquanimity-data");
-        if (dataElement && dataElement.textContent) {
-          const jsonString = dataElement.textContent.trim();
-          const start = Math.max(0, pos - 80);
-          const end = Math.min(jsonString.length, pos + 80);
-          console.error("JSON around error position:", jsonString.substring(start, end));
-          console.error("Error at position:", pos);
-          console.error("Character at error position:", jsonString[pos]);
-          console.error("Expected: double-quoted property name");
-        }
-      }
-    }
-  }
+  } catch (error) { console.error("Failed to load platform data:", error); }
 
-  // Fallback phase data with local images
   if (phases.length === 0) {
-    console.log("Using fallback phase data");
     phases = [
-      { 
-        n: "01", 
-        title: "Discover", 
-        body: "Frontier research at the intersection of biology, computation, and climate science. We identify high-potential breakthroughs from global ecosystems.",
-        image: "/images/discover.png"
-      },
-      { 
-        n: "02", 
-        title: "Build", 
-        body: "Prototyping and validation in our GMP-ready labs and field sites. From benchtop to bioreactor, we compress iteration cycles.",
-        image: "/images/build.jpeg"
-      },
-      { 
-        n: "03", 
-        title: "Test", 
-        body: "Rigorous piloting across South Asia's diverse environments. Real-world data de-risks technical and market adoption.",
-        image: "/images/test.jpg"
-      },
-      { 
-        n: "04", 
-        title: "Launch", 
-        body: "Spin out as independent ventures backed by global capital. We provide bridge financing and executive placement.",
-        image: "/images/launch.png"
-      }
+      {  title: "Discover", body: "Frontier research at the intersection of biology, computation, and climate science. We identify high-potential breakthroughs from global ecosystems." },
+      {  title: "Build", body: "Prototyping and validation in our GMP-ready labs and field sites. From benchtop to bioreactor, we compress iteration cycles." },
+      {  title: "Test", body: "Rigorous piloting across South Asia's diverse environments. Real-world data de-risks technical and market adoption." },
+      {  title: "Launch", body: "Spin out as independent ventures backed by global capital. We provide bridge financing and executive placement." }
     ];
   }
 
@@ -173,407 +70,136 @@ function Platform({ palette, onOpen }) {
 
   useEffect(() => {
     if (phases.length === 0) return;
-    
-    const t = setInterval(
-      () => setActive((a) => (a + 1) % phases.length),
-      3800
-    );
-
+    const t = setInterval(() => setActive((a) => (a + 1) % phases.length), 3800);
     return () => clearInterval(t);
   }, [phases.length]);
 
-  const getImageUrl = (phase) => {
-    if (phase.image) return phase.image;
-    if (phase.bgImage) return phase.bgImage;
-    return null;
-  };
-
-  // Show error if no phases
-  if (phases.length === 0) {
-    return (
-      <section
-        ref={ref}
-        id="platform"
-        style={{
-          paddingTop: 80,
-          paddingBottom: 80,
-          background: "var(--paper)",
-          fontFamily: "'Red Hat Display', 'Red Hat Display Variable', sans-serif"
-        }}
-      >
-        <div className="wrap" style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
-          <div style={{ textAlign: "center", padding: "40px 0" }}>
-            <p style={{ fontSize: 18, color: "var(--ink-2)" }}>No platform data available</p>
-            {parseError && (
-              <details style={{ marginTop: 20, textAlign: "left", maxWidth: 600, margin: "20px auto" }}>
-                <summary style={{ cursor: "pointer", color: "var(--accent)", fontWeight: 500 }}>
-                  🔍 Click to see error details
-                </summary>
-                <pre style={{ 
-                  background: "#f5f5f5", 
-                  padding: 16, 
-                  borderRadius: 8, 
-                  fontSize: 12,
-                  overflow: "auto",
-                  maxHeight: 200,
-                  marginTop: 10,
-                  border: "1px solid #e0e0e0"
-                }}>
-                  {parseError.message}
-                </pre>
-              </details>
-            )}
-          </div>
-        </div>
-      </section>
-    );
-  }
+  if (phases.length === 0) return null;
 
   return (
-    <section
-      ref={ref}
-      id="platform"
-      style={{
-        paddingTop: 80,
-        paddingBottom: 80,
-        background: "var(--paper)",
-        fontFamily: "'Red Hat Display', 'Red Hat Display Variable', sans-serif"
-      }}
-    >
-      <div className="wrap" style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
-        <div className="reveal" style={{ marginBottom: 48 }}>
-          <div className="label" style={{ marginBottom: 14, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--accent)", fontFamily: "'Red Hat Display', sans-serif", fontWeight: 600 }}>
-            § 05 — Our BioPlatform
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 2fr",
-              gap: 48,
-              alignItems: "center",
-            }}
-          >
-            {/* Left side - heading with typing animation */}
+    <section ref={ref} id="platform" className="platform-section">
+      <div className="platform-wrap">
+        <div className="reveal" style={{ marginBottom: 36 }}>
+          <div className="platform-label">§ 05 — Our BioPlatform</div>
+          <div className="platform-grid">
             <div>
-              <h2
-                style={{
-                  fontSize: "clamp(34px, 4vw, 56px)",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.03em",
-                  fontWeight: 900,
-                  color: "#0E1136",
-                  fontFamily: "'Red Hat Display', sans-serif",
-                  margin: 0
-                }}
-              >
+              <h2 className="platform-heading">
                 A full-stack{" "}
-                <span
-                  className="serif"
-                  style={{
-                    fontStyle: "italic",
-                    color: "var(--accent)",
-                    fontWeight: 400,
-                    fontFamily: "'Times New Roman', Georgia, serif"
-                  }}
-                >
+                <span className="serif" style={{ fontStyle: "italic", color: "var(--accent)", fontWeight: 400, fontFamily: "'Times New Roman', Georgia, serif" }}>
                   bioeconomy
                 </span>
-                <br />
-                engine.
+                <br />engine.
               </h2>
-              
-              {/* Typing animation text - triggers when scrolled into view */}
-              <div
-                ref={typingRef}
-                style={{
-                  marginTop: 24,
-                  display: "flex",
-                  alignItems: "center",
-                  minHeight: "32px",
-                }}
-              >
-                <span
-                  className="mono"
-                  style={{
-                    fontSize: 13,
-                    letterSpacing: "0.08em",
-                    color: "var(--accent)",
-                    fontWeight: 500,
-                    borderRight: isTyping ? `2px solid ${palette?.accent || "#1F6E7A"}` : "none",
-                    paddingRight: isTyping ? 4 : 0,
-                    opacity: displayText ? 1 : 0.6,
-                    fontFamily: "'Red Hat Display', sans-serif"
-                  }}
-                >
+              <div ref={typingRef} style={{ marginTop: 20, display: "flex", alignItems: "center", minHeight: "28px" }}>
+                <span className="platform-typing" style={{ borderRight: isTyping ? "2px solid #1F6E7A" : "none", paddingRight: isTyping ? 4 : 0, opacity: displayText ? 1 : 0.6 }}>
                   {displayText || (isTyping ? "" : "Four Phases, One Platform — AQUANIMITY")}
                 </span>
               </div>
             </div>
 
-            {/* Right side - 4 cards professional design */}
-            <div>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(4, 1fr)",
-                  gap: 20,
-                }}
-              >
-                {phases.map((p, i) => {
-                  const imageUrl = getImageUrl(p);
-                  const isActive = active === i;
-                  
-                  return (
-                    <div
-                      key={p.n || i}
-                      onMouseEnter={() => setActive(i)}
-                      className="platform-card"
-                      style={{
-                        position: "relative",
-                        borderRadius: 18,
-                        padding: "18px 14px",
-                        transition: "all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1)",
-                        cursor: "default",
-                        overflow: "hidden",
-                        height: "auto",
-                        minHeight: "200px",
-                        display: "flex",
-                        flexDirection: "column",
-                        border: isActive ? `1.5px solid ${palette?.accent || "#1F6E7A"}` : "1px solid #0E1136",
-                        background: isActive ? "rgba(31,110,122,0.02)" : "var(--bone)",
-                        boxShadow: isActive 
-                          ? `0 6px 16px rgba(31,110,122,0.1)` 
-                          : "0 1px 4px rgba(0,0,0,0.04)",
-                        fontFamily: "'Red Hat Display', sans-serif"
-                      }}
-                    >
-                      {/* Background Image - only for active */}
-                      {isActive && imageUrl && (
-                        <div
-                          style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            backgroundImage: `url(${imageUrl})`,
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                            filter: "blur(0px)",
-                            opacity: 0.30,
-                            transform: "scale(1.20)",
-                          }}
-                        />
-                      )}
-                      
-                      {/* Overlay */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          background: isActive 
-                            ? "rgba(31,110,122,0.02)" 
-                            : "rgba(245,240,232,0.96)",
-                        }}
-                      />
+            <div className="phases-grid">
+              {phases.map((p, i) => {
+                const isActive = active === i;
+                return (
+                  <div key={p.n || i} onMouseEnter={() => setActive(i)} className="phase-card" style={{
+                    border: isActive ? "1.5px solid #5FAFBE" : "1px solid rgba(255,255,255,0.1)",
+                    background: "#0E1136",
+                    boxShadow: isActive ? "0 6px 16px rgba(95,175,190,0.15)" : "0 1px 4px rgba(0,0,0,0.3)"
+                  }}>
+                    <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", gap: 8, height: "100%" }}>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
 
-                      {/* Content */}
-                      <div
-                        style={{
-                          position: "relative",
-                          zIndex: 2,
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 10,
-                          height: "100%",
-                        }}
-                      >
-                        {/* Header */}
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <span
-                            className="mono"
-                            style={{
-                              fontSize: 10,
-                              fontWeight: 600,
-                              color: isActive ? "#0E1136" : "var(--muted)",
-                              background: isActive ? "rgba(31,110,122,0.1)" : "rgba(31,110,122,0.05)",
-                              padding: "2px 10px",
-                              borderRadius: 20,
-                              letterSpacing: "0.08em",
-                              fontFamily: "'Red Hat Display', sans-serif"
-                            }}
-                          >
-                            {p.n}
-                          </span>
-
-                          <PhaseGlyph
-                            index={i}
-                            active={isActive}
-                            accent={palette?.accent || "#1F6E7A"}
-                          />
-                        </div>
-
-                        {/* Title */}
-                        <h3
-                          style={{
-                            fontSize: 18,
-                            fontWeight: 700,
-                            margin: 0,
-                            letterSpacing: "-0.02em",
-                            color: isActive ? "var(--accent)" : "#0e1136",
-                            lineHeight: 1.3,
-                            fontFamily: "'Red Hat Display', sans-serif"
-                          }}
-                        >
-                          {p.title}
-                        </h3>
-
-                        {/* Body */}
-                        <p
-                          style={{
-                            fontSize: 11,
-                            color: "#0E1136",
-                            lineHeight: 1.45,
-                            margin: 0,
-                            opacity: 0.85,
-                            fontFamily: "'Red Hat Display', sans-serif",
-                            fontWeight: 400,
-                            ...(isActive && {
-                              background: "rgba(255,255,255,0.12)",
-                              padding: "5px 8px",
-                              borderRadius: 10,
-                              backdropFilter: "blur(2px)",
-                              margin: "-5px -8px",
-                              opacity: 1,
-                            })
-                          }}
-                        >
-                          {p.body}
-                        </p>
-
-                        {/* Active indicator */}
-                        {isActive && (
-                          <div
-                            style={{
-                              marginTop: 8,
-                              width: 28,
-                              height: 2,
-                              background: "var(--accent)",
-                              borderRadius: 2,
-                            }}
-                          />
-                        )}
+                        <PhaseGlyph index={i} active={isActive} accent="#5FAFBE" />
                       </div>
+                      <h3 className="phase-title" style={{ color: isActive ? "#5FAFBE" : "#ffffff" }}>{p.title}</h3>
+                      <p className="phase-body" style={{ 
+                        color: isActive ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.7)",
+                        background: isActive ? "rgba(95,175,190,0.08)" : "transparent",
+                        padding: isActive ? "4px 6px" : "0",
+                        borderRadius: isActive ? 8 : 0,
+                        margin: isActive ? "-4px -6px" : "0"
+                      }}>{p.body}</p>
+                      {isActive && <div style={{ marginTop: 6, width: 24, height: 2, background: "#5FAFBE", borderRadius: 2 }} />}
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </div>
 
       <style>{`
-        .reveal {
-          opacity: 0;
-          transform: translateY(24px);
-          transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.1), transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.1);
-        }
-        .reveal.in {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        
-        .platform-card {
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+
+        .platform-section { padding: 72px 0; background: var(--paper); font-family: 'Red Hat Display', sans-serif; }
+        .platform-wrap { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+        .platform-label { margin-bottom: 14px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+        .platform-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: center; }
+        .platform-heading { font-size: clamp(28px, 4vw, 56px); line-height: 1.15; letter-spacing: -0.03em; font-weight: 900; color: #0E1136; margin: 0; }
+        .platform-typing { font-size: 13px; letter-spacing: 0.08em; color: var(--accent); font-weight: 500; }
+        .phases-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .phase-card {
+          position: relative; border-radius: 16px; padding: 16px 12px; min-height: 180px;
+          display: flex; flex-direction: column; overflow: hidden; cursor: default;
           transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-        
-        .platform-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(0,0,0,0.06) !important;
-        }
-        
-        /* Blinking cursor animation */
-        @keyframes blink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
-        }
-        
+        .phase-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(95,175,190,0.1) !important; }
+        .phase-number { font-size: 10px; font-weight: 600; padding: 2px 10px; border-radius: 20px; letter-spacing: 0.08em; }
+        .phase-title { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -0.02em; line-height: 1.3; }
+        .phase-body { font-size: 11px; line-height: 1.45; margin: 0; font-weight: 400; }
+
         @media (max-width: 1200px) {
-          #platform [style*="grid-template-columns: 1fr 2fr"] {
-            grid-template-columns: 1fr !important;
-            gap: 32px !important;
-          }
-          #platform [style*="grid-template-columns: repeat(4, 1fr)"] {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 16px !important;
-          }
+          .platform-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+          .phases-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
-        
-        @media (max-width: 700px) {
-          #platform [style*="grid-template-columns: repeat(4, 1fr)"] {
-            grid-template-columns: 1fr !important;
-          }
-          #platform .wrap {
-            padding: 0 20px !important;
-          }
+
+        @media (max-width: 980px) {
+          .platform-section { padding: 56px 0 !important; }
+          .platform-wrap { padding: 0 20px !important; }
+        }
+
+        @media (max-width: 768px) {
+          .platform-section { padding: 36px 0 40px !important; }
+          .platform-wrap { padding: 0 16px !important; }
+          .platform-heading { font-size: 24px !important; }
+          .platform-typing { font-size: 11px !important; }
+          .phases-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+          .phase-card { min-height: 150px !important; padding: 14px 10px !important; border-radius: 14px !important; }
+          .phase-title { font-size: 14px !important; }
+          .phase-body { font-size: 10px !important; line-height: 1.4 !important; }
+          .phase-number { font-size: 9px !important; padding: 2px 8px !important; }
+        }
+
+        @media (max-width: 480px) {
+          .platform-section { padding: 28px 0 32px !important; }
+          .platform-heading { font-size: 22px !important; }
+          .phases-grid { gap: 8px !important; }
+          .phase-card { min-height: 130px !important; padding: 12px 10px !important; border-radius: 12px !important; }
+          .phase-title { font-size: 13px !important; }
+          .phase-body { font-size: 9.5px !important; }
+        }
+
+        @media (max-width: 360px) {
+          .platform-section { padding: 24px 0 28px !important; }
+          .platform-heading { font-size: 20px !important; }
+          .phase-card { min-height: 120px !important; padding: 10px 8px !important; }
+          .phase-title { font-size: 12px !important; }
+          .phase-body { font-size: 9px !important; }
         }
       `}</style>
     </section>
   );
 }
 
-/* =========================
-   PHASE GLYPH - Professional design
-========================= */
-
 function PhaseGlyph({ index, active, accent }) {
-  const c = active ? accent : "var(--muted)";
-  const stroke = 1.2;
-
-  if (index === 0)
-    return (
-      <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-        <circle cx="20" cy="20" r="14" stroke={c} strokeWidth={stroke} />
-        <circle cx="20" cy="20" r="3" fill={c} />
-        <circle cx="20" cy="20" r="9" stroke={c} strokeWidth={stroke} strokeDasharray="2 3" />
-      </svg>
-    );
-
-  if (index === 1)
-    return (
-      <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-        <path d="M20 5 L33 12 L33 28 L20 35 L7 28 L7 12 Z" stroke={c} strokeWidth={stroke} />
-        <path d="M20 5 L20 35 M7 12 L33 28 M33 12 L7 28" stroke={c} strokeWidth={stroke * 0.6} opacity="0.5" />
-      </svg>
-    );
-
-  if (index === 2)
-    return (
-      <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-        <circle cx="20" cy="20" r="14" stroke={c} strokeWidth={stroke} strokeDasharray="3 3" />
-        <path d="M14 20 L18 24 L26 16" stroke={c} strokeWidth={stroke * 1.3} fill="none" strokeLinecap="round" />
-      </svg>
-    );
-
-  return (
-    <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-      <rect x="6" y="6" width="28" height="28" stroke={c} strokeWidth={stroke} rx="3" />
-      <path d="M14 26 L26 14 M19 14 L26 14 L26 21" stroke={c} strokeWidth={stroke * 1.2} fill="none" strokeLinecap="round" />
-    </svg>
-  );
+  const c = active ? accent : "rgba(255,255,255,0.3)";
+  const s = 1.2;
+  if (index === 0) return (<svg width="22" height="22" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="14" stroke={c} strokeWidth={s}/><circle cx="20" cy="20" r="3" fill={c}/><circle cx="20" cy="20" r="9" stroke={c} strokeWidth={s} strokeDasharray="2 3"/></svg>);
+  if (index === 1) return (<svg width="22" height="22" viewBox="0 0 40 40" fill="none"><path d="M20 5 L33 12 L33 28 L20 35 L7 28 L7 12 Z" stroke={c} strokeWidth={s}/><path d="M20 5 L20 35 M7 12 L33 28 M33 12 L7 28" stroke={c} strokeWidth={s*0.6} opacity="0.5"/></svg>);
+  if (index === 2) return (<svg width="22" height="22" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="14" stroke={c} strokeWidth={s} strokeDasharray="3 3"/><path d="M14 20 L18 24 L26 16" stroke={c} strokeWidth={s*1.3} fill="none" strokeLinecap="round"/></svg>);
+  return (<svg width="22" height="22" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" stroke={c} strokeWidth={s} rx="3"/><path d="M14 26 L26 14 M19 14 L26 14 L26 21" stroke={c} strokeWidth={s*1.2} fill="none" strokeLinecap="round"/></svg>);
 }
-
-window.Platform = Platform;
 
 export default Platform;

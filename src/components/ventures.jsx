@@ -51,11 +51,9 @@ function Ventures({ palette, onOpen }) {
   const [activeVenture, setActiveVenture] = useState(0);
   const [imageLoaded, setImageLoaded] = useState({});
 
-  // All ventures data with background images
   const ventures = [
     {
       id: "superwater",
-     
       name: "SuperWater",
       tag: "Enhanced Water",
       blurb: "Patented and clinically validated. Following successful 150-participant human trials confirming benefits for hydration, post-meal glucose control, and heart health, our functional water has proven its efficacy. We are now preparing full-scale production to bring smarter daily wellness to everyone.",
@@ -64,8 +62,7 @@ function Ventures({ palette, onOpen }) {
     },
     {
       id: "bluemicrobiome",
-   
-      name: "Blue Microbiome",
+      name: "The Blue Microbiome Initiative",
       tag: "Environmental Remediation",
       blurb: "Engineering biology for a cleaner planet. By isolating and mutagenizing coastal bacteria that break down persistent PVC, PET, and polyurethane, we are decoding key genetic pathways to commercially produce powerful plastic-degrading enzymes for a waste-free future.",
       video: "#",
@@ -73,7 +70,6 @@ function Ventures({ palette, onOpen }) {
     },
     {
       id: "omnibio",
-      
       name: "OmniBio",
       tag: "Computational Biology",
       blurb: "OmniBio is Aquanimity's computational biology platform unifying tools for drug discovery and protein engineering - including MolProfiler (a Docking and ADMET analysis tool), a mutation analysis engine, and an enzyme discovery platform. Core modules are functional, with integration underway toward a unified research workflow.",
@@ -82,7 +78,6 @@ function Ventures({ palette, onOpen }) {
     },
     {
       id: "thermorevax",
-      
       name: "ThermoReVaQ",
       tag: "Vaccine Engineering",
       blurb: "Reinventing vaccine delivery without the cold chain. Our breakthrough polymer replaces traditional LNPs, eliminating refrigeration requirements while enhancing bioavailability. We are developing next-generation mRNA, siRNA, and chimeric vaccines to make life-saving therapeutics accessible worldwide.",
@@ -102,7 +97,6 @@ function Ventures({ palette, onOpen }) {
 
   const handleVentureChange = (index) => {
     setActiveVenture(index);
-    // Preload image
     const img = new Image();
     img.src = ventures[index].bgImage;
     img.onload = () => {
@@ -110,7 +104,6 @@ function Ventures({ palette, onOpen }) {
     };
   };
 
-  // Preload first image on mount
   useEffect(() => {
     const img = new Image();
     img.src = ventures[0].bgImage;
@@ -123,55 +116,16 @@ function Ventures({ palette, onOpen }) {
     <section
       ref={ref}
       id="ventures"
-      style={{
-        paddingTop: 120,
-        paddingBottom: 140,
-        background: '#0E1136',
-        color: 'var(--paper)',
-        fontFamily: "'Red Hat Display', 'Red Hat Display Variable', sans-serif",
-        minHeight: '100vh'
-      }}
+      className="ventures-section"
     >
-      <div className="wrap" style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+      <div className="ventures-wrap">
         {/* Header */}
-        <div
-          className="reveal"
-          style={{
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: 24,
-            marginBottom: 56
-          }}
-        >
+        <div className="reveal ventures-header">
           <div>
-            <div
-              className="label"
-              style={{
-                marginBottom: 18,
-                fontSize: 11,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: 'var(--paper)',
-                fontFamily: "'Red Hat Display', sans-serif",
-                fontWeight: 600
-              }}
-            >
+            <div className="ventures-label">
               § 02 — Our Ventures
             </div>
-            <h2
-              style={{
-                fontSize: 'clamp(36px, 5vw, 64px)',
-                lineHeight: 1.02,
-                letterSpacing: '-0.025em',
-                color: 'var(--paper)',
-                maxWidth: 760,
-                fontWeight: 900,
-                fontFamily: "'Red Hat Display', sans-serif",
-                margin: 0
-              }}
-            >
+            <h2 className="ventures-heading">
               <span style={{ fontWeight: 900, color: 'var(--paper)' }}>Building</span>{' '}
               <span
                 className="serif"
@@ -191,31 +145,12 @@ function Ventures({ palette, onOpen }) {
         </div>
 
         {/* Venture Navigation */}
-        <div
-          className="reveal"
-          style={{
-            display: 'flex',
-            gap: 8,
-            marginBottom: 48,
-            flexWrap: 'wrap'
-          }}
-        >
+        <div className="reveal ventures-nav">
           {ventures.map((venture, index) => (
             <button
               key={venture.id}
               onClick={() => handleVentureChange(index)}
-              style={{
-                padding: '10px 24px',
-                borderRadius: 999,
-                border: index === activeVenture ? '1.5px solid rgb(250, 247, 240)' : '1.5px solid rgba(255,255,255,0.2)',
-                background: index === activeVenture ? 'rgb(250, 247, 240)' : 'transparent',
-                color: index === activeVenture ? 'var(--ink)' : 'var(--paper)',
-                cursor: 'pointer',
-                fontSize: 14,
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                fontFamily: "'Red Hat Display', sans-serif"
-              }}
+              className={`venture-tab ${index === activeVenture ? 'active' : ''}`}
               onMouseEnter={(e) => {
                 if (index !== activeVenture) {
                   e.currentTarget.style.borderColor = 'rgb(250, 247, 240)';
@@ -232,212 +167,52 @@ function Ventures({ palette, onOpen }) {
           ))}
         </div>
 
-        {/* Active Venture Content with Professional Background Image */}
-        <div
-          className="reveal"
-          style={{
-            position: 'relative',
-            borderRadius: 24,
-            overflow: 'hidden',
-            minHeight: 520,
-            display: 'flex',
-            alignItems: 'center',
-            padding: 60,
-            background: `linear-gradient(135deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.5) 40%, rgba(10,10,10,0.7) 100%)`,
-            transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.5)'
-          }}
-        >
-          {/* Background Image with Professional Effects */}
+        {/* Active Venture Content */}
+        <div className="reveal venture-card">
+          {/* Background Image */}
           <div
+            className="venture-bg"
             style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
               backgroundImage: `url(${currentVenture.bgImage})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
               opacity: imageLoaded[activeVenture] ? 1 : 0,
-              transition: 'opacity 0.8s ease',
-              transform: 'scale(1.05)',
-              filter: 'brightness(0.7) saturate(1.1)'
             }}
           />
           
-          {/* Gradient Overlay Layers */}
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: 'linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.2) 50%, rgba(10,10,10,0.6) 100%)',
-              zIndex: 1
-            }}
-          />
+          {/* Gradient Overlay */}
+          <div className="venture-gradient" />
           
-          {/* Subtle Border Glow */}
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              border: '1px solid rgba(255,255,255,0.06)',
-              borderRadius: 24,
-              zIndex: 3,
-              pointerEvents: 'none'
-            }}
-          />
+          {/* Subtle Border */}
+          <div className="venture-border" />
 
-          {/* Content Overlay */}
-          <div
-            style={{
-              position: 'relative',
-              zIndex: 2,
-              maxWidth: '60%',
-              animation: 'fadeInUp 0.6s ease'
-            }}
-          >
-            {/* Tag */}
-            <div
-              style={{
-                display: 'inline-block',
-                fontSize: 11,
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                color: 'var(--accent-2)',
-                marginBottom: 20,
-                fontWeight: 600,
-                fontFamily: "'Red Hat Display', sans-serif",
-                background: 'rgba(0,0,0,0.3)',
-                padding: '6px 16px',
-                borderRadius: 999,
-                backdropFilter: 'blur(10px)'
-              }}
-            >
+          {/* Content */}
+          <div className="venture-content">
+            <div className="venture-tag">
               {currentVenture.tag}
             </div>
 
-            {/* Title */}
-            <h3
-              style={{
-                fontSize: 'clamp(38px, 4.5vw, 54px)',
-                fontWeight: 700,
-                letterSpacing: '-0.03em',
-                color: 'var(--paper)',
-                margin: 0,
-                marginBottom: 20,
-                lineHeight: 1.08,
-                fontFamily: "'Red Hat Display', sans-serif",
-                textShadow: '0 2px 30px rgba(0,0,0,0.3)'
-              }}
-            >
+            <h3 className="venture-title">
               {currentVenture.name}
             </h3>
 
-            {/* Description - Justified Text */}
-            <p
-              style={{
-                fontSize: 18,
-                lineHeight: 1.7,
-                color: 'rgba(255,255,255,0.85)',
-                marginBottom: 36,
-                maxWidth: '90%',
-                fontFamily: "'Red Hat Display', sans-serif",
-                fontWeight: 400,
-                textShadow: '0 1px 20px rgba(0,0,0,0.2)',
-                textAlign: 'justify',
-                textJustify: 'inter-word'
-              }}
-            >
+            <p className="venture-blurb">
               {currentVenture.blurb}
             </p>
-
-            {/* Explore More Button 
-            <button
-              onClick={handleExploreClick}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 10,
-                background: 'var(--accent-2)',
-                border: 'none',
-                borderRadius: 999,
-                padding: '14px 28px',
-                fontSize: 15,
-                fontWeight: 600,
-                color: 'var(--ink)',
-                cursor: 'pointer',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                fontFamily: "'Red Hat Display', sans-serif",
-                boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.4)';
-                e.currentTarget.style.gap = '14px';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-                e.currentTarget.style.gap = '10px';
-              }}
-            >
-              Explore more <Arrow size={14} />
-            </button>*/}
           </div>
 
-          {/* Venture Number - Decorative with Glass Effect */}
-          <div
-            style={{
-              position: 'absolute',
-              right: 50,
-              bottom: 40,
-              fontSize: 90,
-              fontWeight: 900,
-              color: 'rgba(255,255,255,0.04)',
-              fontFamily: "'Red Hat Display', sans-serif",
-              letterSpacing: '-0.05em',
-              zIndex: 1,
-              userSelect: 'none',
-              textShadow: '0 4px 40px rgba(0,0,0,0.3)'
-            }}
-          >
+          {/* Decorative Number */}
+          <div className="venture-deco-number">
             {currentVenture.n}
           </div>
 
-          {/* Subtle Accent Line */}
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: 4,
-              height: '100%',
-              background: `linear-gradient(to bottom, transparent, var(--accent-2), transparent)`,
-              zIndex: 2,
-              opacity: 0.5
-            }}
-          />
+          {/* Accent Line */}
+          <div className="venture-accent-line" />
         </div>
       </div>
 
       <style>{`
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
         
         .reveal {
@@ -450,82 +225,376 @@ function Ventures({ palette, onOpen }) {
           opacity: 1;
           transform: translateY(0);
         }
-        
-        /* Smooth image loading */
-        .venture-image {
-          transition: opacity 0.8s ease;
+
+        /* ===== DESKTOP ===== */
+        .ventures-section {
+          padding: 80px 0 88px;
+          background: #0E1136;
+          color: var(--paper);
+          font-family: 'Red Hat Display', 'Red Hat Display Variable', sans-serif;
         }
 
-        /* Justify text for all screen sizes */
-        .venture-description {
+        .ventures-wrap {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 0 32px;
+        }
+
+        .ventures-header {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 24px;
+          margin-bottom: 36px;
+        }
+
+        .ventures-label {
+          margin-bottom: 14px;
+          font-size: 11px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--paper);
+          font-family: 'Red Hat Display', sans-serif;
+          font-weight: 600;
+        }
+
+        .ventures-heading {
+          font-size: clamp(36px, 5vw, 64px);
+          line-height: 1.02;
+          letter-spacing: -0.025em;
+          color: var(--paper);
+          max-width: 760px;
+          font-weight: 900;
+          font-family: 'Red Hat Display', sans-serif;
+          margin: 0;
+        }
+
+        .ventures-nav {
+          display: flex;
+          gap: 8px;
+          margin-bottom: 32px;
+          flex-wrap: wrap;
+        }
+
+        .venture-tab {
+          padding: 10px 24px;
+          border-radius: 999px;
+          border: 1.5px solid rgba(255,255,255,0.2);
+          background: transparent;
+          color: var(--paper);
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          font-family: 'Red Hat Display', sans-serif;
+        }
+
+        .venture-tab.active {
+          border-color: rgb(250, 247, 240);
+          background: rgb(250, 247, 240);
+          color: var(--ink);
+        }
+
+        .venture-card {
+          position: relative;
+          border-radius: 24px;
+          overflow: hidden;
+          min-height: 420px;
+          display: flex;
+          align-items: center;
+          padding: 48px;
+          background: linear-gradient(135deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.5) 40%, rgba(10,10,10,0.7) 100%);
+          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .venture-bg {
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          transition: opacity 0.8s ease;
+          transform: scale(1.05);
+          filter: brightness(0.7) saturate(1.1);
+        }
+
+        .venture-gradient {
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.2) 50%, rgba(10,10,10,0.6) 100%);
+          z-index: 1;
+        }
+
+        .venture-border {
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 24px;
+          z-index: 3;
+          pointer-events: none;
+        }
+
+        .venture-content {
+          position: relative;
+          z-index: 2;
+          max-width: 60%;
+          animation: fadeInUp 0.6s ease;
+        }
+
+        .venture-tag {
+          display: inline-block;
+          font-size: 11px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--accent-2);
+          margin-bottom: 16px;
+          font-weight: 600;
+          font-family: 'Red Hat Display', sans-serif;
+          background: rgba(0,0,0,0.3);
+          padding: 6px 16px;
+          border-radius: 999px;
+          backdrop-filter: blur(10px);
+        }
+
+        .venture-title {
+          font-size: clamp(36px, 4.5vw, 52px);
+          font-weight: 700;
+          letter-spacing: -0.03em;
+          color: var(--paper);
+          margin: 0 0 16px 0;
+          line-height: 1.08;
+          font-family: 'Red Hat Display', sans-serif;
+          text-shadow: 0 2px 30px rgba(0,0,0,0.3);
+        }
+
+        .venture-blurb {
+          font-size: 16px;
+          line-height: 1.65;
+          color: rgba(255,255,255,0.85);
+          margin: 0;
+          max-width: 90%;
+          font-family: 'Red Hat Display', sans-serif;
+          font-weight: 400;
+          text-shadow: 0 1px 20px rgba(0,0,0,0.2);
           text-align: justify;
           text-justify: inter-word;
         }
-        
+
+        .venture-deco-number {
+          position: absolute;
+          right: 50px;
+          bottom: 36px;
+          font-size: 80px;
+          font-weight: 900;
+          color: rgba(255,255,255,0.04);
+          font-family: 'Red Hat Display', sans-serif;
+          letter-spacing: -0.05em;
+          z-index: 1;
+          user-select: none;
+          text-shadow: 0 4px 40px rgba(0,0,0,0.3);
+        }
+
+        .venture-accent-line {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 4px;
+          height: 100%;
+          background: linear-gradient(to bottom, transparent, var(--accent-2), transparent);
+          z-index: 2;
+          opacity: 0.5;
+        }
+
+        /* ===== TABLET (≤980px) ===== */
         @media (max-width: 980px) {
-          #ventures .wrap {
+          .ventures-section {
+            padding: 60px 0 64px !important;
+          }
+
+          .ventures-wrap {
             padding: 0 20px !important;
           }
-          
-          #ventures [style*="max-width: 60%"] {
-            max-width: 100% !important;
-          }
-          
-          #ventures p[style*="max-width: 90%"] {
-            max-width: 100% !important;
-          }
-          
-          #ventures [style*="padding: 60px"] {
-            padding: 30px !important;
-            min-height: 420px !important;
-          }
-          
-          #ventures [style*="font-size: 90px"] {
-            font-size: 50px !important;
-            right: 20px !important;
-            bottom: 20px !important;
-          }
-          
-          #ventures [style*="padding: 14px 28px"] {
-            padding: 12px 24px !important;
-            font-size: 14px !important;
-          }
-        }
 
-        @media (max-width: 768px) {
-          #ventures [style*="min-height: 520px"] {
-            min-height: 380px !important;
+          .ventures-header {
+            margin-bottom: 28px !important;
           }
-          
-          #ventures [style*="padding: 60px"] {
-            padding: 24px !important;
+
+          .venture-card {
+            padding: 36px !important;
+            min-height: 360px !important;
+            border-radius: 20px !important;
           }
-          
-          #ventures p[style*="font-size: 18px"] {
+
+          .venture-content {
+            max-width: 80% !important;
+          }
+
+          .venture-blurb {
+            max-width: 100% !important;
             font-size: 15px !important;
           }
+
+          .venture-deco-number {
+            font-size: 56px !important;
+            right: 24px !important;
+            bottom: 24px !important;
+          }
         }
 
-        @media (max-width: 480px) {
-          #ventures [style*="padding: 60px"] {
-            padding: 20px !important;
-            min-height: 320px !important;
+        /* ===== MOBILE (≤768px) ===== */
+        @media (max-width: 768px) {
+          .ventures-section {
+            padding: 40px 0 44px !important;
           }
-          
-          #ventures p[style*="font-size: 18px"] {
-            font-size: 14px !important;
-            line-height: 1.5 !important;
+
+          .ventures-wrap {
+            padding: 0 16px !important;
           }
-          
-          #ventures [style*="font-size: 90px"] {
-            font-size: 36px !important;
-            right: 16px !important;
-            bottom: 16px !important;
+
+          .ventures-header {
+            margin-bottom: 20px !important;
           }
-          
-          #ventures [style*="padding: 14px 28px"] {
-            padding: 10px 18px !important;
+
+          .ventures-label {
+            margin-bottom: 10px !important;
+            font-size: 10px !important;
+          }
+
+          .ventures-nav {
+            gap: 6px !important;
+            margin-bottom: 20px !important;
+          }
+
+          .venture-tab {
+            padding: 8px 16px !important;
             font-size: 12px !important;
+          }
+
+          .venture-card {
+            padding: 22px !important;
+            min-height: auto !important;
+            border-radius: 18px !important;
+            align-items: flex-start !important;
+          }
+
+          .venture-content {
+            max-width: 100% !important;
+          }
+
+          .venture-tag {
+            font-size: 9px !important;
+            padding: 5px 12px !important;
+            margin-bottom: 10px !important;
+          }
+
+          .venture-title {
+            font-size: 24px !important;
+            margin-bottom: 10px !important;
+          }
+
+          .venture-blurb {
+            font-size: 13.5px !important;
+            line-height: 1.6 !important;
+            max-width: 100% !important;
+          }
+
+          .venture-deco-number {
+            font-size: 36px !important;
+            right: 14px !important;
+            bottom: 14px !important;
+          }
+
+          .ventures-heading {
+            font-size: 24px !important;
+          }
+        }
+
+        /* ===== SMALL MOBILE (≤480px) ===== */
+        @media (max-width: 480px) {
+          .ventures-section {
+            padding: 32px 0 36px !important;
+          }
+
+          .ventures-header {
+            margin-bottom: 16px !important;
+          }
+
+          .ventures-nav {
+            gap: 5px !important;
+            margin-bottom: 16px !important;
+          }
+
+          .venture-tab {
+            padding: 7px 13px !important;
+            font-size: 11px !important;
+          }
+
+          .venture-card {
+            padding: 18px 16px !important;
+            border-radius: 16px !important;
+          }
+
+          .venture-tag {
+            font-size: 8.5px !important;
+            padding: 4px 10px !important;
+            margin-bottom: 8px !important;
+          }
+
+          .venture-title {
+            font-size: 22px !important;
+            margin-bottom: 8px !important;
+          }
+
+          .venture-blurb {
+            font-size: 13px !important;
+            line-height: 1.55 !important;
+          }
+
+          .venture-deco-number {
+            font-size: 28px !important;
+            right: 12px !important;
+            bottom: 10px !important;
+          }
+
+          .ventures-heading {
+            font-size: 22px !important;
+          }
+        }
+
+        /* ===== EXTRA SMALL (≤360px) ===== */
+        @media (max-width: 360px) {
+          .ventures-section {
+            padding: 28px 0 32px !important;
+          }
+
+          .venture-card {
+            padding: 16px 14px !important;
+          }
+
+          .venture-title {
+            font-size: 20px !important;
+          }
+
+          .venture-blurb {
+            font-size: 12.5px !important;
+          }
+
+          .ventures-heading {
+            font-size: 20px !important;
+          }
+
+          .venture-tab {
+            padding: 6px 11px !important;
+            font-size: 10.5px !important;
+          }
+        }
+
+        /* Touch devices */
+        @media (hover: none) {
+          .venture-tab:active {
+            transform: scale(0.96);
           }
         }
       `}</style>

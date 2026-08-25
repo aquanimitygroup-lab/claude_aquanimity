@@ -127,8 +127,8 @@ function Hero({ palette, onGoto }) {
   const [isVideoReady, setIsVideoReady] = useState(false);
 
   const phrases = [
-    "Non Communicable Diseases",
-    "Environmental Remediation",
+    "Health Sciences",
+    "Plastic Remediation",
     "Novel Delivery Systems",
     "Frontier AI in Biology",
     "Biomaterials"
@@ -148,35 +148,28 @@ function Hero({ palette, onGoto }) {
     const video = videoRef.current;
     if (!video) return;
 
-    // Seamless loop function - resets before video ends
     const handleTimeUpdate = () => {
-      // Reset video 0.15 seconds before it ends to avoid gap
       if (video.duration - video.currentTime < 0.15) {
         video.currentTime = 0;
       }
     };
 
-    // Handle video ready state
     const handleCanPlay = () => {
       setIsVideoReady(true);
       video.play().catch(e => console.log("Video autoplay failed:", e));
     };
 
-    // Handle when video ends (fallback)
     const handleEnded = () => {
       video.currentTime = 0;
       video.play().catch(e => console.log("Video replay failed:", e));
     };
 
-    // Add event listeners
     video.addEventListener('canplay', handleCanPlay);
     video.addEventListener('timeupdate', handleTimeUpdate);
     video.addEventListener('ended', handleEnded);
 
-    // Try to play immediately
     video.play().catch(e => console.log("Video autoplay failed:", e));
 
-    // Cleanup
     return () => {
       video.removeEventListener('canplay', handleCanPlay);
       video.removeEventListener('timeupdate', handleTimeUpdate);
@@ -184,7 +177,6 @@ function Hero({ palette, onGoto }) {
     };
   }, []);
 
-  // Handle Venture Click - Scroll to Ventures section
   const handleVentureClick = (e) => {
     e.preventDefault();
     
@@ -210,7 +202,6 @@ function Hero({ palette, onGoto }) {
     if (onGoto) onGoto('contact');
   };
 
-  // Split the display text into lines and format
   const renderTitle = () => {
     const lines = displayText.split('\n');
     
@@ -279,7 +270,7 @@ function Hero({ palette, onGoto }) {
             </span>
           </div>
 
-          {/* SLOW TYPEWRITER TITLE - NO BLINKING CURSOR */}
+          {/* SLOW TYPEWRITER TITLE */}
           <h1 className="hero-title reveal">
             {renderTitle()}
           </h1>
@@ -307,7 +298,7 @@ function Hero({ palette, onGoto }) {
           </div>
 
           <p className="hero-desc reveal">
-            <span className="highlight">Aquanimity</span> is building the BioHub— <span className="normal-text">uniting institutes, scientists, academia, and strategic partners to </span><span className="highlight">discover, translate, and commercialize biosciences for Bangladesh and beyond.</span>
+            <span className="highlight">Aquanimity</span> is building the BioHub— <span className="normal-text">uniting institutes, scientists, academia, and strategic partners to </span><span className="highlight">discover, translate, and commercialize novel biosciences for Bangladesh and beyond.</span>
           </p>
 
           <div className="hero-buttons reveal">
@@ -334,9 +325,8 @@ function Hero({ palette, onGoto }) {
 
         </div>
 
-        {/* RIGHT - Empty area */}
+        {/* RIGHT - Empty area (hidden on mobile via CSS) */}
         <div className="hero-right reveal">
-          {/* Empty area - circle removed */}
         </div>
 
       </div>
@@ -357,6 +347,7 @@ function Hero({ palette, onGoto }) {
           font-family: 'Red Hat Display', 'Red Hat Display Variable', sans-serif;
         }
 
+        /* ===== FIX 1: Remove forced 100vh — let content define height ===== */
         .hero-section {
           position: relative;
           width: 100%;
@@ -441,6 +432,7 @@ function Hero({ palette, onGoto }) {
           text-transform: uppercase;
         }
 
+        /* ===== FIX 2: Title min-height uses auto on small screens ===== */
         .hero-title {
           font-size: clamp(40px, 6vw, 72px);
           line-height: 1.2;
@@ -580,12 +572,13 @@ function Hero({ palette, onGoto }) {
           border-color: rgba(7,21,43,0.4);
         }
 
+        /* ===== FIX 3: Metrics grid — only 2 items, so use repeat(2) ===== */
         .metrics {
           margin-top: 48px;
           padding-top: 24px;
           border-top: 1px solid var(--line);
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(2, 1fr);
           gap: 20px;
         }
 
@@ -621,10 +614,11 @@ function Hero({ palette, onGoto }) {
           50% { opacity: 0; }
         }
 
+        /* ===== TABLET (≤980px) ===== */
         @media (max-width: 980px) {
           .hero-container {
             grid-template-columns: 1fr;
-            gap: 50px;
+            gap: 0;
             padding: 80px 0;
           }
 
@@ -633,37 +627,84 @@ function Hero({ palette, onGoto }) {
           }
 
           .hero-title {
-            font-size: clamp(44px, 8vw, 64px);
-            min-height: 140px;
+            font-size: clamp(36px, 8vw, 64px);
+            min-height: auto;
           }
 
           .hero-desc {
             font-size: 14px;
+            max-width: 100%;
           }
 
           .metrics {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
           }
           
+          /* ===== FIX 4: Fully remove the empty right column ===== */
           .hero-right {
             display: none;
           }
         }
 
+        /* ===== MOBILE (≤640px) — all blank-space fixes ===== */
         @media (max-width: 640px) {
-          .hero-container {
-            padding: 60px 0;
+
+          /* FIX 5: Don't force full viewport height on short phones */
+          .hero-section {
+            min-height: auto;
+            align-items: flex-start;
           }
 
+          .hero-container {
+            width: 88%;
+            padding: 90px 0 48px;
+            gap: 0;
+          }
+
+          .hero-top {
+            margin-bottom: 16px;
+          }
+
+          /* FIX 6: Remove fixed min-height that creates blank gaps */
           .hero-title {
-            font-size: 36px;
-            line-height: 1.2;
-            min-height: 100px;
+            font-size: clamp(32px, 9vw, 44px);
+            line-height: 1.15;
+            min-height: auto;
+          }
+
+          .hero-for {
+            margin-left: 4px;
+          }
+
+          .hero-build {
+            margin-top: 16px;
+            gap: 4px;
+          }
+
+          .hero-build-label i {
+            font-size: 12px !important;
           }
 
           .hero-build-text {
-            font-size: 14px;
+            font-size: 13px;
+            min-height: 24px;
+          }
+
+          .hero-build-arrow {
+            font-size: 13px;
+          }
+
+          .hero-desc {
+            margin-top: 16px;
+            font-size: 13px;
+            line-height: 1.55;
+            max-width: 100%;
+          }
+
+          .hero-buttons {
+            margin-top: 24px;
+            gap: 10px;
           }
 
           .btn-dark, .btn-light {
@@ -672,7 +713,40 @@ function Hero({ palette, onGoto }) {
           }
 
           .metrics {
-            gap: 15px;
+            margin-top: 32px;
+            padding-top: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+          }
+
+          .metric-number {
+            font-size: 28px;
+          }
+
+          .metric p {
+            font-size: 7px;
+            letter-spacing: 0.25em;
+          }
+        }
+
+        /* ===== VERY SMALL PHONES (≤380px) ===== */
+        @media (max-width: 380px) {
+          .hero-container {
+            width: 90%;
+            padding: 80px 0 40px;
+          }
+
+          .hero-title {
+            font-size: 28px;
+          }
+
+          .hero-desc {
+            font-size: 12.5px;
+          }
+
+          .btn-dark, .btn-light {
+            padding: 9px 16px;
+            font-size: 11.5px;
           }
         }
       `}</style>

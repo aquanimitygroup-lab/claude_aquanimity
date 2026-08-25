@@ -50,6 +50,18 @@ function Institutes({ palette, onOpen }) {
   const ref = useReveal();
   const [hover, setHover] = useState(null);
   const [selectedInstitute, setSelectedInstitute] = useState(null);
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Background images for all institutes
   const healthSciencesBgImage = "images/health3.jpg";
@@ -76,7 +88,8 @@ function Institutes({ palette, onOpen }) {
         "Global Health Initiatives"
       ],
       backgroundImage: healthSciencesBgImage,
-      hoverColor: "#0E525C"
+      hoverColor: "#0E525C",
+      color: "#5FAFBE"
     },
     {
       n: "02",
@@ -92,7 +105,8 @@ function Institutes({ palette, onOpen }) {
         "Bio-manufacturing"
       ],
       backgroundImage: bioengineeringBgImage,
-      hoverColor: "#3A828E"
+      hoverColor: "#3A828E",
+      color: "#3A7A8A"
     },
     {
       n: "03",
@@ -108,7 +122,8 @@ function Institutes({ palette, onOpen }) {
         "Systems Biology"
       ],
       backgroundImage: molecularBgImage,
-      hoverColor: "#B56E00"
+      hoverColor: "#B56E00",
+      color: "#7EC8E3"
     },
     {
       n: "04",
@@ -124,7 +139,8 @@ function Institutes({ palette, onOpen }) {
         "Molecular Diagnostics"
       ],
       backgroundImage: computationalBgImage,
-      hoverColor: "#5F47E0"
+      hoverColor: "#5F47E0",
+      color: "#2C3E7A"
     }
   ];
 
@@ -140,7 +156,6 @@ function Institutes({ palette, onOpen }) {
     e.stopPropagation();
     setSelectedInstitute(institute);
     if (onOpen) {
-      // Pass the institute data along with the route
       onOpen('institute:' + institute.n);
     }
   };
@@ -174,14 +189,253 @@ function Institutes({ palette, onOpen }) {
     return [firstLine, secondLine];
   };
 
+  // Render mobile version with category tabs
+  const renderMobileView = () => {
+    const activeInstitute = items[mobileActiveIndex];
+    const titleLines = splitTitleIntoTwoLines(activeInstitute.title);
+
+    return (
+      <div className="mobile-institutes">
+        {/* Category Tabs */}
+        <div className="mobile-tabs">
+          {items.map((item, index) => (
+            <button
+              key={item.n}
+              className={`mobile-tab ${mobileActiveIndex === index ? 'active' : ''}`}
+              onClick={() => setMobileActiveIndex(index)}
+              style={{
+                borderColor: mobileActiveIndex === index ? item.color : 'rgba(0,0,0,0.1)',
+                color: mobileActiveIndex === index ? item.color : '#0E1136'
+              }}
+            >
+              <span className="tab-number">{item.n}</span>
+              <span className="tab-title">{item.tag}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Active Institute Card */}
+        <div className="mobile-card-wrapper">
+          <button
+            onClick={(e) => handleInstituteClick(e, activeInstitute)}
+            className="institute-card mobile-card"
+            style={{
+              position: "relative",
+              background: "#ece8df",
+              border: "none",
+              borderRadius: 'clamp(16px, 2vw, 24px)',
+              padding: 'clamp(20px, 3vw, 28px) clamp(16px, 2.5vw, 24px)',
+              minHeight: 'clamp(200px, 35vh, 320px)',
+              textAlign: "left",
+              cursor: "pointer",
+              overflow: "hidden",
+              transition: "all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              width: '100%',
+              boxSizing: 'border-box',
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation'
+            }}
+          >
+            {/* Background Image */}
+            <img
+              src={activeInstitute.backgroundImage}
+              alt=""
+              className="card-bg-image"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                zIndex: 0,
+              }}
+              onError={handleImageError}
+              loading="lazy"
+            />
+            
+            {/* Color Overlay with gradient */}
+            <div
+              className="card-overlay"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                background: "linear-gradient(90deg, #01B6D3, #0D1136)",
+                opacity: 0.85,
+                zIndex: 1,
+              }}
+            />
+
+            {/* Content */}
+            <div style={{ position: "relative", zIndex: 2, flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: 'clamp(12px, 2vw, 20px)'
+                }}
+              >
+                <span
+                  className="card-number"
+                  style={{
+                    fontSize: 'clamp(24px, 3.5vw, 32px)',
+                    fontWeight: 800,
+                    letterSpacing: "-0.03em",
+                    color: "#ffffff",
+                    opacity: 0.95,
+                    fontFamily: "'Red Hat Display', sans-serif",
+                    textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                  }}
+                >
+                  {activeInstitute.n}
+                </span>
+              </div>
+
+              <div
+                className="card-tag"
+                style={{
+                  fontSize: 'clamp(10px, 1.2vw, 12px)',
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  color: "#FFE0A3",
+                  marginBottom: 'clamp(8px, 1vw, 12px)',
+                  fontWeight: 700,
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  textShadow: "0 1px 1px rgba(0,0,0,0.2)",
+                }}
+              >
+                {activeInstitute.tag}
+              </div>
+
+              <div style={{ marginBottom: 'clamp(8px, 1.5vw, 12px)' }}>
+                <h3
+                  className="card-title"
+                  style={{
+                    fontSize: 'clamp(18px, 2.5vw, 24px)',
+                    lineHeight: 1.3,
+                    letterSpacing: "-0.02em",
+                    fontWeight: 700,
+                    color: "#ffffff",
+                    margin: 0,
+                    fontFamily: "'Red Hat Display', sans-serif",
+                    textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                  }}
+                >
+                  {titleLines[0]}
+                </h3>
+                <h3
+                  className="card-title"
+                  style={{
+                    fontSize: 'clamp(18px, 2.5vw, 24px)',
+                    lineHeight: 1.3,
+                    letterSpacing: "-0.02em",
+                    fontWeight: 700,
+                    color: "#ffffff",
+                    margin: 0,
+                    fontFamily: "'Red Hat Display', sans-serif",
+                    textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                  }}
+                >
+                  {titleLines[1]}
+                </h3>
+              </div>
+
+              <p
+                className="card-blurb"
+                style={{
+                  fontSize: 'clamp(13px, 1.5vw, 16px)',
+                  lineHeight: 1.5,
+                  color: "rgba(255,255,255,0.95)",
+                  margin: 0,
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  fontWeight: 400,
+                  textShadow: "0 1px 1px rgba(0,0,0,0.2)",
+                  flex: 1
+                }}
+              >
+                {activeInstitute.shortBlurb}
+              </p>
+            </div>
+
+            <div
+              className="card-footer"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginTop: 'clamp(14px, 2vw, 24px)',
+                position: "relative",
+                zIndex: 2,
+              }}
+            >
+              <span
+                className="card-learn-text"
+                style={{
+                  fontSize: 'clamp(13px, 1.5vw, 15px)',
+                  fontWeight: 500,
+                  color: "rgba(255,255,255,0.9)",
+                  fontFamily: "'Red Hat Display', sans-serif",
+                  textShadow: "0 1px 1px rgba(0,0,0,0.2)",
+                }}
+              >
+                Learn more
+              </span>
+              <span
+                className="card-arrow"
+                style={{
+                  width: 'clamp(32px, 4vw, 40px)',
+                  height: 'clamp(32px, 4vw, 40px)',
+                  borderRadius: "50%",
+                  background: "rgba(255,255,255,0.25)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#ffffff",
+                  transition: "all 0.3s ease",
+                  backdropFilter: "blur(4px)",
+                  WebkitBackdropFilter: "blur(4px)",
+                  flexShrink: 0
+                }}
+              >
+                <Arrow size={16} />
+              </span>
+            </div>
+
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                borderRadius: 'clamp(16px, 2vw, 24px)',
+                border: "1px solid rgba(255,255,255,0.2)",
+                pointerEvents: "none",
+                zIndex: 3,
+              }}
+            />
+          </button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <section
         ref={ref}
         id="institutes"
         style={{
-          paddingTop: 'clamp(60px, 10vw, 100px)',
-          paddingBottom: 'clamp(60px, 10vw, 100px)',
+          paddingTop: 'clamp(36px, 8vw, 80px)',
+          paddingBottom: 'clamp(36px, 8vw, 80px)',
           background: "#FAF7F0",
           fontFamily: "'Red Hat Display', 'Red Hat Display Variable', sans-serif",
           overflow: 'hidden'
@@ -204,7 +458,7 @@ function Institutes({ palette, onOpen }) {
               justifyContent: 'space-between',
               flexWrap: 'wrap',
               gap: 'clamp(16px, 3vw, 24px)',
-              marginBottom: 'clamp(32px, 6vw, 48px)'
+              marginBottom: 'clamp(24px, 6vw, 48px)'
             }}
           >
             <div className="institutes-header-left" style={{ flex: 1, minWidth: '200px' }}>
@@ -285,257 +539,260 @@ function Institutes({ palette, onOpen }) {
             </button>
           </div>
 
-          {/* CARD LAYOUT */}
-          <div className="reveal institutes-grid">
-            {items.map((it, i) => {
-              const isHover = hover === i;
-              const titleLines = splitTitleIntoTwoLines(it.title);
+          {/* Mobile View - Category Tabs + Card */}
+          {isMobile ? (
+            <div className="reveal">{renderMobileView()}</div>
+          ) : (
+            /* Desktop Grid View */
+            <div className="reveal institutes-grid">
+              {items.map((it, i) => {
+                const isHover = hover === i;
+                const titleLines = splitTitleIntoTwoLines(it.title);
 
-              return (
-                <button
-                  key={it.n}
-                  onClick={(e) => handleInstituteClick(e, it)}
-                  onMouseEnter={() => setHover(i)}
-                  onMouseLeave={() => setHover(null)}
-                  onTouchStart={() => {
-                    // For mobile, set hover state on touch
-                    setHover(i);
-                  }}
-                  onTouchEnd={() => {
-                    // Clear hover after touch
-                    setTimeout(() => setHover(null), 300);
-                  }}
-                  className="institute-card"
-                  style={{
-                    position: "relative",
-                    background: "#ece8df",
-                    border: "none",
-                    borderRadius: 'clamp(16px, 2vw, 24px)',
-                    padding: 'clamp(16px, 3vw, 28px) clamp(14px, 2.5vw, 24px) clamp(14px, 2vw, 24px)',
-                    minHeight: 'clamp(200px, 35vh, 360px)',
-                    textAlign: "left",
-                    cursor: "pointer",
-                    overflow: "hidden",
-                    transition: "all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1)",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    transform: isHover ? "translateY(-6px)" : "translateY(0)",
-                    boxShadow: isHover
-                      ? "0 20px 35px rgba(0,0,0,0.1)"
-                      : "0 4px 12px rgba(0,0,0,0.04)",
-                    fontFamily: "'Red Hat Display', sans-serif",
-                    width: '100%',
-                    boxSizing: 'border-box',
-                    WebkitTapHighlightColor: 'transparent',
-                    touchAction: 'manipulation'
-                  }}
-                >
-                  {/* Background Image */}
-                  <img
-                    src={it.backgroundImage}
-                    alt=""
-                    className="card-bg-image"
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      zIndex: 0,
+                return (
+                  <button
+                    key={it.n}
+                    onClick={(e) => handleInstituteClick(e, it)}
+                    onMouseEnter={() => setHover(i)}
+                    onMouseLeave={() => setHover(null)}
+                    onTouchStart={() => {
+                      setHover(i);
                     }}
-                    onError={handleImageError}
-                    loading="lazy"
-                  />
-                  
-                  {/* Color Overlay */}
-                  <div
-                    className="card-overlay"
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      background: "linear-gradient(90deg, #01B6D3, #0D1136)",
-                      opacity: 0.85,
-                      zIndex: 1,
+                    onTouchEnd={() => {
+                      setTimeout(() => setHover(null), 300);
                     }}
-                  />
-
-                  {/* Hover darker overlay */}
-                  {isHover && (
-                    <div
-                      className="card-hover-overlay"
+                    className="institute-card"
+                    style={{
+                      position: "relative",
+                      background: "#ece8df",
+                      border: "none",
+                      borderRadius: 'clamp(16px, 2vw, 24px)',
+                      padding: 'clamp(16px, 3vw, 28px) clamp(14px, 2.5vw, 24px) clamp(14px, 2vw, 24px)',
+                      minHeight: 'clamp(200px, 35vh, 360px)',
+                      textAlign: "left",
+                      cursor: "pointer",
+                      overflow: "hidden",
+                      transition: "all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1)",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      transform: isHover ? "translateY(-6px)" : "translateY(0)",
+                      boxShadow: isHover
+                        ? "0 20px 35px rgba(0,0,0,0.1)"
+                        : "0 4px 12px rgba(0,0,0,0.04)",
+                      fontFamily: "'Red Hat Display', sans-serif",
+                      width: '100%',
+                      boxSizing: 'border-box',
+                      WebkitTapHighlightColor: 'transparent',
+                      touchAction: 'manipulation'
+                    }}
+                  >
+                    {/* Background Image */}
+                    <img
+                      src={it.backgroundImage}
+                      alt=""
+                      className="card-bg-image"
                       style={{
                         position: "absolute",
                         top: 0,
                         left: 0,
                         width: "100%",
                         height: "100%",
-                        background: "rgba(0,0,0,0.1)",
+                        objectFit: "cover",
+                        zIndex: 0,
+                      }}
+                      onError={handleImageError}
+                      loading="lazy"
+                    />
+                    
+                    {/* Color Overlay with gradient */}
+                    <div
+                      className="card-overlay"
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        background: "linear-gradient(90deg, #01B6D3, #0D1136)",
+                        opacity: 0.85,
                         zIndex: 1,
                       }}
                     />
-                  )}
 
-                  {/* Content */}
-                  <div style={{ position: "relative", zIndex: 2, flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    {/* Hover darker overlay */}
+                    {isHover && (
+                      <div
+                        className="card-hover-overlay"
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          width: "100%",
+                          height: "100%",
+                          background: "rgba(0,0,0,0.1)",
+                          zIndex: 1,
+                        }}
+                      />
+                    )}
+
+                    {/* Content */}
+                    <div style={{ position: "relative", zIndex: 2, flex: 1, display: 'flex', flexDirection: 'column' }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          marginBottom: 'clamp(12px, 2vw, 20px)'
+                        }}
+                      >
+                        <span
+                          className="card-number"
+                          style={{
+                            fontSize: 'clamp(20px, 3.5vw, 32px)',
+                            fontWeight: 800,
+                            letterSpacing: "-0.03em",
+                            color: "#ffffff",
+                            opacity: 0.95,
+                            fontFamily: "'Red Hat Display', sans-serif",
+                            textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                          }}
+                        >
+                          {it.n}
+                        </span>
+                      </div>
+
+                      <div
+                        className="card-tag"
+                        style={{
+                          fontSize: 'clamp(8px, 1vw, 10px)',
+                          letterSpacing: "0.15em",
+                          textTransform: "uppercase",
+                          color: "#FFE0A3",
+                          marginBottom: 'clamp(6px, 1vw, 12px)',
+                          fontWeight: 700,
+                          fontFamily: "'Red Hat Display', sans-serif",
+                          textShadow: "0 1px 1px rgba(0,0,0,0.2)",
+                        }}
+                      >
+                        {it.tag}
+                      </div>
+
+                      <div style={{ marginBottom: 'clamp(8px, 1.5vw, 12px)' }}>
+                        <h3
+                          className="card-title"
+                          style={{
+                            fontSize: 'clamp(13px, 1.8vw, 18px)',
+                            lineHeight: 1.3,
+                            letterSpacing: "-0.02em",
+                            fontWeight: 700,
+                            color: "#ffffff",
+                            margin: 0,
+                            fontFamily: "'Red Hat Display', sans-serif",
+                            textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                          }}
+                        >
+                          {titleLines[0]}
+                        </h3>
+                        <h3
+                          className="card-title"
+                          style={{
+                            fontSize: 'clamp(13px, 1.8vw, 18px)',
+                            lineHeight: 1.3,
+                            letterSpacing: "-0.02em",
+                            fontWeight: 700,
+                            color: "#ffffff",
+                            margin: 0,
+                            fontFamily: "'Red Hat Display', sans-serif",
+                            textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                          }}
+                        >
+                          {titleLines[1]}
+                        </h3>
+                      </div>
+
+                      <p
+                        className="card-blurb"
+                        style={{
+                          fontSize: 'clamp(10px, 1.2vw, 13px)',
+                          lineHeight: 1.5,
+                          color: "rgba(255,255,255,0.95)",
+                          margin: 0,
+                          display: '-webkit-box',
+                          WebkitLineClamp: 'clamp(2, 3, 3)',
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                          fontFamily: "'Red Hat Display', sans-serif",
+                          fontWeight: 400,
+                          textShadow: "0 1px 1px rgba(0,0,0,0.2)",
+                          flex: 1
+                        }}
+                      >
+                        {it.shortBlurb}
+                      </p>
+                    </div>
+
                     <div
+                      className="card-footer"
                       style={{
                         display: "flex",
-                        alignItems: "center",
                         justifyContent: "space-between",
-                        marginBottom: 'clamp(12px, 2vw, 20px)'
+                        alignItems: "center",
+                        marginTop: 'clamp(12px, 2vw, 24px)',
+                        position: "relative",
+                        zIndex: 2,
                       }}
                     >
                       <span
-                        className="card-number"
+                        className="card-learn-text"
                         style={{
-                          fontSize: 'clamp(20px, 3.5vw, 32px)',
-                          fontWeight: 800,
-                          letterSpacing: "-0.03em",
-                          color: "#ffffff",
-                          opacity: 0.95,
+                          fontSize: 'clamp(11px, 1.2vw, 13px)',
+                          fontWeight: 500,
+                          color: "rgba(255,255,255,0.9)",
                           fontFamily: "'Red Hat Display', sans-serif",
-                          textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                          textShadow: "0 1px 1px rgba(0,0,0,0.2)",
                         }}
                       >
-                        {it.n}
+                        Learn more
+                      </span>
+                      <span
+                        className="card-arrow"
+                        style={{
+                          width: 'clamp(28px, 3.5vw, 36px)',
+                          height: 'clamp(28px, 3.5vw, 36px)',
+                          borderRadius: "50%",
+                          background: isHover ? "#ffffff" : "rgba(255,255,255,0.25)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: isHover ? "#5FAFBE" : "#ffffff",
+                          transition: "all 0.3s ease",
+                          transform: isHover ? "translateX(5px)" : "translateX(0)",
+                          backdropFilter: "blur(4px)",
+                          WebkitBackdropFilter: "blur(4px)",
+                          flexShrink: 0
+                        }}
+                      >
+                        <Arrow size={14} />
                       </span>
                     </div>
 
                     <div
-                      className="card-tag"
                       style={{
-                        fontSize: 'clamp(8px, 1vw, 10px)',
-                        letterSpacing: "0.15em",
-                        textTransform: "uppercase",
-                        color: "#FFE0A3",
-                        marginBottom: 'clamp(6px, 1vw, 12px)',
-                        fontWeight: 700,
-                        fontFamily: "'Red Hat Display', sans-serif",
-                        textShadow: "0 1px 1px rgba(0,0,0,0.2)",
-                      }}
-                    >
-                      {it.tag}
-                    </div>
-
-                    <div style={{ marginBottom: 'clamp(8px, 1.5vw, 12px)' }}>
-                      <h3
-                        className="card-title"
-                        style={{
-                          fontSize: 'clamp(13px, 1.8vw, 18px)',
-                          lineHeight: 1.3,
-                          letterSpacing: "-0.02em",
-                          fontWeight: 700,
-                          color: "#ffffff",
-                          margin: 0,
-                          fontFamily: "'Red Hat Display', sans-serif",
-                          textShadow: "0 1px 2px rgba(0,0,0,0.2)",
-                        }}
-                      >
-                        {titleLines[0]}
-                      </h3>
-                      <h3
-                        className="card-title"
-                        style={{
-                          fontSize: 'clamp(13px, 1.8vw, 18px)',
-                          lineHeight: 1.3,
-                          letterSpacing: "-0.02em",
-                          fontWeight: 700,
-                          color: "#ffffff",
-                          margin: 0,
-                          fontFamily: "'Red Hat Display', sans-serif",
-                          textShadow: "0 1px 2px rgba(0,0,0,0.2)",
-                        }}
-                      >
-                        {titleLines[1]}
-                      </h3>
-                    </div>
-
-                    <p
-                      className="card-blurb"
-                      style={{
-                        fontSize: 'clamp(10px, 1.2vw, 13px)',
-                        lineHeight: 1.5,
-                        color: "rgba(255,255,255,0.95)",
-                        margin: 0,
-                        display: '-webkit-box',
-                        WebkitLineClamp: 'clamp(2, 3, 3)',
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden',
-                        fontFamily: "'Red Hat Display', sans-serif",
-                        fontWeight: 400,
-                        textShadow: "0 1px 1px rgba(0,0,0,0.2)",
-                        flex: 1
-                      }}
-                    >
-                      {it.shortBlurb}
-                    </p>
-                  </div>
-
-                  <div
-                    className="card-footer"
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      marginTop: 'clamp(12px, 2vw, 24px)',
-                      position: "relative",
-                      zIndex: 2,
-                    }}
-                  >
-                    <span
-                      className="card-learn-text"
-                      style={{
-                        fontSize: 'clamp(11px, 1.2vw, 13px)',
-                        fontWeight: 500,
-                        color: "rgba(255,255,255,0.9)",
-                        fontFamily: "'Red Hat Display', sans-serif",
-                        textShadow: "0 1px 1px rgba(0,0,0,0.2)",
-                      }}
-                    >
-                      Learn more
-                    </span>
-                    <span
-                      className="card-arrow"
-                      style={{
-                        width: 'clamp(28px, 3.5vw, 36px)',
-                        height: 'clamp(28px, 3.5vw, 36px)',
-                        borderRadius: "50%",
-                        background: isHover ? "#ffffff" : "rgba(255,255,255,0.25)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: isHover ? "#5FAFBE" : "#ffffff",
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: 'clamp(16px, 2vw, 24px)',
+                        border: isHover ? "2px solid rgba(255,255,255,0.6)" : "1px solid rgba(255,255,255,0.2)",
+                        pointerEvents: "none",
                         transition: "all 0.3s ease",
-                        transform: isHover ? "translateX(5px)" : "translateX(0)",
-                        backdropFilter: "blur(4px)",
-                        WebkitBackdropFilter: "blur(4px)",
-                        flexShrink: 0
+                        zIndex: 3,
                       }}
-                    >
-                      <Arrow size={14} />
-                    </span>
-                  </div>
-
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      borderRadius: 'clamp(16px, 2vw, 24px)',
-                      border: isHover ? "2px solid rgba(255,255,255,0.6)" : "1px solid rgba(255,255,255,0.2)",
-                      pointerEvents: "none",
-                      transition: "all 0.3s ease",
-                      zIndex: 3,
-                    }}
-                  />
-                </button>
-              );
-            })}
-          </div>
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         <style>{`
@@ -550,11 +807,79 @@ function Institutes({ palette, onOpen }) {
             transform: translateY(0);
           }
 
-          /* Institutes Grid */
+          /* Institutes Grid — Desktop */
           .institutes-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 24px;
+          }
+
+          /* Mobile Tabs */
+          .mobile-institutes {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+
+          .mobile-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+
+          .mobile-tabs::-webkit-scrollbar {
+            display: none;
+          }
+
+          .mobile-tab {
+            flex: 1;
+            min-width: 0;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 2px solid rgba(0,0,0,0.1);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Red Hat Display', sans-serif;
+            font-weight: 600;
+            font-size: 10px;
+            justify-content: center;
+            white-space: nowrap;
+          }
+
+          .mobile-tab.active {
+            background: rgba(31,110,122,0.05);
+          }
+
+          .mobile-tab .tab-number {
+            font-size: 11px;
+            font-weight: 800;
+            opacity: 0.6;
+          }
+
+          .mobile-tab.active .tab-number {
+            opacity: 1;
+          }
+
+          .mobile-tab .tab-title {
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            opacity: 0.7;
+            text-transform: uppercase;
+          }
+
+          .mobile-tab.active .tab-title {
+            opacity: 1;
+          }
+
+          .mobile-card-wrapper {
+            width: 100%;
           }
 
           /* Tablet */
@@ -565,51 +890,61 @@ function Institutes({ palette, onOpen }) {
             }
           }
 
-          /* Mobile */
+          /* ===== MOBILE (≤768px) ===== */
           @media (max-width: 768px) {
             .institutes-grid {
-              grid-template-columns: 1fr !important;
-              gap: 16px !important;
+              display: none !important;
             }
 
             .wrap {
               padding: 0 20px !important;
             }
-          }
 
-          /* Small Mobile */
-          @media (max-width: 480px) {
-            .institutes-grid {
-              gap: 12px !important;
+            .institutes-header {
+              margin-bottom: 24px !important;
             }
 
+            .mobile-tab {
+              padding: 8px 10px !important;
+              font-size: 9px !important;
+            }
+
+            .mobile-tab .tab-number {
+              font-size: 10px !important;
+            }
+
+            .mobile-tab .tab-title {
+              font-size: 8px !important;
+            }
+          }
+
+          /* Hide mobile view on desktop */
+          @media (min-width: 769px) {
+            .mobile-institutes {
+              display: none !important;
+            }
+          }
+
+          @media (max-width: 480px) {
             .wrap {
               padding: 0 16px !important;
             }
 
-            /* Header */
-            .institutes-header {
-              flex-direction: column !important;
-              align-items: flex-start !important;
-              gap: 16px !important;
-              margin-bottom: 32px !important;
+            .mobile-tabs {
+              gap: 6px !important;
             }
 
-            .institutes-header-left {
-              width: 100% !important;
+            .mobile-tab {
+              padding: 6px 8px !important;
+              border-radius: 10px !important;
             }
 
-            .view-all-btn {
-              font-size: 13px !important;
-              padding: 8px 16px !important;
-              white-space: nowrap !important;
+            .mobile-tab .tab-number {
+              font-size: 9px !important;
             }
-          }
 
-          /* Extra Small */
-          @media (max-width: 360px) {
-            .institutes-title {
-              font-size: 20px !important;
+            .mobile-tab .tab-title {
+              font-size: 7px !important;
             }
           }
 
@@ -626,6 +961,10 @@ function Institutes({ palette, onOpen }) {
             .card-arrow {
               background: rgba(255,255,255,0.25) !important;
               color: #ffffff !important;
+            }
+
+            .mobile-tab:active {
+              transform: scale(0.96);
             }
           }
         `}</style>

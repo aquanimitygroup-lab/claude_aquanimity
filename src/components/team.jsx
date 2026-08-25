@@ -14,7 +14,7 @@ const useReveal = () => {
             }
           });
         },
-        { threshold: 0.1 }
+        { threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
       );
 
       const reveals = ref.current.querySelectorAll(".reveal");
@@ -33,10 +33,8 @@ const highlightKeyInfo = (text) => {
   
   let highlighted = text;
   
-  // Replace "BIOHUB" with "Biohub" and format as separate paragraph
   highlighted = highlighted.replace(/BIOHUB/gi, "Biohub");
   
-  // Split into paragraphs and format Biohub section as separate paragraph
   const paragraphs = highlighted.split(/\n\n/);
   if (paragraphs.length > 1) {
     const bioText = paragraphs[0];
@@ -54,30 +52,19 @@ const highlightKeyInfo = (text) => {
     }
   }
   
-  // Highlight "Ferrari Red" with #FF2800 color
   highlighted = highlighted.replace(/Ferrari Red/gi, (match) => {
     return `<span style="color: #FF2800; font-weight: 700; padding: 0 4px; border-radius: 4px;">${match}</span>`;
   });
   
-  // Highlight numbers that indicate scale/impact
   highlighted = highlighted.replace(/\b(\d+(?:,\d+)?)\s*(?:percent|%|patents|people|million|billion)\b/gi, (match) => {
     return `<span style="font-weight: 700;">${match}</span>`;
   });
   
-  // Highlight key roles and positions
   const rolePatterns = [
-    /Head of R&D/gi,
-    /Principal Scientist/gi,
-    /Professor and Head/gi,
-    /Director of Applied Bioengineering/gi,
-    /Program Director/gi,
-    /Founding Scientist/gi,
-    /Scientific Advisor/gi,
-    /CEO/gi,
-    /CTO/gi,
-    /COO/gi,
-    /Managing Director/gi,
-    /Executive Director/gi
+    /Head of R&D/gi, /Principal Scientist/gi, /Professor and Head/gi,
+    /Director of Applied Bioengineering/gi, /Program Director/gi,
+    /Founding Scientist/gi, /Scientific Advisor/gi, /CEO/gi, /CTO/gi, /COO/gi,
+    /Managing Director/gi, /Executive Director/gi
   ];
   
   rolePatterns.forEach(pattern => {
@@ -94,31 +81,22 @@ const MemberDetailsInline = ({ member, onClose }) => {
   const detailsRef = useRef(null);
 
   useEffect(() => {
-    // Scroll to details when member is selected
     if (detailsRef.current) {
       const yOffset = -80;
       const element = detailsRef.current;
       const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      
-      window.scrollTo({
-        top: y,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   }, [member]);
 
   const handleClose = () => {
     onClose();
-    // Scroll back to team section after closing
     setTimeout(() => {
       const teamSection = document.getElementById('team');
       if (teamSection) {
         const yOffset = -80;
         const y = teamSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({
-          top: y,
-          behavior: 'smooth'
-        });
+        window.scrollTo({ top: y, behavior: 'smooth' });
       }
     }, 100);
   };
@@ -127,36 +105,11 @@ const MemberDetailsInline = ({ member, onClose }) => {
     <div 
       ref={detailsRef}
       id="member-details"
-      style={{
-        marginTop: '48px',
-        marginBottom: '48px',
-        background: 'var(--bone)',
-        borderRadius: '32px',
-        overflow: 'hidden',
-        animation: 'fadeInUp 0.5s ease'
-      }}
+      className="member-details-wrapper"
     >
-      <div className="mdi-grid" style={{
-        display: 'grid',
-        gridTemplateColumns: '0.8fr 1.2fr',
-        gap: 0,
-        minHeight: '500px'
-      }}>
-        <div className="mdi-photo" style={{
-          background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '40px'
-        }}>
-          <div style={{
-            width: '100%',
-            maxWidth: '280px',
-            borderRadius: '20px',
-            overflow: 'hidden',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
-            border: '3px solid white'
-          }}>
+      <div className="mdi-grid">
+        <div className="mdi-photo">
+          <div className="mdi-photo-frame">
             <img
               src={member.img}
               alt={member.name}
@@ -168,11 +121,7 @@ const MemberDetailsInline = ({ member, onClose }) => {
           </div>
         </div>
 
-        <div className="mdi-content" style={{ 
-          padding: '40px', 
-          overflowY: 'auto', 
-          maxHeight: '600px'
-        }}>
+        <div className="mdi-content">
           <div style={{ 
             display: 'flex', 
             justifyContent: 'space-between', 
@@ -180,49 +129,17 @@ const MemberDetailsInline = ({ member, onClose }) => {
             marginBottom: '20px'
           }}>
             <div>
-              <div style={{
-                fontSize: '12px',
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                color: 'var(--accent)',
-                fontWeight: 600,
-                marginBottom: '8px',
-                whiteSpace: 'pre-line',
-                lineHeight: 1.3
-              }}>
+              <div className="mdi-title-label">
                 {member.title}
               </div>
-              <h2 style={{
-                fontSize: '32px',
-                fontWeight: 700,
-                color: '#0E1136',
-                marginBottom: '12px',
-                letterSpacing: '-0.02em'
-              }}>
+              <h2 className="mdi-name">
                 {member.name}
               </h2>
-              <div style={{
-                width: '50px',
-                height: '3px',
-                background: 'var(--accent)',
-                marginBottom: '24px'
-              }} />
+              <div style={{ width: '50px', height: '3px', background: 'var(--accent)', marginBottom: '24px' }} />
             </div>
             <button
               onClick={handleClose}
-              style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '50%',
-                background: 'var(--paper)',
-                border: '1px solid var(--rule)',
-                cursor: 'pointer',
-                fontSize: '18px',
-                transition: 'all 0.3s ease',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
+              className="mdi-close-btn"
               onMouseEnter={(e) => e.currentTarget.style.background = 'var(--accent-soft)'}
               onMouseLeave={(e) => e.currentTarget.style.background = 'var(--paper)'}
             >
@@ -230,72 +147,31 @@ const MemberDetailsInline = ({ member, onClose }) => {
             </button>
           </div>
 
-          {/* Key Achievements Section - Highlighted */}
           {member.achievement && (
             <div style={{ marginBottom: '24px' }}>
-              <h3 style={{
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#0E1136',
-                marginBottom: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}>
+              <h3 className="mdi-section-heading">
                 <span style={{ fontSize: '20px' }}>🏆</span> Key Achievement
               </h3>
-              <div style={{
-                background: 'linear-gradient(135deg, rgba(255,40,0,0.05) 0%, rgba(31,110,122,0.05) 100%)',
-                padding: '14px',
-                borderRadius: '14px',
-                fontSize: '14px',
-                fontWeight: 500,
-                color: '#1F6E7A',
-                lineHeight: 1.5,
-                borderLeft: '3px solid #FF2800'
-              }}>
+              <div className="mdi-achievement-box">
                 {member.achievement}
               </div>
             </div>
           )}
 
-          {/* Detailed Bio Section with highlighted key info */}
           {member.detailedBio && (
             <div style={{ marginBottom: '24px' }}>
-              <h3 style={{
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#0E1136',
-                marginBottom: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}>
+              <h3 className="mdi-section-heading">
                 <span style={{ fontSize: '20px' }}>📋</span> Biography
               </h3>
-              <div style={{
-                fontSize: '14px',
-                lineHeight: 1.6,
-                color: '#0E1136',
-                textAlign: 'justify'
-              }}>
+              <div style={{ fontSize: '14px', lineHeight: 1.6, color: '#0E1136', textAlign: 'justify' }}>
                 {highlightKeyInfo(member.detailedBio)}
               </div>
             </div>
           )}
 
-          {/* Education Section */}
           {member.education && (
             <div style={{ marginBottom: '24px' }}>
-              <h3 style={{
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#0E1136',
-                marginBottom: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}>
+              <h3 className="mdi-section-heading">
                 <span style={{ fontSize: '20px' }}>🎓</span> Education
               </h3>
               <div style={{
@@ -313,21 +189,44 @@ const MemberDetailsInline = ({ member, onClose }) => {
           )}
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 800px) {
-          .mdi-grid { grid-template-columns: 1fr !important; min-height: 0 !important; }
-          .mdi-photo { padding: 28px !important; }
-          .mdi-content { max-height: none !important; padding: 28px !important; }
-        }
-      `}</style>
     </div>
   );
 };
 
 function Team({ palette, onOpen }) {
-  const ref = useReveal();
+  const ref = useRef(null);
   const [selectedMember, setSelectedMember] = useState(null);
+  
+  // Re-observe reveals whenever category changes
+  const [activeCategory, setActiveCategory] = useState(null);
+  
+  useEffect(() => {
+    if (!ref.current) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in");
+          }
+        });
+      },
+      { threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    // Small delay to let React finish rendering new elements
+    const timer = setTimeout(() => {
+      if (ref.current) {
+        const reveals = ref.current.querySelectorAll(".reveal:not(.in)");
+        reveals.forEach((el) => observer.observe(el));
+      }
+    }, 50);
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, [activeCategory]);
   
   let teamData = {};
   try {
@@ -486,7 +385,7 @@ function Team({ palette, onOpen }) {
           "img": "images/faizus.png",
           "linkedin": "https://linkedin.com",
           "bio": "Drives bold, purpose-led growth by building <strong>brand trust, and scaling customer engagement</strong>",
-          "detailedBio": "Bringing expertise in marketing strategy, business analytics, and data-driven decision-making. He plays a key role in shaping Aquanimity’s commercial strategy, product development, and market positioning, and was instrumental in the early ideation and development of Aqualite.",
+          "detailedBio": "Bringing expertise in marketing strategy, business analytics, and data-driven decision-making. He plays a key role in shaping Aquanimity's commercial strategy, product development, and market positioning, and was instrumental in the early ideation and development of Aqualite.",
           "education": "Msc Economics, University of Warwick | Bsc Economics, University of London"
         }, 
         {
@@ -559,24 +458,22 @@ function Team({ palette, onOpen }) {
     };
   }
 
-const orderedCategories = [];
-if (teamData["Founding Scientists"]) orderedCategories.push("Founding Scientists");
-if (teamData["Scientific Advisory Board"]) orderedCategories.push("Scientific Advisory Board");
-if (teamData["Researchers & Consultants"]) orderedCategories.push("Researchers & Consultants");
-if (teamData["Consultants"]) orderedCategories.push("Consultants");
-if (teamData["Founding Management Team"]) orderedCategories.push("Founding Management Team");
+  const orderedCategories = [];
+  if (teamData["Founding Scientists"]) orderedCategories.push("Founding Scientists");
+  if (teamData["Scientific Advisory Board"]) orderedCategories.push("Scientific Advisory Board");
+  if (teamData["Researchers & Consultants"]) orderedCategories.push("Researchers & Consultants");
+  if (teamData["Consultants"]) orderedCategories.push("Consultants");
+  if (teamData["Founding Management Team"]) orderedCategories.push("Founding Management Team");
 
-// If there are other categories not in the list, add them too
-Object.keys(teamData).forEach(key => {
-  if (!orderedCategories.includes(key)) {
-    orderedCategories.push(key);
-  }
-});
+  Object.keys(teamData).forEach(key => {
+    if (!orderedCategories.includes(key)) {
+      orderedCategories.push(key);
+    }
+  });
 
   const allMembers = Object.values(teamData).flat();
   const categories = orderedCategories;
   
-  const [activeCategory, setActiveCategory] = useState(null);
   const members = activeCategory ? teamData[activeCategory] || [] : allMembers;
   const isAllMembers = activeCategory === null;
   
@@ -599,14 +496,8 @@ Object.keys(teamData).forEach(key => {
           will-change: transform;
         }
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `;
       document.head.appendChild(styleSheet);
@@ -620,16 +511,12 @@ Object.keys(teamData).forEach(key => {
       setSelectedMember(null);
     } else {
       setSelectedMember(member);
-      // Scroll to details after state update
       setTimeout(() => {
         const detailsElement = document.getElementById('member-details');
         if (detailsElement) {
           const yOffset = -80;
           const y = detailsElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
-          window.scrollTo({
-            top: y,
-            behavior: 'smooth'
-          });
+          window.scrollTo({ top: y, behavior: 'smooth' });
         }
       }, 100);
     }
@@ -644,11 +531,8 @@ Object.keys(teamData).forEach(key => {
     <div
       key={idx}
       onClick={() => handleMemberClick(member)}
+      className={isAllMembers ? 'team-member-card marquee-card' : 'team-member-card grid-card'}
       style={{
-        flex: isAllMembers ? '0 0 auto' : '1',
-        width: isAllMembers ? '260px' : 'auto',
-        minWidth: isAllMembers ? 'auto' : '260px',
-        marginRight: isAllMembers ? '24px' : '0px',
         cursor: 'pointer',
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
       }}
@@ -661,14 +545,7 @@ Object.keys(teamData).forEach(key => {
         e.currentTarget.style.boxShadow = 'none';
       }}
     >
-      <div style={{ 
-        width: '100%', 
-        height: '290px',
-        borderRadius: '16px',
-        overflow: 'hidden', 
-        background: '#f0f0f0',
-        marginBottom: '16px'
-      }}>
+      <div className="team-member-photo">
         <img 
           src={member.img} 
           alt={member.name} 
@@ -680,31 +557,15 @@ Object.keys(teamData).forEach(key => {
       </div>
       
       <div>
-        <div style={{ fontSize: '18px', fontWeight: 700, marginBottom: '4px', color: '#0E1136' }}>
+        <div className="team-member-name">
           {member.name}
         </div>
-        <div style={{ 
-          fontSize: '13px', 
-          color: 'var(--accent)', 
-          fontWeight: 600, 
-          marginBottom: '12px',
-          whiteSpace: 'pre-line',
-          lineHeight: 1.3
-        }}>
+        <div className="team-member-title">
           {member.title}
         </div>
         
         {member.bio && (
-          <div style={{ 
-            fontSize: '12px', 
-            color: 'var(--muted)', 
-            marginBottom: '6px', 
-            lineHeight: 1.5,
-            display: '-webkit-box',
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden'
-          }}>
+          <div className="team-member-bio">
             {renderBio(member.bio)}
           </div>
         )}
@@ -714,7 +575,7 @@ Object.keys(teamData).forEach(key => {
 
   if (!members.length) {
     return (
-      <section style={{ paddingTop: '140px', paddingBottom: '140px', textAlign: 'center' }}>
+      <section style={{ paddingTop: '80px', paddingBottom: '80px', textAlign: 'center' }}>
         <p>Loading team data...</p>
       </section>
     );
@@ -724,103 +585,37 @@ Object.keys(teamData).forEach(key => {
     <section 
       ref={ref} 
       id="team" 
-      style={{ 
-        paddingTop: '140px', 
-        paddingBottom: '120px', 
-        background: "var(--paper)"
-      }}
+      className="team-section"
     >
-      <div className="wrap" style={{ 
-        maxWidth: '1400px', 
-        marginTop: '0px',
-        marginRight: 'auto',
-        marginBottom: '0px',
-        marginLeft: 'auto',
-        paddingLeft: '32px',
-        paddingRight: '32px'
-      }}>
-        <div className="reveal team-intro-grid" style={{ 
-          display: 'grid', 
-          gridTemplateColumns: '1fr 1fr', 
-          gap: '56px', 
-          alignItems: 'end', 
-          marginBottom: '56px'
-        }}>
+      <div className="team-wrap">
+        <div className="reveal team-intro-grid">
           <div>
-            <div className="label" style={{ 
-              fontFamily:'Red Hat Display',
-              marginBottom: '18px', 
-              fontSize: '12px', 
-              letterSpacing: '0.2em', 
-              textTransform: 'uppercase', 
-              color: 'var(--accent)', 
-              fontWeight: 600
-            }}>
+            <div className="team-label">
               § 03 — Our Team
             </div>
-            <h2 style={{ 
-              fontSize: 'clamp(36px, 5vw, 64px)', 
-              lineHeight: 1.02, 
-              letterSpacing: '-0.025em', 
-              fontWeight: 900, 
-              color: '#0E1136', 
-              marginTop: '0px',
-              marginRight: '0px',
-              marginBottom: '0px',
-              marginLeft: '0px'
-            }}>
+            <h2 className="team-heading">
               Built by world class<br/>
               <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent)', fontWeight: 400 }}>
                 scientists & researchers.
               </span>
             </h2>
           </div>
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'flex-start', 
-            gap: '18px'
-          }}>
-            <p style={{ 
-              fontSize: '17px', 
-              color: '#0E1136', 
-              maxWidth: '460px', 
-              lineHeight: 1.55,
-              marginTop: '0px',
-              marginRight: '0px',
-              marginBottom: '0px',
-              marginLeft: '0px'
-            }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '18px' }}>
+            <p className="team-subtitle">
               An interdisciplinary cohort of 40+ founders, scientists, and operators —
               spanning Bangladesh, US, UK, Switzerland and Netherlands.
             </p>
           </div>
         </div>
 
-        <div className="reveal" style={{ 
-          display: 'flex', 
-          flexWrap: 'wrap', 
-          gap: '12px', 
-          marginBottom: '48px'
-        }}>
+        <div className="reveal team-filters">
           <button 
             type="button"
+            className={`team-filter-btn ${activeCategory === null ? 'active' : ''}`}
             onClick={(event) => {
               event.currentTarget.blur();
               setActiveCategory(null);
               setSelectedMember(null);
-            }}
-            style={{
-              padding: '10px 24px', 
-              borderRadius: '40px',
-              border: 'none',
-              background: activeCategory === null ? '#0E1136' : 'transparent',
-              color: activeCategory === null ? 'var(--paper)' : '#0E1136',
-              fontSize: '14px', 
-              fontWeight: activeCategory === null ? 600 : 500,
-              cursor: 'pointer',
-              transition: 'all 0.25s ease',
-              border: activeCategory === null ? 'none' : '1px solid var(--rule)'
             }}
           >
             All Members
@@ -829,22 +624,11 @@ Object.keys(teamData).forEach(key => {
             <button 
               key={c} 
               type="button"
+              className={`team-filter-btn ${activeCategory === c ? 'active' : ''}`}
               onClick={(event) => {
                 event.currentTarget.blur();
                 setActiveCategory(c);
                 setSelectedMember(null);
-              }}
-              style={{
-                padding: '10px 24px', 
-                borderRadius: '40px',
-                border: 'none',
-                background: activeCategory === c ? '#0E1136' : 'transparent',
-                color: activeCategory === c ? 'var(--paper)' : '#0E1136',
-                fontSize: '14px', 
-                fontWeight: activeCategory === c ? 600 : 500,
-                cursor: 'pointer',
-                transition: 'all 0.25s ease',
-                border: activeCategory === c ? 'none' : '1px solid var(--rule)'
               }}
             >{c}</button>
           ))}
@@ -854,12 +638,7 @@ Object.keys(teamData).forEach(key => {
       {isAllMembers ? (
         <div 
           className="reveal"
-          style={{ 
-            overflow: 'hidden',
-            position: 'relative',
-            width: '100%',
-            marginTop: '20px'
-          }}
+          style={{ overflow: 'hidden', position: 'relative', width: '100%', marginTop: '20px' }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
@@ -877,79 +656,526 @@ Object.keys(teamData).forEach(key => {
             ))}
           </div>
           
-          <div style={{ 
-            position: 'absolute', 
-            top: 0, 
-            left: 0, 
-            width: '80px', 
-            height: '100%', 
-            background: 'linear-gradient(to right, var(--paper), transparent)',
-            pointerEvents: 'none',
-            zIndex: 2
-          }} />
-          <div style={{ 
-            position: 'absolute', 
-            top: 0, 
-            right: 0, 
-            width: '80px', 
-            height: '100%', 
-            background: 'linear-gradient(to left, var(--paper), transparent)',
-            pointerEvents: 'none',
-            zIndex: 2
-          }} />
+          <div style={{ position: 'absolute', top: 0, left: 0, width: '80px', height: '100%', background: 'linear-gradient(to right, var(--paper), transparent)', pointerEvents: 'none', zIndex: 2 }} />
+          <div style={{ position: 'absolute', top: 0, right: 0, width: '80px', height: '100%', background: 'linear-gradient(to left, var(--paper), transparent)', pointerEvents: 'none', zIndex: 2 }} />
         </div>
       ) : (
         <div 
-          className="reveal"
-          style={{ 
-            maxWidth: '1400px',
-            marginTop: '20px',
-            marginRight: 'auto',
-            marginBottom: '0px',
-            marginLeft: 'auto',
-            paddingLeft: '32px',
-            paddingRight: '32px'
-          }}
+          className="reveal team-grid-wrap"
         >
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-            gap: '40px',
-            justifyContent: 'center'
-          }}>
+          <div className="team-grid">
             {members.map((member, idx) => (
-              <div key={idx} style={{ 
-                maxWidth: '280px', 
-                marginTop: '0px',
-                marginRight: 'auto',
-                marginBottom: '0px',
-                marginLeft: 'auto',
-                width: '100%' 
-              }}>
-                <MemberCard member={member} idx={idx} />
-              </div>
+              <MemberCard key={idx} member={member} idx={idx} />
             ))}
           </div>
         </div>
       )}
 
       {selectedMember && (
-        <div className="wrap" style={{ 
-          maxWidth: '1200px', 
-          marginTop: '0px',
-          marginRight: 'auto',
-          marginBottom: '0px',
-          marginLeft: 'auto',
-          paddingLeft: '32px',
-          paddingRight: '32px'
-        }}>
+        <div className="team-details-wrap">
           <MemberDetailsInline member={selectedMember} onClose={() => setSelectedMember(null)} />
         </div>
       )}
 
       <style>{`
-        @media (max-width: 800px) {
-          .team-intro-grid { grid-template-columns: 1fr !important; align-items: start !important; gap: 24px !important; }
+        /* ===== DESKTOP ===== */
+        .team-section {
+          padding: 72px 0 72px;
+          background: var(--paper);
+        }
+
+        .team-wrap {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 0 32px;
+        }
+
+        .team-intro-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 56px;
+          align-items: end;
+          margin-bottom: 40px;
+        }
+
+        .team-label {
+          font-family: 'Red Hat Display', sans-serif;
+          margin-bottom: 14px;
+          font-size: 12px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--accent);
+          font-weight: 600;
+        }
+
+        .team-heading {
+          font-size: clamp(28px, 5vw, 64px);
+          line-height: 1.02;
+          letter-spacing: -0.025em;
+          font-weight: 900;
+          color: #0E1136;
+          margin: 0;
+        }
+
+        .team-subtitle {
+          font-size: 17px;
+          color: #0E1136;
+          max-width: 460px;
+          line-height: 1.55;
+          margin: 0;
+        }
+
+        .team-filters {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-bottom: 36px;
+        }
+
+        .team-filter-btn {
+          padding: 10px 24px;
+          border-radius: 40px;
+          background: transparent;
+          color: #0E1136;
+          font-size: 14px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          border: 1px solid var(--rule);
+          font-family: 'Red Hat Display', sans-serif;
+        }
+
+        .team-filter-btn.active {
+          background: #0E1136;
+          color: var(--paper);
+          border-color: #0E1136;
+          font-weight: 600;
+        }
+
+        /* Marquee cards - fixed width for horizontal scroll */
+        .marquee-card {
+          flex: 0 0 auto;
+          width: 260px;
+          margin-right: 24px;
+        }
+
+        /* Grid cards - fill their grid cell */
+        .grid-card {
+          width: 100%;
+        }
+
+        .team-member-photo {
+          width: 100%;
+          height: 290px;
+          border-radius: 16px;
+          overflow: hidden;
+          background: #f0f0f0;
+          margin-bottom: 16px;
+        }
+
+        .team-member-name {
+          font-size: 18px;
+          font-weight: 700;
+          margin-bottom: 4px;
+          color: #0E1136;
+        }
+
+        .team-member-title {
+          font-size: 13px;
+          color: var(--accent);
+          font-weight: 600;
+          margin-bottom: 12px;
+          white-space: pre-line;
+          line-height: 1.3;
+        }
+
+        .team-member-bio {
+          font-size: 12px;
+          color: var(--muted);
+          margin-bottom: 6px;
+          line-height: 1.5;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .team-grid-wrap {
+          max-width: 1400px;
+          margin: 20px auto 0;
+          padding: 0 32px;
+        }
+
+        .team-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+          gap: 32px;
+        }
+
+        .team-details-wrap {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 32px;
+        }
+
+        /* Member Details Inline */
+        .member-details-wrapper {
+          margin-top: 48px;
+          margin-bottom: 48px;
+          background: var(--bone);
+          border-radius: 32px;
+          overflow: hidden;
+          animation: fadeInUp 0.5s ease;
+        }
+
+        .mdi-grid {
+          display: grid;
+          grid-template-columns: 0.8fr 1.2fr;
+          gap: 0;
+          min-height: 500px;
+        }
+
+        .mdi-photo {
+          background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 40px;
+        }
+
+        .mdi-photo-frame {
+          width: 100%;
+          max-width: 280px;
+          border-radius: 20px;
+          overflow: hidden;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+          border: 3px solid white;
+        }
+
+        .mdi-content {
+          padding: 40px;
+          overflow-y: auto;
+          max-height: 600px;
+        }
+
+        .mdi-title-label {
+          font-size: 12px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--accent);
+          font-weight: 600;
+          margin-bottom: 8px;
+          white-space: pre-line;
+          line-height: 1.3;
+        }
+
+        .mdi-name {
+          font-size: 32px;
+          font-weight: 700;
+          color: #0E1136;
+          margin-bottom: 12px;
+          letter-spacing: -0.02em;
+        }
+
+        .mdi-close-btn {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: var(--paper);
+          border: 1px solid var(--rule);
+          cursor: pointer;
+          font-size: 18px;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .mdi-section-heading {
+          font-size: 16px;
+          font-weight: 600;
+          color: #0E1136;
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .mdi-achievement-box {
+          background: linear-gradient(135deg, rgba(255,40,0,0.05) 0%, rgba(31,110,122,0.05) 100%);
+          padding: 14px;
+          border-radius: 14px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #1F6E7A;
+          line-height: 1.5;
+          border-left: 3px solid #FF2800;
+        }
+
+        .reveal {
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .reveal.in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* ===== TABLET (≤980px) ===== */
+        @media (max-width: 980px) {
+          .team-section {
+            padding: 56px 0 56px !important;
+          }
+
+          .team-wrap {
+            padding: 0 20px !important;
+          }
+
+          .team-intro-grid {
+            gap: 32px !important;
+            margin-bottom: 32px !important;
+          }
+        }
+
+        /* ===== MOBILE (≤768px) ===== */
+        @media (max-width: 768px) {
+          .team-section {
+            padding: 36px 0 40px !important;
+          }
+
+          .team-wrap {
+            padding: 0 16px !important;
+          }
+
+          .team-intro-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+            align-items: start !important;
+            margin-bottom: 24px !important;
+          }
+
+          .team-label {
+            margin-bottom: 10px !important;
+            font-size: 10px !important;
+          }
+
+          .team-heading {
+            font-size: 24px !important;
+          }
+
+          .team-subtitle {
+            font-size: 14px !important;
+            max-width: 100% !important;
+          }
+
+          .team-filters {
+            gap: 6px !important;
+            margin-bottom: 24px !important;
+          }
+
+          .team-filter-btn {
+            padding: 7px 14px !important;
+            font-size: 11px !important;
+          }
+
+          .marquee-card {
+            width: 200px !important;
+            margin-right: 16px !important;
+          }
+
+          .grid-card {
+            width: 100% !important;
+          }
+
+          .team-member-photo {
+            height: 220px !important;
+            border-radius: 12px !important;
+            margin-bottom: 12px !important;
+          }
+
+          .team-member-name {
+            font-size: 15px !important;
+          }
+
+          .team-member-title {
+            font-size: 11px !important;
+            margin-bottom: 8px !important;
+          }
+
+          .team-member-bio {
+            font-size: 11px !important;
+          }
+
+          .team-grid-wrap {
+            padding: 0 16px !important;
+          }
+
+          .team-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 20px !important;
+          }
+
+          .team-details-wrap {
+            padding: 0 16px !important;
+          }
+
+          .member-details-wrapper {
+            margin-top: 24px !important;
+            margin-bottom: 24px !important;
+            border-radius: 20px !important;
+          }
+
+          .mdi-grid {
+            grid-template-columns: 1fr !important;
+            min-height: 0 !important;
+          }
+
+          .mdi-photo {
+            padding: 24px !important;
+          }
+
+          .mdi-photo-frame {
+            max-width: 200px !important;
+          }
+
+          .mdi-content {
+            max-height: none !important;
+            padding: 24px !important;
+          }
+
+          .mdi-name {
+            font-size: 24px !important;
+          }
+
+          .mdi-title-label {
+            font-size: 10px !important;
+          }
+        }
+
+        /* ===== SMALL MOBILE (≤480px) ===== */
+        @media (max-width: 480px) {
+          .team-section {
+            padding: 28px 0 32px !important;
+          }
+
+          .team-intro-grid {
+            gap: 12px !important;
+            margin-bottom: 20px !important;
+          }
+
+          .team-heading {
+            font-size: 22px !important;
+          }
+
+          .team-subtitle {
+            font-size: 13px !important;
+          }
+
+          .team-filters {
+            gap: 5px !important;
+            margin-bottom: 18px !important;
+          }
+
+          .team-filter-btn {
+            padding: 6px 12px !important;
+            font-size: 10.5px !important;
+          }
+
+          .marquee-card {
+            width: 180px !important;
+            margin-right: 14px !important;
+          }
+
+          .grid-card {
+            width: 100% !important;
+          }
+
+          .team-member-photo {
+            height: 200px !important;
+          }
+
+          .team-member-name {
+            font-size: 14px !important;
+          }
+
+          .team-member-title {
+            font-size: 10.5px !important;
+          }
+
+          .team-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 16px !important;
+          }
+
+          .member-details-wrapper {
+            margin-top: 20px !important;
+            margin-bottom: 20px !important;
+            border-radius: 16px !important;
+          }
+
+          .mdi-photo {
+            padding: 20px !important;
+          }
+
+          .mdi-content {
+            padding: 20px !important;
+          }
+
+          .mdi-name {
+            font-size: 20px !important;
+          }
+
+          .mdi-section-heading {
+            font-size: 14px !important;
+          }
+
+          .mdi-achievement-box {
+            font-size: 12.5px !important;
+            padding: 12px !important;
+          }
+        }
+
+        /* ===== EXTRA SMALL (≤360px) ===== */
+        @media (max-width: 360px) {
+          .team-section {
+            padding: 24px 0 28px !important;
+          }
+
+          .team-heading {
+            font-size: 20px !important;
+          }
+
+          .marquee-card {
+            width: 160px !important;
+            margin-right: 12px !important;
+          }
+
+          .grid-card {
+            width: 100% !important;
+          }
+
+          .team-member-photo {
+            height: 180px !important;
+          }
+
+          .team-filter-btn {
+            padding: 5px 10px !important;
+            font-size: 10px !important;
+          }
+        }
+
+        /* Touch devices */
+        @media (hover: none) {
+          .team-member-card:active {
+            transform: scale(0.97) !important;
+          }
+
+          .team-filter-btn:active {
+            transform: scale(0.96);
+          }
         }
       `}</style>
     </section>
