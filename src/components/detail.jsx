@@ -1628,7 +1628,7 @@ function InstituteDetail({ it, data, palette }) {
 
           /* Mobile text sizes */
           .id-researchers-grid > div > div:first-child {
-            font-size: 13px !important;
+            font-size: 14px !important;
           }
           .id-researchers-grid > div > div:nth-child(2) {
             font-size: 10px !important;
