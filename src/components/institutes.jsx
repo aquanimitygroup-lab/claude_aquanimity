@@ -251,8 +251,7 @@ function Institutes({ palette, onOpen }) {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <button
-            onClick={(e) => handleInstituteClick(e, activeInstitute)}
+          <div
             className="institute-card mobile-card"
             style={{
               position: "relative",
@@ -262,7 +261,6 @@ function Institutes({ palette, onOpen }) {
               padding: 'clamp(20px, 3vw, 28px) clamp(16px, 2.5vw, 24px)',
               minHeight: 'clamp(280px, 45vh, 380px)',
               textAlign: "left",
-              cursor: "pointer",
               overflow: "hidden",
               transition: "all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1)",
               display: "flex",
@@ -271,8 +269,10 @@ function Institutes({ palette, onOpen }) {
               width: '100%',
               boxSizing: 'border-box',
               WebkitTapHighlightColor: 'transparent',
-              touchAction: 'manipulation'
+              touchAction: 'manipulation',
+              cursor: 'pointer'
             }}
+            onClick={(e) => handleInstituteClick(e, activeInstitute)}
           >
             {/* Background Image */}
             <img
@@ -413,6 +413,7 @@ function Institutes({ palette, onOpen }) {
               </p>
             </div>
 
+            {/* Card Footer with Learn More */}
             <div
               className="card-footer"
               style={{
@@ -450,7 +451,25 @@ function Institutes({ palette, onOpen }) {
                   transition: "all 0.3s ease",
                   backdropFilter: "blur(4px)",
                   WebkitBackdropFilter: "blur(4px)",
-                  flexShrink: 0
+                  flexShrink: 0,
+                  cursor: 'pointer'
+                }}
+                onClick={goToNext}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.4)';
+                  e.currentTarget.style.transform = 'scale(1.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.25)';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
+                onTouchStart={(e) => {
+                  e.stopPropagation();
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.5)';
+                }}
+                onTouchEnd={(e) => {
+                  e.stopPropagation();
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.25)';
                 }}
               >
                 <Arrow size={18} />
@@ -467,54 +486,7 @@ function Institutes({ palette, onOpen }) {
                 zIndex: 3,
               }}
             />
-
-
-
-            {/* Swipe hint - Clickable right arrow */}
-            <button
-              onClick={goToNext}
-              style={{
-                position: "absolute",
-                right: 8,
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 4,
-                background: 'rgba(0,0,0,0.3)',
-                border: 'none',
-                borderRadius: '50%',
-                width: 'clamp(36px, 4vw, 44px)',
-                height: 'clamp(36px, 4vw, 44px)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                color: 'white',
-                fontSize: 'clamp(20px, 2.5vw, 28px)',
-                transition: 'all 0.3s ease',
-                backdropFilter: 'blur(4px)',
-                WebkitBackdropFilter: 'blur(4px)',
-                padding: 0
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(0,0,0,0.5)';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-              }}
-              onTouchStart={(e) => {
-                e.stopPropagation();
-                e.currentTarget.style.background = 'rgba(0,0,0,0.6)';
-              }}
-              onTouchEnd={(e) => {
-                e.stopPropagation();
-                e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
-              }}
-            >
-              ›
-            </button>
-          </button>
+          </div>
         </div>
       </div>
     );
