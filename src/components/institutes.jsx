@@ -50,10 +50,22 @@ function Institutes({ palette, onOpen }) {
   const ref = useReveal();
   const [hover, setHover] = useState(null);
   const [selectedInstitute, setSelectedInstitute] = useState(null);
-  const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
+  
+  // Initialize from sessionStorage or default to 0
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(() => {
+    const saved = sessionStorage.getItem('aq-institute-index');
+    return saved ? parseInt(saved, 10) : 0;
+  });
+  
   const [isMobile, setIsMobile] = useState(false);
   const [touchStartX, setTouchStartX] = useState(0);
   const [touchEndX, setTouchEndX] = useState(0);
+  const [returningFromDetail, setReturningFromDetail] = useState(false);
+
+  // Save index to sessionStorage whenever it changes
+  useEffect(() => {
+    sessionStorage.setItem('aq-institute-index', String(mobileActiveIndex));
+  }, [mobileActiveIndex]);
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -63,6 +75,28 @@ function Institutes({ palette, onOpen }) {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Listen for route changes to detect when returning from detail
+  useEffect(() => {
+    const handleRouteChange = (e) => {
+      // If we're coming back to institutes list from detail
+      if (e.detail === 'institutes-list' || e.detail === 'home') {
+        setReturningFromDetail(true);
+        // Restore the saved index
+        const saved = sessionStorage.getItem('aq-institute-index');
+        if (saved) {
+          const index = parseInt(saved, 10);
+          if (index >= 0 && index < items.length) {
+            setMobileActiveIndex(index);
+          }
+        }
+        setTimeout(() => setReturningFromDetail(false), 100);
+      }
+    };
+
+    window.addEventListener('aq-route', handleRouteChange);
+    return () => window.removeEventListener('aq-route', handleRouteChange);
   }, []);
 
   // Background images for all institutes
@@ -167,6 +201,8 @@ function Institutes({ palette, onOpen }) {
   const handleInstituteClick = (e, institute) => {
     e.preventDefault();
     e.stopPropagation();
+    // Save the current index before navigating to detail
+    sessionStorage.setItem('aq-institute-index', String(mobileActiveIndex));
     setSelectedInstitute(institute);
     if (onOpen) {
       onOpen('institute:' + institute.n);
@@ -175,6 +211,14 @@ function Institutes({ palette, onOpen }) {
 
   const handleCloseModal = () => {
     setSelectedInstitute(null);
+    // Restore the saved index when closing modal
+    const saved = sessionStorage.getItem('aq-institute-index');
+    if (saved) {
+      const index = parseInt(saved, 10);
+      if (index >= 0 && index < items.length) {
+        setMobileActiveIndex(index);
+      }
+    }
   };
 
   const handleImageError = (e) => {
@@ -212,12 +256,15 @@ function Institutes({ palette, onOpen }) {
   };
 
   const handleTouchEnd = () => {
-    if (touchStartX - touchEndX > 50) {
-      // Swipe left - next
-      setMobileActiveIndex((prev) => (prev + 1) % items.length);
-    } else if (touchEndX - touchStartX > 50) {
-      // Swipe right - previous
-      setMobileActiveIndex((prev) => (prev - 1 + items.length) % items.length);
+    // Only process swipe if there was actual finger movement
+    if (touchEndX !== 0) {
+      if (touchStartX - touchEndX > 50) {
+        // Swipe left - next
+        setMobileActiveIndex((prev) => (prev + 1) % items.length);
+      } else if (touchEndX - touchStartX > 50) {
+        // Swipe right - previous
+        setMobileActiveIndex((prev) => (prev - 1 + items.length) % items.length);
+      }
     }
     setTouchStartX(0);
     setTouchEndX(0);
@@ -272,7 +319,11 @@ function Institutes({ palette, onOpen }) {
               touchAction: 'manipulation',
               cursor: 'pointer'
             }}
-            onClick={(e) => handleInstituteClick(e, activeInstitute)}
+            onClick={(e) => {
+              // Get the current active institute at the time of click
+              const currentInstitute = items[mobileActiveIndex];
+              handleInstituteClick(e, currentInstitute);
+            }}
           >
             {/* Background Image */}
             <img
