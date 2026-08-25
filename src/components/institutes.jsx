@@ -1234,7 +1234,7 @@ function Institutes({ palette, onOpen }) {
           
           .modal-close:active {
             background: rgba(0,0,0,0.15) !important;
-            transform: scale(0.95);
+            transform: scale(0.90);
           }
         }
       `}</style>
