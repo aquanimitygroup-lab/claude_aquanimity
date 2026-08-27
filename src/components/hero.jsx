@@ -401,7 +401,7 @@ function Hero({ palette, onGoto }) {
           grid-template-columns: 1fr 0.5fr;
           align-items: center;
           gap: 32px;
-          padding: 72px 0 56px;
+          padding: 140px 0 60px;
         }
 
         /* LEFT */
@@ -613,36 +613,227 @@ function Hero({ palette, onGoto }) {
         }
 
         /* ===== TABLET (≤980px) ===== */
-        @media (max-width: 980px) {
-          .hero-container {
-            grid-template-columns: 1fr;
-            gap: 0;
-            padding: 80px 0;
-          }
+@media (max-width: 980px) {
+  .hero-section {
+    min-height: 100vh;
+    align-items: center;
+  }
 
-          .hero-left {
-            max-width: 100%;
-          }
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 80px 0 48px;
+    width: min(1280px, 92%);
+  }
 
-          .hero-title {
-            font-size: clamp(36px, 8vw, 64px);
-            min-height: auto;
-          }
+  .hero-left {
+    max-width: 100%;
+    padding: 0 8px;
+  }
 
-          .hero-desc {
-            font-size: 14px;
-            max-width: 100%;
-          }
+  .hero-top {
+    margin-bottom: 20px;
+  }
 
-          .metrics {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-          }
-          
-          .hero-right {
-            display: none;
-          }
-        }
+  .hero-line {
+    width: 28px;
+  }
+
+  .hero-mini {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-title {
+    font-size: clamp(40px, 7vw, 56px);
+    line-height: 1.15;
+    min-height: auto;
+    max-width: 90%;
+  }
+
+  .hero-for {
+    margin-left: 6px;
+  }
+
+  .hero-build {
+    margin-top: 20px;
+    gap: 6px;
+  }
+
+  .hero-build-label i {
+    font-size: 13px !important;
+  }
+
+  .hero-build-arrow {
+    font-size: 15px;
+  }
+
+  .hero-build-text {
+    font-size: 15px;
+    min-height: 30px;
+  }
+
+  .hero-desc {
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 90%;
+  }
+
+  .hero-buttons {
+    margin-top: 28px;
+    gap: 16px;
+  }
+
+  .btn-dark, .btn-light {
+    padding: 14px 28px;
+    font-size: 14px;
+  }
+
+  .btn-dark svg, .btn-light svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .metrics {
+    margin-top: 40px;
+    padding-top: 24px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 80%;
+  }
+
+  .metric-number {
+    font-size: 32px;
+  }
+
+  .metric p {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+  }
+  
+  .hero-right {
+    display: none;
+  }
+
+  /* Video adjustments for tablet */
+  .hero-video-background video {
+    filter: brightness(1.1) contrast(1.05) saturate(1.05);
+  }
+
+  .video-overlay {
+    background: rgba(236, 232, 223, 0.78);
+  }
+}
+
+/* ===== TABLET PORTRAIT (≤768px) ===== */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: auto;
+    align-items: flex-start;
+  }
+
+  .hero-container {
+    width: 90%;
+    padding: 60px 0 40px;
+  }
+
+  .hero-left {
+    padding: 0 4px;
+  }
+
+  .hero-top {
+    margin-bottom: 16px;
+  }
+
+  .hero-mini {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+
+  .hero-title {
+    font-size: clamp(32px, 8vw, 42px);
+    max-width: 100%;
+  }
+
+  .hero-build {
+    margin-top: 16px;
+  }
+
+  .hero-build-label i {
+    font-size: 12px !important;
+  }
+
+  .hero-build-arrow {
+    font-size: 13px;
+  }
+
+  .hero-build-text {
+    font-size: 13px;
+    min-height: 24px;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .hero-buttons {
+    margin-top: 24px;
+    gap: 12px;
+  }
+
+  .btn-dark, .btn-light {
+    padding: 12px 22px;
+    font-size: 13px;
+  }
+
+  .btn-dark svg, .btn-light svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .metrics {
+    margin-top: 32px;
+    padding-top: 20px;
+    gap: 16px;
+    max-width: 100%;
+  }
+
+  .metric-number {
+    font-size: 28px;
+  }
+
+  .metric p {
+    font-size: 8px;
+    letter-spacing: 0.25em;
+  }
+
+  .video-overlay {
+    background: rgba(236, 232, 223, 0.82);
+  }
+}
+
+/* ===== LARGE TABLET / SMALL LAPTOP (≈1024px) ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-container {
+    padding: 90px 0 56px;
+    gap: 30px;
+  }
+
+  .hero-title {
+    font-size: clamp(48px, 6vw, 64px);
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    max-width: 85%;
+  }
+
+  .metrics {
+    max-width: 70%;
+  }
+}
 
         /* ===== MOBILE (≤640px) — unchanged ===== */
         @media (max-width: 640px) {
