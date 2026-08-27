@@ -638,7 +638,7 @@ function Team({ palette, onOpen }) {
       {isAllMembers ? (
         <div 
           className="reveal"
-          style={{ overflow: 'hidden', position: 'relative', width: '100%', marginTop: '20px' }}
+          style={{ overflow: 'hidden', position: 'relative', width: '100%', marginTop: '16px' }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
@@ -680,7 +680,7 @@ function Team({ palette, onOpen }) {
       <style>{`
         /* ===== DESKTOP ===== */
         .team-section {
-          padding: 72px 0 72px;
+          padding: 38px 0 38px;
           background: var(--paper);
         }
 
@@ -695,7 +695,7 @@ function Team({ palette, onOpen }) {
           grid-template-columns: 1fr 1fr;
           gap: 56px;
           align-items: end;
-          margin-bottom: 40px;
+          margin-bottom: 32px;
         }
 
         .team-label {
@@ -729,7 +729,7 @@ function Team({ palette, onOpen }) {
           display: flex;
           flex-wrap: wrap;
           gap: 12px;
-          margin-bottom: 36px;
+          margin-bottom: 28px;
         }
 
         .team-filter-btn {
@@ -802,14 +802,14 @@ function Team({ palette, onOpen }) {
 
         .team-grid-wrap {
           max-width: 1400px;
-          margin: 20px auto 0;
+          margin: 16px auto 0;
           padding: 0 32px;
         }
 
         .team-grid {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-          gap: 32px;
+          gap: 28px;
         }
 
         .team-details-wrap {
@@ -820,8 +820,8 @@ function Team({ palette, onOpen }) {
 
         /* Member Details Inline */
         .member-details-wrapper {
-          margin-top: 48px;
-          margin-bottom: 48px;
+          margin-top: 32px;
+          margin-bottom: 32px;
           background: var(--bone);
           border-radius: 32px;
           overflow: hidden;
@@ -927,7 +927,7 @@ function Team({ palette, onOpen }) {
         /* ===== TABLET (≤980px) ===== */
         @media (max-width: 980px) {
           .team-section {
-            padding: 56px 0 56px !important;
+            padding: 40px 0 40px !important;
           }
 
           .team-wrap {
@@ -936,14 +936,14 @@ function Team({ palette, onOpen }) {
 
           .team-intro-grid {
             gap: 32px !important;
-            margin-bottom: 32px !important;
+            margin-bottom: 28px !important;
           }
         }
 
         /* ===== MOBILE (≤768px) ===== */
         @media (max-width: 768px) {
           .team-section {
-            padding: 36px 0 40px !important;
+            padding: 28px 0 32px !important;
           }
 
           .team-wrap {
@@ -954,7 +954,7 @@ function Team({ palette, onOpen }) {
             grid-template-columns: 1fr !important;
             gap: 16px !important;
             align-items: start !important;
-            margin-bottom: 24px !important;
+            margin-bottom: 20px !important;
           }
 
           .team-label {
@@ -973,7 +973,7 @@ function Team({ palette, onOpen }) {
 
           .team-filters {
             gap: 6px !important;
-            margin-bottom: 24px !important;
+            margin-bottom: 20px !important;
           }
 
           .team-filter-btn {
@@ -1015,7 +1015,7 @@ function Team({ palette, onOpen }) {
 
           .team-grid {
             grid-template-columns: repeat(2, 1fr) !important;
-            gap: 20px !important;
+            gap: 16px !important;
           }
 
           .team-details-wrap {
@@ -1023,8 +1023,8 @@ function Team({ palette, onOpen }) {
           }
 
           .member-details-wrapper {
-            margin-top: 24px !important;
-            margin-bottom: 24px !important;
+            margin-top: 20px !important;
+            margin-bottom: 20px !important;
             border-radius: 20px !important;
           }
 
@@ -1058,16 +1058,16 @@ function Team({ palette, onOpen }) {
         /* ===== SMALL MOBILE (≤480px) ===== */
         @media (max-width: 480px) {
           .team-section {
-            padding: 28px 0 32px !important;
+            padding: 24px 0 24px !important;
           }
 
           .team-intro-grid {
             gap: 12px !important;
-            margin-bottom: 20px !important;
+            margin-bottom: 16px !important;
           }
 
           .team-heading {
-            font-size: 22px !important;
+            font-size: 24px !important;
           }
 
           .team-subtitle {
@@ -1076,7 +1076,7 @@ function Team({ palette, onOpen }) {
 
           .team-filters {
             gap: 5px !important;
-            margin-bottom: 18px !important;
+            margin-bottom: 16px !important;
           }
 
           .team-filter-btn {
@@ -1107,12 +1107,12 @@ function Team({ palette, onOpen }) {
 
           .team-grid {
             grid-template-columns: repeat(2, 1fr) !important;
-            gap: 16px !important;
+            gap: 14px !important;
           }
 
           .member-details-wrapper {
-            margin-top: 20px !important;
-            margin-bottom: 20px !important;
+            margin-top: 16px !important;
+            margin-bottom: 16px !important;
             border-radius: 16px !important;
           }
 
@@ -1141,11 +1141,11 @@ function Team({ palette, onOpen }) {
         /* ===== EXTRA SMALL (≤360px) ===== */
         @media (max-width: 360px) {
           .team-section {
-            padding: 24px 0 28px !important;
+            padding: 20px 0 20px !important;
           }
 
           .team-heading {
-            font-size: 20px !important;
+            font-size: 24px !important;
           }
 
           .marquee-card {
@@ -1164,6 +1164,10 @@ function Team({ palette, onOpen }) {
           .team-filter-btn {
             padding: 5px 10px !important;
             font-size: 10px !important;
+          }
+
+          .team-grid {
+            gap: 12px !important;
           }
         }
 

@@ -79,7 +79,7 @@ function Platform({ palette, onOpen }) {
   return (
     <section ref={ref} id="platform" className="platform-section">
       <div className="platform-wrap">
-        <div className="reveal" style={{ marginBottom: 36 }}>
+        <div className="reveal" style={{ marginBottom: 28 }}>
           <div className="platform-label">§ 05 — Our BioPlatform</div>
           <div className="platform-grid">
             <div>
@@ -90,7 +90,7 @@ function Platform({ palette, onOpen }) {
                 </span>
                 <br />engine.
               </h2>
-              <div ref={typingRef} style={{ marginTop: 20, display: "flex", alignItems: "center", minHeight: "28px" }}>
+              <div ref={typingRef} style={{ marginTop: 16, display: "flex", alignItems: "center", minHeight: "28px" }}>
                 <span className="platform-typing" style={{ borderRight: isTyping ? "2px solid #1F6E7A" : "none", paddingRight: isTyping ? 4 : 0, opacity: displayText ? 1 : 0.6 }}>
                   {displayText || (isTyping ? "" : "Four Phases, One Platform — AQUANIMITY")}
                 </span>
@@ -133,10 +133,10 @@ function Platform({ palette, onOpen }) {
         .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .reveal.in { opacity: 1; transform: translateY(0); }
 
-        .platform-section { padding: 72px 0; background: var(--paper); font-family: 'Red Hat Display', sans-serif; }
+        .platform-section { padding: 28px 0 28px; background: var(--paper); font-family: 'Red Hat Display', sans-serif; }
         .platform-wrap { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
-        .platform-label { margin-bottom: 14px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
-        .platform-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: center; }
+        .platform-label { margin-bottom: 10px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+        .platform-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center; }
         .platform-heading { font-size: clamp(28px, 4vw, 56px); line-height: 1.15; letter-spacing: -0.03em; font-weight: 900; color: #0E1136; margin: 0; }
         .platform-typing { font-size: 13px; letter-spacing: 0.08em; color: var(--accent); font-weight: 500; }
         .phases-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
@@ -151,17 +151,17 @@ function Platform({ palette, onOpen }) {
         .phase-body { font-size: 11px; line-height: 1.45; margin: 0; font-weight: 400; }
 
         @media (max-width: 1200px) {
-          .platform-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+          .platform-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
           .phases-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
 
         @media (max-width: 980px) {
-          .platform-section { padding: 56px 0 !important; }
+          .platform-section { padding: 40px 0 !important; }
           .platform-wrap { padding: 0 20px !important; }
         }
 
         @media (max-width: 768px) {
-          .platform-section { padding: 36px 0 40px !important; }
+          .platform-section { padding: 28px 0 32px !important; }
           .platform-wrap { padding: 0 16px !important; }
           .platform-heading { font-size: 24px !important; }
           .platform-typing { font-size: 11px !important; }
@@ -173,8 +173,8 @@ function Platform({ palette, onOpen }) {
         }
 
         @media (max-width: 480px) {
-          .platform-section { padding: 28px 0 32px !important; }
-          .platform-heading { font-size: 22px !important; }
+          .platform-section { padding: 24px 0 24px !important; }
+          .platform-heading { font-size: 24px !important; }
           .phases-grid { gap: 8px !important; }
           .phase-card { min-height: 130px !important; padding: 12px 10px !important; border-radius: 12px !important; }
           .phase-title { font-size: 13px !important; }
@@ -182,7 +182,7 @@ function Platform({ palette, onOpen }) {
         }
 
         @media (max-width: 360px) {
-          .platform-section { padding: 24px 0 28px !important; }
+          .platform-section { padding: 20px 0 20px !important; }
           .platform-heading { font-size: 20px !important; }
           .phase-card { min-height: 120px !important; padding: 10px 8px !important; }
           .phase-title { font-size: 12px !important; }

@@ -143,7 +143,6 @@ function Hero({ palette, onGoto }) {
 
   const { displayText, showCursor } = useSlowTitleTypewriter();
 
-  // ✅ Improved video playback with seamless loop
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -347,11 +346,11 @@ function Hero({ palette, onGoto }) {
           font-family: 'Red Hat Display', 'Red Hat Display Variable', sans-serif;
         }
 
-        /* ===== FIX 1: Remove forced 100vh — let content define height ===== */
+        /* ===== DESKTOP: compact, no wasted vertical space ===== */
         .hero-section {
           position: relative;
           width: 100%;
-          min-height: 100vh;
+          min-height: auto;
           background: var(--bg);
           display: flex;
           align-items: center;
@@ -392,7 +391,7 @@ function Hero({ palette, onGoto }) {
           z-index: 1;
         }
 
-        /* MAIN CONTENT */
+        /* MAIN CONTENT — tighter desktop padding & gap */
         .hero-container {
           position: relative;
           z-index: 2;
@@ -401,8 +400,8 @@ function Hero({ palette, onGoto }) {
           display: grid;
           grid-template-columns: 1fr 0.5fr;
           align-items: center;
-          gap: 50px;
-          padding: 100px 0;
+          gap: 32px;
+          padding: 72px 0 56px;
         }
 
         /* LEFT */
@@ -414,7 +413,7 @@ function Hero({ palette, onGoto }) {
           display: flex;
           align-items: center;
           gap: 12px;
-          margin-bottom: 24px;
+          margin-bottom: 16px;
         }
 
         .hero-line {
@@ -432,15 +431,15 @@ function Hero({ palette, onGoto }) {
           text-transform: uppercase;
         }
 
-        /* ===== FIX 2: Title min-height uses auto on small screens ===== */
+        /* Title — no fixed min-height on desktop */
         .hero-title {
           font-size: clamp(40px, 6vw, 72px);
-          line-height: 1.2;
+          line-height: 1.15;
           letter-spacing: -0.03em;
           color: var(--text);
           margin: 0;
           font-weight: 600;
-          min-height: 160px;
+          min-height: auto;
           position: relative;
           white-space: pre-wrap;
         }
@@ -475,7 +474,7 @@ function Hero({ palette, onGoto }) {
         }
 
         .hero-build {
-          margin-top: 24px;
+          margin-top: 14px;
           display: flex;
           align-items: center;
           gap: 5px;
@@ -487,7 +486,7 @@ function Hero({ palette, onGoto }) {
           color: var(--text);
           font-weight: 500;
           line-height: 1.4;
-          margin: 0 0px;
+          margin: 0;
           display: inline-flex;
           align-items: center;
         }
@@ -496,7 +495,7 @@ function Hero({ palette, onGoto }) {
           font-size: 16px;
           color: #0E1136;
           font-weight: 500;
-          min-height: 32px;
+          min-height: 28px;
           line-height: 1.4;
           display: inline-flex;
           align-items: center;
@@ -513,7 +512,7 @@ function Hero({ palette, onGoto }) {
         }
 
         .hero-desc {
-          margin-top: 20px;
+          margin-top: 14px;
           font-size: 15px;
           line-height: 1.5;
           color: #0E1136;
@@ -526,7 +525,7 @@ function Hero({ palette, onGoto }) {
         }
 
         .hero-buttons {
-          margin-top: 32px;
+          margin-top: 22px;
           display: flex;
           gap: 14px;
           flex-wrap: wrap;
@@ -572,10 +571,9 @@ function Hero({ palette, onGoto }) {
           border-color: rgba(7,21,43,0.4);
         }
 
-        /* ===== FIX 3: Metrics grid — only 2 items, so use repeat(2) ===== */
         .metrics {
-          margin-top: 48px;
-          padding-top: 24px;
+          margin-top: 28px;
+          padding-top: 18px;
           border-top: 1px solid var(--line);
           display: grid;
           grid-template-columns: repeat(2, 1fr);
@@ -641,16 +639,14 @@ function Hero({ palette, onGoto }) {
             gap: 20px;
           }
           
-          /* ===== FIX 4: Fully remove the empty right column ===== */
           .hero-right {
             display: none;
           }
         }
 
-        /* ===== MOBILE (≤640px) — all blank-space fixes ===== */
+        /* ===== MOBILE (≤640px) — unchanged ===== */
         @media (max-width: 640px) {
 
-          /* FIX 5: Don't force full viewport height on short phones */
           .hero-section {
             min-height: auto;
             align-items: flex-start;
@@ -666,7 +662,6 @@ function Hero({ palette, onGoto }) {
             margin-bottom: 16px;
           }
 
-          /* FIX 6: Remove fixed min-height that creates blank gaps */
           .hero-title {
             font-size: clamp(32px, 9vw, 44px);
             line-height: 1.15;
@@ -729,7 +724,7 @@ function Hero({ palette, onGoto }) {
           }
         }
 
-        /* ===== VERY SMALL PHONES (≤380px) ===== */
+        /* ===== VERY SMALL PHONES (≤380px) — unchanged ===== */
         @media (max-width: 380px) {
           .hero-container {
             width: 90%;

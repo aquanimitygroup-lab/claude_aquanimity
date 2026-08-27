@@ -226,12 +226,13 @@ function Ventures({ palette, onOpen }) {
           transform: translateY(0);
         }
 
-        /* ===== DESKTOP ===== */
+        /* ===== DESKTOP — compact spacing ===== */
         .ventures-section {
-          padding: 80px 0 88px;
+          padding: 48px 0 52px;
           background: #0E1136;
           color: var(--paper);
           font-family: 'Red Hat Display', 'Red Hat Display Variable', sans-serif;
+          overflow: visible;
         }
 
         .ventures-wrap {
@@ -245,12 +246,12 @@ function Ventures({ palette, onOpen }) {
           align-items: flex-end;
           justify-content: space-between;
           flex-wrap: wrap;
-          gap: 24px;
-          margin-bottom: 36px;
+          gap: 16px;
+          margin-bottom: 24px;
         }
 
         .ventures-label {
-          margin-bottom: 14px;
+          margin-bottom: 10px;
           font-size: 11px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
@@ -273,7 +274,7 @@ function Ventures({ palette, onOpen }) {
         .ventures-nav {
           display: flex;
           gap: 8px;
-          margin-bottom: 32px;
+          margin-bottom: 20px;
           flex-wrap: wrap;
         }
 
@@ -298,12 +299,12 @@ function Ventures({ palette, onOpen }) {
 
         .venture-card {
           position: relative;
-          border-radius: 24px;
+          border-radius: 20px;
           overflow: hidden;
-          min-height: 420px;
+          min-height: 400px;
           display: flex;
           align-items: center;
-          padding: 48px;
+          padding: 36px 40px;
           background: linear-gradient(135deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.5) 40%, rgba(10,10,10,0.7) 100%);
           transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
           box-shadow: 0 20px 60px rgba(0,0,0,0.5);
@@ -331,7 +332,7 @@ function Ventures({ palette, onOpen }) {
           position: absolute;
           top: 0; left: 0; right: 0; bottom: 0;
           border: 1px solid rgba(255,255,255,0.06);
-          border-radius: 24px;
+          border-radius: 20px;
           z-index: 3;
           pointer-events: none;
         }
@@ -349,7 +350,7 @@ function Ventures({ palette, onOpen }) {
           letter-spacing: 0.2em;
           text-transform: uppercase;
           color: var(--accent-2);
-          margin-bottom: 16px;
+          margin-bottom: 12px;
           font-weight: 600;
           font-family: 'Red Hat Display', sans-serif;
           background: rgba(0,0,0,0.3);
@@ -359,19 +360,19 @@ function Ventures({ palette, onOpen }) {
         }
 
         .venture-title {
-          font-size: clamp(36px, 4.5vw, 52px);
+          font-size: clamp(36px, 4.5vw, 48px);
           font-weight: 700;
           letter-spacing: -0.03em;
           color: var(--paper);
-          margin: 0 0 16px 0;
+          margin: 0 0 12px 0;
           line-height: 1.08;
           font-family: 'Red Hat Display', sans-serif;
           text-shadow: 0 2px 30px rgba(0,0,0,0.3);
         }
 
         .venture-blurb {
-          font-size: 16px;
-          line-height: 1.65;
+          font-size: 15px;
+          line-height: 1.6;
           color: rgba(255,255,255,0.85);
           margin: 0;
           max-width: 90%;
@@ -384,9 +385,9 @@ function Ventures({ palette, onOpen }) {
 
         .venture-deco-number {
           position: absolute;
-          right: 50px;
-          bottom: 36px;
-          font-size: 80px;
+          right: 40px;
+          bottom: 28px;
+          font-size: 72px;
           font-weight: 900;
           color: rgba(255,255,255,0.04);
           font-family: 'Red Hat Display', sans-serif;
@@ -543,7 +544,7 @@ function Ventures({ palette, onOpen }) {
           }
 
           .venture-title {
-            font-size: 22px !important;
+            font-size: 24px !important;
             margin-bottom: 8px !important;
           }
 
@@ -559,7 +560,7 @@ function Ventures({ palette, onOpen }) {
           }
 
           .ventures-heading {
-            font-size: 22px !important;
+            font-size: 24px !important;
           }
         }
 

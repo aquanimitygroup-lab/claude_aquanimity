@@ -100,7 +100,7 @@ function Partners({ palette, onOpen }) {
       </div>
 
       <div ref={containerRef} className="reveal" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
-        style={{ overflow: 'hidden', position: 'relative', marginTop: 16, width: '100%' }}>
+        style={{ overflow: 'hidden', position: 'relative', marginTop: 12, width: '100%' }}>
         <div ref={trackRef} className="partner-track">
           {items.map((p, i) => (
             <div key={i} onClick={() => handlePartnerClick(p)} className="partner-card"
@@ -118,7 +118,7 @@ function Partners({ palette, onOpen }) {
         <div style={{ position: 'absolute', top: 0, right: 0, width: 80, height: '100%', background: 'linear-gradient(270deg, #ece8df, transparent)', pointerEvents: 'none', zIndex: 2 }} />
       </div>
 
-      <div className="partners-wrap" style={{ marginTop: 36 }}>
+      <div className="partners-wrap" style={{ marginTop: 28 }}>
         <div className="reveal stats-grid">
           {statsData.map((stat, index) => (
             <div key={index} className="stat-card">
@@ -137,14 +137,14 @@ function Partners({ palette, onOpen }) {
         .reveal.in { opacity: 1; transform: translateY(0); }
 
         .partners-section {
-          padding: 72px 0 72px;
+          padding: 38px 0 38px;
           background: #ece8df;
           overflow: hidden;
           font-family: 'Red Hat Display', sans-serif;
         }
         .partners-wrap { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
-        .partners-header { margin-bottom: 28px; }
-        .partners-label { margin-bottom: 14px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #1F6E7A; font-weight: 600; }
+        .partners-header { margin-bottom: 20px; }
+        .partners-label { margin-bottom: 10px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #1F6E7A; font-weight: 600; }
         .partners-heading { font-size: clamp(24px, 4.4vw, 52px); line-height: 1.05; letter-spacing: -0.02em; max-width: 720px; font-weight: 900; color: #0E1136; margin: 0; }
 
         .partner-track { display: flex; gap: 24px; will-change: transform; width: max-content; }
@@ -171,16 +171,16 @@ function Partners({ palette, onOpen }) {
         .stat-deco { position: absolute; bottom: -16px; right: -16px; font-size: 80px; font-weight: 900; color: rgba(31,110,122,0.03); pointer-events: none; user-select: none; line-height: 1; }
 
         @media (max-width: 980px) {
-          .partners-section { padding: 56px 0 56px !important; }
+          .partners-section { padding: 40px 0 40px !important; }
           .partners-wrap { padding: 0 20px !important; }
         }
 
         @media (max-width: 768px) {
-          .partners-section { padding: 36px 0 40px !important; }
+          .partners-section { padding: 28px 0 32px !important; }
           .partners-wrap { padding: 0 16px !important; }
-          .partners-header { margin-bottom: 20px !important; }
-          .partners-label { font-size: 10px !important; margin-bottom: 10px !important; }
-          .partners-heading { font-size: 22px !important; }
+          .partners-header { margin-bottom: 16px !important; }
+          .partners-label { font-size: 10px !important; margin-bottom: 8px !important; }
+          .partners-heading { font-size: 24px !important; }
           .partner-card { width: 160px !important; height: 100px !important; border-radius: 12px !important; }
           .partner-card img { padding: 10px !important; }
           .partner-track { gap: 14px !important; }
@@ -193,7 +193,7 @@ function Partners({ palette, onOpen }) {
         }
 
         @media (max-width: 480px) {
-          .partners-section { padding: 28px 0 32px !important; }
+          .partners-section { padding: 24px 0 24px !important; }
           .partner-card { width: 140px !important; height: 90px !important; border-radius: 10px !important; }
           .partner-card img { padding: 8px !important; }
           .partner-track { gap: 10px !important; }
@@ -206,7 +206,7 @@ function Partners({ palette, onOpen }) {
         }
 
         @media (max-width: 360px) {
-          .partners-section { padding: 24px 0 28px !important; }
+          .partners-section { padding: 20px 0 20px !important; }
           .partner-card { width: 120px !important; height: 80px !important; }
           .stat-value { font-size: 18px !important; }
           .stat-label { font-size: 6.5px !important; }
