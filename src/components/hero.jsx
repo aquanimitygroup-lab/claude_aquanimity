@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 // Arrow icon component (built-in)
 const Arrow = ({ size = 16 }) => (
@@ -86,7 +86,7 @@ const useTypewriter = (phrases, options = {}) => {
   return displayText;
 };
 
-// Slow Title Typewriter hook for "Engineering\nlife. For humanity." - WITHOUT BLINKING CURSOR
+// Slow Title Typewriter hook
 const useSlowTitleTypewriter = () => {
   const fullText = "Engineering\nlife. For humanity.";
   const [displayText, setDisplayText] = useState("");
@@ -125,6 +125,7 @@ function Hero({ palette, onGoto }) {
   const ref = useReveal();
   const videoRef = useRef(null);
   const [isVideoReady, setIsVideoReady] = useState(false);
+  const playAttemptCount = useRef(0);
 
   const phrases = [
     "Health Sciences",
@@ -143,36 +144,119 @@ function Hero({ palette, onGoto }) {
 
   const { displayText, showCursor } = useSlowTitleTypewriter();
 
+  // ────────────────────────────────────────────────────────
+  //  FIX 1: Robust play() with retry — handles iOS Safari
+  //  iOS blocks autoplay silently; this retries up to 5×
+  // ────────────────────────────────────────────────────────
+  const attemptPlay = useCallback(() => {
+    const video = videoRef.current;
+    if (!video || playAttemptCount.current >= 5) return;
+    playAttemptCount.current += 1;
+
+    // iOS needs BOTH the JS property AND the HTML attribute set to true
+    video.muted = true;
+    video.setAttribute('muted', '');
+
+    const promise = video.play();
+    if (promise !== undefined) {
+      promise
+        .then(() => {
+          setIsVideoReady(true);
+        })
+        .catch(() => {
+          // Retry after a delay — iOS often succeeds on 2nd/3rd attempt
+          setTimeout(() => attemptPlay(), 800);
+        });
+    }
+  }, []);
+
+  // ────────────────────────────────────────────────────────
+  //  FIX 2: Use loadeddata instead of canplay
+  //  canplay fires unreliably on iOS Safari; loadeddata
+  //  fires once the first frame is decoded — much safer
+  // ────────────────────────────────────────────────────────
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const handleTimeUpdate = () => {
-      if (video.duration - video.currentTime < 0.15) {
+    const onLoadedData = () => {
+      attemptPlay();
+    };
+
+    const onTimeUpdate = () => {
+      if (video.duration && video.duration - video.currentTime < 0.15) {
         video.currentTime = 0;
       }
     };
 
-    const handleCanPlay = () => {
-      setIsVideoReady(true);
-      video.play().catch(e => console.log("Video autoplay failed:", e));
-    };
-
-    const handleEnded = () => {
+    const onEnded = () => {
       video.currentTime = 0;
-      video.play().catch(e => console.log("Video replay failed:", e));
+      video.play().catch(() => {});
     };
 
-    video.addEventListener('canplay', handleCanPlay);
-    video.addEventListener('timeupdate', handleTimeUpdate);
-    video.addEventListener('ended', handleEnded);
+    // FIX 3: Recover from stall / buffering on slow mobile data
+    const onStalled = () => {
+      setTimeout(() => {
+        if (video && video.paused && video.readyState >= 2) {
+          video.play().catch(() => {});
+        }
+      }, 1000);
+    };
 
-    video.play().catch(e => console.log("Video autoplay failed:", e));
+    const onWaiting = () => {
+      setTimeout(() => {
+        if (video && video.paused && video.readyState >= 2) {
+          video.play().catch(() => {});
+        }
+      }, 1500);
+    };
+
+    video.addEventListener('loadeddata', onLoadedData);
+    video.addEventListener('timeupdate', onTimeUpdate);
+    video.addEventListener('ended', onEnded);
+    video.addEventListener('stalled', onStalled);
+    video.addEventListener('waiting', onWaiting);
+
+    // If the video is already cached / ready
+    if (video.readyState >= 2) {
+      attemptPlay();
+    }
 
     return () => {
-      video.removeEventListener('canplay', handleCanPlay);
-      video.removeEventListener('timeupdate', handleTimeUpdate);
-      video.removeEventListener('ended', handleEnded);
+      video.removeEventListener('loadeddata', onLoadedData);
+      video.removeEventListener('timeupdate', onTimeUpdate);
+      video.removeEventListener('ended', onEnded);
+      video.removeEventListener('stalled', onStalled);
+      video.removeEventListener('waiting', onWaiting);
+    };
+  }, [attemptPlay]);
+
+  // ────────────────────────────────────────────────────────
+  //  FIX 4: Capture first user gesture to unlock autoplay
+  //  iOS won't autoplay until the user touches / taps /
+  //  scrolls the page at least once. We listen for that
+  //  first interaction and kick the video.
+  // ────────────────────────────────────────────────────────
+  useEffect(() => {
+    const unlock = () => {
+      const video = videoRef.current;
+      if (video && video.paused) {
+        video.muted = true;
+        video.play()
+          .then(() => setIsVideoReady(true))
+          .catch(() => {});
+      }
+    };
+
+    // { once: true } — fires only on the very first interaction
+    document.addEventListener('touchstart', unlock, { once: true, passive: true });
+    document.addEventListener('click', unlock, { once: true });
+    document.addEventListener('scroll', unlock, { once: true, passive: true });
+
+    return () => {
+      document.removeEventListener('touchstart', unlock);
+      document.removeEventListener('click', unlock);
+      document.removeEventListener('scroll', unlock);
     };
   }, []);
 
@@ -237,16 +321,33 @@ function Hero({ palette, onGoto }) {
 
       {/* VIDEO BACKGROUND */}
       <div className="hero-video-background">
+        {/*
+          FIX 5: Added attributes for iOS / Android WebView:
+            - webkit-playsinline  → older iOS inline playback
+            - x5-playsinline      → Android WebView (WeChat etc.)
+            - x5-video-player-type="h5" → prevents native player takeover
+          
+          FIX 6: preload="metadata" instead of "auto"
+            - "auto" downloads the entire file upfront (slow on mobile)
+            - "metadata" only grabs dimensions + duration, then streams
+        */}
         <video 
           ref={videoRef}
           autoPlay 
           loop 
           muted 
           playsInline
-          preload="auto"
+          webkit-playsinline=""
+          x5-playsinline=""
+          x5-video-player-type="h5"
+          preload="metadata"
           style={{
-            opacity: isVideoReady ? 1 : 0.5,
-            transition: 'opacity 0.5s ease'
+            /*
+              FIX 7: Start at opacity 0, fade to 1 when ready.
+              Original used 0.5 which showed a half-visible frozen frame.
+            */
+            opacity: isVideoReady ? 1 : 0,
+            transition: 'opacity 0.6s ease'
           }}
         >
           <source 
@@ -346,7 +447,6 @@ function Hero({ palette, onGoto }) {
           font-family: 'Red Hat Display', 'Red Hat Display Variable', sans-serif;
         }
 
-        /* ===== DESKTOP: compact, no wasted vertical space ===== */
         .hero-section {
           position: relative;
           width: 100%;
@@ -366,6 +466,12 @@ function Hero({ palette, onGoto }) {
           height: 100%;
           z-index: 0;
           overflow: hidden;
+          /*
+            FIX 8: Match the site bg color so while the video
+            is loading (opacity 0), the user sees the normal
+            cream background through the overlay — no black flash.
+          */
+          background: var(--bg);
         }
 
         .hero-video-background video {
@@ -391,7 +497,7 @@ function Hero({ palette, onGoto }) {
           z-index: 1;
         }
 
-        /* MAIN CONTENT — tighter desktop padding & gap */
+        /* MAIN CONTENT */
         .hero-container {
           position: relative;
           z-index: 2;
@@ -404,7 +510,6 @@ function Hero({ palette, onGoto }) {
           padding: 140px 0 60px;
         }
 
-        /* LEFT */
         .hero-left {
           max-width: 620px;
         }
@@ -431,7 +536,6 @@ function Hero({ palette, onGoto }) {
           text-transform: uppercase;
         }
 
-        /* Title — no fixed min-height on desktop */
         .hero-title {
           font-size: clamp(40px, 6vw, 72px);
           line-height: 1.15;
@@ -613,229 +717,228 @@ function Hero({ palette, onGoto }) {
         }
 
         /* ===== TABLET (≤980px) ===== */
-@media (max-width: 980px) {
-  .hero-section {
-    min-height: 100vh;
-    align-items: center;
-  }
+        @media (max-width: 980px) {
+          .hero-section {
+            min-height: 100vh;
+            align-items: center;
+          }
 
-  .hero-container {
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding: 80px 0 48px;
-    width: min(1280px, 92%);
-  }
+          .hero-container {
+            grid-template-columns: 1fr;
+            gap: 0;
+            padding: 80px 0 48px;
+            width: min(1280px, 92%);
+          }
 
-  .hero-left {
-    max-width: 100%;
-    padding: 0 8px;
-  }
+          .hero-left {
+            max-width: 100%;
+            padding: 0 8px;
+          }
 
-  .hero-top {
-    margin-bottom: 20px;
-  }
+          .hero-top {
+            margin-bottom: 20px;
+          }
 
-  .hero-line {
-    width: 28px;
-  }
+          .hero-line {
+            width: 28px;
+          }
 
-  .hero-mini {
-    font-size: 11px;
-    letter-spacing: 0.08em;
-  }
+          .hero-mini {
+            font-size: 11px;
+            letter-spacing: 0.08em;
+          }
 
-  .hero-title {
-    font-size: clamp(40px, 7vw, 56px);
-    line-height: 1.15;
-    min-height: auto;
-    max-width: 90%;
-  }
+          .hero-title {
+            font-size: clamp(40px, 7vw, 56px);
+            line-height: 1.15;
+            min-height: auto;
+            max-width: 90%;
+          }
 
-  .hero-for {
-    margin-left: 6px;
-  }
+          .hero-for {
+            margin-left: 6px;
+          }
 
-  .hero-build {
-    margin-top: 20px;
-    gap: 6px;
-  }
+          .hero-build {
+            margin-top: 20px;
+            gap: 6px;
+          }
 
-  .hero-build-label i {
-    font-size: 13px !important;
-  }
+          .hero-build-label i {
+            font-size: 13px !important;
+          }
 
-  .hero-build-arrow {
-    font-size: 15px;
-  }
+          .hero-build-arrow {
+            font-size: 15px;
+          }
 
-  .hero-build-text {
-    font-size: 15px;
-    min-height: 30px;
-  }
+          .hero-build-text {
+            font-size: 15px;
+            min-height: 30px;
+          }
 
-  .hero-desc {
-    margin-top: 18px;
-    font-size: 15px;
-    line-height: 1.6;
-    max-width: 90%;
-  }
+          .hero-desc {
+            margin-top: 18px;
+            font-size: 15px;
+            line-height: 1.6;
+            max-width: 90%;
+          }
 
-  .hero-buttons {
-    margin-top: 28px;
-    gap: 16px;
-  }
+          .hero-buttons {
+            margin-top: 28px;
+            gap: 16px;
+          }
 
-  .btn-dark, .btn-light {
-    padding: 14px 28px;
-    font-size: 14px;
-  }
+          .btn-dark, .btn-light {
+            padding: 14px 28px;
+            font-size: 14px;
+          }
 
-  .btn-dark svg, .btn-light svg {
-    width: 14px;
-    height: 14px;
-  }
+          .btn-dark svg, .btn-light svg {
+            width: 14px;
+            height: 14px;
+          }
 
-  .metrics {
-    margin-top: 40px;
-    padding-top: 24px;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    max-width: 80%;
-  }
+          .metrics {
+            margin-top: 40px;
+            padding-top: 24px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 80%;
+          }
 
-  .metric-number {
-    font-size: 32px;
-  }
+          .metric-number {
+            font-size: 32px;
+          }
 
-  .metric p {
-    font-size: 9px;
-    letter-spacing: 0.3em;
-  }
-  
-  .hero-right {
-    display: none;
-  }
+          .metric p {
+            font-size: 9px;
+            letter-spacing: 0.3em;
+          }
+          
+          .hero-right {
+            display: none;
+          }
 
-  /* Video adjustments for tablet */
-  .hero-video-background video {
-    filter: brightness(1.1) contrast(1.05) saturate(1.05);
-  }
+          .hero-video-background video {
+            filter: brightness(1.1) contrast(1.05) saturate(1.05);
+          }
 
-  .video-overlay {
-    background: rgba(236, 232, 223, 0.78);
-  }
-}
+          .video-overlay {
+            background: rgba(236, 232, 223, 0.78);
+          }
+        }
 
-/* ===== TABLET PORTRAIT (≤768px) ===== */
-@media (max-width: 768px) {
-  .hero-section {
-    min-height: auto;
-    align-items: flex-start;
-  }
+        /* ===== TABLET PORTRAIT (≤768px) ===== */
+        @media (max-width: 768px) {
+          .hero-section {
+            min-height: auto;
+            align-items: flex-start;
+          }
 
-  .hero-container {
-    width: 90%;
-    padding: 60px 0 40px;
-  }
+          .hero-container {
+            width: 90%;
+            padding: 60px 0 40px;
+          }
 
-  .hero-left {
-    padding: 0 4px;
-  }
+          .hero-left {
+            padding: 0 4px;
+          }
 
-  .hero-top {
-    margin-bottom: 16px;
-  }
+          .hero-top {
+            margin-bottom: 16px;
+          }
 
-  .hero-mini {
-    font-size: 10px;
-    letter-spacing: 0.06em;
-  }
+          .hero-mini {
+            font-size: 10px;
+            letter-spacing: 0.06em;
+          }
 
-  .hero-title {
-    font-size: clamp(32px, 8vw, 42px);
-    max-width: 100%;
-  }
+          .hero-title {
+            font-size: clamp(32px, 8vw, 42px);
+            max-width: 100%;
+          }
 
-  .hero-build {
-    margin-top: 16px;
-  }
+          .hero-build {
+            margin-top: 16px;
+          }
 
-  .hero-build-label i {
-    font-size: 12px !important;
-  }
+          .hero-build-label i {
+            font-size: 12px !important;
+          }
 
-  .hero-build-arrow {
-    font-size: 13px;
-  }
+          .hero-build-arrow {
+            font-size: 13px;
+          }
 
-  .hero-build-text {
-    font-size: 13px;
-    min-height: 24px;
-  }
+          .hero-build-text {
+            font-size: 13px;
+            min-height: 24px;
+          }
 
-  .hero-desc {
-    font-size: 14px;
-    max-width: 100%;
-  }
+          .hero-desc {
+            font-size: 14px;
+            max-width: 100%;
+          }
 
-  .hero-buttons {
-    margin-top: 24px;
-    gap: 12px;
-  }
+          .hero-buttons {
+            margin-top: 24px;
+            gap: 12px;
+          }
 
-  .btn-dark, .btn-light {
-    padding: 12px 22px;
-    font-size: 13px;
-  }
+          .btn-dark, .btn-light {
+            padding: 12px 22px;
+            font-size: 13px;
+          }
 
-  .btn-dark svg, .btn-light svg {
-    width: 13px;
-    height: 13px;
-  }
+          .btn-dark svg, .btn-light svg {
+            width: 13px;
+            height: 13px;
+          }
 
-  .metrics {
-    margin-top: 32px;
-    padding-top: 20px;
-    gap: 16px;
-    max-width: 100%;
-  }
+          .metrics {
+            margin-top: 32px;
+            padding-top: 20px;
+            gap: 16px;
+            max-width: 100%;
+          }
 
-  .metric-number {
-    font-size: 28px;
-  }
+          .metric-number {
+            font-size: 28px;
+          }
 
-  .metric p {
-    font-size: 8px;
-    letter-spacing: 0.25em;
-  }
+          .metric p {
+            font-size: 8px;
+            letter-spacing: 0.25em;
+          }
 
-  .video-overlay {
-    background: rgba(236, 232, 223, 0.82);
-  }
-}
+          .video-overlay {
+            background: rgba(236, 232, 223, 0.82);
+          }
+        }
 
-/* ===== LARGE TABLET / SMALL LAPTOP (≈1024px) ===== */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .hero-container {
-    padding: 90px 0 56px;
-    gap: 30px;
-  }
+        /* ===== LARGE TABLET / SMALL LAPTOP (≈1024px) ===== */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .hero-container {
+            padding: 90px 0 56px;
+            gap: 30px;
+          }
 
-  .hero-title {
-    font-size: clamp(48px, 6vw, 64px);
-  }
+          .hero-title {
+            font-size: clamp(48px, 6vw, 64px);
+          }
 
-  .hero-desc {
-    font-size: 16px;
-    max-width: 85%;
-  }
+          .hero-desc {
+            font-size: 16px;
+            max-width: 85%;
+          }
 
-  .metrics {
-    max-width: 70%;
-  }
-}
+          .metrics {
+            max-width: 70%;
+          }
+        }
 
-        /* ===== MOBILE (≤640px) — unchanged ===== */
+        /* ===== MOBILE (≤640px) ===== */
         @media (max-width: 640px) {
 
           .hero-section {
@@ -915,7 +1018,7 @@ function Hero({ palette, onGoto }) {
           }
         }
 
-        /* ===== VERY SMALL PHONES (≤380px) — unchanged ===== */
+        /* ===== VERY SMALL PHONES (≤380px) ===== */
         @media (max-width: 380px) {
           .hero-container {
             width: 90%;
