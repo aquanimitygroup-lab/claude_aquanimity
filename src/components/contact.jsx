@@ -316,7 +316,7 @@ function Contact({ palette, onOpen }) {
           }
 
           .contact-heading {
-            font-size: 28px !important;
+            font-size: 38.7px !important;
             margin-bottom: 16px !important;
           }
 
@@ -373,7 +373,7 @@ function Contact({ palette, onOpen }) {
           }
 
           .contact-heading {
-            font-size: 24px !important;
+            font-size: 38.7px !important;
             margin-bottom: 12px !important;
           }
 
@@ -418,7 +418,7 @@ function Contact({ palette, onOpen }) {
           }
 
           .contact-heading {
-            font-size: 22px !important;
+            font-size: 38.7px !important;
           }
 
           .contact-form-card {

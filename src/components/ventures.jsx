@@ -508,7 +508,7 @@ function Ventures({ palette, onOpen }) {
           }
 
           .ventures-heading {
-            font-size: 24px !important;
+            font-size: 38.7px !important;
           }
         }
 
@@ -560,7 +560,7 @@ function Ventures({ palette, onOpen }) {
           }
 
           .ventures-heading {
-            font-size: 24px !important;
+            font-size: 38.7px !important;
           }
         }
 

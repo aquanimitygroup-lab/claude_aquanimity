@@ -174,7 +174,7 @@ function Platform({ palette, onOpen }) {
 
         @media (max-width: 480px) {
           .platform-section { padding: 24px 0 24px !important; }
-          .platform-heading { font-size: 24px !important; }
+          .platform-heading { font-size: 38.7px !important; }
           .phases-grid { gap: 8px !important; }
           .phase-card { min-height: 130px !important; padding: 12px 10px !important; border-radius: 12px !important; }
           .phase-title { font-size: 13px !important; }

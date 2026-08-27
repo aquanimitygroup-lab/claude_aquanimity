@@ -963,7 +963,7 @@ function Team({ palette, onOpen }) {
           }
 
           .team-heading {
-            font-size: 24px !important;
+            font-size: 38.7px !important;
           }
 
           .team-subtitle {
@@ -1067,7 +1067,7 @@ function Team({ palette, onOpen }) {
           }
 
           .team-heading {
-            font-size: 24px !important;
+            font-size: 38.7px !important;
           }
 
           .team-subtitle {
@@ -1145,7 +1145,7 @@ function Team({ palette, onOpen }) {
           }
 
           .team-heading {
-            font-size: 24px !important;
+            font-size: 38.7px !important;
           }
 
           .marquee-card {

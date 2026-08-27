@@ -180,7 +180,7 @@ function Partners({ palette, onOpen }) {
           .partners-wrap { padding: 0 16px !important; }
           .partners-header { margin-bottom: 16px !important; }
           .partners-label { font-size: 10px !important; margin-bottom: 8px !important; }
-          .partners-heading { font-size: 24px !important; }
+          .partners-heading { font-size: 38.7px !important; }
           .partner-card { width: 160px !important; height: 100px !important; border-radius: 12px !important; }
           .partner-card img { padding: 10px !important; }
           .partner-track { gap: 14px !important; }
@@ -188,7 +188,7 @@ function Partners({ palette, onOpen }) {
           .stat-card { padding: 16px 12px !important; border-radius: 14px !important; }
           .stat-icon { font-size: 20px !important; margin-bottom: 6px !important; }
           .stat-value { font-size: 24px !important; }
-          .stat-label { font-size: 8px !important; letter-spacing: 0.03em !important; }
+          .stat-label { font-size: 10px !important; letter-spacing: 0.03em !important; }
           .stat-deco { font-size: 50px !important; bottom: -10px !important; right: -10px !important; }
         }
 
@@ -200,15 +200,15 @@ function Partners({ palette, onOpen }) {
           .stats-grid { gap: 8px !important; }
           .stat-card { padding: 12px 10px !important; border-radius: 12px !important; }
           .stat-icon { font-size: 18px !important; margin-bottom: 4px !important; }
-          .stat-value { font-size: 20px !important; }
-          .stat-label { font-size: 7px !important; }
+          .stat-value { font-size: 27px !important; }
+          .stat-label { font-size: 10px !important; }
           .stat-deco { font-size: 40px !important; }
         }
 
         @media (max-width: 360px) {
           .partners-section { padding: 20px 0 20px !important; }
           .partner-card { width: 120px !important; height: 80px !important; }
-          .stat-value { font-size: 18px !important; }
+          .stat-value { font-size: 27px !important; }
           .stat-label { font-size: 6.5px !important; }
           .stat-icon { font-size: 16px !important; }
         }

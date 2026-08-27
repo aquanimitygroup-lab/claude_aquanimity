@@ -289,7 +289,7 @@ function Institutes({ palette, onOpen }) {
               <div className="label" style={{ marginBottom: 14, fontSize: 'clamp(10px, 1.2vw, 11px)', letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--accent, #1F6E7A)", fontFamily: "'Red Hat Display', sans-serif", fontWeight: 600 }}>
                 § 01 — Our Institutes
               </div>
-              <h2 className="institutes-title" style={{ fontSize: 'clamp(24px, 4.5vw, 56px)', lineHeight: 1.08, letterSpacing: '-0.025em', maxWidth: 700, fontWeight: 900, margin: 0, color: "#000000", fontFamily: "'Red Hat Display', sans-serif" }}>
+              <h2 className="institutes-title" style={{ fontSize: '38.7px', lineHeight: 1.08, letterSpacing: '-0.025em', maxWidth: 700, fontWeight: 900, margin: 0, color: "#000000", fontFamily: "'Red Hat Display', sans-serif" }}>
                 <span style={{ fontWeight: 900, color: "#0E1136" }}>Four</span>{" "}
                 <span className="serif" style={{ fontStyle: 'italic', color: 'var(--accent, #1F6E7A)', fontWeight: 400, fontFamily: "'Times New Roman', Georgia, serif" }}>cross-disciplinary</span>{" "}
                 <span style={{ fontWeight: 900, color: "#181A43" }}>institutes.</span>

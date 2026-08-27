@@ -141,7 +141,7 @@ function FooterCTA({ palette, onOpen }) {
         @media (max-width: 768px) {
           .contact-section { padding: 36px 0 0 !important; }
           .contact-wrap { padding: 0 16px !important; }
-          .contact-heading { font-size: 28px !important; }
+          .contact-heading { font-size: 38.7px !important; }
           .contact-desc { font-size: 14px !important; margin-top: 16px !important; max-width: 100% !important; }
           .contact-label { font-size: 10px !important; margin-bottom: 10px !important; }
           .contact-form { padding: 24px 18px !important; border-radius: 20px !important; }
@@ -152,7 +152,7 @@ function FooterCTA({ palette, onOpen }) {
 
         @media (max-width: 480px) {
           .contact-section { padding: 28px 0 0 !important; }
-          .contact-heading { font-size: 24px !important; }
+          .contact-heading { font-size: 38.7px !important; }
           .contact-desc { font-size: 13px !important; }
           .contact-form { padding: 20px 14px !important; border-radius: 18px !important; }
           .tag-chip { padding: 5px 10px !important; font-size: 10px !important; }
