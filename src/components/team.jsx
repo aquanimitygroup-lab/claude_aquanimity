@@ -92,10 +92,15 @@ const MemberDetailsInline = ({ member, onClose }) => {
   const handleClose = () => {
     onClose();
     setTimeout(() => {
+      const filters = document.querySelector('.team-filters');
+      if (filters) {
+        const y = filters.getBoundingClientRect().top + window.pageYOffset - 100;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        return;
+      }
       const teamSection = document.getElementById('team');
       if (teamSection) {
-        const yOffset = -80;
-        const y = teamSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        const y = teamSection.getBoundingClientRect().top + window.pageYOffset - 80;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
     }, 100);
@@ -211,16 +216,19 @@ function Team({ palette, onOpen }) {
           }
         });
       },
-      { threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px -20px 0px' }
     );
 
-    // Small delay to let React finish rendering new elements
-    const timer = setTimeout(() => {
+    // Observe immediately + with a small delay for dynamically rendered elements
+    const observeReveals = () => {
       if (ref.current) {
         const reveals = ref.current.querySelectorAll(".reveal:not(.in)");
         reveals.forEach((el) => observer.observe(el));
       }
-    }, 50);
+    };
+
+    observeReveals();
+    const timer = setTimeout(observeReveals, 100);
 
     return () => {
       clearTimeout(timer);
@@ -480,6 +488,79 @@ function Team({ palette, onOpen }) {
   const [isPaused, setIsPaused] = useState(false);
   const marqueeRef = useRef(null);
   
+  // Mobile: single-card navigation
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileMemberIndex, setMobileMemberIndex] = useState(0);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  // On mobile, start with first category (not "All Members")
+  useEffect(() => {
+    if (isMobile && activeCategory === null && categories.length > 0) {
+      setActiveCategory(categories[0]);
+      setMobileMemberIndex(0);
+    }
+  }, [isMobile, categories.length]);
+
+  // Reset mobile index when category changes
+  useEffect(() => {
+    setMobileMemberIndex(0);
+  }, [activeCategory]);
+
+  // Build flat list of all members with their category for mobile navigation
+  const allMembersWithCategory = useMemo(() => {
+    const result = [];
+    categories.forEach(cat => {
+      (teamData[cat] || []).forEach(member => {
+        result.push({ ...member, _category: cat });
+      });
+    });
+    return result;
+  }, [categories, teamData]);
+
+  // Mobile: current member from active category's members
+  const currentMobileMembers = activeCategory ? teamData[activeCategory] || [] : [];
+  const currentMobileMember = currentMobileMembers[mobileMemberIndex];
+
+  const handleMobileNext = () => {
+    if (mobileMemberIndex < currentMobileMembers.length - 1) {
+      setMobileMemberIndex(mobileMemberIndex + 1);
+    } else {
+      // Move to next category
+      const catIdx = categories.indexOf(activeCategory);
+      if (catIdx < categories.length - 1) {
+        setActiveCategory(categories[catIdx + 1]);
+        // mobileMemberIndex resets to 0 via useEffect
+      }
+    }
+  };
+
+  const handleMobilePrev = () => {
+    if (mobileMemberIndex > 0) {
+      setMobileMemberIndex(mobileMemberIndex - 1);
+    } else {
+      // Move to previous category's last member
+      const catIdx = categories.indexOf(activeCategory);
+      if (catIdx > 0) {
+        const prevCat = categories[catIdx - 1];
+        const prevMembers = teamData[prevCat] || [];
+        setActiveCategory(prevCat);
+        // Need to set index after category changes — use timeout
+        setTimeout(() => setMobileMemberIndex(prevMembers.length - 1), 10);
+      }
+    }
+  };
+
+  // Check if at the very start or very end across all categories
+  const isAtVeryStart = categories.indexOf(activeCategory) === 0 && mobileMemberIndex === 0;
+  const isAtVeryEnd = categories.indexOf(activeCategory) === categories.length - 1 
+    && mobileMemberIndex === currentMobileMembers.length - 1;
+  
   useEffect(() => {
     if (!document.getElementById('marquee-styles')) {
       const styleSheet = document.createElement('style');
@@ -609,9 +690,10 @@ function Team({ palette, onOpen }) {
         </div>
 
         <div className="reveal team-filters">
+          {/* "All Members" only on desktop */}
           <button 
             type="button"
-            className={`team-filter-btn ${activeCategory === null ? 'active' : ''}`}
+            className={`team-filter-btn team-filter-all-btn ${activeCategory === null ? 'active' : ''}`}
             onClick={(event) => {
               event.currentTarget.blur();
               setActiveCategory(null);
@@ -629,47 +711,102 @@ function Team({ palette, onOpen }) {
                 event.currentTarget.blur();
                 setActiveCategory(c);
                 setSelectedMember(null);
+                setMobileMemberIndex(0);
               }}
             >{c}</button>
           ))}
+          
+          {/* Mobile arrow buttons next to filters */}
+          <div className="mobile-nav-arrows">
+            <button 
+              className="mobile-arrow-btn" 
+              onClick={handleMobilePrev}
+              disabled={isAtVeryStart}
+              style={{ opacity: isAtVeryStart ? 0.3 : 1 }}
+            >
+              ←
+            </button>
+            <span className="mobile-counter">
+              {mobileMemberIndex + 1}/{currentMobileMembers.length}
+            </span>
+            <button 
+              className="mobile-arrow-btn" 
+              onClick={handleMobileNext}
+              disabled={isAtVeryEnd}
+              style={{ opacity: isAtVeryEnd ? 0.3 : 1 }}
+            >
+              →
+            </button>
+          </div>
         </div>
       </div>
 
-      {isAllMembers ? (
-        <div 
-          className="reveal"
-          style={{ overflow: 'hidden', position: 'relative', width: '100%', marginTop: '16px' }}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          <div
-            ref={marqueeRef}
-            className="team-marquee-track"
-            style={{
-              display: 'flex',
-              width: 'max-content',
-              '--marquee-speed': `${Math.max(20, members.length * 3)}s`
-            }}
+      {/* DESKTOP: marquee or grid */}
+      <div className="desktop-members-view">
+        {isAllMembers ? (
+          <div 
+            className="reveal"
+            style={{ overflow: 'hidden', position: 'relative', width: '100%', marginTop: '20px' }}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
           >
-            {duplicatedMembers.map((member, idx) => (
-              <MemberCard key={`${member.name}-${idx}`} member={member} idx={idx} />
-            ))}
+            <div
+              ref={marqueeRef}
+              className="team-marquee-track"
+              style={{
+                display: 'flex',
+                width: 'max-content',
+                '--marquee-speed': `${Math.max(20, members.length * 3)}s`
+              }}
+            >
+              {duplicatedMembers.map((member, idx) => (
+                <MemberCard key={`${member.name}-${idx}`} member={member} idx={idx} />
+              ))}
+            </div>
+            
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '80px', height: '100%', background: 'linear-gradient(to right, var(--paper), transparent)', pointerEvents: 'none', zIndex: 2 }} />
+            <div style={{ position: 'absolute', top: 0, right: 0, width: '80px', height: '100%', background: 'linear-gradient(to left, var(--paper), transparent)', pointerEvents: 'none', zIndex: 2 }} />
           </div>
-          
-          <div style={{ position: 'absolute', top: 0, left: 0, width: '80px', height: '100%', background: 'linear-gradient(to right, var(--paper), transparent)', pointerEvents: 'none', zIndex: 2 }} />
-          <div style={{ position: 'absolute', top: 0, right: 0, width: '80px', height: '100%', background: 'linear-gradient(to left, var(--paper), transparent)', pointerEvents: 'none', zIndex: 2 }} />
-        </div>
-      ) : (
-        <div 
-          className="reveal team-grid-wrap"
-        >
-          <div className="team-grid">
-            {members.map((member, idx) => (
-              <MemberCard key={idx} member={member} idx={idx} />
-            ))}
+        ) : (
+          <div 
+            className="reveal team-grid-wrap"
+          >
+            <div className="team-grid">
+              {members.map((member, idx) => (
+                <MemberCard key={idx} member={member} idx={idx} />
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
+
+      {/* MOBILE: single card view */}
+      <div className="mobile-members-view">
+        {currentMobileMember && (
+          <div className="mobile-single-card-wrap">
+            <div className="mobile-single-card">
+              <div className="mobile-card-photo">
+                <img 
+                  src={currentMobileMember.img} 
+                  alt={currentMobileMember.name}
+                  style={{ width: '100%', height: '100%' }}
+                  onError={(e) => { e.target.src = 'https://via.placeholder.com/280x280/1F6E7A/FFFFFF?text=Team'; }}
+                />
+              </div>
+              <div className="mobile-card-info" onClick={() => handleMemberClick(currentMobileMember)}>
+                <div className="mobile-card-name">{currentMobileMember.name}</div>
+                <div className="mobile-card-title">{currentMobileMember.title}</div>
+                {currentMobileMember.bio && (
+                  <div className="mobile-card-bio">
+                    {renderBio(currentMobileMember.bio)}
+                  </div>
+                )}
+                <div className="mobile-card-tap">Tap for details</div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
 
       {selectedMember && (
         <div className="team-details-wrap">
@@ -680,7 +817,7 @@ function Team({ palette, onOpen }) {
       <style>{`
         /* ===== DESKTOP ===== */
         .team-section {
-          padding: 38px 0 38px;
+          padding: 72px 0 72px;
           background: var(--paper);
         }
 
@@ -695,7 +832,7 @@ function Team({ palette, onOpen }) {
           grid-template-columns: 1fr 1fr;
           gap: 56px;
           align-items: end;
-          margin-bottom: 32px;
+          margin-bottom: 40px;
         }
 
         .team-label {
@@ -729,7 +866,7 @@ function Team({ palette, onOpen }) {
           display: flex;
           flex-wrap: wrap;
           gap: 12px;
-          margin-bottom: 28px;
+          margin-bottom: 36px;
         }
 
         .team-filter-btn {
@@ -802,14 +939,14 @@ function Team({ palette, onOpen }) {
 
         .team-grid-wrap {
           max-width: 1400px;
-          margin: 16px auto 0;
+          margin: 20px auto 0;
           padding: 0 32px;
         }
 
         .team-grid {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-          gap: 28px;
+          gap: 32px;
         }
 
         .team-details-wrap {
@@ -820,8 +957,8 @@ function Team({ palette, onOpen }) {
 
         /* Member Details Inline */
         .member-details-wrapper {
-          margin-top: 32px;
-          margin-bottom: 32px;
+          margin-top: 48px;
+          margin-bottom: 48px;
           background: var(--bone);
           border-radius: 32px;
           overflow: hidden;
@@ -927,7 +1064,7 @@ function Team({ palette, onOpen }) {
         /* ===== TABLET (≤980px) ===== */
         @media (max-width: 980px) {
           .team-section {
-            padding: 40px 0 40px !important;
+            padding: 56px 0 56px !important;
           }
 
           .team-wrap {
@@ -936,14 +1073,20 @@ function Team({ palette, onOpen }) {
 
           .team-intro-grid {
             gap: 32px !important;
-            margin-bottom: 28px !important;
+            margin-bottom: 32px !important;
           }
         }
+
+        /* Desktop/Mobile visibility */
+        .mobile-nav-arrows { display: none; }
+        .mobile-members-view { display: none; }
+        .desktop-members-view { display: block; width: 100%; }
+        .team-filter-all-btn { display: inline-block; }
 
         /* ===== MOBILE (≤768px) ===== */
         @media (max-width: 768px) {
           .team-section {
-            padding: 28px 0 32px !important;
+            padding: 36px 0 40px !important;
           }
 
           .team-wrap {
@@ -954,7 +1097,7 @@ function Team({ palette, onOpen }) {
             grid-template-columns: 1fr !important;
             gap: 16px !important;
             align-items: start !important;
-            margin-bottom: 20px !important;
+            margin-bottom: 24px !important;
           }
 
           .team-label {
@@ -963,7 +1106,7 @@ function Team({ palette, onOpen }) {
           }
 
           .team-heading {
-            font-size: 38.7px !important;
+            font-size: 24px !important;
           }
 
           .team-subtitle {
@@ -971,23 +1114,123 @@ function Team({ palette, onOpen }) {
             max-width: 100% !important;
           }
 
+          /* Hide "All Members" on mobile */
+          .team-filter-all-btn { display: none !important; }
+
+          /* Hide desktop view, show mobile view */
+          .desktop-members-view { display: none !important; }
+          .mobile-members-view { display: block !important; }
+
           .team-filters {
             gap: 6px !important;
-            margin-bottom: 20px !important;
+            margin-bottom: 16px !important;
+            align-items: center !important;
+            position: relative;
           }
 
           .team-filter-btn {
-            padding: 7px 14px !important;
-            font-size: 11px !important;
+            padding: 6px 12px !important;
+            font-size: 10px !important;
           }
 
-          .marquee-card {
-            width: 200px !important;
-            margin-right: 16px !important;
+          /* Mobile arrow buttons */
+          .mobile-nav-arrows {
+            display: flex !important;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+            flex-shrink: 0;
           }
 
-          .grid-card {
-            width: 100% !important;
+          .mobile-arrow-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1.5px solid var(--rule);
+            background: transparent;
+            color: #0E1136;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-weight: 600;
+          }
+
+          .mobile-arrow-btn:active:not(:disabled) {
+            background: #0E1136;
+            color: white;
+            border-color: #0E1136;
+          }
+
+          .mobile-counter {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 600;
+            min-width: 32px;
+            text-align: center;
+            font-family: 'Red Hat Display', sans-serif;
+          }
+
+          /* Mobile single card */
+          .mobile-single-card-wrap {
+            padding: 0 16px;
+          }
+
+          .mobile-single-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.06);
+          }
+
+          .mobile-card-photo {
+            width: 100%;
+            height: 80%;
+            overflow: hidden;
+            background: #f0f0f0;
+          }
+
+          .mobile-card-info {
+            padding: 10px 12px;
+            cursor: pointer;
+          }
+
+          .mobile-card-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0E1136;
+            margin-bottom: 4px;
+          }
+
+          .mobile-card-title {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 10px;
+            white-space: pre-line;
+            line-height: 1.3;
+          }
+
+          .mobile-card-bio {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+
+          .mobile-card-tap {
+            font-size: 11px;
+            color: var(--accent);
+            font-weight: 500;
+            font-style: italic;
+            opacity: 0.7;
           }
 
           .team-member-photo {
@@ -1015,7 +1258,7 @@ function Team({ palette, onOpen }) {
 
           .team-grid {
             grid-template-columns: repeat(2, 1fr) !important;
-            gap: 16px !important;
+            gap: 20px !important;
           }
 
           .team-details-wrap {
@@ -1023,8 +1266,8 @@ function Team({ palette, onOpen }) {
           }
 
           .member-details-wrapper {
-            margin-top: 20px !important;
-            margin-bottom: 20px !important;
+            margin-top: 24px !important;
+            margin-bottom: 24px !important;
             border-radius: 20px !important;
           }
 
@@ -1058,16 +1301,16 @@ function Team({ palette, onOpen }) {
         /* ===== SMALL MOBILE (≤480px) ===== */
         @media (max-width: 480px) {
           .team-section {
-            padding: 24px 0 24px !important;
+            padding: 28px 0 32px !important;
           }
 
           .team-intro-grid {
             gap: 12px !important;
-            margin-bottom: 16px !important;
+            margin-bottom: 20px !important;
           }
 
           .team-heading {
-            font-size: 38.7px !important;
+            font-size: 22px !important;
           }
 
           .team-subtitle {
@@ -1076,7 +1319,7 @@ function Team({ palette, onOpen }) {
 
           .team-filters {
             gap: 5px !important;
-            margin-bottom: 16px !important;
+            margin-bottom: 18px !important;
           }
 
           .team-filter-btn {
@@ -1107,12 +1350,12 @@ function Team({ palette, onOpen }) {
 
           .team-grid {
             grid-template-columns: repeat(2, 1fr) !important;
-            gap: 14px !important;
+            gap: 16px !important;
           }
 
           .member-details-wrapper {
-            margin-top: 16px !important;
-            margin-bottom: 16px !important;
+            margin-top: 20px !important;
+            margin-bottom: 20px !important;
             border-radius: 16px !important;
           }
 
@@ -1141,11 +1384,11 @@ function Team({ palette, onOpen }) {
         /* ===== EXTRA SMALL (≤360px) ===== */
         @media (max-width: 360px) {
           .team-section {
-            padding: 20px 0 20px !important;
+            padding: 24px 0 28px !important;
           }
 
           .team-heading {
-            font-size: 38.7px !important;
+            font-size: 20px !important;
           }
 
           .marquee-card {
@@ -1164,10 +1407,6 @@ function Team({ palette, onOpen }) {
           .team-filter-btn {
             padding: 5px 10px !important;
             font-size: 10px !important;
-          }
-
-          .team-grid {
-            gap: 12px !important;
           }
         }
 
