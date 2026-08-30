@@ -30,7 +30,7 @@ function Partners({ palette, onOpen }) {
     { name: "National Heart Foundation of Bangladesh", short: "Heart Foundation Bangladesh", kind: "Academic Partner", logo: "/images/heart.jpeg", website: "https://www.nhf.org.bd/" },
     { name: "Diabetics Association of Bangladesh", short: "Diabetics Association of Bangladesh", kind: "Academic Partner", logo: "/images/dia.jpeg", website: "https://www.dab-bd.org/" },
     { name: "Centre for Global Health Research, BADAS", short: "Centre for Global Health Research", kind: "Academic Partner", logo: "/images/cghr.jpeg", website: "https://cghr-badas.org/" },
-    { name: "Department of BioEngineering, UC Berkeley", short: "BioEngineering", kind: "Academic Partner", logo: "/images/bio.jpeg", website: "https://bioeng.berkeley.edu/" },
+    { name: "Department of Bioengineering, UC Berkeley", short: "BioEngineering", kind: "Academic Partner", logo: "/images/bio.jpeg", website: "https://bioeng.berkeley.edu/" },
     { name: "University of Dhaka", short: "Dhaka University", kind: "Academic Partner", logo: "/images/du.png", website: "https://www.du.ac.bd/" }
   ];
 
