@@ -567,14 +567,19 @@ function Team({ palette, onOpen }) {
       styleSheet.id = 'marquee-styles';
       styleSheet.textContent = `
         @keyframes marqueeScroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          from { transform: translate3d(0, 0, 0); }
+          to { transform: translate3d(-50%, 0, 0); }
         }
         .team-marquee-track {
+          display: flex;
           animation: marqueeScroll var(--marquee-speed, 60s) linear infinite;
-          transform: translateZ(0);
-          backface-visibility: hidden;
           will-change: transform;
+        }
+        .team-marquee-container:hover .team-marquee-track {
+          animation-play-state: paused;
+        }
+        .team-marquee-track.marquee-paused {
+          animation-play-state: paused !important;
         }
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(30px); }
@@ -745,14 +750,14 @@ function Team({ palette, onOpen }) {
       <div className="desktop-members-view">
         {isAllMembers ? (
           <div 
-            className="reveal"
+            className="reveal team-marquee-container"
             style={{ overflow: 'hidden', position: 'relative', width: '100%', marginTop: '20px' }}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
             <div
               ref={marqueeRef}
-              className="team-marquee-track"
+              className={`team-marquee-track ${isPaused ? 'marquee-paused' : ''}`}
               style={{
                 display: 'flex',
                 width: 'max-content',
@@ -887,6 +892,14 @@ function Team({ palette, onOpen }) {
           color: var(--paper);
           border-color: #0E1136;
           font-weight: 600;
+        }
+
+        /* Marquee container */
+        .team-marquee-container {
+          overflow: hidden;
+          position: relative;
+          width: 100%;
+          margin-top: 20px;
         }
 
         /* Marquee cards - fixed width for horizontal scroll */
@@ -1188,13 +1201,17 @@ function Team({ palette, onOpen }) {
 
           .mobile-card-photo {
             width: 100%;
-            height: 80%;
+            height: 40%;
+           
             overflow: hidden;
-            background: #f0f0f0;
+            background: linear-gradient(135deg, #f0ece4, #e8e4dc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
 
           .mobile-card-info {
-            padding: 10px 12px;
+            padding: 16px 18px;
             cursor: pointer;
           }
 

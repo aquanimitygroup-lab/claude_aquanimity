@@ -25,13 +25,13 @@ function Partners({ palette, onOpen }) {
   const ref = useReveal();
 
   const partnerItems = [
-    { name: "ABRI", short: "ABRI", kind: "Research Partner", logo: "/images/ibr.jpeg", website: "https://www.facebook.com/ABRI.BUET/" },
-    { name: "IQC", short: "IQC", kind: "Implementation Partner", logo: "/images/iqc.jpeg", website: "https://iqc.org.bd" },
-    { name: "Heart Foundation Bangladesh", short: "Heart Foundation Bangladesh", kind: "Academic Partner", logo: "/images/heart.jpeg", website: "https://www.nhf.org.bd/" },
+    { name: "Applied Bioengineering Research Incubator, BUET", short: "ABRI", kind: "Research Partner", logo: "/images/ibr.jpeg", website: "https://www.facebook.com/ABRI.BUET/" },
+    { name: "IQ Consult GmbH", short: "IQC", kind: "Implementation Partner", logo: "/images/iqc.jpeg", website: "https://iqc.org.bd" },
+    { name: "National Heart Foundation of Bangladesh", short: "Heart Foundation Bangladesh", kind: "Academic Partner", logo: "/images/heart.jpeg", website: "https://www.nhf.org.bd/" },
     { name: "Diabetics Association of Bangladesh", short: "Diabetics Association of Bangladesh", kind: "Academic Partner", logo: "/images/dia.jpeg", website: "https://www.dab-bd.org/" },
-    { name: "Centre for Global Health Research", short: "Centre for Global Health Research", kind: "Academic Partner", logo: "/images/cghr.jpeg", website: "https://cghr-badas.org/" },
-    { name: "BioEngineering", short: "BioEngineering", kind: "Academic Partner", logo: "/images/bio.jpeg", website: "https://bioeng.berkeley.edu/" },
-    { name: "Dhaka University", short: "Dhaka University", kind: "Academic Partner", logo: "/images/du.png", website: "https://www.du.ac.bd/" }
+    { name: "Centre for Global Health Research, BADAS", short: "Centre for Global Health Research", kind: "Academic Partner", logo: "/images/cghr.jpeg", website: "https://cghr-badas.org/" },
+    { name: "Department of BioEngineering, UC Berkeley", short: "BioEngineering", kind: "Academic Partner", logo: "/images/bio.jpeg", website: "https://bioeng.berkeley.edu/" },
+    { name: "University of Dhaka", short: "Dhaka University", kind: "Academic Partner", logo: "/images/du.png", website: "https://www.du.ac.bd/" }
   ];
 
   const statsData = [
@@ -49,6 +49,27 @@ function Partners({ palette, onOpen }) {
   const animationRef = useRef(null);
   const positionRef = useRef(0);
   const speed = 1.5;
+
+  // Mobile: single partner navigation
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileIndex, setMobileIndex] = useState(0);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const handleMobilePrev = () => {
+    setMobileIndex(prev => (prev > 0 ? prev - 1 : partnerItems.length - 1));
+  };
+
+  const handleMobileNext = () => {
+    setMobileIndex(prev => (prev < partnerItems.length - 1 ? prev + 1 : 0));
+  };
+
+  const currentPartner = partnerItems[mobileIndex];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -99,8 +120,9 @@ function Partners({ palette, onOpen }) {
         </div>
       </div>
 
-      <div ref={containerRef} className="reveal" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
-        style={{ overflow: 'hidden', position: 'relative', marginTop: 12, width: '100%' }}>
+      {/* DESKTOP: scrolling marquee */}
+      <div className="partners-desktop-view" ref={containerRef} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
+        style={{ overflow: 'hidden', position: 'relative', marginTop: 16, width: '100%' }}>
         <div ref={trackRef} className="partner-track">
           {items.map((p, i) => (
             <div key={i} onClick={() => handlePartnerClick(p)} className="partner-card"
@@ -118,7 +140,31 @@ function Partners({ palette, onOpen }) {
         <div style={{ position: 'absolute', top: 0, right: 0, width: 80, height: '100%', background: 'linear-gradient(270deg, #ece8df, transparent)', pointerEvents: 'none', zIndex: 2 }} />
       </div>
 
-      <div className="partners-wrap" style={{ marginTop: 28 }}>
+      {/* MOBILE: single partner card with arrows — Team style */}
+      <div className="partners-mobile-view">
+        <div className="partners-mobile-nav">
+          <button className="partners-mobile-arrow" onClick={handleMobilePrev}>←</button>
+          <span className="partners-mobile-counter">{mobileIndex + 1}/{partnerItems.length}</span>
+          <button className="partners-mobile-arrow" onClick={handleMobileNext}>→</button>
+        </div>
+        <div className="partners-mobile-card-wrap">
+          <div className="partners-mobile-card" onClick={() => handlePartnerClick(currentPartner)}>
+            <div className="partners-mobile-logo">
+              <img 
+                src={currentPartner.logo} 
+                alt={currentPartner.name}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center' }}
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+            </div>
+            <div className="partners-mobile-info">
+              <div className="partners-mobile-name" style={{textAlign:"center"}}>{currentPartner.name}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="partners-wrap" style={{ marginTop: 36 }}>
         <div className="reveal stats-grid">
           {statsData.map((stat, index) => (
             <div key={index} className="stat-card">
@@ -137,14 +183,14 @@ function Partners({ palette, onOpen }) {
         .reveal.in { opacity: 1; transform: translateY(0); }
 
         .partners-section {
-          padding: 38px 0 38px;
+          padding: 72px 0 72px;
           background: #ece8df;
           overflow: hidden;
           font-family: 'Red Hat Display', sans-serif;
         }
         .partners-wrap { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
-        .partners-header { margin-bottom: 20px; }
-        .partners-label { margin-bottom: 10px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #1F6E7A; font-weight: 600; }
+        .partners-header { margin-bottom: 28px; }
+        .partners-label { margin-bottom: 14px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #1F6E7A; font-weight: 600; }
         .partners-heading { font-size: clamp(24px, 4.4vw, 52px); line-height: 1.05; letter-spacing: -0.02em; max-width: 720px; font-weight: 900; color: #0E1136; margin: 0; }
 
         .partner-track { display: flex; gap: 24px; will-change: transform; width: max-content; }
@@ -154,6 +200,10 @@ function Partners({ palette, onOpen }) {
           cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.08);
           overflow: hidden; border: 1px solid rgba(0,0,0,0.08);
         }
+
+        /* Desktop/Mobile visibility */
+        .partners-mobile-view { display: none; }
+        .partners-desktop-view { display: block; }
 
         .stats-grid {
           display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
@@ -171,16 +221,113 @@ function Partners({ palette, onOpen }) {
         .stat-deco { position: absolute; bottom: -16px; right: -16px; font-size: 80px; font-weight: 900; color: rgba(31,110,122,0.03); pointer-events: none; user-select: none; line-height: 1; }
 
         @media (max-width: 980px) {
-          .partners-section { padding: 40px 0 40px !important; }
+          .partners-section { padding: 56px 0 56px !important; }
           .partners-wrap { padding: 0 20px !important; }
         }
 
         @media (max-width: 768px) {
-          .partners-section { padding: 28px 0 32px !important; }
+          .partners-section { padding: 36px 0 40px !important; }
           .partners-wrap { padding: 0 16px !important; }
-          .partners-header { margin-bottom: 16px !important; }
-          .partners-label { font-size: 10px !important; margin-bottom: 8px !important; }
-          .partners-heading { font-size: 38.7px !important; }
+          .partners-header { margin-bottom: 20px !important; }
+          .partners-label { font-size: 10px !important; margin-bottom: 10px !important; }
+          .partners-heading { font-size: 22px !important; }
+
+          /* Hide desktop marquee, show mobile card */
+          .partners-desktop-view { display: none !important; }
+          .partners-mobile-view { display: block !important; margin-top: 16px; }
+
+          /* Arrow nav row — same as Team */
+          .partners-mobile-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            padding: 0 16px;
+          }
+
+          .partners-mobile-arrow {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(0,0,0,0.15);
+            background: transparent;
+            color: #0E1136;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+          }
+
+          .partners-mobile-arrow:active {
+            background: #0E1136;
+            color: white;
+            border-color: #0E1136;
+          }
+
+          .partners-mobile-counter {
+            font-size: 11px;
+            color: #999;
+            font-weight: 600;
+            min-width: 32px;
+            text-align: center;
+            font-family: 'Red Hat Display', sans-serif;
+          }
+
+          /* Card — same structure as Team mobile card */
+          .partners-mobile-card-wrap {
+            padding: 0 16px;
+          }
+
+          .partners-mobile-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.06);
+            cursor: pointer;
+          }
+
+          .partners-mobile-logo {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #f8f6f1, #f0ece4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+          }
+
+          .partners-mobile-info {
+            padding: 14px 18px;
+          }
+
+          .partners-mobile-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #0E1136;
+            margin-bottom: 3px;
+          }
+
+          .partners-mobile-kind {
+            font-size: 12px;
+            color: #1F6E7A;
+            font-weight: 600;
+            margin-bottom: 6px;
+          }
+
+          .partners-mobile-tap {
+            font-size: 11px;
+            color: var(--accent, #1F6E7A);
+            font-weight: 500;
+            font-style: italic;
+            opacity: 0.7;
+          }
+
           .partner-card { width: 160px !important; height: 100px !important; border-radius: 12px !important; }
           .partner-card img { padding: 10px !important; }
           .partner-track { gap: 14px !important; }
@@ -188,27 +335,27 @@ function Partners({ palette, onOpen }) {
           .stat-card { padding: 16px 12px !important; border-radius: 14px !important; }
           .stat-icon { font-size: 20px !important; margin-bottom: 6px !important; }
           .stat-value { font-size: 24px !important; }
-          .stat-label { font-size: 10px !important; letter-spacing: 0.03em !important; }
+          .stat-label { font-size: 8px !important; letter-spacing: 0.03em !important; }
           .stat-deco { font-size: 50px !important; bottom: -10px !important; right: -10px !important; }
         }
 
         @media (max-width: 480px) {
-          .partners-section { padding: 24px 0 24px !important; }
+          .partners-section { padding: 28px 0 32px !important; }
           .partner-card { width: 140px !important; height: 90px !important; border-radius: 10px !important; }
           .partner-card img { padding: 8px !important; }
           .partner-track { gap: 10px !important; }
           .stats-grid { gap: 8px !important; }
           .stat-card { padding: 12px 10px !important; border-radius: 12px !important; }
           .stat-icon { font-size: 18px !important; margin-bottom: 4px !important; }
-          .stat-value { font-size: 27px !important; }
-          .stat-label { font-size: 10px !important; }
+          .stat-value { font-size: 20px !important; }
+          .stat-label { font-size: 7px !important; }
           .stat-deco { font-size: 40px !important; }
         }
 
         @media (max-width: 360px) {
-          .partners-section { padding: 20px 0 20px !important; }
+          .partners-section { padding: 24px 0 28px !important; }
           .partner-card { width: 120px !important; height: 80px !important; }
-          .stat-value { font-size: 27px !important; }
+          .stat-value { font-size: 18px !important; }
           .stat-label { font-size: 6.5px !important; }
           .stat-icon { font-size: 16px !important; }
         }
