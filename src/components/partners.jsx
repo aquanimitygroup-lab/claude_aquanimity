@@ -191,7 +191,7 @@ function Partners({ palette, onOpen }) {
         .partners-wrap { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
         .partners-header { margin-bottom: 28px; }
         .partners-label { margin-bottom: 14px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #1F6E7A; font-weight: 600; }
-        .partners-heading { font-size: clamp(24px, 4.4vw, 52px); line-height: 1.05; letter-spacing: -0.02em; max-width: 720px; font-weight: 900; color: #0E1136; margin: 0; }
+        .partners-heading { font-size: 38.7px; line-height: 1.05; letter-spacing: -0.02em; max-width: 720px; font-weight: 900; color: #0E1136; margin: 0; }
 
         .partner-track { display: flex; gap: 24px; will-change: transform; width: max-content; }
         .partner-card {
@@ -230,7 +230,7 @@ function Partners({ palette, onOpen }) {
           .partners-wrap { padding: 0 16px !important; }
           .partners-header { margin-bottom: 20px !important; }
           .partners-label { font-size: 10px !important; margin-bottom: 10px !important; }
-          .partners-heading { font-size: 22px !important; }
+          .partners-heading { font-size: 38.7px !important; }
 
           /* Hide desktop marquee, show mobile card */
           .partners-desktop-view { display: none !important; }

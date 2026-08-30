@@ -851,7 +851,7 @@ function Team({ palette, onOpen }) {
         }
 
         .team-heading {
-          font-size: clamp(28px, 5vw, 64px);
+          font-size:38.7px;
           line-height: 1.02;
           letter-spacing: -0.025em;
           font-weight: 900;
@@ -1119,7 +1119,7 @@ function Team({ palette, onOpen }) {
           }
 
           .team-heading {
-            font-size: 24px !important;
+            font-size: 38.7px !important;
           }
 
           .team-subtitle {
@@ -1327,7 +1327,7 @@ function Team({ palette, onOpen }) {
           }
 
           .team-heading {
-            font-size: 22px !important;
+            font-size: 38.7px !important;
           }
 
           .team-subtitle {
