@@ -298,16 +298,49 @@ function Hero({ palette, onGoto }) {
           </div>
 
           <h1 className="hero-title reveal">{renderTitle()}</h1>
-
-          <div className="hero-build reveal">
-            <span className="hero-build-label">
-              <i style={{ fontFamily: 'Georgia, serif', fontSize: '14px', letterSpacing: '0.07em', color: 'rgb(45, 144, 161)', fontWeight: 600, lineHeight: 1.4, whiteSpace: 'nowrap', fontStyle: 'italic' }}>
-                Advancing bioinnovations in
-              </i>
-            </span>
-            <span className="hero-build-arrow">→</span>
-            <span className="hero-build-text">{typed}<span className="cursor"></span></span>
-          </div>
+<div className="hero-build reveal">
+  {/* Desktop Layout */}
+  <div className="hero-build-desktop">
+    <span className="hero-build-label">
+      <i style={{ 
+        fontFamily: 'Georgia, serif', 
+        fontSize: '14px', 
+        letterSpacing: '0.07em', 
+        color: 'rgb(45, 144, 161)', 
+        fontWeight: 600, 
+        lineHeight: 1.4, 
+        whiteSpace: 'nowrap', 
+        fontStyle: 'italic' 
+      }}>
+        Advancing bioinnovations in
+      </i>
+    </span>
+    <span className="hero-build-arrow">→</span>
+    <span className="hero-build-text">{typed}<span className="cursor"></span></span>
+  </div>
+  
+  {/* Mobile Layout */}
+  <div className="hero-build-mobile">
+    <div className="mobile-label">
+      <i style={{ 
+        fontFamily: 'Georgia, serif', 
+        fontSize: '14px', 
+        letterSpacing: '0.07em', 
+        color: 'rgb(45, 144, 161)', 
+        fontWeight: 600, 
+        lineHeight: 1.4, 
+        whiteSpace: 'nowrap', 
+        fontStyle: 'italic' 
+      }}>
+        Advancing bioinnovations in
+      </i>
+    </div>
+    <div className="mobile-arrow-text">
+      <span className="hero-build-arrow" style={{ fontSize: '20px', color: 'rgb(45, 144, 161)' }}>→</span>
+      <span className="hero-build-text">{typed}<span className="cursor"></span></span>
+    </div>
+  </div>
+</div>
 
           <p className="hero-desc reveal">
             <span className="highlight">Aquanimity</span> is building the BioHub— <span className="normal-text">uniting institutes, scientists, academia, and strategic partners to </span><span className="highlight">discover, translate, and commercialize novel biosciences for Bangladesh and beyond.</span>
@@ -508,6 +541,38 @@ function Hero({ palette, onGoto }) {
           .hero-desc { font-size: 12.5px; }
           .btn-dark, .btn-light { padding: 9px 16px; font-size: 11.5px; }
         }
+          /* Desktop: Show desktop, hide mobile */
+.hero-build-desktop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-build-mobile {
+  display: none;
+}
+
+/* Mobile: Show mobile, hide desktop */
+@media (max-width: 768px) {
+  .hero-build-desktop {
+    display: none !important;
+  }
+  
+  .hero-build-mobile {
+    display: block;
+  }
+  
+  .hero-build-mobile .mobile-label {
+    display: block;
+    margin-bottom: 4px;
+  }
+  
+  .hero-build-mobile .mobile-arrow-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
       `}</style>
     </section>
   );
