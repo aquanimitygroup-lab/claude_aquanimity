@@ -25,12 +25,12 @@ function Partners({ palette, onOpen }) {
   const ref = useReveal();
 
   const partnerItems = [
-    { name: "Applied Bioengineering Research Incubator, BUET", short: "ABRI", kind: "Research Partner", logo: "/images/ibr.jpeg", website: "https://www.facebook.com/ABRI.BUET/" },
-    { name: "IQ Consult GmbH", short: "IQC", kind: "Implementation Partner", logo: "/images/iqc.jpeg", website: "https://iqc.org.bd" },
-    { name: "National Heart Foundation of Bangladesh", short: "Heart Foundation Bangladesh", kind: "Academic Partner", logo: "/images/heart.jpeg", website: "https://www.nhf.org.bd/" },
-    { name: "Diabetics Association of Bangladesh", short: "Diabetics Association of Bangladesh", kind: "Academic Partner", logo: "/images/dia.jpeg", website: "https://www.dab-bd.org/" },
-    { name: "Centre for Global Health Research, BADAS", short: "Centre for Global Health Research", kind: "Academic Partner", logo: "/images/cghr.jpeg", website: "https://cghr-badas.org/" },
-    { name: "Department of Bioengineering, UC Berkeley", short: "BioEngineering", kind: "Academic Partner", logo: "/images/bio.jpeg", website: "https://bioeng.berkeley.edu/" },
+    { name: "Applied Bioengineering Research Incubator, BUET", short: "ABRI", kind: "Research Partner", logo: "/images/ibr.png", website: "https://www.facebook.com/ABRI.BUET/" },
+    { name: "IQ Consult GmbH", short: "IQC", kind: "Implementation Partner", logo: "/images/iqc.png", website: "https://iqc.org.bd" },
+    { name: "National Heart Foundation of Bangladesh", short: "Heart Foundation Bangladesh", kind: "Academic Partner", logo: "/images/heart.png", website: "https://www.nhf.org.bd/" },
+    { name: "Diabetics Association of Bangladesh", short: "Diabetics Association of Bangladesh", kind: "Academic Partner", logo: "/images/dia.png", website: "https://www.dab-bd.org/" },
+    { name: "Centre for Global Health Research, BADAS", short: "Centre for Global Health Research", kind: "Academic Partner", logo: "/images/cghr.png", website: "https://cghr-badas.org/" },
+    { name: "Department of Bioengineering, UC Berkeley", short: "BioEngineering", kind: "Academic Partner", logo: "/images/bio.png", website: "https://bioeng.berkeley.edu/" },
     { name: "University of Dhaka", short: "Dhaka University", kind: "Academic Partner", logo: "/images/du.png", website: "https://www.du.ac.bd/" }
   ];
 
@@ -129,7 +129,7 @@ function Partners({ palette, onOpen }) {
               onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.12)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.08)'; }}>
               <img src={p.logo} alt={p.name}
-                style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', padding: '16px', backgroundColor: '#ffffff', transition: 'transform 0.3s ease' }}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', padding: '20px', backgroundColor: '#ffffff', transition: 'transform 0.3s ease' }}
                 onError={(e) => { e.target.style.display = 'none'; const f = e.target.parentElement?.querySelector('.fallback-text'); if (f) f.style.display = 'flex'; }} />
               <div className="fallback-text" style={{ display: 'none', fontSize: 14, fontWeight: 600, color: '#0E1B2C', textAlign: 'center', padding: 8, position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%' }}>{p.name}</div>
               <div className="hover-overlay" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(31,110,122,0.08), rgba(31,110,122,0.04))', opacity: 0, transition: 'opacity 0.3s ease', pointerEvents: 'none', borderRadius: 16 }} />
@@ -195,7 +195,7 @@ function Partners({ palette, onOpen }) {
 
         .partner-track { display: flex; gap: 24px; will-change: transform; width: max-content; }
         .partner-card {
-          flex: 0 0 auto; width: 220px; height: 140px; background: #fff; border-radius: 16px;
+          flex: 0 0 auto; width: 260px; height: 170px; background: #fff; border-radius: 16px;
           display: flex; align-items: center; justify-content: center; position: relative;
           cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.08);
           overflow: hidden; border: 1px solid rgba(0,0,0,0.08);
@@ -223,6 +223,8 @@ function Partners({ palette, onOpen }) {
         @media (max-width: 980px) {
           .partners-section { padding: 56px 0 56px !important; }
           .partners-wrap { padding: 0 20px !important; }
+          .partner-card { width: 220px !important; height: 150px !important; }
+          .partner-card img { padding: 18px !important; }
         }
 
         @media (max-width: 768px) {
@@ -239,8 +241,8 @@ function Partners({ palette, onOpen }) {
           /* Arrow nav row — same as Team */
           .partners-mobile-nav {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: right;
+            justify-content: right;
             gap: 12px;
             margin-bottom: 14px;
             padding: 0 16px;
@@ -292,14 +294,15 @@ function Partners({ palette, onOpen }) {
             cursor: pointer;
           }
 
+          /* INCREASED LOGO HEIGHT for mobile */
           .partners-mobile-logo {
             width: 100%;
-            height: 180px;
+            height: 240px;
             background: linear-gradient(135deg, #f8f6f1, #f0ece4);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px;
+            padding: 32px;
           }
 
           .partners-mobile-info {
@@ -328,9 +331,6 @@ function Partners({ palette, onOpen }) {
             opacity: 0.7;
           }
 
-          .partner-card { width: 160px !important; height: 100px !important; border-radius: 12px !important; }
-          .partner-card img { padding: 10px !important; }
-          .partner-track { gap: 14px !important; }
           .stats-grid { gap: 10px !important; padding-top: 16px !important; }
           .stat-card { padding: 16px 12px !important; border-radius: 14px !important; }
           .stat-icon { font-size: 20px !important; margin-bottom: 6px !important; }
@@ -341,23 +341,31 @@ function Partners({ palette, onOpen }) {
 
         @media (max-width: 480px) {
           .partners-section { padding: 28px 0 32px !important; }
-          .partner-card { width: 140px !important; height: 90px !important; border-radius: 10px !important; }
-          .partner-card img { padding: 8px !important; }
-          .partner-track { gap: 10px !important; }
           .stats-grid { gap: 8px !important; }
           .stat-card { padding: 12px 10px !important; border-radius: 12px !important; }
           .stat-icon { font-size: 18px !important; margin-bottom: 4px !important; }
           .stat-value { font-size: 20px !important; }
           .stat-label { font-size: 7px !important; }
           .stat-deco { font-size: 40px !important; }
+
+          /* INCREASED LOGO HEIGHT for 480px */
+          .partners-mobile-logo {
+            height: 200px !important;
+            padding: 24px !important;
+          }
         }
 
         @media (max-width: 360px) {
           .partners-section { padding: 24px 0 28px !important; }
-          .partner-card { width: 120px !important; height: 80px !important; }
           .stat-value { font-size: 18px !important; }
           .stat-label { font-size: 6.5px !important; }
           .stat-icon { font-size: 16px !important; }
+
+          /* INCREASED LOGO HEIGHT for 360px */
+          .partners-mobile-logo {
+            height: 170px !important;
+            padding: 20px !important;
+          }
         }
       `}</style>
     </section>
