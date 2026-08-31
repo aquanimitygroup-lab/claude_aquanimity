@@ -278,6 +278,7 @@ function Partners({ palette, onOpen }) {
             min-width: 32px;
             text-align: center;
             font-family: 'Red Hat Display', sans-serif;
+            margin-top:6px;
           }
 
           /* Card — same structure as Team mobile card */
