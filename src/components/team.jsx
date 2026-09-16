@@ -822,7 +822,7 @@ function Team({ palette, onOpen }) {
       <style>{`
         /* ===== DESKTOP ===== */
         .team-section {
-          padding: 36px 0 36px;
+          padding: 30px 0 30px;
           background: white;
         }
 
