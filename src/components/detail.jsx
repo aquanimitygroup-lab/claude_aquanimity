@@ -721,22 +721,6 @@ function InstituteDetail({ it, data, palette }) {
         detailedBio: "Shoeb Ahmed is a Professor and Chair of the Department Chemical Engineering at BUET and the Project Director of the Applied Bioengineering Research Incubator (ABRI). He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
         education: "PhD in Chemical and Biomolecular Engineering | North Carolina State University; MSc in Chemical and Biomolecular Engineering | North Carolina State University"
       },
-      { 
-        name: "Professor Dr. Bishwajit Bhowmick, PhD", 
-        title: "Research Director", 
-        img: "/images/bishwjit1.png",
-        bio: "Expert in biomaterials and tissue engineering with over 20 years of research experience",
-        detailedBio: "Professor Dr. Bishwajit Bhowmick is a distinguished researcher in biomaterials and tissue engineering. He has over 20 years of experience in developing advanced biomaterials for medical applications. His research focuses on biodegradable polymers, drug delivery systems, and tissue regeneration.\n\nAt the Biohub, he provides strategic guidance on biomaterials development and tissue engineering applications. He oversees the development of novel biomaterials for medical devices, drug delivery systems, and regenerative medicine applications.",
-        education: "PhD | University of Tokyo"
-      },
-      { 
-        name: "Tasnima Siddique, PhD", 
-        title: "Research Director", 
-        img: "/images/tasnima1.png",
-        bio: "Expert in laboratory management and quality assurance in biomedical research",
-        detailedBio: "Tasnima Siddique is a seasoned professional with extensive experience in laboratory management and quality assurance in biomedical research. She holds a PhD in Biochemistry and has worked in leading research institutions in Bangladesh and abroad.\n\nAt the Biohub, she oversees laboratory operations, ensures quality assurance compliance, and manages research infrastructure. She also provides training and mentorship to junior researchers and lab technicians.",
-        education: "PhD | University of Dhaka"
-      }
     ],
     "01_associates": [
       { 

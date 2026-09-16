@@ -27,9 +27,8 @@
     
     body {
       font-family: 'Red Hat Display', Arial, sans-serif;
-      background: var(--paper);
       color: var(--ink);
-      overflow-x: hidden;
+
     }
     
     .wrap {
@@ -92,7 +91,7 @@
       top: 0;
       left: 0;
       height: 3px;
-      background: var(--accent);
+      
       z-index: 9999;
       width: 0%;
       transition: width 0.1s ease;
@@ -100,13 +99,12 @@
     
     /* CSS Variables for themes */
     :root {
-      --bone: #F2EDE3;
-      --bone-2: #ECE5D6;
-      --paper: #FAF7F0;
+
+      --paper: transparent; /* changed from #FAF7F0 to transparent */
       --ink: #0E1B2C;
       --ink-2: #1B2A3F;
       --muted: #5C6677;
-      --rule: #D8D0BE;
+      
       --accent: #1F6E7A;
       --accent-2: #4FA0AC;
       --accent-soft: #BFD4D5;

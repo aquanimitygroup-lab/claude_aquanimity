@@ -84,7 +84,7 @@ const GlobalStyles = () => (
 
     body {
       font-family: 'Red Hat Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--paper);
+      background: white;
       color: var(--ink);
       line-height: 1.5;
       overflow-x: hidden;
