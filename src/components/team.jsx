@@ -30,50 +30,55 @@ const useReveal = () => {
 // Helper function to highlight key achievements in bio text
 const highlightKeyInfo = (text) => {
   if (!text) return null;
-  
-  let highlighted = text;
-  
-  highlighted = highlighted.replace(/BIOHUB/gi, "Biohub");
-  
+
+  let highlighted = text.replace(/BIOHUB/gi, "Biohub");
+
   const paragraphs = highlighted.split(/\n\n/);
-  if (paragraphs.length > 1) {
-    const bioText = paragraphs[0];
-    const biohubText = paragraphs.slice(1).join(' ');
-    if (biohubText.includes('Biohub')) {
-      return (
-        <span>
-          <span dangerouslySetInnerHTML={{ __html: bioText }} />
-          <br /><br />
-          <span style={{ display: 'block', marginTop: '8px' }}>
-            <span dangerouslySetInnerHTML={{ __html: biohubText }} />
-          </span>
-        </span>
-      );
-    }
-  }
-  
-  highlighted = highlighted.replace(/Ferrari Red/gi, (match) => {
-    return `<span style="color: #FF2800; font-weight: 700; padding: 0 4px; border-radius: 4px;">${match}</span>`;
-  });
-  
-  highlighted = highlighted.replace(/\b(\d+(?:,\d+)?)\s*(?:percent|%|patents|people|million|billion)\b/gi, (match) => {
-    return `<span style="font-weight: 700;">${match}</span>`;
-  });
-  
-  const rolePatterns = [
-    /Head of R&D/gi, /Principal Scientist/gi, /Professor and Head/gi,
-    /Director of Applied Bioengineering/gi, /Program Director/gi,
-    /Founding Scientist/gi, /Scientific Advisor/gi, /CEO/gi, /CTO/gi, /COO/gi,
-    /Managing Director/gi, /Executive Director/gi
-  ];
-  
-  rolePatterns.forEach(pattern => {
-    highlighted = highlighted.replace(pattern, (match) => {
-      return `<span style="font-weight: 600; color: #0E1136;">${match}</span>`;
+
+  // Inline formatting (bold numbers, Ferrari Red, role names)
+  const processInline = (str) => {
+    let out = str;
+
+    out = out.replace(/Ferrari Red/gi, (match) => {
+      return `<span style="color: #FF2800; font-weight: 700; padding: 0 4px; border-radius: 4px;">${match}</span>`;
     });
-  });
-  
-  return <span dangerouslySetInnerHTML={{ __html: highlighted }} />;
+
+    out = out.replace(/\b(\d+(?:,\d+)?)\s*(?:percent|%|patents|people|million|billion)\b/gi, (match) => {
+      return `<span style="font-weight: 700;">${match}</span>`;
+    });
+
+    const rolePatterns = [
+      /Head of R&D/gi, /Principal Scientist/gi, /Professor and Head/gi,
+      /Director of Applied Bioengineering/gi, /Program Director/gi,
+      /Founding Scientist/gi, /Scientific Advisor/gi, /CEO/gi, /CTO/gi, /COO/gi,
+      /Managing Director/gi, /Executive Director/gi
+    ];
+
+    rolePatterns.forEach(pattern => {
+      out = out.replace(pattern, (match) => {
+        return `<span style="font-weight: 600; color: #0E1136;">${match}</span>`;
+      });
+    });
+
+    return out;
+  };
+
+  // If multiple paragraphs, render each with proper breaks
+  if (paragraphs.length > 1) {
+    return (
+      <span>
+        <span dangerouslySetInnerHTML={{ __html: processInline(paragraphs[0]) }} />
+        {paragraphs.slice(1).map((p, i) => (
+          <span key={i}>
+            <br /><br />
+            <span dangerouslySetInnerHTML={{ __html: processInline(p) }} />
+          </span>
+        ))}
+      </span>
+    );
+  }
+
+  return <span dangerouslySetInnerHTML={{ __html: processInline(highlighted) }} />;
 };
 
 // Member Details Component (Inline)
@@ -219,7 +224,6 @@ function Team({ palette, onOpen }) {
       { threshold: 0.05, rootMargin: '0px 0px -20px 0px' }
     );
 
-    // Observe immediately + with a small delay for dynamically rendered elements
     const observeReveals = () => {
       if (ref.current) {
         const reveals = ref.current.querySelectorAll(".reveal:not(.in)");
@@ -308,6 +312,37 @@ function Team({ palette, onOpen }) {
           "bio": "Expert in <strong>gender studies</strong> with her research focus including equity and inclusion",
           "detailedBio": "Ayesha Banu is a <strong> Professor in the Department of Women and Gender Studies at the University of Dhaka</strong> , where she has served since 2001. She holds a<strong>  PhD on the Bangladesh women's movement and master's degrees in sociology and gender and development</strong> . Her research covers women's movements, poverty, religion, body and sexuality, and gender and development.\n\nAt the Biohub, she provides expertise on gender, socio-cultural context, and community outreach. She guides ethical frameworks for women-centric innovations and ensures that research incorporates gender equity and societal impact considerations",
           "education": "Ph.D. | University of Dhaka"
+        },
+        {
+          "name": "Mustak Ibn Ayub, PhD",
+          "title": "Senior Advisor\n\nAssociate Professor, Dept. of Genetic Engineering and Biotechnology, Dhaka University",
+          "img": "images/mustaque.jpg",
+          "linkedin": "https://linkedin.com",
+          "bio": "Oxford-trained molecular oncologist specializing in <strong>translational cancer research, cancer biomarkers, molecular genetics and biotechnology</strong>",
+          "detailedBio": "Mustak Ibn Ayub is an <strong>Associate Professor in the Department of Genetic Engineering and Biotechnology at the University of Dhaka</strong> and a molecular oncologist specializing in translational cancer research. He completed his <strong>DPhil in Molecular Oncology at the University of Oxford,</strong> where he conducted research at the Cancer and Immunogenetics Laboratory <strong>under renowned cancer geneticist Sir Walter Bodmer</strong>. His research interests include molecular oncology, cancer genetics, biomarkers, precision diagnostics, and the molecular characterization of cancers.\n\nAt Aquanimity, he leads research on RNA-based cancer therapeutics, with a particular focus on developing and translating novel RNA therapeutic approaches for cancer treatment. As an Advisor, he provides expertise in molecular oncology, cancer genetics, RNA therapeutics, and translational cancer research.",
+          "education": "DPhil in Oncology | University of Oxford"
+        }
+      ],
+      "Medical Advisory Board": [
+        {
+          "name": "Professor Bishwajit Bhowmik",
+          "title": "Medical Advisor\n\nProject Director, Centre for Global Health Research (CGHR), BADAS",
+          "img": "images/bishwjit1.png",
+          "linkedin": "https://linkedin.com",
+          "bio": "Leading diabetes and metabolic health researcher; <strong>Principal Investigator of Aquanimity's 150-participant SuperWater</strong> randomized controlled trial",
+          "detailedBio": "Bishwajit Bhowmik is the <strong>Project Director at the Centre for Global Health Research (CGHR),</strong> Diabetic Association of Bangladesh (BADAS), with extensive experience in diabetes, metabolic disorders, epidemiology, and clinical research. His research spans community diabetes prevention, gestational diabetes, insulin resistance, and population health, with numerous peer-reviewed publications and randomized clinical studies.\n\nHe served as the <strong>Principal Investigator for Aquanimity's randomized controlled clinical trial of SuperWater involving 150 participants,</strong> providing clinical and scientific oversight in evaluating its effects on glycemic outcomes and safety. He provides guidance on clinical research, metabolic health, study design, and evidence-based development of health innovations.",
+          "achievement": "Principal Investigator, SuperWater RCT (150 participants) | Project Director, CGHR-BADAS | Leading diabetes & metabolic health researcher",
+          "education": "MBBS | MSc in Diabetes | PhD in Diabetes Epidemiology"
+        },
+        {
+          "name": "Dr. Tasnima Siddiquee",
+          "title": "Medical Advisor \n\n Deputy Director, Centre for Global Health Research (CGHR), BADAS",
+          "img": "images/tasnima1.png",
+          "linkedin": "https://linkedin.com",
+          "bio": "Diabetes and metabolic health researcher; also the <strong>Principal Investigator of Aquanimity's 150-participant</strong> SuperWater randomized controlled trial",
+          "detailedBio": "Tasnima Siddiquee is the <strong>Deputy Director at the Centre for Global Health Research (CGHR)</strong>, Diabetic Association of Bangladesh (BADAS). Her research focuses on diabetes, obesity, metabolic syndrome, cardiometabolic risk, and population health, with extensive involvement in epidemiological studies and clinical research in Bangladesh.\n\nShe has also previously served as the <strong>Principal Investigator for Aquanimity's randomized controlled clinical trial of SuperWater involving 150 participants,</strong> contributing to the clinical evaluation of its effects on glycemic outcomes and safety. With her extensive experience, she continues on providing guidance regarding clinical translation of Aquanimity's product line.",
+          "achievement": "Principal Investigator, SuperWater RCT (150 participants) | Deputy Director, CGHR-BADAS | Diabetes & metabolic health researcher",
+          "education": "MBBS | MPH"
         }
       ],
       "Consultants": [
@@ -356,8 +391,8 @@ function Team({ palette, onOpen }) {
           "img": "images/rafez.png",
           "linkedin": "https://linkedin.com",
           "bio": "<strong>25+ years extensive industrial experience</strong> in the sector of ready-made garments (RMG) industry",
-          "detailedBio": "Rafez Alam Chowdhury has<strong> over 25 years of experience in the ready-made garments (RMG) industry</strong> alongside promoting and administering diverse business ventures and social initiatives. He now provides <strong>strategic direction, governance oversight, and long-term growth leadership</strong> of Aquanimity Bangldesh Limited alongside the Managing Director.",
-          "achievement": "25+ years industrial leadership | Chairman, Convnce Group | Former President, BGAPMEA | Former President, Gulshan Youth Club",
+          "detailedBio": "Rafez Alam Chowdhury has<strong> over 25 years of experience in the ready-made garments (RMG) industry</strong> alongside promoting and administering diverse business ventures and social initiatives. He now provides <strong>strategic direction, governance oversight, and long-term growth leadership</strong> of Aquanimity Bangladesh Limited alongside the Managing Director.",
+          "achievement": "25+ years industrial leadership | Chairman, Convince Group | Former President, BGAPMEA | Former President, Gulshan Youth Club",
           "education": "MBA | Harvard Business School"
         },
         {
@@ -462,6 +497,17 @@ function Team({ palette, onOpen }) {
           "achievement": "Co-developer of thermoreversible polymersomes | PhD from University of Chicago | Postdoc at NYU Tandon",
           "education": "BSc in Chemical Engineering | BUET"
         }
+      ],
+      "IT Team": [
+        {
+          "name": "Md. Himel Hasan",
+          "title": "Software Engineer",
+          "img": "images/himel.jpg",
+          "linkedin": "https://linkedin.com",
+          "bio": "",
+          "detailedBio": "Md. Himel Hasan is a  Software Engineer with expertise in full-stack web development, system architecture, and cloud infrastructure. He holds a degree in Computer Science and Engineering, with a strong foundation in building scalable applications and robust backend systems.\n\nHis technical expertise spans modern JavaScript frameworks (React, Next.js), backend technologies (Python, Django, Node.js, Express), database management (MySQL, PostgreSQL),mobile app (React Native Cli) and cloud services (AWS, Vercel). He has successfully delivered multiple projects, including E-Commerce Platforms, Digital Document Management Systems, Yarn and Dyeing Planning Management System, Customize Profit Calculator and custom web applications for diverse clients.<br /><br />At Aquanimity, he is responsible for developing and maintaining the company's digital platforms, ensuring seamless user experiences, and implementing innovative solutions to support the organization's mission.",
+          "education": "BSc in Computer Science and Engineering | International University of Business Agriculture and Technology (IUBAT)"
+        }
       ]
     };
   }
@@ -469,6 +515,7 @@ function Team({ palette, onOpen }) {
   const orderedCategories = [];
   if (teamData["Founding Scientists"]) orderedCategories.push("Founding Scientists");
   if (teamData["Scientific Advisory Board"]) orderedCategories.push("Scientific Advisory Board");
+  if (teamData["Medical Advisory Board"]) orderedCategories.push("Medical Advisory Board");
   if (teamData["Researchers & Consultants"]) orderedCategories.push("Researchers & Consultants");
   if (teamData["Consultants"]) orderedCategories.push("Consultants");
   if (teamData["Founding Management Team"]) orderedCategories.push("Founding Management Team");
@@ -488,7 +535,6 @@ function Team({ palette, onOpen }) {
   const [isPaused, setIsPaused] = useState(false);
   const marqueeRef = useRef(null);
   
-  // Mobile: single-card navigation
   const [isMobile, setIsMobile] = useState(false);
   const [mobileMemberIndex, setMobileMemberIndex] = useState(0);
 
@@ -499,7 +545,6 @@ function Team({ palette, onOpen }) {
     return () => window.removeEventListener('resize', check);
   }, []);
 
-  // On mobile, start with first category (not "All Members")
   useEffect(() => {
     if (isMobile && activeCategory === null && categories.length > 0) {
       setActiveCategory(categories[0]);
@@ -507,12 +552,10 @@ function Team({ palette, onOpen }) {
     }
   }, [isMobile, categories.length]);
 
-  // Reset mobile index when category changes
   useEffect(() => {
     setMobileMemberIndex(0);
   }, [activeCategory]);
 
-  // Build flat list of all members with their category for mobile navigation
   const allMembersWithCategory = useMemo(() => {
     const result = [];
     categories.forEach(cat => {
@@ -523,7 +566,6 @@ function Team({ palette, onOpen }) {
     return result;
   }, [categories, teamData]);
 
-  // Mobile: current member from active category's members
   const currentMobileMembers = activeCategory ? teamData[activeCategory] || [] : [];
   const currentMobileMember = currentMobileMembers[mobileMemberIndex];
 
@@ -531,11 +573,9 @@ function Team({ palette, onOpen }) {
     if (mobileMemberIndex < currentMobileMembers.length - 1) {
       setMobileMemberIndex(mobileMemberIndex + 1);
     } else {
-      // Move to next category
       const catIdx = categories.indexOf(activeCategory);
       if (catIdx < categories.length - 1) {
         setActiveCategory(categories[catIdx + 1]);
-        // mobileMemberIndex resets to 0 via useEffect
       }
     }
   };
@@ -544,19 +584,16 @@ function Team({ palette, onOpen }) {
     if (mobileMemberIndex > 0) {
       setMobileMemberIndex(mobileMemberIndex - 1);
     } else {
-      // Move to previous category's last member
       const catIdx = categories.indexOf(activeCategory);
       if (catIdx > 0) {
         const prevCat = categories[catIdx - 1];
         const prevMembers = teamData[prevCat] || [];
         setActiveCategory(prevCat);
-        // Need to set index after category changes — use timeout
         setTimeout(() => setMobileMemberIndex(prevMembers.length - 1), 10);
       }
     }
   };
 
-  // Check if at the very start or very end across all categories
   const isAtVeryStart = categories.indexOf(activeCategory) === 0 && mobileMemberIndex === 0;
   const isAtVeryEnd = categories.indexOf(activeCategory) === categories.length - 1 
     && mobileMemberIndex === currentMobileMembers.length - 1;
@@ -695,7 +732,6 @@ function Team({ palette, onOpen }) {
         </div>
 
         <div className="reveal team-filters">
-          {/* "All Members" only on desktop */}
           <button 
             type="button"
             className={`team-filter-btn team-filter-all-btn ${activeCategory === null ? 'active' : ''}`}
@@ -721,7 +757,6 @@ function Team({ palette, onOpen }) {
             >{c}</button>
           ))}
           
-          {/* Mobile arrow buttons next to filters */}
           <div className="mobile-nav-arrows">
             <button 
               className="mobile-arrow-btn" 
@@ -773,9 +808,7 @@ function Team({ palette, onOpen }) {
             <div style={{ position: 'absolute', top: 0, right: 0, width: '80px', height: '100%', background: 'linear-gradient(to left, var(--paper), transparent)', pointerEvents: 'none', zIndex: 2 }} />
           </div>
         ) : (
-          <div 
-            className="reveal team-grid-wrap"
-          >
+          <div className="reveal team-grid-wrap">
             <div className="team-grid">
               {members.map((member, idx) => (
                 <MemberCard key={idx} member={member} idx={idx} />
@@ -894,7 +927,6 @@ function Team({ palette, onOpen }) {
           font-weight: 600;
         }
 
-        /* Marquee container */
         .team-marquee-container {
           overflow: hidden;
           position: relative;
@@ -902,14 +934,12 @@ function Team({ palette, onOpen }) {
           margin-top: 20px;
         }
 
-        /* Marquee cards - fixed width for horizontal scroll */
         .marquee-card {
           flex: 0 0 auto;
           width: 260px;
           margin-right: 24px;
         }
 
-        /* Grid cards - fill their grid cell */
         .grid-card {
           width: 100%;
         }
@@ -968,101 +998,6 @@ function Team({ palette, onOpen }) {
           padding: 0 32px;
         }
 
-        /* Member Details Inline */
-        .member-details-wrapper {
-          margin-top: 48px;
-          margin-bottom: 48px;
-          background: var(--bone);
-          border-radius: 32px;
-          overflow: hidden;
-          animation: fadeInUp 0.5s ease;
-        }
-
-        .mdi-grid {
-          display: grid;
-          grid-template-columns: 0.8fr 1.2fr;
-          gap: 0;
-          min-height: 500px;
-        }
-
-        .mdi-photo {
-          background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 40px;
-        }
-
-        .mdi-photo-frame {
-          width: 100%;
-          max-width: 280px;
-          border-radius: 20px;
-          overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-          border: 3px solid white;
-        }
-
-        .mdi-content {
-          padding: 40px;
-          overflow-y: auto;
-          max-height: 600px;
-        }
-
-        .mdi-title-label {
-          font-size: 12px;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: var(--accent);
-          font-weight: 600;
-          margin-bottom: 8px;
-          white-space: pre-line;
-          line-height: 1.3;
-        }
-
-        .mdi-name {
-          font-size: 32px;
-          font-weight: 700;
-          color: #0E1136;
-          margin-bottom: 12px;
-          letter-spacing: -0.02em;
-        }
-
-        .mdi-close-btn {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          background: white;
-          border: 1px solid var(--rule);
-          cursor: pointer;
-          font-size: 18px;
-          transition: all 0.3s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-
-        .mdi-section-heading {
-          font-size: 16px;
-          font-weight: 600;
-          color: #0E1136;
-          margin-bottom: 10px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .mdi-achievement-box {
-          background: linear-gradient(135deg, rgba(255,40,0,0.05) 0%, rgba(31,110,122,0.05) 100%);
-          padding: 14px;
-          border-radius: 14px;
-          font-size: 14px;
-          font-weight: 500;
-          color: #1F6E7A;
-          line-height: 1.5;
-          border-left: 3px solid #FF2800;
-        }
-
         .reveal {
           opacity: 0;
           transform: translateY(24px);
@@ -1076,18 +1011,9 @@ function Team({ palette, onOpen }) {
 
         /* ===== TABLET (≤980px) ===== */
         @media (max-width: 980px) {
-          .team-section {
-            padding: 56px 0 56px !important;
-          }
-
-          .team-wrap {
-            padding: 0 20px !important;
-          }
-
-          .team-intro-grid {
-            gap: 32px !important;
-            margin-bottom: 32px !important;
-          }
+          .team-section { padding: 56px 0 56px !important; }
+          .team-wrap { padding: 0 20px !important; }
+          .team-intro-grid { gap: 32px !important; margin-bottom: 32px !important; }
         }
 
         /* Desktop/Mobile visibility */
@@ -1098,40 +1024,19 @@ function Team({ palette, onOpen }) {
 
         /* ===== MOBILE (≤768px) ===== */
         @media (max-width: 768px) {
-          .team-section {
-            padding: 36px 0 40px !important;
-          }
-
-          .team-wrap {
-            padding: 0 16px !important;
-          }
-
+          .team-section { padding: 36px 0 40px !important; }
+          .team-wrap { padding: 0 16px !important; }
           .team-intro-grid {
             grid-template-columns: 1fr !important;
             gap: 16px !important;
             align-items: start !important;
             margin-bottom: 24px !important;
           }
+          .team-label { margin-bottom: 10px !important; font-size: 10px !important; }
+          .team-heading { font-size: clamp(28px, 8vw, 42px) !important; line-height: 1.04 !important; }
+          .team-subtitle { font-size: 14px !important; max-width: 100% !important; }
 
-          .team-label {
-            margin-bottom: 10px !important;
-            font-size: 10px !important;
-          }
-
-          .team-heading {
-            font-size: clamp(28px, 8vw, 42px) !important;
-            line-height: 1.04 !important;
-          }
-
-          .team-subtitle {
-            font-size: 14px !important;
-            max-width: 100% !important;
-          }
-
-          /* Hide "All Members" on mobile */
           .team-filter-all-btn { display: none !important; }
-
-          /* Hide desktop view, show mobile view */
           .desktop-members-view { display: none !important; }
           .mobile-members-view { display: block !important; }
 
@@ -1141,13 +1046,8 @@ function Team({ palette, onOpen }) {
             align-items: center !important;
             position: relative;
           }
+          .team-filter-btn { padding: 6px 12px !important; font-size: 10px !important; }
 
-          .team-filter-btn {
-            padding: 6px 12px !important;
-            font-size: 10px !important;
-          }
-
-          /* Mobile arrow buttons */
           .mobile-nav-arrows {
             display: flex !important;
             align-items: center;
@@ -1155,7 +1055,6 @@ function Team({ palette, onOpen }) {
             margin-left: auto;
             flex-shrink: 0;
           }
-
           .mobile-arrow-btn {
             width: 32px;
             height: 32px;
@@ -1171,13 +1070,11 @@ function Team({ palette, onOpen }) {
             transition: all 0.2s ease;
             font-weight: 600;
           }
-
           .mobile-arrow-btn:active:not(:disabled) {
             background: #0E1136;
             color: white;
             border-color: #0E1136;
           }
-
           .mobile-counter {
             font-size: 11px;
             color: var(--muted);
@@ -1187,11 +1084,7 @@ function Team({ palette, onOpen }) {
             font-family: 'Red Hat Display', sans-serif;
           }
 
-          /* Mobile single card */
-          .mobile-single-card-wrap {
-            padding: 0 16px;
-          }
-
+          .mobile-single-card-wrap { padding: 0 16px; }
           .mobile-single-card {
             background: #fff;
             border-radius: 16px;
@@ -1199,30 +1092,17 @@ function Team({ palette, onOpen }) {
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             border: 1px solid rgba(0,0,0,0.06);
           }
-
           .mobile-card-photo {
             width: 100%;
             height: 40%;
-           
             overflow: hidden;
             background: linear-gradient(135deg, #f0ece4, #e8e4dc);
             display: flex;
             align-items: center;
             justify-content: center;
           }
-
-          .mobile-card-info {
-            padding: 16px 18px;
-            cursor: pointer;
-          }
-
-          .mobile-card-name {
-            font-size: 18px;
-            font-weight: 700;
-            color: #0E1136;
-            margin-bottom: 4px;
-          }
-
+          .mobile-card-info { padding: 16px 18px; cursor: pointer; }
+          .mobile-card-name { font-size: 18px; font-weight: 700; color: #0E1136; margin-bottom: 4px; }
           .mobile-card-title {
             font-size: 12px;
             color: var(--accent);
@@ -1231,7 +1111,6 @@ function Team({ palette, onOpen }) {
             white-space: pre-line;
             line-height: 1.3;
           }
-
           .mobile-card-bio {
             font-size: 13px;
             color: var(--muted);
@@ -1242,7 +1121,6 @@ function Team({ palette, onOpen }) {
             -webkit-box-orient: vertical;
             overflow: hidden;
           }
-
           .mobile-card-tap {
             font-size: 11px;
             color: var(--accent);
@@ -1251,297 +1129,167 @@ function Team({ palette, onOpen }) {
             opacity: 0.7;
           }
 
-          .team-member-photo {
-            height: 220px !important;
-            border-radius: 12px !important;
-            margin-bottom: 12px !important;
-          }
+          .team-member-photo { height: 220px !important; border-radius: 12px !important; margin-bottom: 12px !important; }
+          .team-member-name { font-size: 15px !important; }
+          .team-member-title { font-size: 11px !important; margin-bottom: 8px !important; }
+          .team-member-bio { font-size: 11px !important; }
 
-          .team-member-name {
-            font-size: 15px !important;
-          }
+          .team-grid-wrap { padding: 0 16px !important; }
+          .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; }
 
-          .team-member-title {
-            font-size: 11px !important;
-            margin-bottom: 8px !important;
-          }
-
-          .team-member-bio {
-            font-size: 11px !important;
-          }
-
-          .team-grid-wrap {
-            padding: 0 16px !important;
-          }
-
-          .team-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 20px !important;
-          }
-
-          .team-details-wrap {
-            padding: 0 16px !important;
-          }
-
+          .team-details-wrap { padding: 0 16px !important; }
           .member-details-wrapper {
             margin-top: 24px !important;
             margin-bottom: 24px !important;
             border-radius: 20px !important;
           }
-
-          .mdi-grid {
-            grid-template-columns: 1fr !important;
-            min-height: 0 !important;
-          }
-
-          .mdi-photo {
-            padding: 24px !important;
-          }
-
-          .mdi-photo-frame {
-            max-width: 200px !important;
-          }
-
-          .mdi-content {
-            max-height: none !important;
-            padding: 24px !important;
-          }
-
-          .mdi-name {
-            font-size: 24px !important;
-          }
-
-          .mdi-title-label {
-            font-size: 10px !important;
-          }
+          .mdi-grid { grid-template-columns: 1fr !important; min-height: 0 !important; }
+          .mdi-photo { padding: 24px !important; }
+          .mdi-photo-frame { max-width: 200px !important; }
+          .mdi-content { max-height: none !important; padding: 24px !important; }
+          .mdi-name { font-size: 24px !important; }
+          .mdi-title-label { font-size: 10px !important; }
         }
 
         /* ===== SMALL MOBILE (≤480px) ===== */
         @media (max-width: 480px) {
-          .team-section {
-            padding: 28px 0 32px !important;
-          }
-
-          .team-intro-grid {
-            gap: 12px !important;
-            margin-bottom: 20px !important;
-          }
-
-          .team-heading {
-            font-size: clamp(24px, 9vw, 36px) !important;
-            line-height: 1.06 !important;
-          }
-
-          .team-subtitle {
-            font-size: 13px !important;
-          }
-
-          .team-filters {
-            gap: 5px !important;
-            margin-bottom: 18px !important;
-          }
-
-          .team-filter-btn {
-            padding: 6px 12px !important;
-            font-size: 10.5px !important;
-          }
-
-          .marquee-card {
-            width: 180px !important;
-            margin-right: 14px !important;
-          }
-
-          .grid-card {
-            width: 100% !important;
-          }
-
-          .team-member-photo {
-            height: 200px !important;
-          }
-
-          .team-member-name {
-            font-size: 14px !important;
-          }
-
-          .team-member-title {
-            font-size: 10.5px !important;
-          }
-
-          .team-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 16px !important;
-          }
-
-          .member-details-wrapper {
-            margin-top: 20px !important;
-            margin-bottom: 20px !important;
-            border-radius: 16px !important;
-          }
-
-          .mdi-photo {
-            padding: 20px !important;
-          }
-
-          .mdi-content {
-            padding: 20px !important;
-          }
-
-          .mdi-name {
-            font-size: 20px !important;
-          }
-
-          .mdi-section-heading {
-            font-size: 14px !important;
-          }
-
-          .mdi-achievement-box {
-            font-size: 12.5px !important;
-            padding: 12px !important;
-          }
+          .team-section { padding: 28px 0 32px !important; }
+          .team-intro-grid { gap: 12px !important; margin-bottom: 20px !important; }
+          .team-heading { font-size: clamp(24px, 9vw, 36px) !important; line-height: 1.06 !important; }
+          .team-subtitle { font-size: 13px !important; }
+          .team-filters { gap: 5px !important; margin-bottom: 18px !important; }
+          .team-filter-btn { padding: 6px 12px !important; font-size: 10.5px !important; }
+          .marquee-card { width: 180px !important; margin-right: 14px !important; }
+          .grid-card { width: 100% !important; }
+          .team-member-photo { height: 200px !important; }
+          .team-member-name { font-size: 14px !important; }
+          .team-member-title { font-size: 10.5px !important; }
+          .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
+          .member-details-wrapper { margin-top: 20px !important; margin-bottom: 20px !important; border-radius: 16px !important; }
+          .mdi-photo { padding: 20px !important; }
+          .mdi-content { padding: 20px !important; }
+          .mdi-name { font-size: 20px !important; }
+          .mdi-section-heading { font-size: 14px !important; }
+          .mdi-achievement-box { font-size: 12.5px !important; padding: 12px !important; }
         }
 
         /* ===== EXTRA SMALL (≤360px) ===== */
         @media (max-width: 360px) {
-          .team-section {
-            padding: 24px 0 28px !important;
-          }
-
-          .team-heading {
-            font-size: clamp(20px, 7.5vw, 28px) !important;
-            line-height: 1.08 !important;
-          }
-
-          .marquee-card {
-            width: 160px !important;
-            margin-right: 12px !important;
-          }
-
-          .grid-card {
-            width: 100% !important;
-          }
-
-          .team-member-photo {
-            height: 180px !important;
-          }
-
-          .team-filter-btn {
-            padding: 5px 10px !important;
-            font-size: 10px !important;
-          }
+          .team-section { padding: 24px 0 28px !important; }
+          .team-heading { font-size: clamp(20px, 7.5vw, 28px) !important; line-height: 1.08 !important; }
+          .marquee-card { width: 160px !important; margin-right: 12px !important; }
+          .grid-card { width: 100% !important; }
+          .team-member-photo { height: 180px !important; }
+          .team-filter-btn { padding: 5px 10px !important; font-size: 10px !important; }
         }
 
         /* Touch devices */
         @media (hover: none) {
-          .team-member-card:active {
-            transform: scale(0.97) !important;
-          }
-
-          .team-filter-btn:active {
-            transform: scale(0.96);
-          }
+          .team-member-card:active { transform: scale(0.97) !important; }
+          .team-filter-btn:active { transform: scale(0.96); }
         }
 
-        /* Member Details Inline - Updated to match Institute design */
-.member-details-wrapper {
-  margin-top: 48px;
-  margin-bottom: 48px;
-  background: white;
-  border-radius: 32px;
-  overflow: hidden;
-  animation: fadeInUp 0.5s ease;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-}
+        /* Member Details Inline */
+        .member-details-wrapper {
+          margin-top: 48px;
+          margin-bottom: 48px;
+          background: white;
+          border-radius: 32px;
+          overflow: hidden;
+          animation: fadeInUp 0.5s ease;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
 
-.mdi-grid {
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 0;
-  min-height: 500px;
-}
+        .mdi-grid {
+          display: grid;
+          grid-template-columns: 0.8fr 1.2fr;
+          gap: 0;
+          min-height: 500px;
+        }
 
-.mdi-photo {
-  background: linear-gradient(135deg, #181A43 0%, #2A2D5E 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-}
+        .mdi-photo {
+          background: linear-gradient(135deg, #181A43 0%, #2A2D5E 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 40px;
+        }
 
-.mdi-photo-frame {
-  width: 100%;
-  max-width: 280px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  border: 3px solid white;
-}
+        .mdi-photo-frame {
+          width: 100%;
+          max-width: 280px;
+          border-radius: 20px;
+          overflow: hidden;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+          border: 3px solid white;
+        }
 
-.mdi-content {
-  padding: 40px;
-  overflow-y: auto;
-  max-height: 600px;
-  background: white;
-}
+        .mdi-content {
+          padding: 40px;
+          overflow-y: auto;
+          max-height: 600px;
+          background: white;
+        }
 
-.mdi-title-label {
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #1F6E7A;
-  font-weight: 600;
-  margin-bottom: 8px;
-  white-space: pre-line;
-  line-height: 1.3;
-}
+        .mdi-title-label {
+          font-size: 12px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #1F6E7A;
+          font-weight: 600;
+          margin-bottom: 8px;
+          white-space: pre-line;
+          line-height: 1.3;
+        }
 
-.mdi-name {
-  font-size: 32px;
-  font-weight: 700;
-  color: #181A43;
-  margin-bottom: 12px;
-  letter-spacing: -0.02em;
-}
+        .mdi-name {
+          font-size: 32px;
+          font-weight: 700;
+          color: #181A43;
+          margin-bottom: 12px;
+          letter-spacing: -0.02em;
+        }
 
-.mdi-close-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background:white;
-  border: 1px solid white;
-  cursor: pointer;
-  font-size: 18px;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: #181A43;
-}
+        .mdi-close-btn {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: white;
+          border: 1px solid white;
+          cursor: pointer;
+          font-size: 18px;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          color: #181A43;
+        }
 
-.mdi-close-btn:hover {
-  background: #E8E0D0;
-}
+        .mdi-close-btn:hover {
+          background: #E8E0D0;
+        }
 
-.mdi-section-heading {
-  font-size: 16px;
-  font-weight: 600;
-  color: #181A43;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+        .mdi-section-heading {
+          font-size: 16px;
+          font-weight: 600;
+          color: #181A43;
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
 
-.mdi-achievement-box {
-  background: linear-gradient(135deg, rgba(24,26,67,0.05) 0%, rgba(31,110,122,0.05) 100%);
-  padding: 14px;
-  border-radius: 14px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #181A43;
-  line-height: 1.5;
-  border-left: 3px solid #1F6E7A;
-}
+        .mdi-achievement-box {
+          background: linear-gradient(135deg, rgba(24,26,67,0.05) 0%, rgba(31,110,122,0.05) 100%);
+          padding: 14px;
+          border-radius: 14px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #181A43;
+          line-height: 1.5;
+          border-left: 3px solid #1F6E7A;
+        }
       `}</style>
     </section>
   );

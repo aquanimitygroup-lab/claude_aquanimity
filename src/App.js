@@ -15,6 +15,7 @@ import Partners from './components/partners';
 import FooterCTA from './components/footer';
 import DetailPage from './components/detail';
 import Platform from './components/platform';
+import AIAssistant from './components/AIAssistant';   // ← NEW: AI Assistant
 //import Contact from './components/contact';
 
 // Import primitives (hooks and shared components)
@@ -456,6 +457,9 @@ function App() {
           <DetailPage route={route} onClose={goBack} palette={palette} />
         </main>
       )}
+
+      {/* ===== AI Assistant (floating icon) ===== */}
+      <AIAssistant />
 
       {!t.italics && (
         <style>{`.serif { font-style: normal !important; font-family: 'Red Hat Display', sans-serif !important; color: var(--ink) !important; }`}</style>
