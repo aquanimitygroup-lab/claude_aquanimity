@@ -321,6 +321,15 @@ function Team({ palette, onOpen }) {
           "bio": "Oxford-trained molecular oncologist specializing in <strong>translational cancer research, cancer biomarkers, molecular genetics and biotechnology</strong>",
           "detailedBio": "Mustak Ibn Ayub is an <strong>Associate Professor in the Department of Genetic Engineering and Biotechnology at the University of Dhaka</strong> and a molecular oncologist specializing in translational cancer research. He completed his <strong>DPhil in Molecular Oncology at the University of Oxford,</strong> where he conducted research at the Cancer and Immunogenetics Laboratory <strong>under renowned cancer geneticist Sir Walter Bodmer</strong>. His research interests include molecular oncology, cancer genetics, biomarkers, precision diagnostics, and the molecular characterization of cancers.\n\nAt Aquanimity, he leads research on RNA-based cancer therapeutics, with a particular focus on developing and translating novel RNA therapeutic approaches for cancer treatment. As an Advisor, he provides expertise in molecular oncology, cancer genetics, RNA therapeutics, and translational cancer research.",
           "education": "DPhil in Oncology | University of Oxford"
+        },
+        {
+          "name": "Munawar Sultana, PhD ",
+          "title": "Senior Advisor\n\nProfessor, Department of Microbiology, University of Dhaka ",
+          "img": "images/manwara.jpg",
+          "linkedin": "https://linkedin.com",
+          "bio": "Extensive experience in <strong>Foot-and-Mouth Disease Virus (FMDV) research,</strong> including <strong>molecular epidemiology, recombinant and chimeric protein vaccine development, and FMDV diagnostics.</strong>",
+          "detailedBio": "Professor Dr. Munawar Sultana is a <strong>Professor in the Department of Microbiology at the University of Dhaka</strong> and leads research in <strong>microbial genetics, molecular biology, bioinformatics, virology, and vaccine development.</strong> She has extensive experience in <strong>Foot-and-Mouth Disease Virus (FMDV) research,</strong> including <strong>molecular epidemiology, recombinant and chimeric protein vaccine development, and FMDV diagnostics.</strong> \n\n At Aquanimity, Professor Sultana contributes her expertise to the development and translation of FMDV vaccine technologies, supporting the Company’s efforts toward locally developed vaccine solutions for the livestock sector.",
+          "education": "PhD in Microbiology | Technical University of Freiburg, Germany"
         }
       ],
       "Medical Advisory Board": [
@@ -331,7 +340,7 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Leading diabetes and metabolic health researcher; <strong>Principal Investigator of Aquanimity's 150-participant SuperWater</strong> randomized controlled trial",
           "detailedBio": "Bishwajit Bhowmik is the <strong>Project Director at the Centre for Global Health Research (CGHR),</strong> Diabetic Association of Bangladesh (BADAS), with extensive experience in diabetes, metabolic disorders, epidemiology, and clinical research. His research spans community diabetes prevention, gestational diabetes, insulin resistance, and population health, with numerous peer-reviewed publications and randomized clinical studies.\n\nHe served as the <strong>Principal Investigator for Aquanimity's randomized controlled clinical trial of SuperWater involving 150 participants,</strong> providing clinical and scientific oversight in evaluating its effects on glycemic outcomes and safety. He provides guidance on clinical research, metabolic health, study design, and evidence-based development of health innovations.",
-          "achievement": "Principal Investigator, SuperWater RCT (150 participants) | Project Director, CGHR-BADAS | Leading diabetes & metabolic health researcher",
+       
           "education": "MBBS | MSc in Diabetes | PhD in Diabetes Epidemiology"
         },
         {
@@ -341,8 +350,18 @@ function Team({ palette, onOpen }) {
           "linkedin": "https://linkedin.com",
           "bio": "Diabetes and metabolic health researcher; also the <strong>Principal Investigator of Aquanimity's 150-participant</strong> SuperWater randomized controlled trial",
           "detailedBio": "Tasnima Siddiquee is the <strong>Deputy Director at the Centre for Global Health Research (CGHR)</strong>, Diabetic Association of Bangladesh (BADAS). Her research focuses on diabetes, obesity, metabolic syndrome, cardiometabolic risk, and population health, with extensive involvement in epidemiological studies and clinical research in Bangladesh.\n\nShe has also previously served as the <strong>Principal Investigator for Aquanimity's randomized controlled clinical trial of SuperWater involving 150 participants,</strong> contributing to the clinical evaluation of its effects on glycemic outcomes and safety. With her extensive experience, she continues on providing guidance regarding clinical translation of Aquanimity's product line.",
-          "achievement": "Principal Investigator, SuperWater RCT (150 participants) | Deputy Director, CGHR-BADAS | Diabetes & metabolic health researcher",
+   
           "education": "MBBS | MPH"
+        },
+        {
+          "name": "Professor Fazila-Tun-Nesa Malik",
+          "title": "Medical Advisor \n\n Professor & Chief Consultant Cardiologist, National Heart Foundation Hospital & Research Institute",
+          "img": "images/mallik.jpg",
+          "linkedin": "https://linkedin.com",
+          "bio": "Leading interventional <strong>cardiologist with extensive experience in cardiovascular medicine, clinical research, and complex coronary interventions.</strong>",
+          "detailedBio": "Professor Fazila-Tun-Nesa Malik is <strong></strong>Professor and Chief Consultant Cardiologist at the National Heart Foundation Hospital & Research Institute,</strong> Dhaka, and a <strong>leading interventional cardiologist</strong> with extensive experience in cardiovascular medicine, clinical research, and complex coronary interventions. She is internationally active in <strong>cardiovascular education and research and has contributed to numerous clinical and population-level cardiovascular studies.</strong>\n\n At Aquanimity, Professor Malik is providing clinical and cardiovascular expertise to the Company’s health-science initiatives, including its research and clinical work surrounding SuperWater",
+         
+          "education": "MBBS | F.R.C.P | M.R.C.P (U.K.)"
         }
       ],
       "Consultants": [
