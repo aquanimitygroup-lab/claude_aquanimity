@@ -362,6 +362,15 @@ function Team({ palette, onOpen }) {
           "detailedBio": "Professor Fazila-Tun-Nesa Malik is <strong></strong>Professor and Chief Consultant Cardiologist at the National Heart Foundation Hospital & Research Institute,</strong> Dhaka, and a <strong>leading interventional cardiologist</strong> with extensive experience in cardiovascular medicine, clinical research, and complex coronary interventions. She is internationally active in <strong>cardiovascular education and research and has contributed to numerous clinical and population-level cardiovascular studies.</strong>\n\n At Aquanimity, Professor Malik is providing clinical and cardiovascular expertise to the Company’s health-science initiatives, including its research and clinical work surrounding SuperWater",
          
           "education": "MBBS | F.R.C.P | M.R.C.P (U.K.)"
+        },
+        {
+          "name": "Prof Dr Shirin Tarafder",
+          "title": "Medical Advisor \n\n Professor of Microbiology & Immunology at Bangladesh Medical University (formerly BSMMU)",
+          "img": "images/shirin.jpg",
+          "linkedin": "https://linkedin.com",
+          "bio": "Expert in clinical <strong>immunology, molecular biology, flow cytometry, infectious diseases, and advanced molecular diagnostics.</strong>30 years of experience in medical education and research.",
+          "detailedBio": "Prof. Dr. Shirin Tarafder is a distinguished <strong>medical microbiologist and immunologist with more than three decades</strong> of experience in medical education, clinical research and laboratory diagnostics. She is a former <strong>Dean of the Faculty of Basic Science & Paraclinical Science and Professor of Microbiology & Immunology at Bangladesh Medical University (formerly BSMMU).</strong> Her expertise spans <strong>clinical immunology, molecular biology, flow cytometry, infectious diseases and advanced molecular diagnostics.</strong> She has led and supervised extensive research in <strong>tuberculosis, immunological disorders and molecular diagnostics</strong> and has contributed to numerous peer-reviewed scientific publications. \n\nAt Aquanimity Bangladesh Limited, Prof. Tarafder serves on the Medical Advisory Board, providing expert guidance on the design and scientific oversight of clinical studies, research ethics and participant safety, clinical and laboratory protocols, interpretation of biomedical evidence, and the translation of Aquanimity’s health-science innovations toward rigorous clinical validation.",
+          "education": "MBBS | M.Phil"
         }
       ],
       "Consultants": [
