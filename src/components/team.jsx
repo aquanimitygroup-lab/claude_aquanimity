@@ -425,7 +425,7 @@ function Team({ palette, onOpen }) {
         },
         {
           "name": "Rashik Alam Chowdhury",
-          "title": "Managing Director\n\nExecutive Director, Convince Group\nAssociate Director, Tamishna Group\nDirector, Gunee Bangladesh Ltd.",
+          "title": "Managing Director\n\nDeputy Managing Director, Convince Group\nExecutive Director, Tamishna Group\nDirector, Gunee Bangladesh Ltd.",
           "img": "images/rashik.png",
           "linkedin": "https://linkedin.com",
           "bio": "Oversees all stages of the company<strong> development </strong>and makes all<strong> key decisions</strong>. ",
