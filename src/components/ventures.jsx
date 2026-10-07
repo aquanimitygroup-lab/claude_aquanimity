@@ -80,7 +80,7 @@ function Ventures({ palette, onOpen }) {
       id: "thermorevax",
       name: "ThermoReVaQ",
       tag: "Vaccine Engineering",
-      blurb: "Reinventing vaccine delivery without the cold chain. Our breakthrough polymer replaces traditional LNPs, eliminating refrigeration requirements while enhancing bioavailability. We are developing next-generation mRNA, siRNA, and chimeric vaccines to make life-saving therapeutics accessible worldwide.",
+      blurb: "Reinventing vaccine delivery without the cold chain. This breakthrough polymer replaces traditional LNPs, eliminating refrigeration requirements while enhancing bioavailability. We are developing next-generation mRNA, siRNA, and chimeric vaccines to make life-saving therapeutics accessible worldwide.",
       video: "#",
       bgImage: "/images/vaccinpng.png"
     }

@@ -287,22 +287,13 @@ function Team({ palette, onOpen }) {
           "education": "Ph.D. | MIT"
         },
         {
-          "name": "Shoeb Ahmed, PhD",
-          "title": "Senior Scientific Advisor and Chair, Institute of Applied Bioengineering and Material Science \n\n Chair and Professor, Dept. of Chemical Engineering, BUET",
-          "img": "images/shoeb.png",
+          "name": "Md. Anwar Hossain, PhD ",
+          "title": "Senior Scientific Advisor\n\nProfessor, Dept. of Microbiology, University of Dhaka ",
+          "img": "images/anwar.jpg",
           "linkedin": "https://linkedin.com",
-          "bio": "Research focus includes <strong>industrial processes, intracellular signalling, and advanced microscopy methods</strong>",
-          "detailedBio": "Shoeb Ahmed is a <strong> Professor and Chair of the Department Chemical Engineering at BUET</strong>  and the <strong> Project Director of the Applied Bioengineering Research Incubator (ABRI)</strong> . He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
-          "education": "Ph.D. | North Carolina State University"
-        },
-        {
-          "name": "Nafisa Islam, PhD",
-          "title": "Senior Scientific Advisor\n\n Professor, Dept. of Chemical Engineering, BUET",
-          "img": "images/nafisa.png",
-          "linkedin": "https://linkedin.com",
-          "bio": "Specialist in <strong>biocompatible materials</strong> and <strong>biosensor development</strong>",
-          "detailedBio": "Nafisa Islam is a<strong>  chemical engineer specializing in biocompatible materials, biosensing, and environmental chemistry</strong> . She holds a PhD in Chemical Engineering from North Carolina State University and is a member of the<strong>  BUET faculty</strong> .\n\nAt the Biohub, she leads development of biosensor-based sanitary pads and women's health diagnostics. She also advises on biocompatible materials and packaging innovations across the Biohub, guiding programs that intersect women's health, materials science, and translational engineering.",
-          "education": "Ph.D. | North Carolina State University"
+          "bio": "Multiple award-winning molecular geneticist and former <strong>Vice Chancellor of JUST</strong>, advising on the <strong>FMDV vaccine project</strong>.",
+          "detailedBio": "Md. Anwar Hossain is a distinguished Bangladeshi scientist specializing in <strong>molecular microbial genetics, genomics, bioinformatics, and vaccine development</strong>. A <strong>former Professor at the University of Dhaka and Vice Chancellor of Jashore University of Science and Technology (JUST)</strong>, he earned his PhD from the University of Tokyo and conducted research in Japan and the USA. His research spans <strong>Foot-and-Mouth Disease (FMD) vaccine development</strong>, antimicrobial resistance, microbiomes, bioremediation, and infectious diseases. He led research culminating in the development of an effective trivalent <strong>FMD vaccine</strong> and has secured substantial national and international research funding. His distinctions include the <strong>BAS National Professor Dr. M. Innas Ali Memorial Gold Medal and the UGC Best Researcher Award</strong>.\n\nAt Aquanimity, he is advising on the FMDV vaccine development, from formulation and clinical testing to commercialization.",
+          "education": "PhD in Microbiology | University of Tokyo"
         },
         {
           "name": "Ayesha Banu, PhD",
@@ -314,41 +305,51 @@ function Team({ palette, onOpen }) {
           "education": "Ph.D. | University of Dhaka"
         },
         {
-          "name": "Mustak Ibn Ayub, PhD",
-          "title": "Senior Advisor\n\nAssociate Professor, Dept. of Genetic Engineering and Biotechnology, Dhaka University",
-          "img": "images/mustaque.jpg",
+          "name": "Shoeb Ahmed, PhD",
+          "title": "Senior Scientific Advisor\n\n Chair and Professor, Dept. of Chemical Engineering, BUET",
+          "img": "images/shoeb.png",
           "linkedin": "https://linkedin.com",
-          "bio": "Oxford-trained molecular oncologist specializing in <strong>translational cancer research, cancer biomarkers, molecular genetics and biotechnology</strong>",
-          "detailedBio": "Mustak Ibn Ayub is an <strong>Associate Professor in the Department of Genetic Engineering and Biotechnology at the University of Dhaka</strong> and a molecular oncologist specializing in translational cancer research. He completed his <strong>DPhil in Molecular Oncology at the University of Oxford,</strong> where he conducted research at the Cancer and Immunogenetics Laboratory <strong>under renowned cancer geneticist Sir Walter Bodmer</strong>. His research interests include molecular oncology, cancer genetics, biomarkers, precision diagnostics, and the molecular characterization of cancers.\n\nAt Aquanimity, he leads research on RNA-based cancer therapeutics, with a particular focus on developing and translating novel RNA therapeutic approaches for cancer treatment. As an Advisor, he provides expertise in molecular oncology, cancer genetics, RNA therapeutics, and translational cancer research.",
-          "education": "DPhil in Oncology | University of Oxford"
+          "bio": "Research focus includes <strong>industrial processes, intracellular signalling, and advanced microscopy methods</strong>",
+          "detailedBio": "Shoeb Ahmed is a <strong> Professor and Chair of the Department Chemical Engineering at BUET</strong>  and the <strong> Project Director of the Applied Bioengineering Research Incubator (ABRI)</strong> . He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
+          "education": "Ph.D. | North Carolina State University"
         },
         {
           "name": "Munawar Sultana, PhD ",
-          "title": "Senior Advisor\n\nProfessor, Department of Microbiology, University of Dhaka ",
+          "title": "Senior Scientific Advisor\n\nProfessor, Dept. of Microbiology, University of Dhaka ",
           "img": "images/manwara.jpg",
           "linkedin": "https://linkedin.com",
-          "bio": "Extensive experience in <strong>Foot-and-Mouth Disease Virus (FMDV) research,</strong> including <strong>molecular epidemiology, recombinant and chimeric protein vaccine development, and FMDV diagnostics.</strong>",
+          "bio": "<strong>FMDV vaccine</strong> specialist, leading Aquanimity’s <strong>FMDV vaccine development</strong>.",
           "detailedBio": "Professor Dr. Munawar Sultana is a <strong>Professor in the Department of Microbiology at the University of Dhaka</strong> and leads research in <strong>microbial genetics, molecular biology, bioinformatics, virology, and vaccine development.</strong> She has extensive experience in <strong>Foot-and-Mouth Disease Virus (FMDV) research,</strong> including <strong>molecular epidemiology, recombinant and chimeric protein vaccine development, and FMDV diagnostics.</strong> \n\n At Aquanimity, Professor Sultana contributes her expertise to the development and translation of FMDV vaccine technologies, supporting the Company’s efforts toward locally developed vaccine solutions for the livestock sector.",
           "education": "PhD in Microbiology | Technical University of Freiburg, Germany"
         },
         {
-          "name": "Md. Anwar Hossain, PhD ",
-          "title": "Senior Advisor\n\nProfessor, Department of Microbiology, University of Dhaka ",
-          "img": "images/anwar.jpg",
+          "name": "Nafisa Islam, PhD",
+          "title": "Senior Scientific Advisor\n\n Professor, Dept. of Chemical Engineering, BUET",
+          "img": "images/nafisa.png",
           "linkedin": "https://linkedin.com",
-          "bio": "Distinguished scientist and <strong>former JUST Vice Chancellor</strong> specializing in molecular microbiology, genomics, bioinformatics, infectious diseases, and <strong>Foot-and-Mouth Disease vaccine development.</strong>",
-          "detailedBio": "Md. Anwar Hossain is a distinguished Bangladeshi scientist specializing in <strong>molecular microbial genetics, genomics, bioinformatics, and vaccine development</strong>. A <strong>former Professor at the University of Dhaka and Vice Chancellor of Jashore University of Science and Technology (JUST)</strong>, he earned his PhD from the University of Tokyo and conducted research in Japan and the USA. His research spans <strong>Foot-and-Mouth Disease (FMD) vaccine development</strong>, antimicrobial resistance, microbiomes, bioremediation, and infectious diseases. He led research culminating in the development of an effective trivalent <strong>FMD vaccine</strong> and has secured substantial national and international research funding. His distinctions include the <strong>BAS National Professor Dr. M. Innas Ali Memorial Gold Medal and the UGC Best Researcher Award</strong>.\n\nAt Aquanimity, he is advising on the FMDV vaccine development, from formulation and clinical testing to commercialization.",
-          "education": "PhD in Microbiology | University of Tokyo"
+          "bio": "Specialist in <strong>biocompatible materials</strong> and <strong>biosensor development</strong>",
+          "detailedBio": "Nafisa Islam is a<strong>  chemical engineer specializing in biocompatible materials, biosensing, and environmental chemistry</strong> . She holds a PhD in Chemical Engineering from North Carolina State University and is a member of the<strong>  BUET faculty</strong> .\n\nAt the Biohub, she leads development of biosensor-based sanitary pads and women's health diagnostics. She also advises on biocompatible materials and packaging innovations across the Biohub, guiding programs that intersect women's health, materials science, and translational engineering.",
+          "education": "Ph.D. | North Carolina State University"
+        },
+
+        {
+          "name": "Mustak Ibn Ayub, PhD",
+          "title": "Senior Scientific Advisor\n\nAssociate Professor, Dept. of Genetic Engineering and Biotechnology, Dhaka University",
+          "img": "images/mustaque.jpg",
+          "linkedin": "https://linkedin.com",
+          "bio": "Oxford-trained molecular oncologist, trained under <strong>Sir Walter Bodmer</strong>, working on <strong>RNA-based cancer therapeutics</strong>.",
+          "detailedBio": "Mustak Ibn Ayub is an <strong>Associate Professor in the Department of Genetic Engineering and Biotechnology at the University of Dhaka</strong> and a molecular oncologist specializing in translational cancer research. He completed his <strong>DPhil in Molecular Oncology at the University of Oxford,</strong> where he conducted research at the Cancer and Immunogenetics Laboratory <strong>under renowned cancer geneticist Sir Walter Bodmer</strong>. His research interests include molecular oncology, cancer genetics, biomarkers, precision diagnostics, and the molecular characterization of cancers.\n\nAt Aquanimity, he leads research on RNA-based cancer therapeutics, with a particular focus on developing and translating novel RNA therapeutic approaches for cancer treatment. As an Advisor, he provides expertise in molecular oncology, cancer genetics, RNA therapeutics, and translational cancer research.",
+          "education": "DPhil in Oncology | University of Oxford"
         }
       ],
       "Medical Advisory Board": [
         {
-          "name": "Professor Bishwajit Bhowmik",
+          "name": "Professor Dr. Bishwajit Bhowmik",
           "title": "Medical Advisor\n\nProject Director, Centre for Global Health Research (CGHR), BADAS",
           "img": "images/bishwjit1.png",
           "linkedin": "https://linkedin.com",
           "bio": "Leading diabetes and metabolic health researcher; <strong>Principal Investigator of Aquanimity's 150-participant SuperWater</strong> randomized controlled trial",
-          "detailedBio": "Bishwajit Bhowmik is the <strong>Project Director at the Centre for Global Health Research (CGHR),</strong> Diabetic Association of Bangladesh (BADAS), with extensive experience in diabetes, metabolic disorders, epidemiology, and clinical research. His research spans community diabetes prevention, gestational diabetes, insulin resistance, and population health, with numerous peer-reviewed publications and randomized clinical studies.\n\nHe served as the <strong>Principal Investigator for Aquanimity's randomized controlled clinical trial of SuperWater involving 150 participants,</strong> providing clinical and scientific oversight in evaluating its effects on glycemic outcomes and safety. He provides guidance on clinical research, metabolic health, study design, and evidence-based development of health innovations.",
+          "detailedBio": "Professor Dr. Bishwajit Bhowmik is the <strong>Project Director at the Centre for Global Health Research (CGHR),</strong> Diabetic Association of Bangladesh (BADAS), with extensive experience in diabetes, metabolic disorders, epidemiology, and clinical research. His research spans community diabetes prevention, gestational diabetes, insulin resistance, and population health, with numerous peer-reviewed publications and randomized clinical studies.\n\nHe served as the <strong>Principal Investigator for Aquanimity's randomized controlled clinical trial of SuperWater involving 150 participants,</strong> providing clinical and scientific oversight in evaluating its effects on glycemic outcomes and safety. He provides guidance on clinical research, metabolic health, study design, and evidence-based development of health innovations.",
        
           "education": "MBBS | MSc in Diabetes | PhD in Diabetes Epidemiology"
         },
@@ -358,27 +359,27 @@ function Team({ palette, onOpen }) {
           "img": "images/tasnima1.png",
           "linkedin": "https://linkedin.com",
           "bio": "Diabetes and metabolic health researcher; also the <strong>Principal Investigator of Aquanimity's 150-participant</strong> SuperWater randomized controlled trial",
-          "detailedBio": "Tasnima Siddiquee is the <strong>Deputy Director at the Centre for Global Health Research (CGHR)</strong>, Diabetic Association of Bangladesh (BADAS). Her research focuses on diabetes, obesity, metabolic syndrome, cardiometabolic risk, and population health, with extensive involvement in epidemiological studies and clinical research in Bangladesh.\n\nShe has also previously served as the <strong>Principal Investigator for Aquanimity's randomized controlled clinical trial of SuperWater involving 150 participants,</strong> contributing to the clinical evaluation of its effects on glycemic outcomes and safety. With her extensive experience, she continues on providing guidance regarding clinical translation of Aquanimity's product line.",
+          "detailedBio": "Dr. Tasnima Siddiquee is the <strong>Deputy Director at the Centre for Global Health Research (CGHR)</strong>, Diabetic Association of Bangladesh (BADAS). Her research focuses on diabetes, obesity, metabolic syndrome, cardiometabolic risk, and population health, with extensive involvement in epidemiological studies and clinical research in Bangladesh.\n\nShe has also previously served as the <strong>Principal Investigator for Aquanimity's randomized controlled clinical trial of SuperWater involving 150 participants,</strong> contributing to the clinical evaluation of its effects on glycemic outcomes and safety. With her extensive experience, she continues on providing guidance regarding clinical translation of Aquanimity's product line.",
    
           "education": "MBBS | MPH"
         },
         {
-          "name": "Professor Fazila-Tun-Nesa Malik",
+          "name": "Professor Dr. Fazila-Tun-Nesa Malik",
           "title": "Medical Advisor \n\n Professor & Chief Consultant Cardiologist, National Heart Foundation Hospital & Research Institute",
           "img": "images/mallik.jpg",
           "linkedin": "https://linkedin.com",
           "bio": "Leading interventional <strong>cardiologist with extensive experience in cardiovascular medicine, clinical research, and complex coronary interventions.</strong>",
-          "detailedBio": "Professor Fazila-Tun-Nesa Malik is <strong></strong>Professor and Chief Consultant Cardiologist at the National Heart Foundation Hospital & Research Institute,</strong> Dhaka, and a <strong>leading interventional cardiologist</strong> with extensive experience in cardiovascular medicine, clinical research, and complex coronary interventions. She is internationally active in <strong>cardiovascular education and research and has contributed to numerous clinical and population-level cardiovascular studies.</strong>\n\n At Aquanimity, Professor Malik is providing clinical and cardiovascular expertise to the Company’s health-science initiatives, including its research and clinical work surrounding SuperWater",
+          "detailedBio": "Professor Dr. Fazila-Tun-Nesa Malik is <strong></strong>Professor and Chief Consultant Cardiologist at the National Heart Foundation Hospital & Research Institute,</strong> Dhaka, and a <strong>leading interventional cardiologist</strong> with extensive experience in cardiovascular medicine, clinical research, and complex coronary interventions. She is internationally active in <strong>cardiovascular education and research and has contributed to numerous clinical and population-level cardiovascular studies.</strong>\n\n At Aquanimity, Professor Malik is providing clinical and cardiovascular expertise to the Company’s health-science initiatives, including its research and clinical work surrounding SuperWater",
          
           "education": "MBBS | F.R.C.P | M.R.C.P (U.K.)"
         },
         {
-          "name": "Prof Dr Shirin Tarafder",
+          "name": "Professor Dr. Shirin Tarafder",
           "title": "Medical Advisor \n\n Professor of Microbiology & Immunology at Bangladesh Medical University (formerly BSMMU)",
           "img": "images/shirin.jpg",
           "linkedin": "https://linkedin.com",
           "bio": "Expert in clinical <strong>immunology, molecular biology, flow cytometry, infectious diseases, and advanced molecular diagnostics.</strong>30 years of experience in medical education and research.",
-          "detailedBio": "Prof. Dr. Shirin Tarafder is a distinguished <strong>medical microbiologist and immunologist with more than three decades</strong> of experience in medical education, clinical research and laboratory diagnostics. She is a former <strong>Dean of the Faculty of Basic Science & Paraclinical Science and Professor of Microbiology & Immunology at Bangladesh Medical University (formerly BSMMU).</strong> Her expertise spans <strong>clinical immunology, molecular biology, flow cytometry, infectious diseases and advanced molecular diagnostics.</strong> She has led and supervised extensive research in <strong>tuberculosis, immunological disorders and molecular diagnostics</strong> and has contributed to numerous peer-reviewed scientific publications. \n\nAt Aquanimity Bangladesh Limited, Prof. Tarafder serves on the Medical Advisory Board, providing expert guidance on the design and scientific oversight of clinical studies, research ethics and participant safety, clinical and laboratory protocols, interpretation of biomedical evidence, and the translation of Aquanimity’s health-science innovations toward rigorous clinical validation.",
+          "detailedBio": "Professor Dr. Shirin Tarafder is a distinguished <strong>medical microbiologist and immunologist with more than three decades</strong> of experience in medical education, clinical research and laboratory diagnostics. She is a former <strong>Dean of the Faculty of Basic Science & Paraclinical Science and Professor of Microbiology & Immunology at Bangladesh Medical University (formerly BSMMU).</strong> Her expertise spans <strong>clinical immunology, molecular biology, flow cytometry, infectious diseases and advanced molecular diagnostics.</strong> She has led and supervised extensive research in <strong>tuberculosis, immunological disorders and molecular diagnostics</strong> and has contributed to numerous peer-reviewed scientific publications. \n\nAt Aquanimity Bangladesh Limited, Professor Tarafder serves on the Medical Advisory Board, providing expert guidance on the design and scientific oversight of clinical studies, research ethics and participant safety, clinical and laboratory protocols, interpretation of biomedical evidence, and the translation of Aquanimity’s health-science innovations toward rigorous clinical validation.",
           
         }
       ],
