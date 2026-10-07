@@ -54,7 +54,7 @@ function Ventures({ palette, onOpen }) {
   const ventures = [
     {
       id: "superwater",
-      name: "SuperWater",
+      name: "Super Water",
       tag: "Enhanced Water",
       blurb: "Patented and clinically validated. Following successful 150-participant human trials confirming benefits for hydration, post-meal glucose control, and heart health, our functional water has proven its efficacy. We are now preparing full-scale production to bring smarter daily wellness to everyone.",
       video: "#",
