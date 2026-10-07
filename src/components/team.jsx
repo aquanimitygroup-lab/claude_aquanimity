@@ -348,37 +348,37 @@ function Team({ palette, onOpen }) {
           "title": "Medical Advisor\n\nProject Director, Centre for Global Health Research (CGHR), BADAS",
           "img": "images/bishwjit1.png",
           "linkedin": "https://linkedin.com",
-          "bio": "Leading diabetes and metabolic health researcher; <strong>Principal Investigator of Aquanimity's 150-participant SuperWater</strong> randomized controlled trial",
+          "bio": "Diabetes and metabolic health expert at <strong>Bangladesh Diabetic Asscoiation</strong>, and PI of <strong>150-participant Super Water clinical trial</strong>.",
           "detailedBio": "Professor Dr. Bishwajit Bhowmik is the <strong>Project Director at the Centre for Global Health Research (CGHR),</strong> Diabetic Association of Bangladesh (BADAS), with extensive experience in diabetes, metabolic disorders, epidemiology, and clinical research. His research spans community diabetes prevention, gestational diabetes, insulin resistance, and population health, with numerous peer-reviewed publications and randomized clinical studies.\n\nHe served as the <strong>Principal Investigator for Aquanimity's randomized controlled clinical trial of SuperWater involving 150 participants,</strong> providing clinical and scientific oversight in evaluating its effects on glycemic outcomes and safety. He provides guidance on clinical research, metabolic health, study design, and evidence-based development of health innovations.",
        
           "education": "MBBS | MSc in Diabetes | PhD in Diabetes Epidemiology"
-        },
-        {
-          "name": "Dr. Tasnima Siddiquee",
-          "title": "Medical Advisor \n\n Deputy Director, Centre for Global Health Research (CGHR), BADAS",
-          "img": "images/tasnima1.png",
-          "linkedin": "https://linkedin.com",
-          "bio": "Diabetes and metabolic health researcher; also the <strong>Principal Investigator of Aquanimity's 150-participant</strong> SuperWater randomized controlled trial",
-          "detailedBio": "Dr. Tasnima Siddiquee is the <strong>Deputy Director at the Centre for Global Health Research (CGHR)</strong>, Diabetic Association of Bangladesh (BADAS). Her research focuses on diabetes, obesity, metabolic syndrome, cardiometabolic risk, and population health, with extensive involvement in epidemiological studies and clinical research in Bangladesh.\n\nShe has also previously served as the <strong>Principal Investigator for Aquanimity's randomized controlled clinical trial of SuperWater involving 150 participants,</strong> contributing to the clinical evaluation of its effects on glycemic outcomes and safety. With her extensive experience, she continues on providing guidance regarding clinical translation of Aquanimity's product line.",
-   
-          "education": "MBBS | MPH"
         },
         {
           "name": "Professor Dr. Fazila-Tun-Nesa Malik",
           "title": "Medical Advisor \n\n Professor & Chief Consultant Cardiologist, National Heart Foundation Hospital & Research Institute",
           "img": "images/mallik.jpg",
           "linkedin": "https://linkedin.com",
-          "bio": "Leading interventional <strong>cardiologist with extensive experience in cardiovascular medicine, clinical research, and complex coronary interventions.</strong>",
+          "bio": "Leading interventional <strong>cardiologist with extensive experience in  coronary interventions.</strong>",
           "detailedBio": "Professor Dr. Fazila-Tun-Nesa Malik is <strong></strong>Professor and Chief Consultant Cardiologist at the National Heart Foundation Hospital & Research Institute,</strong> Dhaka, and a <strong>leading interventional cardiologist</strong> with extensive experience in cardiovascular medicine, clinical research, and complex coronary interventions. She is internationally active in <strong>cardiovascular education and research and has contributed to numerous clinical and population-level cardiovascular studies.</strong>\n\n At Aquanimity, Professor Malik is providing clinical and cardiovascular expertise to the Company’s health-science initiatives, including its research and clinical work surrounding SuperWater",
          
           "education": "MBBS | F.R.C.P | M.R.C.P (U.K.)"
+        },
+        {
+          "name": "Dr. Tasnima Siddiquee",
+          "title": "Medical Advisor \n\n Deputy Director, Centre for Global Health Research (CGHR), BADAS",
+          "img": "images/tasnima1.png",
+          "linkedin": "https://linkedin.com",
+          "bio": "Metabolic health expert at <strong>Bangladesh Diabetic Association</strong> and <strong>Super Water clinical trial co-PI</strong>.",
+          "detailedBio": "Dr. Tasnima Siddiquee is the <strong>Deputy Director at the Centre for Global Health Research (CGHR)</strong>, Diabetic Association of Bangladesh (BADAS). Her research focuses on diabetes, obesity, metabolic syndrome, cardiometabolic risk, and population health, with extensive involvement in epidemiological studies and clinical research in Bangladesh.\n\nShe has also previously served as the <strong>Principal Investigator for Aquanimity's randomized controlled clinical trial of SuperWater involving 150 participants,</strong> contributing to the clinical evaluation of its effects on glycemic outcomes and safety. With her extensive experience, she continues on providing guidance regarding clinical translation of Aquanimity's product line.",
+   
+          "education": "MBBS | MPH"
         },
         {
           "name": "Professor Dr. Shirin Tarafder",
           "title": "Medical Advisor \n\n Professor of Microbiology & Immunology at Bangladesh Medical University (formerly BSMMU)",
           "img": "images/shirin.jpg",
           "linkedin": "https://linkedin.com",
-          "bio": "Expert in clinical <strong>immunology, molecular biology, flow cytometry, infectious diseases, and advanced molecular diagnostics.</strong>30 years of experience in medical education and research.",
+          "bio": "Expert in  <strong>infectious diseases and flow cytometry</strong>, guiding Aquanimity's clinical  research.",
           "detailedBio": "Professor Dr. Shirin Tarafder is a distinguished <strong>medical microbiologist and immunologist with more than three decades</strong> of experience in medical education, clinical research and laboratory diagnostics. She is a former <strong>Dean of the Faculty of Basic Science & Paraclinical Science and Professor of Microbiology & Immunology at Bangladesh Medical University (formerly BSMMU).</strong> Her expertise spans <strong>clinical immunology, molecular biology, flow cytometry, infectious diseases and advanced molecular diagnostics.</strong> She has led and supervised extensive research in <strong>tuberculosis, immunological disorders and molecular diagnostics</strong> and has contributed to numerous peer-reviewed scientific publications. \n\nAt Aquanimity Bangladesh Limited, Professor Tarafder serves on the Medical Advisory Board, providing expert guidance on the design and scientific oversight of clinical studies, research ethics and participant safety, clinical and laboratory protocols, interpretation of biomedical evidence, and the translation of Aquanimity’s health-science innovations toward rigorous clinical validation.",
           
         }
