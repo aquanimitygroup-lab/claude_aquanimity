@@ -345,7 +345,7 @@ function Team({ palette, onOpen }) {
       "Medical Advisory Board": [
         {
           "name": "Professor Dr. Bishwajit Bhowmik",
-          "title": "Medical Advisor\n\nProject Director, Centre for Global Health Research (CGHR), BADAS",
+          "title": "Senior Medical Advisor\n\nProject Director, Centre for Global Health Research (CGHR), BADAS",
           "img": "images/bishwjit1.png",
           "linkedin": "https://linkedin.com",
           "bio": "Diabetes and metabolic health expert at <strong>Bangladesh Diabetic Asscoiation</strong>, and PI of <strong>150-participant Super Water clinical trial</strong>.",
@@ -355,7 +355,7 @@ function Team({ palette, onOpen }) {
         },
         {
           "name": "Professor Dr. Fazila-Tun-Nesa Malik",
-          "title": "Medical Advisor \n\n Professor & Chief Consultant Cardiologist, National Heart Foundation Hospital & Research Institute",
+          "title": "Senior Medical Advisor \n\n Professor & Chief Consultant Cardiologist, National Heart Foundation Hospital & Research Institute",
           "img": "images/mallik.jpg",
           "linkedin": "https://linkedin.com",
           "bio": "Leading interventional <strong>cardiologist with extensive experience in  coronary interventions.</strong>",
@@ -365,7 +365,7 @@ function Team({ palette, onOpen }) {
         },
         {
           "name": "Dr. Tasnima Siddiquee",
-          "title": "Medical Advisor \n\n Deputy Director, Centre for Global Health Research (CGHR), BADAS",
+          "title": "Senior Medical Advisor \n\n Deputy Director, Centre for Global Health Research (CGHR), BADAS",
           "img": "images/tasnima1.png",
           "linkedin": "https://linkedin.com",
           "bio": "Metabolic health expert at <strong>Bangladesh Diabetic Association</strong> and <strong>Super Water clinical trial co-PI</strong>.",
@@ -375,7 +375,7 @@ function Team({ palette, onOpen }) {
         },
         {
           "name": "Professor Dr. Shirin Tarafder",
-          "title": "Medical Advisor \n\n Professor of Microbiology & Immunology at Bangladesh Medical University (formerly BSMMU)",
+          "title": "Senior Medical Advisor \n\n Professor of Microbiology & Immunology at Bangladesh Medical University (formerly BSMMU)",
           "img": "images/shirin.jpg",
           "linkedin": "https://linkedin.com",
           "bio": "Expert in  <strong>infectious diseases and flow cytometry</strong>, guiding Aquanimity's clinical  research.",
@@ -480,7 +480,7 @@ function Team({ palette, onOpen }) {
         },
         {
           "name": "Samman Haque",
-          "title": "Manager, Marketing\n\nEquity Research, Accounting, and Compliance at B&B Enterprise (a stock brokerage house)",
+          "title": "Head of Brands\n\nEquity Research, Accounting, and Compliance at B&B Enterprise (a stock brokerage house)",
           "img": "images/samman.jpg",
           "linkedin": "https://linkedin.com",
           "bio": "Works alongside the CMO regarding <strong>brand development and product marketing </strong>",
@@ -489,15 +489,6 @@ function Team({ palette, onOpen }) {
         }
       ],
       "Research Associates": [
-        {
-          "name": "Fatin Noor",
-          "title": " Executive-Operations and Supply Chain\n Institute of Health Sciences ",
-          "img": "images/fatin.jpg",
-          "linkedin": "https://linkedin.com",
-          "bio": "",
-          "detailedBio": "Fatin pursued Biochemistry and Biotechnology at North South University, gaining a comprehensive foundation in industrial and biomedical sciences through both theory and wet-lab work. His undergraduate research investigated antimicrobial resistance and ESBL-producing Enterobacteriaceae in Dhaka's poultry market, using phenotypic and genotypic methods. He developed competencies in bacterial isolation, antibiotic susceptibility testing, DNA extraction, PCR, gel electrophoresis, and gene identification, later expanding these skills to secondary metabolite screening at NGRI and Invent laboratories.\n\n At the Aquanimity Biohubs, Fatin is establishing Quality Assurance SOPs aligned with FDA, EFSA, BSTI, BFSA, and related standards. His work spans formulation refinement, microbial safety in production environments, and biochemical data interpretation from clinical trials.",
-          "education": "BSc in Biotechnology | North South University"
-        },
         {
           "name": "Mehedi Hasan Pritom",
           "title": "Senior Microbiologist\n Institute of Omics & Molecular Microbiology",

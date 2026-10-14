@@ -57,7 +57,7 @@ Through this institute, Aquanimity treats Bangladesh's biodiversity not only as 
       tag: "Computational Biology",
       fullDescription: `The Institute of Computational Biology & AI is the intelligence layer of Aquanimity BioHubs™. Its mission is to use artificial intelligence, bioinformatics, protein modeling, molecular simulation, and biological data systems to accelerate discovery across all Aquanimity institutes. It connects biodiversity, omics, clinical research, formulation science, and engineering into a unified AI-native discovery platform.
 
-The institute's flagship platform is The Aquanimity Bioplatform — an integrated computational biology engine designed to organize biological data, identify promising compounds and proteins, predict molecular interactions, prioritize experiments, and help transform raw scientific information into commercializable innovation.
+The institute's flagship platform is OmniBio — an integrated computational biology engine designed to organize biological data, identify promising compounds and proteins, predict molecular interactions, prioritize experiments, and help transform raw scientific information into commercializable innovation.
 
 For health sciences, the institute can rank plant bioactives against targets involved in glucose metabolism, inflammation, cardiovascular health, and aging. For molecular microbiology, it can analyze microbial genomes to identify enzymes and metabolites with industrial or therapeutic potential. For bioengineering, it can support protein structure analysis, antigen selection, formulation design, and delivery-system optimization.`,
       focusAreas: ["AI Drug Discovery", "Protein Modeling", "Bioinformatics", "ADME Prediction", "Enzyme Engineering", "Biological Data Platforms"],
@@ -723,14 +723,6 @@ function InstituteDetail({ it, data, palette }) {
       },
     ],
     "01_associates": [
-      { 
-        name: "Fatin Noor", 
-        title: "Executive-Operations and Supply Chain\nInstitute of Health Sciences", 
-        img: "/images/fatin.jpg",
-        bio: "",
-        detailedBio: "Fatin pursued Biochemistry and Biotechnology at North South University, gaining a comprehensive foundation in industrial and biomedical sciences through both theory and wet-lab work. His undergraduate research investigated antimicrobial resistance and ESBL-producing Enterobacteriaceae in Dhaka's poultry market, using phenotypic and genotypic methods. He developed competencies in bacterial isolation, antibiotic susceptibility testing, DNA extraction, PCR, gel electrophoresis, and gene identification, later expanding these skills to secondary metabolite screening at NGRI and Invent laboratories.\n\nAt the Aquanimity Biohubs, Fatin is establishing Quality Assurance SOPs aligned with FDA, EFSA, BSTI, BFSA, and related standards. His work spans formulation refinement, microbial safety in production environments, and biochemical data interpretation from clinical trials.",
-        education: "BSc in Biochemistry and Biotechnology | North South University"
-      },
       { 
         name: "Mehedi Hasan Pritom", 
         title: "Senior Microbiologist\nInstitute of Omics & Molecular Microbiology", 

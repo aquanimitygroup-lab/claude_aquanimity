@@ -51,10 +51,14 @@ function Ventures({ palette, onOpen }) {
   const [activeVenture, setActiveVenture] = useState(0);
   const [imageLoaded, setImageLoaded] = useState({});
 
+  // ─────────────────────────────────────────────────────────────
+  //  এখানে tabName এবং cardTitle আলাদা করা হয়েছে
+  // ─────────────────────────────────────────────────────────────
   const ventures = [
     {
       id: "superwater",
-      name: "Enhanced Water",
+      tabName: "Enhanced Water",        
+      cardTitle: "",      
       tag: "Enhanced Water",
       blurb: "Patented and clinically validated. Following successful 150-participant human trials confirming benefits for hydration, post-meal glucose control, and heart health, our functional water has proven its efficacy. We are now preparing full-scale production to bring smarter daily wellness to everyone.",
       video: "#",
@@ -62,7 +66,8 @@ function Ventures({ palette, onOpen }) {
     },
     {
       id: "bluemicrobiome",
-      name: "The Blue Microbiome Initiative",
+      tabName: "AquaBiome",             // ← Navigation tab
+      cardTitle: "AquaBiome",           // ← Card title
       tag: "Environmental Remediation",
       blurb: "Engineering biology for a cleaner planet. By isolating and mutagenizing coastal bacteria that break down persistent PVC, PET, and polyurethane, we are decoding key genetic pathways to commercially produce powerful plastic-degrading enzymes for a waste-free future.",
       video: "#",
@@ -70,7 +75,8 @@ function Ventures({ palette, onOpen }) {
     },
     {
       id: "omnibio",
-      name: "OmniBio",
+      tabName: "OmniBio",
+      cardTitle: "OmniBio",
       tag: "Computational Biology",
       blurb: "OmniBio is Aquanimity's computational biology platform unifying tools for drug discovery and protein engineering - including MolProfiler (a Docking and ADMET analysis tool), a mutation analysis engine, and an enzyme discovery platform. Core modules are functional, with integration underway toward a unified research workflow.",
       video: "#",
@@ -78,7 +84,8 @@ function Ventures({ palette, onOpen }) {
     },
     {
       id: "thermorevax",
-      name: "ThermoReVaQ",
+      tabName: "ThermoReVaQ",
+      cardTitle: "ThermoReVaQ",
       tag: "Vaccine Engineering",
       blurb: "Reinventing vaccine delivery without the cold chain. This breakthrough polymer replaces traditional LNPs, eliminating refrigeration requirements while enhancing bioavailability. We are developing next-generation mRNA, siRNA, and chimeric vaccines to make life-saving therapeutics accessible worldwide.",
       video: "#",
@@ -145,7 +152,7 @@ function Ventures({ palette, onOpen }) {
           </div>
         </div>
 
-        {/* Venture Navigation */}
+        {/* Venture Navigation — এখানে tabName ব্যবহার হচ্ছে */}
         <div className="reveal ventures-nav">
           {ventures.map((venture, index) => (
             <button
@@ -163,7 +170,7 @@ function Ventures({ palette, onOpen }) {
                 }
               }}
             >
-               {venture.name}
+               {venture.tabName}
             </button>
           ))}
         </div>
@@ -191,8 +198,9 @@ function Ventures({ palette, onOpen }) {
               {currentVenture.tag}
             </div>
 
+            {/* এখানে cardTitle ব্যবহার হচ্ছে */}
             <h3 className="venture-title">
-              {currentVenture.name}
+              {currentVenture.cardTitle}
             </h3>
 
             <p className="venture-blurb">
@@ -264,7 +272,7 @@ function Ventures({ palette, onOpen }) {
         .ventures-nav {
           display: flex;
           gap: 15px;
-          margin-bottom: 36px;        /* ← barano hoyeche: 20px theke 36px */
+          margin-bottom: 36px;
           flex-wrap: wrap;
         }
 
@@ -340,7 +348,7 @@ function Ventures({ palette, onOpen }) {
           letter-spacing: 0.2em;
           text-transform: uppercase;
           color: var(--accent-2);
-          margin-bottom: 20px;        /* ← barano hoyeche: 12px theke 20px */
+          margin-bottom: 20px;
           font-weight: 600;
           font-family: 'Red Hat Display', sans-serif;
           background: rgba(0,0,0,0.3);
@@ -354,7 +362,7 @@ function Ventures({ palette, onOpen }) {
           font-weight: 700;
           letter-spacing: -0.03em;
           color: var(--paper);
-          margin: 0 0 18px 0;        /* ← barano hoyeche: 12px theke 18px */
+          margin: 0 0 18px 0;
           line-height: 1.08;
           font-family: 'Red Hat Display', sans-serif;
           text-shadow: 0 2px 30px rgba(0,0,0,0.3);
@@ -455,7 +463,7 @@ function Ventures({ palette, onOpen }) {
 
           .ventures-nav {
             gap: 6px !important;
-            margin-bottom: 24px !important;   /* ← barano hoyeche: 20px theke 24px */
+            margin-bottom: 24px !important;
           }
 
           .venture-tab {
@@ -477,12 +485,12 @@ function Ventures({ palette, onOpen }) {
           .venture-tag {
             font-size: 9px !important;
             padding: 5px 12px !important;
-            margin-bottom: 14px !important;   /* ← barano hoyeche: 10px theke 14px */
+            margin-bottom: 14px !important;
           }
 
           .venture-title {
             font-size: 24px !important;
-            margin-bottom: 14px !important;   /* ← barano hoyeche: 10px theke 14px */
+            margin-bottom: 14px !important;
           }
 
           .venture-blurb {
@@ -515,7 +523,7 @@ function Ventures({ palette, onOpen }) {
 
           .ventures-nav {
             gap: 5px !important;
-            margin-bottom: 20px !important;   /* ← barano hoyeche: 16px theke 20px */
+            margin-bottom: 20px !important;
           }
 
           .venture-tab {
@@ -531,12 +539,12 @@ function Ventures({ palette, onOpen }) {
           .venture-tag {
             font-size: 8.5px !important;
             padding: 4px 10px !important;
-            margin-bottom: 12px !important;   /* ← barano hoyeche: 8px theke 12px */
+            margin-bottom: 12px !important;
           }
 
           .venture-title {
             font-size: 24px !important;
-            margin-bottom: 12px !important;   /* ← barano hoyeche: 8px theke 12px */
+            margin-bottom: 12px !important;
           }
 
           .venture-blurb {
