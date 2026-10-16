@@ -49,7 +49,7 @@ const useTypewriter = (phrases, options = {}) => {
 };
 
 const useSlowTitleTypewriter = () => {
-  const fullText = "Engineering\nlife. For humanity.";
+  const fullText = "Re-engineering\nlife. For humanity.";
   const [displayText, setDisplayText] = useState("");
 
   useEffect(() => {
@@ -318,13 +318,13 @@ function Hero({ palette, onGoto }) {
           </p>
 
           <div className="hero-buttons reveal">
-            <button className="btn-dark" onClick={handleVentureClick}>Explore Our SuperWater <Arrow size={13} /></button>
+            <button className="btn-dark" onClick={handleVentureClick}>Explore Our BioPlatforms <Arrow size={13} /></button>
             <button className="btn-light" onClick={handlePartnerClick}>Partner with us <Arrow size={13} /></button>
           </div>
 
           <div className="metrics reveal">
             <div className="metric"><h3 className="metric-number">4</h3><p>INSTITUTES</p></div>
-            <div className="metric"><h3 className="metric-number">4</h3><p>VENTURES</p></div>
+            <div className="metric"><h3 className="metric-number">4</h3><p>BIOPLATFORMS</p></div>
           </div>
 
         </div>

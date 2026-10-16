@@ -32,7 +32,7 @@ function Nav({ onNavigate, route }) {
     },
     { 
       id: 'ventures', 
-      label: 'Ventures',
+      label: 'BioPlatforms',
       description: 'Strategic investments shaping tomorrow\'s industries'
     },
     { 

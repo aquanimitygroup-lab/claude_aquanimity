@@ -275,7 +275,16 @@ function Team({ palette, onOpen }) {
           "education": "Ph.D. | University of St Andrews"
         }
       ],
-      "Scientific Advisory Board": [
+      "Science Advisory Board": [
+        {
+          "name": "Shoeb Ahmed, PhD",
+          "title": "Senior Scientific Advisor\n\n Chair and Professor, Dept. of Chemical Engineering, BUET",
+          "img": "images/shoeb.png",
+          "linkedin": "https://linkedin.com",
+          "bio": "Research focus includes <strong>industrial processes, intracellular signalling, and advanced microscopy methods</strong>",
+          "detailedBio": "Shoeb Ahmed is a <strong> Professor and Chair of the Department Chemical Engineering at BUET</strong>  and the <strong> Project Director of the Applied Bioengineering Research Incubator (ABRI)</strong> . He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
+          "education": "Ph.D. | North Carolina State University"
+        },
         {
           "name": "Abed Chaudhury, PhD",
           "title": "Senior Scientific Advisor\n\nPreviously the Hoffman-LaRoche Fellow of Molecular Biology at MIT and Principal Scientist at Syngenta Australia",
@@ -304,15 +313,7 @@ function Team({ palette, onOpen }) {
           "detailedBio": "Ayesha Banu is a <strong> Professor in the Department of Women and Gender Studies at the University of Dhaka</strong> , where she has served since 2001. She holds a<strong>  PhD on the Bangladesh women's movement and master's degrees in sociology and gender and development</strong>. Her research covers women's movements, poverty, religion, body and sexuality, and gender and development.\n\nAt the Biohub, she provides expertise on gender, socio-cultural context, and community outreach. She guides ethical frameworks for women-centric innovations and ensures that research incorporates gender equity and societal impact considerations",
           "education": "Ph.D. | University of Dhaka"
         },
-        {
-          "name": "Shoeb Ahmed, PhD",
-          "title": "Senior Scientific Advisor\n\n Chair and Professor, Dept. of Chemical Engineering, BUET",
-          "img": "images/shoeb.png",
-          "linkedin": "https://linkedin.com",
-          "bio": "Research focus includes <strong>industrial processes, intracellular signalling, and advanced microscopy methods</strong>",
-          "detailedBio": "Shoeb Ahmed is a <strong> Professor and Chair of the Department Chemical Engineering at BUET</strong>  and the <strong> Project Director of the Applied Bioengineering Research Incubator (ABRI)</strong> . He holds a PhD from North Carolina State University. His work applies engineering to environmental and clinical challenges, with research focused on intracellular signaling during cell adhesion and migration using advanced microscopy methods.\n\nAt the Biohub, he leads process development, scale-up, and regulatory engineering. He oversees manufacturing of thermoresponsive polymersome vaccines, alternative bioPET packaging, and other bio-engineered products, ensuring that innovations advance toward safe and scalable deployment.",
-          "education": "Ph.D. | North Carolina State University"
-        },
+
         {
           "name": "Munawar Sultana, PhD ",
           "title": "Senior Scientific Advisor\n\nProfessor, Dept. of Microbiology, University of Dhaka ",
@@ -422,7 +423,7 @@ function Team({ palette, onOpen }) {
           "education": "Ph.D. | University of Amsterdam"
         }
       ],
-      "Founding Management Team": [
+      "Founding Leadership Team": [
         {
           "name": "Rafez Alam Chowdhury",
           "title": "Chairman\n\nChairman, Convince Group\nFormer President, BGAPMEA\nFormer President, Gulshan Youth Club",
@@ -543,11 +544,11 @@ function Team({ palette, onOpen }) {
 
   const orderedCategories = [];
   if (teamData["Founding Scientists"]) orderedCategories.push("Founding Scientists");
-  if (teamData["Scientific Advisory Board"]) orderedCategories.push("Scientific Advisory Board");
+  if (teamData["Science Advisory Board"]) orderedCategories.push("Science Advisory Board");
   if (teamData["Medical Advisory Board"]) orderedCategories.push("Medical Advisory Board");
   if (teamData["Researchers & Consultants"]) orderedCategories.push("Researchers & Consultants");
   if (teamData["Consultants"]) orderedCategories.push("Consultants");
-  if (teamData["Founding Management Team"]) orderedCategories.push("Founding Management Team");
+  if (teamData["Founding Leadership Team"]) orderedCategories.push("Founding Leadership Team");
 
   Object.keys(teamData).forEach(key => {
     if (!orderedCategories.includes(key)) {

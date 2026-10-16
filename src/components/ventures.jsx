@@ -57,10 +57,10 @@ function Ventures({ palette, onOpen }) {
   const ventures = [
     {
       id: "superwater",
-      tabName: "Enhanced Water",        
-      cardTitle: "",      
-      tag: "Enhanced Water",
-      blurb: "Patented and clinically validated. Following successful 150-participant human trials confirming benefits for hydration, post-meal glucose control, and heart health, our functional water has proven its efficacy. We are now preparing full-scale production to bring smarter daily wellness to everyone.",
+      tabName: "MetaHealth",        
+      cardTitle: "MetaHealth",      
+      tag: "Metabolic Health",
+      blurb: "MetaHealth currently comprises of two products: Super Water, fortified with Theraeon HD, which is a patented, clinically validated functional drinking water demonstrated in a 150-participant human trial to support hydration and post-meal glucose control, now advancing towards commercial-scale production; and an innovative nutraceutical formulation currently under development to further support metabolic health.",
       video: "#",
       bgImage: "/images/v2.png"
     },
@@ -130,7 +130,7 @@ function Ventures({ palette, onOpen }) {
         <div className="reveal ventures-header">
           <div>
             <div className="ventures-label" style={{ color:'white' }}>
-              § 02 — Our Ventures
+              § 02 — Our Bioplatforms
             </div>
             <h2 className="ventures-heading">
               <span style={{ fontWeight: 900, color: 'white', fontSize: 'clamp(30px, 3vw, 58px)' }}>Building</span>{' '}
@@ -147,7 +147,7 @@ function Ventures({ palette, onOpen }) {
                 category-defining
               </span>
               <br />
-              <span style={{ fontWeight: 900, color: 'var(--paper)', fontSize: 'clamp(30px, 3vw, 58px)' }}>ventures.</span>
+              <span style={{ fontWeight: 900, color: 'var(--paper)', fontSize: 'clamp(30px, 3vw, 58px)' }}>bioplatforms.</span>
             </h2>
           </div>
         </div>
