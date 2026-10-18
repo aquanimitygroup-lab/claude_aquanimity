@@ -288,7 +288,7 @@ function Team({ palette, onOpen }) {
         {
           "name": "Abed Chaudhury, PhD",
           "title": "Senior Scientific Advisor\n\nPreviously the Hoffman-LaRoche Fellow of Molecular Biology at MIT and Principal Scientist at Syngenta Australia",
-          "img": "images/abed1.png",
+          "img": "images/abed.png",
           "linkedin": "https://linkedin.com",
           "bio": "Leading geneticist with more than 3 decades of experience, having discovered <strong>Panchabrihi (five-harvest rice)</strong>",
           "detailedBio": "Abed Chaudhury is a leading geneticist with more than three decades of experience in genetics, molecular biology, microbiomics, and crop science. He is known internationally for<strong>discovering Panchabrihi (five-harvest rice)</strong> . His career includes serving as<strong>  a Hoffman-LaRoche Fellow of Molecular Biology at MIT, Principal Scientist at Syngenta Australia</strong> , and <strong> Head of Research Innovation at Loam Bio</strong> , where he applied next-generation sequencing and metagenomics to harness soil microbiomes for carbon sequestration. He also discovered a fungus capable of reducing cattle methane emissions by up to 90 percent.\n\nAt the Biohub, he directs programs in plant genetics, soil and marine microbiomes, and CRISPR-enabled crop innovation. He oversees biodiversity initiatives and leads next-generation crop platforms including SuperStaples and Panchabrihi rice.",
@@ -407,7 +407,7 @@ function Team({ palette, onOpen }) {
         {
           "name": "Tasnim Mostafa",
           "title": "Program Director, Women's Health Innovation\n\nDirector of Meghna Group of Industries (MGI)",
-          "img": "images/tasnim.jpg",
+          "img": "images/tasnim1.jpg",
           "linkedin": "https://linkedin.com",
           "bio": "Founder of <strong>Anonna</strong>, one of the leading sanitary napkin products in Bangladesh",
           "detailedBio": "Tasnim Mostafa is a Director of Meghna Group of Industries (MGI), one of Bangladesh's largest conglomerates employing more than 60,000 people, and the founder of the leading sanitary napkin brand Anonna. She is deeply engaged in women's health and corporate social responsibility, and has championed inclusive employment and supportive social environments for people with Down syndrome.\n\nAt the Biohub, she drives partnerships with industry and civil society for women's health products, including biosensor sanitary pads and reproductive health interventions. She ensures market access, policy advocacy, and corporate engagement across the Women's Health Innovation program.",
@@ -446,7 +446,7 @@ function Team({ palette, onOpen }) {
         {
           "name": "Arif Jawad Siam",
           "title": "Executive Director (Operations)\n\nDirector, Gunee Bangladesh Ltd.",
-          "img": "images/arif.png",
+          "img": "images/arif.jpg",
           "linkedin": "https://linkedin.com",
           "bio": "Oversees the <strong>operational coordination</strong> across all divisions in close partnership with the Managing Director",
           "detailedBio": "Arif Jawad Siam is the Executive Director (Operations) at Biohub.He oversees <strong>operational coordination </strong>across all divisions in <strong>close partnership with the Managing Director</strong>, ensuring <strong>scientific programs, infrastructure development, and cross institute initiatives</strong> advance in a unified and execution- focused manner.",
@@ -460,15 +460,6 @@ function Team({ palette, onOpen }) {
           "bio": "Leading <strong>administration and revenue-generating</strong> functions with<strong> HR and talent development</strong>.",
           "detailedBio": "Farzhad Ahmed is the Executive Director (HR, Admin, Sales) at Biohub, with the responsible for<strong> leading organizational administration, and revenue-generating functions</strong>, ensuring <strong>talent development, and operational efficiency</strong>.",
           "education": "Bsc Economics | University of Texas at Austin"
-        },
-        {
-          "name": "Faizus Saquib Chowdhury",
-          "title": "Chief Marketing Officer\n\nCredit Risk Analyst at citibank NA\nFormerly at The City Bank ",
-          "img": "images/faizus.png",
-          "linkedin": "https://linkedin.com",
-          "bio": "Drives bold, purpose-led growth by building <strong>brand trust, and scaling customer engagement</strong>",
-          "detailedBio": "Bringing expertise in marketing strategy, business analytics, and data-driven decision-making. He plays a key role in shaping Aquanimity's commercial strategy, product development, and market positioning, and was instrumental in the early ideation and development of Aqualite.",
-          "education": "Msc Economics, University of Warwick | Bsc Economics, University of London"
         }, 
         {
           "name": "Saif Haque",
@@ -532,7 +523,7 @@ function Team({ palette, onOpen }) {
         {
           "name": "Md. Himel Hasan",
           "title": "Software Engineer",
-          "img": "images/himel_.jpeg",
+          "img": "images/himel1.jpg",
           "linkedin": "https://linkedin.com",
           "bio": "",
           "detailedBio": "Md. Himel Hasan is a  Software Engineer with expertise in full-stack web development, system architecture, and cloud infrastructure. He holds a degree in Computer Science and Engineering, with a strong foundation in building scalable applications and robust backend systems.\n\nHis technical expertise spans modern JavaScript frameworks (React, Next.js), backend technologies (Python, Django, Node.js, Express), database management (MySQL, PostgreSQL),mobile app (React Native Cli) and cloud services (AWS, Vercel). He has successfully delivered multiple projects, including E-Commerce Platforms, Digital Document Management Systems, Yarn and Dyeing Planning Management System, Customize Profit Calculator and custom web applications for diverse clients.<br /><br />At Aquanimity, he is responsible for developing and maintaining the company's digital platforms, ensuring seamless user experiences, and implementing innovative solutions to support the organization's mission.",
