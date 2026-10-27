@@ -344,6 +344,17 @@ function Team({ palette, onOpen }) {
         }
       ],
       "Medical Advisory Board": [
+        
+        {
+          "name": "Professor AK Azad Khan",
+          "title": "Distinguished Advisor \n\nPresident, Diabetic Association of Bangladesh (BADAS)",
+          "img": "images/azad.jpg",
+          "linkedin": "https://linkedin.com",
+          "bio": "Prominent Bangladeshi gastroenterologist, <strong>National Professor</strong>, and medical researcher advancing diabetes care and public health.",
+          "detailedBio": "National Professor AK Azad Khan is the <strong>President of the Diabetic Association of Bangladesh (BADAS)</strong>, a distinguished physician, gastroenterologist, and medical researcher with extensive contributions to diabetes care, gastroenterology, public health, and medical education. He previously served as <strong>Professor of Gastroenterology at the Institute of Postgraduate Medicine and Research (IPGMR)</strong> and <strong>Director of Research, Development and Academy at BIRDEM</strong>. His distinguished career encompasses clinical medicine, biomedical research, healthcare leadership, and the development of national healthcare institutions.\n\nA recipient of the <strong>Independence Award (2018)</strong> and appointed N<strong>ational Professor</strong> in 2011, he is also a <strong>Fellow of the Bangladesh Academy of Sciences</strong>. His leadership has contributed significantly to advancing diabetes prevention, clinical research, medical education, and accessible healthcare services across Bangladesh. As a <strong>Distinguished Advisor</strong>, his expertise provides valuable strategic and scientific guidance on <strong>biomedical research, clinical development, and the translation of scientific innovations</strong> into meaningful public health applications.",
+       
+          "education": "MBBS | FCPS (Medicine) | DPhil (University of Oxford) | FRCP (London)"
+        },
         {
           "name": "Professor Dr. Bishwajit Bhowmik",
           "title": "Senior Medical Advisor\n\nProject Director, Centre for Global Health Research (CGHR), BADAS",
